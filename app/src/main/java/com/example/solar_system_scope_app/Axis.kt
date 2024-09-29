@@ -31,7 +31,7 @@ class Axis {
         0.5f, 0.0f, 0.0f,   // Điểm cuối
 
         // Trục Y (Xanh lá)
-        0.0f,  -0.5f, 0.0f,  // Điểm đầu
+        0.0f, -0.5f, 0.0f,  // Điểm đầu
         0.0f, 0.5f, 0.0f,   // Điểm cuối
 
         // Trục Z (Xanh dương)
@@ -51,7 +51,6 @@ class Axis {
 
     private val program: Int
     private var vpMatrixHandle: Int = 0
-    private lateinit var vpMatrix: FloatArray
 
     init {
         val vertexShader: Int = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode)
@@ -65,11 +64,10 @@ class Axis {
         }
     }
 
-    fun draw(rotationMatrix: FloatArray) {
+    fun draw(mvpMatrix: FloatArray) {
         GLES20.glUseProgram(program)
 
-
-        GLES20.glLineWidth(15.0f)
+        GLES20.glLineWidth(5.0f) // Bạn có thể điều chỉnh độ dày của trục tại đây
 
         val positionHandle = GLES20.glGetAttribLocation(program, "vPosition")
         GLES20.glEnableVertexAttribArray(positionHandle)
@@ -84,10 +82,11 @@ class Axis {
         )
 
         vpMatrixHandle = GLES20.glGetUniformLocation(program, "uMVPMatrix")
-        GLES20.glUniformMatrix4fv(vpMatrixHandle, 1, false, rotationMatrix, 0)
+        GLES20.glUniformMatrix4fv(vpMatrixHandle, 1, false, mvpMatrix, 0)
+
+        val colorHandle = GLES20.glGetUniformLocation(program, "vColor")
 
         // Vẽ trục X (màu đỏ)
-        val colorHandle = GLES20.glGetUniformLocation(program, "vColor")
         GLES20.glUniform4fv(colorHandle, 1, floatArrayOf(1.0f, 0.0f, 0.0f, 1.0f), 0)
         GLES20.glDrawArrays(GLES20.GL_LINES, 0, 2)
 
@@ -100,10 +99,6 @@ class Axis {
         GLES20.glDrawArrays(GLES20.GL_LINES, 4, 2)
 
         GLES20.glDisableVertexAttribArray(positionHandle)
-    }
-
-    fun setVPMatrix(matrix: FloatArray) {
-        vpMatrix = matrix
     }
 
     private fun loadShader(type: Int, shaderCode: String): Int {
