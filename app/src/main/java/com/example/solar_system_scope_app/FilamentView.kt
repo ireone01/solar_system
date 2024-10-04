@@ -36,6 +36,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
         Log.d("FilamentView", "surfaceCreated called")
         filament = FilamentHelper(context, holder.surface)
         filament?.loadGlb("ringed_gas_giant_planet.glb")
+        filament?.loadBackground("sky_background.glb")
         choreographer.postFrameCallback(frameCallback)
     }
 
@@ -90,12 +91,12 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                     val maxScaleFactor = 1.05f
                     val clampedScaleFactor = Math.max(minScaleFactor, Math.min(scaleFactor, maxScaleFactor))
 
-                    filament?.scaleModel(clampedScaleFactor)
+                    filament?.zoomCamera(clampedScaleFactor)
                     lastDistance = newDistance
                 } else if(!isPinching) {
                     val deltaX = event.x - lastX
                     val deltaY = event.y - lastY
-                    filament?.rotateModel(deltaX, deltaY)
+                    filament?.rotateCamera(deltaX, deltaY)
                     lastX = event.x
                     lastY = event.y
                 }

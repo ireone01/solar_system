@@ -31,6 +31,15 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private var rotationX = 0.0f
     private var rotationY = 0.0f
 
+    private var cameraRotationX = 0f
+    private var cameraRotationY = 0f
+    private var cameraDistance = 5f
+    private val minDistance = 2f
+    private val maxDistance = 20f
+
+
+    private val backgroundLoader : BackgroundLoader
+
     init {
         Log.d("FilamentHelper", "Khởi tạo FilamentHelper")
         Log.d("FilamentHelper", "Engine created: $engine")
@@ -73,6 +82,9 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
         // Thêm ánh sáng vào scene
         scene.addEntity(lightEntity)
+        backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
+
+        updateCameraTransform()
 
     }
 
@@ -107,6 +119,12 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             transformManager.setTransform(instance, transformMatrix)
         }
     }
+
+    fun loadBackground(fileName: String) {
+        backgroundLoader.loadBackground(fileName)
+    }
+
+
 
     fun resize(width: Int, height: Int) {
         Log.d("FilamentHelper", "resize: width=$width, height=$height")
@@ -147,6 +165,9 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
         assetLoader.destroy()
         resourceLoader.destroy()
+
+
+        backgroundLoader.destroy()
 
         engine.destroyRenderer(renderer)
         engine.destroyView(view)
@@ -215,6 +236,39 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
         totalScale = Math.max(0.1f , Math.min(totalScale ,2.0f))
         updateModelTransform()
+    }
+
+    fun rotateCamera(deltaX: Float , deltaY: Float){
+        cameraRotationY += deltaX * 0.1f
+        cameraRotationX += deltaY * 0.1f
+
+        cameraRotationX = Math.max(-90f ,Math.min(90f , cameraRotationX))
+
+        updateCameraTransform()
+    }
+
+    fun zoomCamera(scaleFactor: Float) {
+        cameraDistance *= scaleFactor
+        // Giới hạn khoảng cách camera
+        cameraDistance = Math.max(minDistance, Math.min(maxDistance, cameraDistance))
+
+        updateCameraTransform()
+    }
+
+    private fun updateCameraTransform() {
+        // Tính toán vị trí camera dựa trên góc xoay và khoảng cách
+        val radX = Math.toRadians(cameraRotationX.toDouble())
+        val radY = Math.toRadians(cameraRotationY.toDouble())
+
+        val x = cameraDistance * Math.cos(radX) * Math.sin(radY)
+        val y = cameraDistance * Math.sin(radX)
+        val z = cameraDistance * Math.cos(radX) * Math.cos(radY)
+
+        camera.lookAt(
+            x, y, z,          // Vị trí camera
+            0.0, 0.0, 0.0,    // Nhìn vào gốc tọa độ
+            0.0, 1.0, 0.0     // Hướng lên trên
+        )
     }
     }
 
