@@ -35,8 +35,19 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
     override fun surfaceCreated(holder: SurfaceHolder) {
         Log.d("FilamentView", "surfaceCreated called")
         filament = FilamentHelper(context, holder.surface)
-        filament?.loadGlb("ringed_gas_giant_planet.glb")
-        filament?.loadBackground("sky_background.glb")
+        filament?.let {
+            it.loadGlb("sun.glb")
+            it.loadBackground("sky_background.glb")
+
+            it.addPlanet(
+                fileName = "mercury.glb",
+                name = "Mercury",
+                orbitRadiusA = 2.0f,
+                eccentricity =  0.2056f,
+                orbitSpeed = 0.5f,
+                scale = 0.05f
+            )
+        }
         choreographer.postFrameCallback(frameCallback)
     }
 
