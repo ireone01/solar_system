@@ -45,8 +45,34 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 orbitRadiusA = 2.0f,
                 eccentricity =  0.2056f,
                 orbitSpeed = 0.5f,
-                scale = 0.05f
+                scale = 0.05f,
+                inclination =  7.0f ,
+                axisTilt = 0.0f,
+                rotationSpeed =  1.0f
             )
+            it.addPlanet(
+                fileName = "venus.glb",         // Tên file mô hình của Sao Kim
+                name = "Venus",                 // Tên hành tinh
+                orbitRadiusA = 3.7f,            // Bán kính quỹ đạo của Sao Kim so với giá trị bạn dùng cho Sao Thủy (khoảng 0.723 AU so với 0.387 AU cho Sao Thủy)
+                eccentricity = 0.0067f,         // Độ lệch tâm của Sao Kim, rất gần với hình tròn
+                orbitSpeed = 0.35f,             // Tốc độ quỹ đạo của Sao Kim (quay quanh Mặt Trời mất khoảng 224,7 ngày Trái Đất)
+                scale = 0.005f,                 // Kích thước Sao Kim, tương đối lớn hơn so với Sao Thủy
+                inclination = 3.39f,            // Độ nghiêng quỹ đạo của Sao Kim so với mặt phẳng hoàng đạo
+                axisTilt = 177.4f,              // Độ nghiêng trục quay của Sao Kim, gần như lật ngược (tự quay ngược)
+                rotationSpeed = -1.48f          // Tốc độ tự quay của Sao Kim, rất chậm và quay ngược (một ngày Sao Kim dài khoảng 243 ngày Trái Đất)
+            )
+            it.addPlanet(
+                fileName = "earth.glb",          // Tên file mô hình của Trái Đất
+                name = "Earth",                  // Tên hành tinh
+                orbitRadiusA = 5.0f,             // Bán kính quỹ đạo (k2hoảng 1 AU, tăng tỷ lệ so với Sao Thủy và Sao Kim)
+                eccentricity = 0.0167f,          // Độ lệch tâm quỹ đạo của Trái Đất, gần tròn
+                orbitSpeed = 0.3f,               // Tốc độ quỹ đạo (mất 365.25 ngày để hoàn thành một vòng quanh Mặt Trời)
+                scale = 0.00525f,                    // Kích thước tương đối của Trái Đất
+                inclination = 0.00005f,          // Độ nghiêng quỹ đạo của Trái Đất (rất nhỏ, gần như không nghiêng)
+                axisTilt = 23.44f,               // Độ nghiêng trục quay của Trái Đất, tạo ra các mùa
+                rotationSpeed = 1.0f             // Tốc độ tự quay (một ngày trên Trái Đất là 24 giờ)
+            )
+
         }
         choreographer.postFrameCallback(frameCallback)
     }

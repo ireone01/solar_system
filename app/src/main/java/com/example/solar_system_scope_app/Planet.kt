@@ -10,5 +10,9 @@ data class Planet(
     val orbitRadiusB: Float,
     val eccentricity:Float,
     val orbitSpeed:Float ,
-    val scale: Float
+    val scale: Float,
+    val inclination: Float ,
+    val axisTilt: Float,
+    var rotation: Float = 0.0f,
+    var rotationSpeed: Float = 1.0f
 )

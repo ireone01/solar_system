@@ -1,9 +1,12 @@
     package com.example.solar_system_scope_app
 
+    import android.annotation.SuppressLint
     import android.content.Context
     import android.opengl.Matrix
     import android.util.Log
     import android.view.Surface
+    import androidx.core.graphics.rotationMatrix
+    import androidx.core.graphics.translationMatrix
     import com.google.android.filament.*
     import com.google.android.filament.filamat.MaterialBuilder
     import com.google.android.filament.gltfio.*
@@ -158,6 +161,7 @@
                 // Cập nhật và xoay các hành tinh trước khi bắt đầu frame
                 for (planet in planets) {
                     planet.angle += planet.orbitSpeed
+                    planet.rotation += planet.rotationSpeed
 
                     val transformManager = engine.transformManager
                     val rootEntity = planet.asset.root
@@ -170,9 +174,38 @@
                         val c = planet.orbitRadiusA * planet.eccentricity
                         val x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
                         val z = planet.orbitRadiusB * Math.sin(angleInRadians).toFloat()
+                        val y = 0.0f
 
-                        Matrix.translateM(transformMatrix, 0, x, 0.0f, z)
-                        Matrix.scaleM(transformMatrix, 0, planet.scale, planet.scale, planet.scale)
+
+                        val translationMatrix  = FloatArray(16)
+                        Matrix.setIdentityM(translationMatrix , 0)
+                        Matrix.translateM(translationMatrix , 0, x, y, z)
+
+
+                        val inclinationMatrix = FloatArray(16)
+                        Matrix.setIdentityM(inclinationMatrix,0)
+                        Matrix.rotateM(inclinationMatrix,0,planet.inclination,0.0f , 0.0f , 1.0f)
+
+                        val rotationMatrix = FloatArray(16)
+                        Matrix.setIdentityM(rotationMatrix ,0 )
+                        Matrix.rotateM(rotationMatrix , 0 ,planet.rotation , 0.0f , 1.0f , 0.0f)
+
+                        val scaleMatrix = FloatArray(16)
+                        Matrix.setIdentityM(scaleMatrix , 0)
+                        Matrix.scaleM(scaleMatrix, 0,planet.scale,  planet.scale , planet.scale)
+
+
+                        val tempMatrix1 = FloatArray(16)
+                        val tempMatrix2 = FloatArray(16)
+
+
+                        Matrix.multiplyMM(tempMatrix1 , 0 , rotationMatrix, 0 , scaleMatrix ,0)
+
+                        Matrix.multiplyMM(tempMatrix2 ,0 , inclinationMatrix , 0 , translationMatrix,0)
+
+                        Matrix.multiplyMM(transformMatrix ,0 , tempMatrix2 , 0 , tempMatrix1 , 0)
+
+
                         transformManager.setTransform(instance, transformMatrix)
                     }
                 }
@@ -266,12 +299,16 @@
         }
 
 
+        @SuppressLint("SuspiciousIndentation")
         fun addPlanet(fileName: String,
                       name: String,
                       orbitRadiusA: Float,
                       eccentricity:Float,
                       orbitSpeed: Float,
-                      scale: Float) {
+                      scale: Float,
+                      inclination: Float,
+                      axisTilt: Float,
+                      rotationSpeed: Float) {
             val buffer = readAsset(context, fileName)
             val planetAsset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
             val  orbitRadiusB = orbitRadiusA * Math.sqrt((1 - eccentricity * eccentricity).toDouble()).toFloat()
@@ -291,7 +328,10 @@
                 orbitRadiusB = orbitRadiusB,
                 eccentricity = eccentricity,
                 orbitSpeed = orbitSpeed,
-                scale = scale
+                scale = scale,
+                inclination = inclination,
+                rotation = 0.0f ,
+                rotationSpeed = rotationSpeed
             )
 
             // Đặt kích thước ban đầu cho hành tinh
@@ -312,13 +352,16 @@
             val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
             val orbitMaterialInstance = createOrbitMaterial(engine)
             if(orbitMaterialInstance !=null) {
-                addOrbitEntityToScene(
+              val orbitEntity =  addOrbitEntityToScene(
                     engine,
                     scene,
                     vertexBuffer,
                     indexBuffer,
                     orbitMaterialInstance
                 )
+
+                applyOrbitInclination(engine , orbitEntity , inclination)
+
                 Log.d("addPlanet", "Đã thêm quỹ đạo cho hành tinh $name")
             }else{
                 Log.e("addPlanet", "orbitMaterialInstance là null")
@@ -487,7 +530,7 @@
             vertexBuffer: VertexBuffer,
             indexBuffer: IndexBuffer,
             materialInstance: MaterialInstance
-        ) {
+        ): Int {
             val entity = EntityManager.get().create()
             Log.d("addOrbitEntityToScene", "Entity được tạo: $entity")
             RenderableManager.Builder(1)
@@ -506,7 +549,10 @@
                 .build(engine, entity)
             scene.addEntity(entity)
             Log.d("addOrbitEntityToScene", "Entity được thêm vào scene")
+
+            return entity
         }
+
 
         fun FloatArray.toFloatBuffer(): java.nio.Buffer {
             val buffer = ByteBuffer.allocateDirect(this.size * 4).order(ByteOrder.nativeOrder()).asFloatBuffer()
@@ -519,6 +565,19 @@
             buffer.put(this).flip()
             return buffer
         }
+
+
+        fun applyOrbitInclination(engine: Engine, orbitEntity: Int, inclination: Float) {
+            val transformManager = engine.transformManager
+            val instance = transformManager.getInstance(orbitEntity)
+            if (instance != 0) {
+                val transformMatrix = FloatArray(16)
+                Matrix.setIdentityM(transformMatrix, 0)
+                Matrix.rotateM(transformMatrix, 0, inclination, 0.0f, 0.0f, 1.0f)
+                transformManager.setTransform(instance, transformMatrix)
+            }
+        }
+
 
 
 
