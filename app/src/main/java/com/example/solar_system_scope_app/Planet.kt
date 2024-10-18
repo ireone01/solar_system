@@ -14,5 +14,6 @@ data class Planet(
     val inclination: Float ,
     val axisTilt: Float,
     var rotation: Float = 0.0f,
-    var rotationSpeed: Float = 1.0f
+    var rotationSpeed: Float = 1.0f,
+    val parent: Planet? = null
 )

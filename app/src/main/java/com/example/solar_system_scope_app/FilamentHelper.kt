@@ -37,9 +37,9 @@
 
         private var cameraRotationX = 0f
         private var cameraRotationY = 0f
-        private var cameraDistance = 5f
-        private val minDistance = 2f
-        private val maxDistance = 20f
+        private var cameraDistance = 10f
+        private val minDistance = 1f
+        private val maxDistance = 30f
 
         private val planets = mutableListOf<Planet>()
 
@@ -160,6 +160,7 @@
 
                 // Cập nhật và xoay các hành tinh trước khi bắt đầu frame
                 for (planet in planets) {
+                    // Cập nhật góc quỹ đạo và tự quay
                     planet.angle += planet.orbitSpeed
                     planet.rotation += planet.rotationSpeed
 
@@ -167,56 +168,66 @@
                     val rootEntity = planet.asset.root
                     val instance = transformManager.getInstance(rootEntity)
                     if (instance != 0) {
+                        // Tính toán transform cục bộ
                         val transformMatrix = FloatArray(16)
                         Matrix.setIdentityM(transformMatrix, 0)
 
+                        // Tính toán vị trí trên quỹ đạo
                         val angleInRadians = Math.toRadians(planet.angle.toDouble())
-                        val c = planet.orbitRadiusA * planet.eccentricity
-                        val x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
-                        val z = planet.orbitRadiusB * Math.sin(angleInRadians).toFloat()
+                        val x: Float
+                        val z: Float
                         val y = 0.0f
 
+                        if (planet.parent == null) {
+                            val c = planet.orbitRadiusA * planet.eccentricity
+                            x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
+                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
+                        } else {
+                            x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
+                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
+                        }
 
-                        val translationMatrix  = FloatArray(16)
-                        Matrix.setIdentityM(translationMatrix , 0)
-                        Matrix.translateM(translationMatrix , 0, x, y, z)
+                        // Dịch chuyển hành tinh tới vị trí
+                        Matrix.translateM(transformMatrix, 0, x, y, z)
 
+                        // Áp dụng nghiêng quỹ đạo nếu cần
+                        if (planet.inclination != 0.0f) {
+                            val inclinationMatrix = FloatArray(16)
+                            Matrix.setIdentityM(inclinationMatrix, 0)
+                            Matrix.rotateM(inclinationMatrix, 0, planet.inclination, 0.0f, 0.0f, 1.0f)
+                            Matrix.multiplyMM(transformMatrix, 0, inclinationMatrix, 0, transformMatrix, 0)
+                        }
 
-                        val inclinationMatrix = FloatArray(16)
-                        Matrix.setIdentityM(inclinationMatrix,0)
-                        Matrix.rotateM(inclinationMatrix,0,planet.inclination,0.0f , 0.0f , 1.0f)
-
+                        // Tạo ma trận tự quay quanh trục Y
                         val rotationMatrix = FloatArray(16)
-                        Matrix.setIdentityM(rotationMatrix ,0 )
-                        Matrix.rotateM(rotationMatrix , 0 ,planet.rotation , 0.0f , 1.0f , 0.0f)
+                        Matrix.setIdentityM(rotationMatrix, 0)
+                        Matrix.rotateM(rotationMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
 
+                        // Tạo ma trận scale
                         val scaleMatrix = FloatArray(16)
-                        Matrix.setIdentityM(scaleMatrix , 0)
-                        Matrix.scaleM(scaleMatrix, 0,planet.scale,  planet.scale , planet.scale)
+                        Matrix.setIdentityM(scaleMatrix, 0)
+                        Matrix.scaleM(scaleMatrix, 0, planet.scale, planet.scale, planet.scale)
 
+                        // Kết hợp các ma trận: rotation * scale
+                        val modelMatrix = FloatArray(16)
+                        Matrix.multiplyMM(modelMatrix, 0, rotationMatrix, 0, scaleMatrix, 0)
 
-                        val tempMatrix1 = FloatArray(16)
-                        val tempMatrix2 = FloatArray(16)
+                        // Kết hợp với ma trận dịch chuyển
+                        Matrix.multiplyMM(transformMatrix, 0, transformMatrix, 0, modelMatrix, 0)
 
-
-                        Matrix.multiplyMM(tempMatrix1 , 0 , rotationMatrix, 0 , scaleMatrix ,0)
-
-                        Matrix.multiplyMM(tempMatrix2 ,0 , inclinationMatrix , 0 , translationMatrix,0)
-
-                        Matrix.multiplyMM(transformMatrix ,0 , tempMatrix2 , 0 , tempMatrix1 , 0)
-
-
+                        // Thiết lập biến đổi cho hành tinh
                         transformManager.setTransform(instance, transformMatrix)
+
+                        // In log để kiểm tra
+                        if (planet.name == "Moon" || planet.name == "Earth") {
+                            Log.d("FilamentHelper", "${planet.name} Transform Matrix: ${transformMatrix.contentToString()}")
+                        }
                     }
                 }
 
-
                 if (renderer.beginFrame(swapChain, frametime)) {
-                    Log.d("FilamentHelper", "beginFrame thành công")
                     renderer.render(view)
-                    Log.d("FilamentHelper", "render view thành công")
                     renderer.endFrame()
-                    Log.d("FilamentHelper", "endFrame thành công")
                 } else {
                     Log.e("FilamentHelper", "beginFrame thất bại")
                 }
@@ -224,6 +235,38 @@
                 Log.e("FilamentHelper", "Lỗi trong render: ${e.message}", e)
             }
         }
+
+
+       public fun followPlanet(planet: Planet) {
+            val transformManager = engine.transformManager
+            val instance = transformManager.getInstance(planet.asset.root)
+
+            if (instance != 0) {
+                val transformMatrix = FloatArray(16)
+                transformManager.getWorldTransform(instance, transformMatrix)
+
+                // Lấy vị trí của hành tinh trong không gian thế giới (World space)
+                val planetPosition = FloatArray(4)
+                Matrix.multiplyMV(planetPosition, 0, transformMatrix, 0, floatArrayOf(0f, 0f, 0f, 1f), 0)
+
+                // Tính toán vị trí camera (giữ khoảng cách cố định với hành tinh)
+                val cameraDistance = 2f  // Điều chỉnh khoảng cách này theo nhu cầu của bạn
+                val cameraX = planetPosition[0] + cameraDistance * Math.cos(Math.toRadians(cameraRotationY.toDouble())).toFloat()
+                val cameraY = planetPosition[1] + cameraDistance * Math.sin(Math.toRadians(cameraRotationX.toDouble())).toFloat()
+                val cameraZ = planetPosition[2] + cameraDistance * Math.cos(Math.toRadians(cameraRotationX.toDouble())).toFloat()
+
+                // Cập nhật vị trí camera để theo dõi hành tinh
+                camera.lookAt(
+                    cameraX.toDouble(), cameraY.toDouble(), cameraZ.toDouble(),  // Vị trí camera
+                    planetPosition[0].toDouble(), planetPosition[1].toDouble(), planetPosition[2].toDouble(),  // Nhìn vào vị trí của hành tinh
+                    0.0, 1.0, 0.0  // Hướng lên trên
+                )
+                Log.d("FollowPlanet","đã tìm thấy tại ${cameraX} , ${cameraY} , ${cameraZ}")
+            } else {
+                Log.e("FollowPlanet", "Không thể lấy instance cho hành tinh ${planet.name}")
+            }
+        }
+
 
 
         fun destroy() {
@@ -308,7 +351,8 @@
                       scale: Float,
                       inclination: Float,
                       axisTilt: Float,
-                      rotationSpeed: Float) {
+                      rotationSpeed: Float,
+                      parent :  Planet? = null) : Planet {
             val buffer = readAsset(context, fileName)
             val planetAsset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
             val  orbitRadiusB = orbitRadiusA * Math.sqrt((1 - eccentricity * eccentricity).toDouble()).toFloat()
@@ -331,7 +375,9 @@
                 scale = scale,
                 inclination = inclination,
                 rotation = 0.0f ,
-                rotationSpeed = rotationSpeed
+                axisTilt = axisTilt,
+                rotationSpeed = rotationSpeed,
+                parent = parent
             )
 
             // Đặt kích thước ban đầu cho hành tinh
@@ -345,9 +391,18 @@
                 transformManager.setTransform(instance, transformMatrix)
             }
 
+//            if (parent != null) {
+//                val parentInstance = transformManager.getInstance(parent.asset.root)
+//                if (instance != 0 && parentInstance != 0) {
+//                    transformManager.setParent(instance, parentInstance)
+//                    Log.d("addPlanet", "Thiết lập parent của $name là ${parent.name}")
+//                } else {
+//                    Log.e("addPlanet", "Không thể thiết lập parent cho $name")
+//                }
+//            }
             planets.add(planet)
 
-
+            if(parent == null){
             val (vertexData, indexData) = createOrbitRing(orbitRadiusA, orbitRadiusB,eccentricity, thickness = 0.02f, verticalThickness = 0.009f)
             val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
             val orbitMaterialInstance = createOrbitMaterial(engine)
@@ -366,6 +421,45 @@
             }else{
                 Log.e("addPlanet", "orbitMaterialInstance là null")
             }
+
+                } else {
+                // Nếu hành tinh có parent, bạn có thể thêm quỹ đạo quanh hành tinh cha nếu muốn
+                val (vertexData, indexData) = createOrbitRing(
+                    orbitRadiusA,
+                    orbitRadiusB,
+                    eccentricity,
+                    thickness = 0.005f, // Nhỏ hơn quỹ đạo của các hành tinh quanh Mặt Trời
+                    verticalThickness = 0.005f
+                )
+                val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
+                val orbitMaterialInstance = createOrbitMaterial(engine)
+                if (orbitMaterialInstance != null) {
+                    val orbitEntity = addOrbitEntityToScene(
+                        engine,
+                        scene,
+                        vertexBuffer,
+                        indexBuffer,
+                        orbitMaterialInstance
+                    )
+
+                    applyOrbitInclination(engine, orbitEntity, inclination)
+
+                    // Thiết lập ring quỹ đạo là con của hành tinh cha
+                    val orbitInstance = transformManager.getInstance(orbitEntity)
+                    val parentInstance = transformManager.getInstance(parent.asset.root)
+                    if (orbitInstance != 0 && parentInstance != 0) {
+                        transformManager.setParent(orbitInstance, parentInstance)
+                        Log.d("addPlanet", "Thiết lập parent của quỹ đạo $name là ${parent.name}")
+                    }
+
+                    Log.d("addPlanet", "Đã thêm quỹ đạo cho hành tinh $name")
+                } else {
+                    Log.e("addPlanet", "orbitMaterialInstance là null")
+                }
+            }
+
+
+            return planet
         }
 
 
@@ -581,7 +675,7 @@
 
 
 
-
-
     }
+
+
 

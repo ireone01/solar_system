@@ -6,7 +6,15 @@ import android.view.Choreographer
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.google.android.filament.Engine
+import com.google.android.filament.EntityManager
+import com.google.android.filament.LightManager
+import com.google.ar.core.Earth
 
+lateinit var earth812: Planet
+lateinit var moon812: Planet
+lateinit var sun812: Unit
+lateinit var mecury812 : Planet
 class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var filament: FilamentHelper? = null
@@ -18,7 +26,6 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
 
     private var lastDistance = 0f
     private var isPinching = false
-
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -36,10 +43,10 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
         Log.d("FilamentView", "surfaceCreated called")
         filament = FilamentHelper(context, holder.surface)
         filament?.let {
-            it.loadGlb("sun.glb")
+           sun812 = it.loadGlb("sun.glb")
             it.loadBackground("sky_background.glb")
 
-            it.addPlanet(
+        mecury812 =    it.addPlanet(
                 fileName = "mercury.glb",
                 name = "Mercury",
                 orbitRadiusA = 2.0f,
@@ -50,7 +57,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 axisTilt = 0.0f,
                 rotationSpeed =  1.0f
             )
-            it.addPlanet(
+          val venus = it.addPlanet(
                 fileName = "venus.glb",         // Tên file mô hình của Sao Kim
                 name = "Venus",                 // Tên hành tinh
                 orbitRadiusA = 3.7f,            // Bán kính quỹ đạo của Sao Kim so với giá trị bạn dùng cho Sao Thủy (khoảng 0.723 AU so với 0.387 AU cho Sao Thủy)
@@ -60,8 +67,9 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 inclination = 3.39f,            // Độ nghiêng quỹ đạo của Sao Kim so với mặt phẳng hoàng đạo
                 axisTilt = 177.4f,              // Độ nghiêng trục quay của Sao Kim, gần như lật ngược (tự quay ngược)
                 rotationSpeed = -1.48f          // Tốc độ tự quay của Sao Kim, rất chậm và quay ngược (một ngày Sao Kim dài khoảng 243 ngày Trái Đất)
+
             )
-            it.addPlanet(
+           earth812 = it.addPlanet(
                 fileName = "earth.glb",          // Tên file mô hình của Trái Đất
                 name = "Earth",                  // Tên hành tinh
                 orbitRadiusA = 5.0f,             // Bán kính quỹ đạo (k2hoảng 1 AU, tăng tỷ lệ so với Sao Thủy và Sao Kim)
@@ -70,7 +78,20 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 scale = 0.00525f,                    // Kích thước tương đối của Trái Đất
                 inclination = 0.00005f,          // Độ nghiêng quỹ đạo của Trái Đất (rất nhỏ, gần như không nghiêng)
                 axisTilt = 23.44f,               // Độ nghiêng trục quay của Trái Đất, tạo ra các mùa
-                rotationSpeed = 1.0f             // Tốc độ tự quay (một ngày trên Trái Đất là 24 giờ)
+                rotationSpeed = 1.0f,
+
+            )
+           moon812 = it.addPlanet(
+                fileName = "moon.glb",
+                name = "Moon",
+                orbitRadiusA = 2.9f, // Khoảng cách trung bình từ Mặt Trăng đến Trái Đất (đơn vị thiên văn)
+                eccentricity = 0.0549f,
+                orbitSpeed = 0.5f, // Tốc độ quay quanh Trái Đất của Mặt Trăng
+                scale = 0.4f,
+                inclination = 5.14f,
+                axisTilt = 6.68f,
+                rotationSpeed = 13.36f, // Tốc độ tự quay của Mặt Trăng
+                parent = earth812
             )
 
         }
@@ -108,6 +129,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
             MotionEvent.ACTION_DOWN -> {
                 lastX = event.x
                 lastY = event.y
+
                 isPinching = false
             }
 
@@ -145,5 +167,6 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
         }
         return true
     }
+
 
 }
