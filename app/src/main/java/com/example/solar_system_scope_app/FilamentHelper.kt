@@ -39,7 +39,7 @@
         private var cameraRotationY = 0f
         private var cameraDistance = 10f
         private val minDistance = 1f
-        private val maxDistance = 30f
+        private val maxDistance = 80f
 
         private val planets = mutableListOf<Planet>()
 
@@ -391,15 +391,15 @@
                 transformManager.setTransform(instance, transformMatrix)
             }
 
-//            if (parent != null) {
-//                val parentInstance = transformManager.getInstance(parent.asset.root)
-//                if (instance != 0 && parentInstance != 0) {
-//                    transformManager.setParent(instance, parentInstance)
-//                    Log.d("addPlanet", "Thiết lập parent của $name là ${parent.name}")
-//                } else {
-//                    Log.e("addPlanet", "Không thể thiết lập parent cho $name")
-//                }
-//            }
+            if (planet.parent != null) {
+                val parentInstance = transformManager.getInstance(planet.parent.asset.root)
+                if (instance != 0 && parentInstance != 0) {
+                    transformManager.setParent(instance, parentInstance)
+                    Log.d("addPlanetzzzz", "Thiết lập parent của $name là ${planet.parent.name}")
+                } else {
+                    Log.e("addPlanet", "Không thể thiết lập parent cho $name")
+                }
+            }
             planets.add(planet)
 
             if(parent == null){
@@ -428,8 +428,8 @@
                     orbitRadiusA,
                     orbitRadiusB,
                     eccentricity,
-                    thickness = 0.005f, // Nhỏ hơn quỹ đạo của các hành tinh quanh Mặt Trời
-                    verticalThickness = 0.005f
+                    thickness = 0.05f, // Nhỏ hơn quỹ đạo của các hành tinh quanh Mặt Trời
+                    verticalThickness = 0.05f
                 )
                 val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
                 val orbitMaterialInstance = createOrbitMaterial(engine)

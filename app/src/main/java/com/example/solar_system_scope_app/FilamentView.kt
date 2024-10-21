@@ -84,10 +84,10 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
            moon812 = it.addPlanet(
                 fileName = "moon.glb",
                 name = "Moon",
-                orbitRadiusA = 2.9f, // Khoảng cách trung bình từ Mặt Trăng đến Trái Đất (đơn vị thiên văn)
+                orbitRadiusA = 130.9f, // Khoảng cách trung bình từ Mặt Trăng đến Trái Đất (đơn vị thiên văn)
                 eccentricity = 0.0549f,
-                orbitSpeed = 0.5f, // Tốc độ quay quanh Trái Đất của Mặt Trăng
-                scale = 0.4f,
+                orbitSpeed = 2.5f, // Tốc độ quay quanh Trái Đất của Mặt Trăng
+                scale = 12f,
                 inclination = 5.14f,
                 axisTilt = 6.68f,
                 rotationSpeed = 13.36f, // Tốc độ tự quay của Mặt Trăng
