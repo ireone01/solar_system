@@ -2,6 +2,7 @@
 
     import android.annotation.SuppressLint
     import android.content.Context
+    import android.graphics.PointF
     import android.opengl.Matrix
     import android.util.Log
     import android.view.Surface
@@ -11,6 +12,7 @@
     import com.google.android.filament.filamat.MaterialBuilder
     import com.google.android.filament.gltfio.*
     import com.google.android.filament.utils.Float4
+    import com.google.android.filament.utils.Ray
     import java.io.IOException
     import java.nio.ByteBuffer
     import java.nio.ByteOrder
@@ -43,6 +45,8 @@
 
         private val planets = mutableListOf<Planet>()
 
+        private var screenWidth: Float = 0f
+        private var screenHeight: Float = 0f
 
         private val backgroundLoader : BackgroundLoader
 
@@ -53,7 +57,6 @@
 
             cameraEntity = entityManager.create()
             camera = engine.createCamera(cameraEntity)
-
             camera.lookAt(
                 0.0, 0.0, 10.0,  // Vị trí camera (lùi ra xa hơn)
                 0.0, 0.0, 0.0,   // Nhìn vào gốc tọa độ
@@ -62,11 +65,12 @@
 
             view.scene = scene
             view.camera = camera
+
             view.isPostProcessingEnabled =true
 
             val bloomOptions = View.BloomOptions().apply {
                 enabled = true
-                strength = 4.0f       // Điều chỉnh cường độ của hiệu ứng Bloom
+                strength = 100f       // Điều chỉnh cường độ của hiệu ứng Bloom
                 resolution = 1080      // Độ phân giải của hiệu ứng Bloom
                 levels = 10
                 blendMode = View.BloomOptions.BlendMode.ADD
@@ -87,11 +91,10 @@
 
 
 
-
             val sunLightEntity = EntityManager.get().create()
             LightManager.Builder(LightManager.Type.POINT)
                 .color(1.0f , 1.0f , 1.0f)
-                .intensity(10000000.0f)
+                .intensity(100000000f)
                 .position(0.0f, 0.0f , 0.0f )
                 .falloff(100.0f)
                 .build(engine , sunLightEntity)
@@ -99,41 +102,80 @@
 
             backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
 
+
             updateCameraTransform()
 
         }
 
-        fun loadGlb(fileName: String) {
-            Log.d("FilamentHelper", "Bắt đầu load GLB: $fileName")
-            val buffer = readAsset(context, fileName)
-            Log.d("FilamentHelper", "Đã đọc tệp GLB, kích thước: ${buffer.size} bytes")
-            asset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
 
-            if (asset == null) {
-                Log.e("FilamentHelper", "Không thể tạo asset từ tệp GLB")
-                throw IllegalStateException("Không thể tải mô hình GLTF.")
-            } else {
-                Log.d("FilamentHelper", "Đã tạo asset thành công")
+
+        fun getScreenPosition(planet: Planet): PointF? {
+            val camera = camera ?: return null
+            val viewMatrix = FloatArray(16)
+            val projectionMatrixDouble = DoubleArray(16)
+
+            // Lấy ma trận view và projection từ camera
+            camera.getViewMatrix(viewMatrix)
+            camera.getProjectionMatrix(projectionMatrixDouble)
+
+            // Chuyển đổi DoubleArray sang FloatArray
+            val projectionMatrix = projectionMatrixDouble.map { it.toFloat() }.toFloatArray()
+
+            // Tính toán vị trí trên màn hình
+            val planetPos = planet.getPosition()
+            val worldPos = floatArrayOf(planetPos[0], planetPos[1], planetPos[2], 1.0f)
+            val clipSpacePos = FloatArray(4)
+
+            multiplyMatrix(projectionMatrix, viewMatrix, clipSpacePos, worldPos)
+
+            if (clipSpacePos[3] != 0f) {
+                clipSpacePos[0] /= clipSpacePos[3]
+                clipSpacePos[1] /= clipSpacePos[3]
+                clipSpacePos[2] /= clipSpacePos[3]
             }
 
-            resourceLoader.loadResources(asset!!)
-            Log.d("FilamentHelper", "Đã tải tài nguyên cho asset")
-            scene.addEntities(asset!!.entities)
-            Log.d("FilamentHelper", "Đã thêm entities vào scene")
+            val screenX = ((clipSpacePos[0] + 1) / 2) * screenWidth
+            val screenY = ((1 - clipSpacePos[1]) / 2) * screenHeight
 
-
-            val transformManager = engine.transformManager
-            val rootEntity = asset!!.root
-
-            val instance = transformManager.getInstance(rootEntity)
-            if (instance != 0) {
-                val transformMatrix = FloatArray(16)
-                Matrix.setIdentityM(transformMatrix, 0)
-                Matrix.rotateM(transformMatrix , 0 , 78.0f, 0.0f,1.0f,0.0f)
-                Matrix.scaleM(transformMatrix, 0, 0.1f, 0.1f, 0.1f)  // Giảm kích thước xuống 50%
-                transformManager.setTransform(instance, transformMatrix)
+            return if (clipSpacePos[0] in -1f..1f && clipSpacePos[1] in -1f..1f && clipSpacePos[2] in -1f..1f) {
+                PointF(screenX, screenY)
+            } else {
+                null
             }
         }
+        private fun multiplyMatrix(
+            proj: FloatArray,
+            view: FloatArray,
+            result: FloatArray,
+            pos: FloatArray
+        ) {
+            val temp = FloatArray(16)
+            Matrix.multiplyMM(temp, 0, proj, 0, view, 0)
+            Matrix.multiplyMV(result, 0, temp, 0, pos, 0)
+        }
+
+
+
+        fun updateScreenSize(width: Int, height: Int) {
+            screenWidth = width.toFloat()
+            screenHeight = height.toFloat()
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         fun loadBackground(fileName: String) {
             backgroundLoader.loadBackground(fileName)
@@ -218,10 +260,7 @@
                         // Thiết lập biến đổi cho hành tinh
                         transformManager.setTransform(instance, transformMatrix)
 
-                        // In log để kiểm tra
-                        if (planet.name == "Moon" || planet.name == "Earth") {
-                            Log.d("FilamentHelper", "${planet.name} Transform Matrix: ${transformMatrix.contentToString()}")
-                        }
+
                     }
                 }
 
@@ -235,38 +274,6 @@
                 Log.e("FilamentHelper", "Lỗi trong render: ${e.message}", e)
             }
         }
-
-
-       public fun followPlanet(planet: Planet) {
-            val transformManager = engine.transformManager
-            val instance = transformManager.getInstance(planet.asset.root)
-
-            if (instance != 0) {
-                val transformMatrix = FloatArray(16)
-                transformManager.getWorldTransform(instance, transformMatrix)
-
-                // Lấy vị trí của hành tinh trong không gian thế giới (World space)
-                val planetPosition = FloatArray(4)
-                Matrix.multiplyMV(planetPosition, 0, transformMatrix, 0, floatArrayOf(0f, 0f, 0f, 1f), 0)
-
-                // Tính toán vị trí camera (giữ khoảng cách cố định với hành tinh)
-                val cameraDistance = 2f  // Điều chỉnh khoảng cách này theo nhu cầu của bạn
-                val cameraX = planetPosition[0] + cameraDistance * Math.cos(Math.toRadians(cameraRotationY.toDouble())).toFloat()
-                val cameraY = planetPosition[1] + cameraDistance * Math.sin(Math.toRadians(cameraRotationX.toDouble())).toFloat()
-                val cameraZ = planetPosition[2] + cameraDistance * Math.cos(Math.toRadians(cameraRotationX.toDouble())).toFloat()
-
-                // Cập nhật vị trí camera để theo dõi hành tinh
-                camera.lookAt(
-                    cameraX.toDouble(), cameraY.toDouble(), cameraZ.toDouble(),  // Vị trí camera
-                    planetPosition[0].toDouble(), planetPosition[1].toDouble(), planetPosition[2].toDouble(),  // Nhìn vào vị trí của hành tinh
-                    0.0, 1.0, 0.0  // Hướng lên trên
-                )
-                Log.d("FollowPlanet","đã tìm thấy tại ${cameraX} , ${cameraY} , ${cameraZ}")
-            } else {
-                Log.e("FollowPlanet", "Không thể lấy instance cho hành tinh ${planet.name}")
-            }
-        }
-
 
 
         fun destroy() {
@@ -325,7 +332,7 @@
             updateCameraTransform()
         }
 
-        private fun updateCameraTransform() {
+        fun updateCameraTransform() {
             // Tính toán vị trí camera dựa trên góc xoay và khoảng cách
             val radX = Math.toRadians(cameraRotationX.toDouble())
             val radY = Math.toRadians(cameraRotationY.toDouble())
@@ -334,12 +341,16 @@
             val y = (cameraDistance * Math.sin(radX)).toFloat()
             val z = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat()
 
+            // Kiểm tra xem targetPlanet có được chọn hay không
+            val target = targetPlanet?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
+
             camera.lookAt(
-                x.toDouble(), y.toDouble(), z.toDouble(),          // Vị trí camera
-                0.0, 0.0, 0.0,    // Nhìn vào gốc tọa độ
+                x.toDouble() + target[0], y.toDouble() + target[1], z.toDouble() + target[2],  // Vị trí camera
+                target[0].toDouble(), target[1].toDouble(), target[2].toDouble(),               // Nhìn vào hành tinh được chọn
                 0.0, 1.0, 0.0     // Hướng lên trên
             )
         }
+
 
 
         @SuppressLint("SuspiciousIndentation")
@@ -403,7 +414,7 @@
             planets.add(planet)
 
             if(parent == null){
-            val (vertexData, indexData) = createOrbitRing(orbitRadiusA, orbitRadiusB,eccentricity, thickness = 0.02f, verticalThickness = 0.009f)
+            val (vertexData, indexData) = createOrbitRing(orbitRadiusA, orbitRadiusB,eccentricity, thickness = 0.02f, verticalThickness = 0.01f)
             val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
             val orbitMaterialInstance = createOrbitMaterial(engine)
             if(orbitMaterialInstance !=null) {
@@ -470,7 +481,7 @@
             orbitRadiusA: Float,
             orbitRadiusB: Float,
             eccentricity: Float,
-            segments: Int = 100,
+            segments: Int = 40,
             thickness: Float = 0.01f,
             verticalThickness: Float = 0.01f // Độ dày theo trục Y
         ): Pair<FloatArray, ShortArray> {
@@ -671,6 +682,9 @@
                 transformManager.setTransform(instance, transformMatrix)
             }
         }
+
+
+
 
 
 

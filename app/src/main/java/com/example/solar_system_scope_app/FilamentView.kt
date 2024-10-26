@@ -3,18 +3,25 @@ package com.example.solar_system_scope_app
 import android.content.Context
 import android.util.Log
 import android.view.Choreographer
+import android.view.GestureDetector
+
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.google.android.filament.Engine
-import com.google.android.filament.EntityManager
-import com.google.android.filament.LightManager
-import com.google.ar.core.Earth
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 lateinit var earth812: Planet
 lateinit var moon812: Planet
-lateinit var sun812: Unit
+lateinit var sun812: Planet
 lateinit var mecury812 : Planet
+lateinit var saturn812 : Planet
+lateinit var mars812 : Planet
+lateinit var jupiter812 : Planet
+lateinit var uranus812 : Planet
+lateinit var neptune812 : Planet
+lateinit var venus812 : Planet
+var targetPlanet: Planet? = null
 class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var filament: FilamentHelper? = null
@@ -26,6 +33,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
 
     private var lastDistance = 0f
     private var isPinching = false
+    private lateinit var gestureDetector: GestureDetector
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -37,13 +45,61 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
 
     init {
         holder.addCallback(this)
+
+        gestureDetector = GestureDetector(context, GestureListener())
     }
+    inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+        override fun onDoubleTap(e: MotionEvent): Boolean {
+            e?.let {
+                val x = it.x
+                val y = it.y
+                handleDoubleTap(x, y)
+            }
+            return super.onDoubleTap(e)
+        }
+    }
+    private fun handleDoubleTap(x: Float, y: Float) {
+        val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812)
+
+        val clickedPlanet = planets.minByOrNull { planet ->
+            val planetScreenPos = filament?.getScreenPosition(planet) ?: return@minByOrNull Float.MAX_VALUE
+            val dx = planetScreenPos.x - x
+            val dy = planetScreenPos.y - y
+            sqrt(dx * dx + dy * dy)
+        }
+
+        clickedPlanet?.let { planet ->
+            val planetScreenPos = filament?.getScreenPosition(planet)
+            if (planetScreenPos != null) {
+                val distance = sqrt((planetScreenPos.x - x).pow(2) + (planetScreenPos.y - y).pow(2))
+                val touchThreshold = 100f
+
+                if (distance < touchThreshold) {
+                    targetPlanet = planet
+                    filament?.updateCameraTransform()
+                }
+            }
+        }
+    }
+
+
+
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         Log.d("FilamentView", "surfaceCreated called")
         filament = FilamentHelper(context, holder.surface)
         filament?.let {
-           sun812 = it.loadGlb("sun.glb")
+           sun812 = it.addPlanet(
+               fileName = "sun.glb",
+               name = "Sun",
+               orbitRadiusA = 0f,
+               eccentricity =  0f,
+               orbitSpeed = 0f,
+               scale = 0.1f,
+               inclination =  0f ,
+               axisTilt = 0.0f,
+               rotationSpeed =  0.4f
+           )
             it.loadBackground("sky_background.glb")
 
         mecury812 =    it.addPlanet(
@@ -57,7 +113,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 axisTilt = 0.0f,
                 rotationSpeed =  1.0f
             )
-          val venus = it.addPlanet(
+           venus812 = it.addPlanet(
                 fileName = "venus.glb",         // Tên file mô hình của Sao Kim
                 name = "Venus",                 // Tên hành tinh
                 orbitRadiusA = 3.7f,            // Bán kính quỹ đạo của Sao Kim so với giá trị bạn dùng cho Sao Thủy (khoảng 0.723 AU so với 0.387 AU cho Sao Thủy)
@@ -94,6 +150,70 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 parent = earth812
             )
 
+        mars812 =    it.addPlanet(
+                fileName = "mars.glb",
+                name = "Mars",
+                orbitRadiusA = 7.6f,
+                eccentricity = 0.0934f,         // Độ lệch tâm quỹ đạo của Sao Hỏa
+                orbitSpeed = 0.33f,             // Tốc độ quay quanh Mặt Trời, tỷ lệ so với Trái Đất
+                scale = 0.371f,                  // Tỷ lệ kích thước của Sao Hỏa so với Trái Đất
+                inclination = 1.85f,            // Độ nghiêng của quỹ đạo so với mặt phẳng hoàng đạo
+                axisTilt = 25.19f,              // Độ nghiêng của trục tự quay của Sao Hỏa
+                rotationSpeed = 1.02f           // Tốc độ tự quay của Sao Hỏa (gần tương đương với Trái Đất)
+            )
+
+       jupiter812 =     it.addPlanet(
+                fileName = "jupiter.glb",
+                name = "Jupiter",
+                orbitRadiusA = 11f,    // 10.4f
+                eccentricity = 0.049f,
+                orbitSpeed = 2.5f*0.084f,
+                scale = 0.1f,
+                inclination = 1.31f,
+                axisTilt = 3.13f,
+                rotationSpeed = 2.41f           // Tốc độ tự quay nhanh (một ngày của Sao Mộc chỉ kéo dài khoảng 10 giờ)
+            )
+
+            saturn812 = it.addPlanet(
+                fileName = "saturn.glb",
+                name = "Saturn",
+                orbitRadiusA = 16f,    // 19.16f
+                eccentricity = 0.056f,
+                orbitSpeed = 2.5f*0.034f,
+                scale = 3f,
+                inclination = 2.49f,
+                axisTilt = 26.73f,
+                rotationSpeed = 2.24f           // Tốc độ tự quay nhanh (một ngày của Sao Thổ chỉ kéo dài khoảng 10.7 giờ)
+            )
+         uranus812 =   it.addPlanet(
+                fileName = "uranus.glb",
+                name = "Uranus",
+                orbitRadiusA = 19.22f,   // 38.44f
+                eccentricity = 0.046f,
+                orbitSpeed = 2.5f*0.012f,
+                scale = 0.001f,
+                inclination = 0.77f,
+                axisTilt = 97.77f,
+                rotationSpeed = 1.41f
+            )
+           neptune812 = it.addPlanet(
+                fileName = "neptune.glb",
+                name = "Neptune",
+                orbitRadiusA = 22f,
+                eccentricity = 0.010f,
+                orbitSpeed = 2.5f*0.006f,
+                scale = 0.007f,
+                inclination = 1.77f,
+                axisTilt = 28.32f,
+                rotationSpeed = 1.48f           // Tốc độ tự quay (một ngày của Sao Hải Vương kéo dài khoảng 16 giờ)
+            )
+
+
+
+
+
+
+
         }
         choreographer.postFrameCallback(frameCallback)
     }
@@ -107,7 +227,7 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
             it.destroySwapChain()
             it.createSwapChain(holder.surface)
             it.resize(width, height)
-
+            it.updateScreenSize(width, height)
             choreographer.postFrameCallback(frameCallback)
         }
     }
@@ -125,12 +245,16 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+
+        gestureDetector.onTouchEvent(event)
+        
         when(event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 lastX = event.x
                 lastY = event.y
 
                 isPinching = false
+
             }
 
             MotionEvent.ACTION_POINTER_DOWN -> {
@@ -165,8 +289,11 @@ class FilamentView(context: Context) : SurfaceView(context), SurfaceHolder.Callb
                 isPinching = false
             }
         }
+
+
         return true
     }
+
 
 
 }
