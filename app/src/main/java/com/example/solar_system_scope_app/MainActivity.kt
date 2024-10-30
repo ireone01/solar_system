@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Utils.init()
-        Log.d("MainActivity", "oncreate ")
+        System.loadLibrary("filament-jni")
+        Log.d("MainActivityxxx", "oncreate ")
         filamentView = findViewById(R.id.solarSystemView)
         infoPanel = findViewById(R.id.infoPanel)
         planetNameTextView = findViewById(R.id.planetName)
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         miniPlanetView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
-                Log.d("MainActivity", "surfaceCreated của miniPlanetView được gọi")
+                Log.d("MainActivityxxx", "surfaceCreated của miniPlanetView được gọi")
                 miniFilamentHelper = MiniFilamentHelper(this@MainActivity , holder.surface)
                 val width = miniPlanetView.width
                 val height = miniPlanetView.height
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun surfaceDestroyed(p0: SurfaceHolder) {
-                Log.d("MainActivity", "surfaceDestroyed của miniPlanetView được gọi")
+                Log.d("MainActivityxxx", "surfaceDestroyed của miniPlanetView được gọi")
                miniFilamentHelper.destroy()
             }
 
