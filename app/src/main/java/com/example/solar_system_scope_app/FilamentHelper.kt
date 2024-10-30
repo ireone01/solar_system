@@ -93,12 +93,16 @@
 
             val sunLightEntity = EntityManager.get().create()
             LightManager.Builder(LightManager.Type.POINT)
-                .color(1.0f , 1.0f , 1.0f)
-                .intensity(100000000f)
+                .color(1.0f , 1.0f , 0.9f)
+                .intensity(10000000f)
                 .position(0.0f, 0.0f , 0.0f )
-                .falloff(100.0f)
+                .falloff(1000000.0f)
                 .build(engine , sunLightEntity)
             scene.addEntity(sunLightEntity)
+
+
+
+
 
             backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
 
@@ -107,7 +111,11 @@
 
         }
 
-
+        fun init(surface: Surface){
+            swapChain = engine.createSwapChain(surface)
+            view.scene = scene
+            view.camera = camera
+        }
 
         fun getScreenPosition(planet: Planet): PointF? {
             val camera = camera ?: return null
@@ -160,23 +168,6 @@
             screenWidth = width.toFloat()
             screenHeight = height.toFloat()
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         fun loadBackground(fileName: String) {
             backgroundLoader.loadBackground(fileName)
         }
@@ -228,11 +219,16 @@
                             x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
                             z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
                         }
-
+//
+//                        // dich chuyen anh sang theo hanh tinh
+//                        val lightManager = engine.lightManager
+//                        if (lightManager.hasComponent(EntityManager.get().create())) {
+//                            lightManager.setPosition(EntityManager.get().create(), x, y, z)
+//                        }
                         // Dịch chuyển hành tinh tới vị trí
                         Matrix.translateM(transformMatrix, 0, x, y, z)
 
-                        // Áp dụng nghiêng quỹ đạo nếu cần
+                        // Áp dụng nghiêng quỹ đạo
                         if (planet.inclination != 0.0f) {
                             val inclinationMatrix = FloatArray(16)
                             Matrix.setIdentityM(inclinationMatrix, 0)

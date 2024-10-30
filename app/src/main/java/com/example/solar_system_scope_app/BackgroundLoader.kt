@@ -43,7 +43,7 @@ class BackgroundLoader(
             Matrix.setIdentityM(transformMatrix, 0)
 
             // Điều chỉnh kích thước của nền để bao trùm vật thể chính
-            Matrix.scaleM(transformMatrix, 0, 10.0f, 10.0f, 10.0f)
+            Matrix.scaleM(transformMatrix, 0, 100.0f, 100.0f, 100.0f)
 
             // Nếu cần, điều chỉnh vị trí của nền
             // Matrix.translateM(transformMatrix, 0, x, y, z)

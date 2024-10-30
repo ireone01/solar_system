@@ -1,5 +1,9 @@
 package com.example.solar_system_scope_app
 
+import com.google.android.filament.Engine
+import com.google.android.filament.EntityManager
+import com.google.android.filament.LightManager
+import com.google.android.filament.Scene
 import com.google.android.filament.gltfio.FilamentAsset
 
 data class Planet(
@@ -39,4 +43,7 @@ data class Planet(
         // Cập nhật góc quỹ đạo dựa trên tốc độ quỹ đạo và thời gian
         angle = (angle + orbitSpeed * deltaTime) % 360
     }
+
+
+
 }

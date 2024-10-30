@@ -1,0 +1,41 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main Container cho mô hình hệ mặt trời -->
+    <com.example.solar_system_scope_app.FilamentView
+        android:id="@+id/solarSystemView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- UI Panel thông tin nhỏ hơn bên phải -->
+    <LinearLayout
+        android:id="@+id/infoPanel"
+        android:orientation="vertical"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:background="#88000000"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <!-- TextView hiển thị tên hành tinh -->
+        <TextView
+            android:id="@+id/planetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên Hành Tinh"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+
+        <!-- SurfaceView cho mô hình hành tinh thu nhỏ -->
+        <SurfaceView
+            android:id="@+id/miniPlanetView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
