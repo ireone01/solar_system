@@ -19,10 +19,10 @@
 
     class FilamentHelper(private val context: Context, private var surface: Surface) {
 
-        private val engine: Engine = Engine.create()
+        val engine: Engine = Engine.create()
         private var swapChain: SwapChain = engine.createSwapChain(surface)
         private val renderer: Renderer = engine.createRenderer()
-        private val scene: Scene = engine.createScene()
+        val scene: Scene = engine.createScene()
         private val view: View = engine.createView()
         private val camera: Camera
         private val cameraEntity: Int
@@ -219,13 +219,7 @@
                             x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
                             z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
                         }
-//
-//                        // dich chuyen anh sang theo hanh tinh
-//                        val lightManager = engine.lightManager
-//                        if (lightManager.hasComponent(EntityManager.get().create())) {
-//                            lightManager.setPosition(EntityManager.get().create(), x, y, z)
-//                        }
-                        // Dịch chuyển hành tinh tới vị trí
+
                         Matrix.translateM(transformMatrix, 0, x, y, z)
 
                         // Áp dụng nghiêng quỹ đạo
@@ -370,10 +364,11 @@
 
             resourceLoader.loadResources(planetAsset)
             scene.addEntities(planetAsset.entities)
-
+            val entity = planetAsset.root
             val planet = Planet(
                 name = name,
                 asset = planetAsset,
+                entity = entity ,
                 angle = 0.0f,
                 orbitRadiusA = orbitRadiusA,
                 orbitRadiusB = orbitRadiusB,

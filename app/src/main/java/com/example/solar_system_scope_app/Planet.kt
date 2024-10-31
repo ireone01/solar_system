@@ -9,6 +9,7 @@ import com.google.android.filament.gltfio.FilamentAsset
 data class Planet(
     val name: String,
     val asset: FilamentAsset,
+    val entity: Int,
     var angle: Float,
     val orbitRadiusA: Float,
     val orbitRadiusB: Float,
@@ -19,7 +20,10 @@ data class Planet(
     val axisTilt: Float,
     var rotation: Float = 0.0f,
     var rotationSpeed: Float = 1.0f,
-    val parent: Planet? = null
+    val parent: Planet? = null,
+//    var isEmissive: Boolean = false,                 // Biến mới: Hành tinh có phát sáng hay không
+//    var emissiveColor: FloatArray = floatArrayOf(1.0f, 1.0f, 1.0f), // Biến mới: Màu sắc phát sáng (RGB)
+//    var emissiveIntensity: Float = 1.0f
 ) {
     fun getPosition(): FloatArray {
         // Tính toán vị trí của hành tinh trong không gian 3D

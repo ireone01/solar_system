@@ -51,6 +51,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     private var infoPanel: View? = null
     private var planetNameTextView : TextView? = null
+    private val planetLights = mutableMapOf<Planet, Int>()
 
 
     private val engine = Engine.create()
@@ -110,6 +111,67 @@ class FilamentView @JvmOverloads constructor(context: Context,
     }
 
 
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        Log.d("FilamentView", "surfaceCreated called")
+
+
+        filament = FilamentHelper(context, holder.surface)
+        gestureHandler = GestureHandler(filament)
+        val engineHelper = filament?.engine
+        val sceneHelper = filament?.scene
+        initializePlanets()
+        initPlanetLights(getPlanets(), engineHelper!!, sceneHelper!!)
+        choreographer.postFrameCallback(frameCallback)
+    }
+    private fun initializePlanets() {
+        val filament = this.filament ?: return
+        filament.loadBackground("sky_background.glb")
+        sun812 = filament.addPlanet("Sun.glb", "Sun", 0f, 0f, 0f, 0.1f, 0f, 0.0f, 0.4f)
+        mecury812 = filament.addPlanet("Mercury.glb", "Mercury", 2.0f, 0.2056f, 0.5f, 0.05f, 7.0f, 0.0f, 1.0f)
+        venus812 = filament.addPlanet("Venus.glb", "Venus", 3.7f, 0.0067f, 0.35f, 0.005f, 3.39f, 177.4f, -1.48f)
+        earth812 = filament.addPlanet("Earth.glb", "Earth", 5.0f, 0.0167f, 0.3f, 0.00525f, 0.00005f, 23.44f, 1.0f)
+        moon812 = filament.addPlanet("Moon.glb", "Moon", 130.9f, 0.0549f, 2.5f, 12f, 5.14f, 6.68f, 13.36f, parent = earth812)
+        mars812 = filament.addPlanet("Mars.glb", "Mars", 7.6f, 0.0934f, 0.33f, 0.371f, 1.85f, 25.19f, 1.02f)
+        jupiter812 = filament.addPlanet("Jupiter.glb", "Jupiter", 11f, 0.049f, 2.5f * 0.084f, 0.1f, 1.31f, 3.13f, 2.41f)
+        saturn812 = filament.addPlanet("Saturn.glb", "Saturn", 16f, 0.056f, 2.5f * 0.034f, 3f, 2.49f, 26.73f, 2.24f)
+        uranus812 = filament.addPlanet("Uranus.glb", "Uranus", 19.22f, 0.046f, 2.5f * 0.012f, 0.001f, 0.77f, 97.77f, 1.41f)
+        neptune812 = filament.addPlanet("Neptune.glb", "Neptune", 22f, 0.010f, 2.5f * 0.006f, 0.007f, 1.77f, 28.32f, 1.48f)
+    }
+
+    private fun getPlanets(): List<Planet> {
+        return listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
+    }
+
+    fun initPlanetLights(planets: List<Planet>, engine: Engine, scene: Scene) {
+        planets.forEach { planet ->
+            val lightEntity = EntityManager.get().create()
+            LightManager.Builder(LightManager.Type.POINT)
+                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
+                .intensity(5000000f)         // Điều chỉnh cường độ để vừa đủ sáng
+                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
+                .build(engine, lightEntity)
+
+            // Gắn ánh sáng với hành tinh, sử dụng Transform
+            val transformManager = engine.transformManager
+            val instance = transformManager.getInstance(planet.entity)
+            transformManager.create(lightEntity)
+            transformManager.setParent(transformManager.getInstance(lightEntity), instance)
+
+            scene.addEntity(lightEntity)
+
+            // Lưu lại ánh sáng để có thể cập nhật sau này
+            planetLights[planet] = lightEntity
+        }
+    }
+//    fun makePlanetEmissive(planet: Planet) {
+//        if (planet.isEmissive) {
+//            val material = planet.asset.materialInstance ?: return
+//            material.setParameter("emissive", planet.emissiveColor[0], planet.emissiveColor[1], planet.emissiveColor[2])
+//            material.setParameter("emissiveIntensity", planet.emissiveIntensity)
+//        }
+//    }
+
+
     private fun handleDoubleTap(x: Float, y: Float) {
         val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
 
@@ -148,160 +210,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
         }
     }
 
-
-
-
-
-
-
-
-    override fun surfaceCreated(holder: SurfaceHolder) {
-        Log.d("FilamentView", "surfaceCreated called")
-//        val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
-
-
-        filament = FilamentHelper(context, holder.surface)
-        gestureHandler = GestureHandler(filament)
-        filament?.let {
-            sun812 = it.addPlanet(
-                fileName = "Sun.glb",
-                name = "Sun",
-                orbitRadiusA = 0f,
-                eccentricity =  0f,
-                orbitSpeed = 0f,
-                scale = 0.1f,
-                inclination =  0f ,
-                axisTilt = 0.0f,
-                rotationSpeed =  0.4f
-            )
-            it.loadBackground("sky_background.glb")
-
-
-            mecury812 =    it.addPlanet(
-                fileName = "Mercury.glb",
-                name = "Mercury",
-                orbitRadiusA = 2.0f,
-                eccentricity =  0.2056f,
-                orbitSpeed = 0.5f,
-                scale = 0.05f,
-                inclination =  7.0f ,
-                axisTilt = 0.0f,
-                rotationSpeed =  1.0f
-            )
-            venus812 = it.addPlanet(
-                fileName = "Venus.glb",         // Tên file mô hình của Sao Kim
-                name = "Venus",                 // Tên hành tinh
-                orbitRadiusA = 3.7f,            // Bán kính quỹ đạo của Sao Kim so với giá trị bạn dùng cho Sao Thủy (khoảng 0.723 AU so với 0.387 AU cho Sao Thủy)
-                eccentricity = 0.0067f,         // Độ lệch tâm của Sao Kim, rất gần với hình tròn
-                orbitSpeed = 0.35f,             // Tốc độ quỹ đạo của Sao Kim (quay quanh Mặt Trời mất khoảng 224,7 ngày Trái Đất)
-                scale = 0.005f,                 // Kích thước Sao Kim, tương đối lớn hơn so với Sao Thủy
-                inclination = 3.39f,            // Độ nghiêng quỹ đạo của Sao Kim so với mặt phẳng hoàng đạo
-                axisTilt = 177.4f,              // Độ nghiêng trục quay của Sao Kim, gần như lật ngược (tự quay ngược)
-                rotationSpeed = -1.48f          // Tốc độ tự quay của Sao Kim, rất chậm và quay ngược (một ngày Sao Kim dài khoảng 243 ngày Trái Đất)
-
-
-            )
-            earth812 = it.addPlanet(
-                fileName = "Earth.glb",          // Tên file mô hình của Trái Đất
-                name = "Earth",                  // Tên hành tinh
-                orbitRadiusA = 5.0f,             // Bán kính quỹ đạo (k2hoảng 1 AU, tăng tỷ lệ so với Sao Thủy và Sao Kim)
-                eccentricity = 0.0167f,          // Độ lệch tâm quỹ đạo của Trái Đất, gần tròn
-                orbitSpeed = 0.3f,               // Tốc độ quỹ đạo (mất 365.25 ngày để hoàn thành một vòng quanh Mặt Trời)
-                scale = 0.00525f,                    // Kích thước tương đối của Trái Đất
-                inclination = 0.00005f,          // Độ nghiêng quỹ đạo của Trái Đất (rất nhỏ, gần như không nghiêng)
-                axisTilt = 23.44f,               // Độ nghiêng trục quay của Trái Đất, tạo ra các mùa
-                rotationSpeed = 1.0f,
-
-
-                )
-            moon812 = it.addPlanet(
-                fileName = "Moon.glb",
-                name = "Moon",
-                orbitRadiusA = 130.9f, // Khoảng cách trung bình từ Mặt Trăng đến Trái Đất (đơn vị thiên văn)
-                eccentricity = 0.0549f,
-                orbitSpeed = 2.5f, // Tốc độ quay quanh Trái Đất của Mặt Trăng
-                scale = 12f,
-                inclination = 5.14f,
-                axisTilt = 6.68f,
-                rotationSpeed = 13.36f, // Tốc độ tự quay của Mặt Trăng
-                parent = earth812
-            )
-
-
-            mars812 =    it.addPlanet(
-                fileName = "Mars.glb",
-                name = "Mars",
-                orbitRadiusA = 7.6f,
-                eccentricity = 0.0934f,         // Độ lệch tâm quỹ đạo của Sao Hỏa
-                orbitSpeed = 0.33f,             // Tốc độ quay quanh Mặt Trời, tỷ lệ so với Trái Đất
-                scale = 0.371f,                  // Tỷ lệ kích thước của Sao Hỏa so với Trái Đất
-                inclination = 1.85f,            // Độ nghiêng của quỹ đạo so với mặt phẳng hoàng đạo
-                axisTilt = 25.19f,              // Độ nghiêng của trục tự quay của Sao Hỏa
-                rotationSpeed = 1.02f           // Tốc độ tự quay của Sao Hỏa (gần tương đương với Trái Đất)
-            )
-
-
-            jupiter812 =     it.addPlanet(
-                fileName = "Jupiter.glb",
-                name = "Jupiter",
-                orbitRadiusA = 11f,    // 10.4f
-                eccentricity = 0.049f,
-                orbitSpeed = 2.5f*0.084f,
-                scale = 0.1f,
-                inclination = 1.31f,
-                axisTilt = 3.13f,
-                rotationSpeed = 2.41f           // Tốc độ tự quay nhanh (một ngày của Sao Mộc chỉ kéo dài khoảng 10 giờ)
-            )
-
-
-            saturn812 = it.addPlanet(
-                fileName = "Saturn.glb",
-                name = "Saturn",
-                orbitRadiusA = 16f,    // 19.16f
-                eccentricity = 0.056f,
-                orbitSpeed = 2.5f*0.034f,
-                scale = 3f,
-                inclination = 2.49f,
-                axisTilt = 26.73f,
-                rotationSpeed = 2.24f           // Tốc độ tự quay nhanh (một ngày của Sao Thổ chỉ kéo dài khoảng 10.7 giờ)
-            )
-            uranus812 =   it.addPlanet(
-                fileName = "Uranus.glb",
-                name = "Uranus",
-                orbitRadiusA = 19.22f,   // 38.44f
-                eccentricity = 0.046f,
-                orbitSpeed = 2.5f*0.012f,
-                scale = 0.001f,
-                inclination = 0.77f,
-                axisTilt = 97.77f,
-                rotationSpeed = 1.41f
-            )
-            neptune812 = it.addPlanet(
-                fileName = "Neptune.glb",
-                name = "Neptune",
-                orbitRadiusA = 22f,
-                eccentricity = 0.010f,
-                orbitSpeed = 2.5f*0.006f,
-                scale = 0.007f,
-                inclination = 1.77f,
-                axisTilt = 28.32f,
-                rotationSpeed = 1.48f           // Tốc độ tự quay (một ngày của Sao Hải Vương kéo dài khoảng 16 giờ)
-            )
-        }
-//        initPlanetLights(planets, engine, scene)
-        choreographer.postFrameCallback(frameCallback)
-    }
-    //    fun initPlanetLights(planets: List<Planet>, engine: Engine, scene: Scene) {
-//        planets.forEach { planet ->
-//            val lightEntity = EntityManager.get().create()
-//            LightManager.Builder(LightManager.Type.POINT)
-//                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
-//                .intensity(50000f)         // Điều chỉnh cường độ để vừa đủ sáng
-//                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
-//                .build(engine, lightEntity)
-//            scene.addEntity(lightEntity)
-//        }
-//    }
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         Log.d("FilamentView", "surfaceChanged called: width=$width, height=$height")
         filament?.resize(width,height)
