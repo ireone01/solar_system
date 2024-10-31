@@ -120,7 +120,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
         val engineHelper = filament?.engine
         val sceneHelper = filament?.scene
         initializePlanets()
-        initPlanetLights(getPlanets(), engineHelper!!, sceneHelper!!)
+//        initPlanetLights(getPlanets(), engineHelper!!, sceneHelper!!)
         choreographer.postFrameCallback(frameCallback)
     }
     private fun initializePlanets() {
@@ -141,28 +141,28 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private fun getPlanets(): List<Planet> {
         return listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
     }
-
-    fun initPlanetLights(planets: List<Planet>, engine: Engine, scene: Scene) {
-        planets.forEach { planet ->
-            val lightEntity = EntityManager.get().create()
-            LightManager.Builder(LightManager.Type.POINT)
-                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
-                .intensity(5000000f)         // Điều chỉnh cường độ để vừa đủ sáng
-                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
-                .build(engine, lightEntity)
-
-            // Gắn ánh sáng với hành tinh, sử dụng Transform
-            val transformManager = engine.transformManager
-            val instance = transformManager.getInstance(planet.entity)
-            transformManager.create(lightEntity)
-            transformManager.setParent(transformManager.getInstance(lightEntity), instance)
-
-            scene.addEntity(lightEntity)
-
-            // Lưu lại ánh sáng để có thể cập nhật sau này
-            planetLights[planet] = lightEntity
-        }
-    }
+//
+//    fun initPlanetLights(planets: List<Planet>, engine: Engine, scene: Scene) {
+//        planets.forEach { planet ->
+//            val lightEntity = EntityManager.get().create()
+//            LightManager.Builder(LightManager.Type.POINT)
+//                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
+//                .intensity(5000000f)         // Điều chỉnh cường độ để vừa đủ sáng
+//                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
+//                .build(engine, lightEntity)
+//
+//            // Gắn ánh sáng với hành tinh, sử dụng Transform
+//            val transformManager = engine.transformManager
+//            val instance = transformManager.getInstance(planet.entity)
+//            transformManager.create(lightEntity)
+//            transformManager.setParent(transformManager.getInstance(lightEntity), instance)
+//
+//            scene.addEntity(lightEntity)
+//
+//            // Lưu lại ánh sáng để có thể cập nhật sau này
+//            planetLights[planet] = lightEntity
+//        }
+//    }
 //    fun makePlanetEmissive(planet: Planet) {
 //        if (planet.isEmissive) {
 //            val material = planet.asset.materialInstance ?: return

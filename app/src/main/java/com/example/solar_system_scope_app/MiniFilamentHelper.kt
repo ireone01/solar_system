@@ -18,7 +18,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private val camera = engine.createCamera(EntityManager.get().create())
     private var width = 0
     private var height = 0
-
+    private var filament: FilamentHelper? = null
     private val choreographer = Choreographer.getInstance()
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -45,7 +45,8 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
 
 
-
+        addDirectionalLight(engine , scene)
+        addIndirectLightToScene(engine, scene)
 
         // Bắt đầu render loop
         choreographer.postFrameCallback(frameCallback)
@@ -62,6 +63,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         entities.forEach { entity ->
             engine.destroyEntity(entity)
         }
+
         Log.d("MiniFilamentHelper", "Đang tải mô hình cho hành tinh: ${planet.name}")
         // Tải mô hình của hành tinh
         val buffer = readAsset(context, "${planet.name}.glb")
@@ -108,4 +110,26 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         choreographer.removeFrameCallback(frameCallback)
         engine.destroy()
     }
+    fun addIndirectLightToScene(engine: Engine, scene: Scene) {
+        val indirectLight = IndirectLight.Builder()
+            .intensity(2000.0f)  // Điều chỉnh cường độ để chiếu sáng tổng thể
+            .build(engine)
+
+        scene.indirectLight = indirectLight
+        Log.d("MiniFilamentHelper", "Added Indirect Light to Mini Scene")
+    }
+    fun addDirectionalLight(engine: Engine, scene: Scene) {
+                    val lightEntity = EntityManager.get().create()
+            LightManager.Builder(LightManager.Type.POINT)
+                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
+                .intensity(7000000f)         // Điều chỉnh cường độ để vừa đủ sáng
+                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
+                .build(engine, lightEntity)
+
+        scene.addEntity(lightEntity)
+    }
+
+
+
+
 }
