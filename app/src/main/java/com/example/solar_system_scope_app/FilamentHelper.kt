@@ -250,7 +250,7 @@
                         // Thiết lập biến đổi cho hành tinh
                         transformManager.setTransform(instance, transformMatrix)
 
-
+                        updateCameraTransform()
                     }
                 }
 

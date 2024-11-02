@@ -36,6 +36,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
+            android:background="#FF0000"
            />
     </LinearLayout>
 

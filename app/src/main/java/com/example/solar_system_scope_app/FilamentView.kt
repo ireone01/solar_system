@@ -87,13 +87,13 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
 
     inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
-        override fun onDoubleTap(e: MotionEvent): Boolean {
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
             e?.let {
                 val x = it.x
                 val y = it.y
-                handleDoubleTap(x, y)
+                handleSingleTap(x, y) // Đổi tên hàm cho phù hợp hơn
             }
-            return super.onDoubleTap(e)
+            return super.onSingleTapConfirmed(e)
         }
     }
 
@@ -172,7 +172,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 //    }
 
 
-    private fun handleDoubleTap(x: Float, y: Float) {
+    private fun handleSingleTap(x: Float, y: Float) {
         val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
 
 
@@ -195,9 +195,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     targetPlanet = planet
                     filament?.updateCameraTransform()
 
-
-
-
                     post {
                         planetNameTextView?.text = planet.name
                         infoPanel?.visibility = View.VISIBLE
@@ -205,8 +202,16 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
                         miniFilamentHelper?.loadPlanetModel(planet)
                     }
+                    return
                 }
             }
+        }
+        targetPlanet = sun812
+        filament?.updateCameraTransform()
+        post{
+            infoPanel?.visibility = View.GONE
+            planetNameTextView?.text = ""
+            miniFilamentHelper?.clearPlanetModel()
         }
     }
 
