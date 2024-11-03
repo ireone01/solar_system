@@ -22,7 +22,6 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private val choreographer = Choreographer.getInstance()
 
 
-
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             val frametime = System.nanoTime()
@@ -33,6 +32,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
             choreographer.postFrameCallback(this)
         }
     }
+
 
     fun init(width: Int, height: Int) {
         swapChain = engine.createSwapChain(surface)
@@ -92,7 +92,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
             engine.destroyEntity(entity)
         }
 
-
+        setupLighting()
         // Tải mô hình của hành tinh
         val buffer = readAsset(context, "${planet.name}.glb")
 
@@ -101,11 +101,19 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         val assetLoader = AssetLoader(engine, materialProvider, EntityManager.get())
         val asset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
 
-        val resourceLoader = ResourceLoader(engine)
 
+        if (asset == null) {
+            Log.e("MiniFilamentHelper", "Không thể tạo asset cho hành tinh: ${planet.name}")
+            return
+        }
+
+
+        val resourceLoader = ResourceLoader(engine)
+        resourceLoader.loadResources(asset)
+        resourceLoader.destroy()
 
         // Thêm entities vào scene
-        scene.addEntities(asset!!.entities)
+        scene.addEntities(asset.entities)
         Log.d("MiniFilamentHelper", "Số lượng Entity trong Scene: ${scene.entities.size}")
 
         // Đặt camera nhìn vào mô hình
