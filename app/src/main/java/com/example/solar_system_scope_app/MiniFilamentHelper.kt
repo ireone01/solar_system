@@ -1,6 +1,7 @@
 package com.example.solar_system_scope_app
 
 import android.content.Context
+import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
@@ -21,15 +22,36 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private var height = 0
     private val choreographer = Choreographer.getInstance()
 
+    private var rotationAngle = 0.0f
+    private var rotationSpeed = 0.5f  //  điều chỉnh tốc độ quay
+    private var modelEntity: Int = 0  // Lưu trữ entity của mô hình
+
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             val frametime = System.nanoTime()
+
+            rotationAngle += rotationSpeed
             if (renderer.beginFrame(swapChain!!, frametime)) {
+
+                updateModelTransform()
                 renderer.render(view)
                 renderer.endFrame()
             }
             choreographer.postFrameCallback(this)
+        }
+    }
+    private fun updateModelTransform() {
+        val transformManager = engine.transformManager
+        val instance = transformManager.getInstance(modelEntity)
+        if (instance != 0) {
+            val transformMatrix = FloatArray(16)
+            Matrix.setIdentityM(transformMatrix, 0)
+
+            // Áp dụng phép quay quanh trục Y
+            Matrix.rotateM(transformMatrix, 0, rotationAngle, 0.0f, 1.0f, 0.0f)
+
+            transformManager.setTransform(instance, transformMatrix)
         }
     }
 
@@ -51,10 +73,9 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     }
 
     private fun setupLighting() {
-        // Tạo một directional light để chiếu sáng toàn bộ cảnh
         val directionalLight = EntityManager.get().create()
 
-        LightManager.Builder(LightManager.Type.DIRECTIONAL)
+        LightManager.Builder(LightManager.Type.SUN)
             .color(1.0f, 1.0f, 1.0f)  // Màu trắng cho ánh sáng
             .intensity(200_000.0f)    // Tăng độ sáng để chiếu sáng tốt hơn
             .direction(-0.5f, -1.0f, -0.5f)  // Điều chỉnh hướng của ánh sáng để chiếu sáng mô hình tốt hơn
@@ -64,18 +85,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         // Thêm đèn vào scene
         scene.addEntity(directionalLight)
 
-        // Tạo thêm một point light để tạo thêm ánh sáng từ một điểm cụ thể
-        val pointLight = EntityManager.get().create()
 
-        LightManager.Builder(LightManager.Type.POINT)
-            .color(1.0f, 1.0f, 1.0f)
-            .intensity(100_000.0f)  // Tăng cường độ sáng của point light
-            .position(0.0f, 2.0f, 4.0f) // Điều chỉnh vị trí của ánh sáng để chiếu sáng mô hình tốt hơn
-            .falloff(50.0f)  // Tăng falloff để mở rộng phạm vi chiếu sáng
-            .build(engine, pointLight)
-
-        // Thêm point light vào scene
-        scene.addEntity(pointLight)
     }
 
     private fun readAsset(context: Context, fileName: String): ByteArray {
@@ -116,6 +126,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
         scene.addEntities(asset.entities)
         Log.d("MiniFilamentHelper", "Số lượng Entity trong Scene: ${scene.entities.size}")
 
+        modelEntity = asset.root
         // Đặt camera nhìn vào mô hình
         frameModel(asset)
     }
