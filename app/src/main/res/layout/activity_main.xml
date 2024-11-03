@@ -29,15 +29,13 @@
             android:text="Tên Hành Tinh"
             android:textSize="16sp"
             android:textColor="#FFFFFF"/>
-
+        
         <!-- SurfaceView cho mô hình hành tinh thu nhỏ -->
         <SurfaceView
             android:id="@+id/miniPlanetView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
-            android:background="#FF0000"
-           />
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </RelativeLayout>
