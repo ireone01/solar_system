@@ -4,10 +4,13 @@
     import android.content.Context
     import android.graphics.PointF
     import android.opengl.Matrix
+    import android.os.Handler
+    import android.os.Looper
     import android.util.Log
     import android.view.Surface
     import androidx.core.graphics.rotationMatrix
     import androidx.core.graphics.translationMatrix
+    import androidx.core.os.HandlerCompat.postDelayed
     import com.google.android.filament.*
     import com.google.android.filament.filamat.MaterialBuilder
     import com.google.android.filament.gltfio.*
@@ -47,6 +50,14 @@
 
         private var screenWidth: Float = 0f
         private var screenHeight: Float = 0f
+
+
+        private var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        private var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        private var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        private var transitionStartTime = 0L
+        private val transitionDuration = 1000L  // Thời gian chuyển tiếp tính bằng mili-giây
+
 
         private val backgroundLoader : BackgroundLoader
 
@@ -323,23 +334,38 @@
         }
 
         fun updateCameraTransform() {
-            // Tính toán vị trí camera dựa trên góc xoay và khoảng cách
+            // Cập nhật currentTargetPosition dựa trên quá trình chuyển tiếp
+            val currentTime = System.currentTimeMillis()
+            val elapsedTime = currentTime - transitionStartTime
+
+            if (elapsedTime < transitionDuration) {
+                val t = elapsedTime.toFloat() / transitionDuration.toFloat()
+                currentTargetPosition[0] = previousTargetPosition[0] * (1 - t) + targetTargetPosition[0] * t
+                currentTargetPosition[1] = previousTargetPosition[1] * (1 - t) + targetTargetPosition[1] * t
+                currentTargetPosition[2] = previousTargetPosition[2] * (1 - t) + targetTargetPosition[2] * t
+
+                // Yêu cầu cập nhật khung hình tiếp theo
+                Handler(Looper.getMainLooper()).postDelayed({ updateCameraTransform() }, 16L)  // Khoảng 60 FPS
+            } else {
+                currentTargetPosition = targetTargetPosition.copyOf()
+            }
+
+            // Tính toán vị trí camera dựa trên currentTargetPosition
             val radX = Math.toRadians(cameraRotationX.toDouble())
             val radY = Math.toRadians(cameraRotationY.toDouble())
 
-            val x = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat()
-            val y = (cameraDistance * Math.sin(radX)).toFloat()
-            val z = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat()
+            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
+            val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
+            val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
 
-            // Kiểm tra xem targetPlanet có được chọn hay không
-            val target = targetPlanet?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
-
+            // Sử dụng currentTargetPosition làm điểm nhìn và vị trí camera tính toán từ đó
             camera.lookAt(
-                x.toDouble() + target[0], y.toDouble() + target[1], z.toDouble() + target[2],  // Vị trí camera
-                target[0].toDouble(), target[1].toDouble(), target[2].toDouble(),               // Nhìn vào hành tinh được chọn
-                0.0, 1.0, 0.0     // Hướng lên trên
+                camX.toDouble(), camY.toDouble(), camZ.toDouble(),  // Vị trí camera
+                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(),  // Nhìn vào mục tiêu hiện tại
+                0.0, 1.0, 0.0  // Hướng lên trên
             )
         }
+
 
 
 
