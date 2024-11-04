@@ -34,7 +34,7 @@ lateinit var jupiter812 : Planet
 lateinit var uranus812 : Planet
 lateinit var neptune812 : Planet
 lateinit var venus812 : Planet
-var targetPlanet: Planet? = null
+
 // can sua may thang ghe phia tren
 class FilamentView @JvmOverloads constructor(context: Context,
                                              attrs: AttributeSet? = null)
@@ -61,6 +61,25 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
 
     private var miniFilamentHelper: MiniFilamentHelper? = null
+
+
+    private var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+    private var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+    private var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+    private var transitionStartTime = 0L
+    private val transitionDuration = 1000L  // Thời gian chuyển tiếp tính bằng mili-giây
+    var targetPlanet: Planet? = null
+        set(value) {
+            if (field != value) {
+                previousTargetPosition = currentTargetPosition.copyOf()
+                targetTargetPosition = value?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
+                transitionStartTime = System.currentTimeMillis()
+                field = value
+
+                filament?.updateCameraTransform()
+            }
+        }
+
 
     companion object {
         init {
@@ -120,7 +139,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
         val engineHelper = filament?.engine
         val sceneHelper = filament?.scene
         initializePlanets()
-//        initPlanetLights(getPlanets(), engineHelper!!, sceneHelper!!)
         choreographer.postFrameCallback(frameCallback)
     }
     private fun initializePlanets() {
@@ -141,36 +159,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private fun getPlanets(): List<Planet> {
         return listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
     }
-//
-//    fun initPlanetLights(planets: List<Planet>, engine: Engine, scene: Scene) {
-//        planets.forEach { planet ->
-//            val lightEntity = EntityManager.get().create()
-//            LightManager.Builder(LightManager.Type.POINT)
-//                .color(1.0f, 1.0f, 0.9f) // Màu ánh sáng
-//                .intensity(5000000f)         // Điều chỉnh cường độ để vừa đủ sáng
-//                .falloff(50.0f)           // Điều chỉnh độ rơi của ánh sáng
-//                .build(engine, lightEntity)
-//
-//            // Gắn ánh sáng với hành tinh, sử dụng Transform
-//            val transformManager = engine.transformManager
-//            val instance = transformManager.getInstance(planet.entity)
-//            transformManager.create(lightEntity)
-//            transformManager.setParent(transformManager.getInstance(lightEntity), instance)
-//
-//            scene.addEntity(lightEntity)
-//
-//            // Lưu lại ánh sáng để có thể cập nhật sau này
-//            planetLights[planet] = lightEntity
-//        }
-//    }
-//    fun makePlanetEmissive(planet: Planet) {
-//        if (planet.isEmissive) {
-//            val material = planet.asset.materialInstance ?: return
-//            material.setParameter("emissive", planet.emissiveColor[0], planet.emissiveColor[1], planet.emissiveColor[2])
-//            material.setParameter("emissiveIntensity", planet.emissiveIntensity)
-//        }
-//    }
-
 
     private fun handleSingleTap(x: Float, y: Float) {
         val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
@@ -193,13 +181,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
                 if (distance < touchThreshold) {
                     targetPlanet = planet
-                    filament?.updateCameraTransform()
+//                    filament?.updateCameraTransform()
 
                     post {
                         planetNameTextView?.text = planet.name
                         infoPanel?.visibility = View.VISIBLE
-
-
                         miniFilamentHelper?.loadPlanetModel(planet)
                     }
                     return
@@ -207,7 +193,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
             }
         }
         targetPlanet = sun812
-        filament?.updateCameraTransform()
+//        filament?.updateCameraTransform()
         post{
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
