@@ -35,13 +35,30 @@ lateinit var uranus812 : Planet
 lateinit var neptune812 : Planet
 lateinit var venus812 : Planet
 
+var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+var transitionStartTime = 0L
+val transitionDuration = 1000L
+var isTransitioning = false
+var targetPlanet: Planet? = null
+    set(value) {
+        if (field != value) {
+            previousTargetPosition = currentTargetPosition.copyOf()
+            targetTargetPosition = value?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
+            transitionStartTime = System.currentTimeMillis()
+            isTransitioning = true
+            field = value
+
+        }
+    }
+
 // can sua may thang ghe phia tren
 class FilamentView @JvmOverloads constructor(context: Context,
                                              attrs: AttributeSet? = null)
     : SurfaceView(context,attrs), SurfaceHolder.Callback {
 
-
-    private var filament: FilamentHelper? = null
+        var filament: FilamentHelper? = null
 
 
     private val choreographer = Choreographer.getInstance()
@@ -63,23 +80,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private var miniFilamentHelper: MiniFilamentHelper? = null
 
 
-    private var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-    private var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-    private var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-    private var transitionStartTime = 0L
-    private val transitionDuration = 1000L  // Thời gian chuyển tiếp tính bằng mili-giây
-    var targetPlanet: Planet? = null
-        set(value) {
-            if (field != value) {
-                previousTargetPosition = currentTargetPosition.copyOf()
-                targetTargetPosition = value?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
-                transitionStartTime = System.currentTimeMillis()
-                field = value
-
-                filament?.updateCameraTransform()
-            }
-        }
-
 
     companion object {
         init {
@@ -91,6 +91,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             Log.d("FilamentView", "doFrame called with frameTimeNanos: $frameTimeNanos")
+            filament?.updateCameraTransform()
             filament?.render()
             choreographer.postFrameCallback(this)
         }
@@ -110,13 +111,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
             e?.let {
                 val x = it.x
                 val y = it.y
-                handleSingleTap(x, y) // Đổi tên hàm cho phù hợp hơn
+                handleSingleTap(x, y)
             }
             return super.onSingleTapConfirmed(e)
         }
     }
-
-
 
 
     fun setMiniFilamentHelper(helper: MiniFilamentHelper){
@@ -133,11 +132,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
     override fun surfaceCreated(holder: SurfaceHolder) {
         Log.d("FilamentView", "surfaceCreated called")
 
-
         filament = FilamentHelper(context, holder.surface)
         gestureHandler = GestureHandler(filament)
-        val engineHelper = filament?.engine
-        val sceneHelper = filament?.scene
         initializePlanets()
         choreographer.postFrameCallback(frameCallback)
     }
@@ -154,10 +150,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
         saturn812 = filament.addPlanet("Saturn.glb", "Saturn", 16f, 0.056f, 2.5f * 0.034f, 3f, 2.49f, 26.73f, 2.24f)
         uranus812 = filament.addPlanet("Uranus.glb", "Uranus", 19.22f, 0.046f, 2.5f * 0.012f, 0.001f, 0.77f, 97.77f, 1.41f)
         neptune812 = filament.addPlanet("Neptune.glb", "Neptune", 22f, 0.010f, 2.5f * 0.006f, 0.007f, 1.77f, 28.32f, 1.48f)
-    }
-
-    private fun getPlanets(): List<Planet> {
-        return listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
     }
 
     private fun handleSingleTap(x: Float, y: Float) {
@@ -181,7 +173,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
                 if (distance < touchThreshold) {
                     targetPlanet = planet
-//                    filament?.updateCameraTransform()
+
 
                     post {
                         planetNameTextView?.text = planet.name
@@ -193,7 +185,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
             }
         }
         targetPlanet = sun812
-//        filament?.updateCameraTransform()
         post{
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""

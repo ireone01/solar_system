@@ -1,6 +1,6 @@
 material {
   name : "PlanetMaterial",
-  shadingModel : lit, // hoặc unlit, tùy thuộc vào yêu cầu của bạn
+  shadingModel : lit,
   parameters : [
     { type : float3, name : baseColor },
     { type : float3, name : emissive },

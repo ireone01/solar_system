@@ -19,6 +19,8 @@
     import java.io.IOException
     import java.nio.ByteBuffer
     import java.nio.ByteOrder
+    import kotlin.math.abs
+    import kotlin.random.Random
 
     class FilamentHelper(private val context: Context, private var surface: Surface) {
 
@@ -52,11 +54,6 @@
         private var screenHeight: Float = 0f
 
 
-        private var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-        private var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-        private var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-        private var transitionStartTime = 0L
-        private val transitionDuration = 1000L  // Thời gian chuyển tiếp tính bằng mili-giây
 
 
         private val backgroundLoader : BackgroundLoader
@@ -81,7 +78,7 @@
 
             val bloomOptions = View.BloomOptions().apply {
                 enabled = true
-                strength = 100f       // Điều chỉnh cường độ của hiệu ứng Bloom
+                strength = 2f       // Điều chỉnh cường độ của hiệu ứng Bloom
                 resolution = 1080      // Độ phân giải của hiệu ứng Bloom
                 levels = 10
                 blendMode = View.BloomOptions.BlendMode.ADD
@@ -104,14 +101,59 @@
 
             val sunLightEntity = EntityManager.get().create()
             LightManager.Builder(LightManager.Type.POINT)
-                .color(1.0f , 1.0f , 0.9f)
+                .color(1.0f, 1.0f, 0.9f)
                 .intensity(10000000f)
-                .position(0.0f, 0.0f , 0.0f )
-                .falloff(1000000.0f)
-                .build(engine , sunLightEntity)
+                .position(0.0f, 2f, 0.0f)
+                .falloff(100000000.0f)
+                .build(engine, sunLightEntity)
             scene.addEntity(sunLightEntity)
 
+            val positions1 = mutableListOf(
+                Triple(25f, 0f, 0f),
+                Triple(-25f, 0f, 0f),
+                Triple(0f, 0f, 25f),
+                Triple(0f, 0f, -25f),
+            )
+            for((x,y,z) in positions1){
+            val sunLightEntity1 = EntityManager.get().create()
+            LightManager.Builder(LightManager.Type.POINT)
+                .color(1.0f, 1.0f, 0.9f)
+                .intensity(10000000f)
+                .position(x, y, z)
+                .falloff(1000000.0f)
+                .build(engine, sunLightEntity1)
+            scene.addEntity(sunLightEntity1)
 
+           }
+            val positions = mutableListOf(
+                Triple(1.4f, 1.4f, 1.4f),
+                Triple(-1.4f, 1.4f, 1.4f),
+                Triple(1.4f, -1.4f, 1.4f),
+                Triple(-1.4f, -1.4f, 1.4f),
+                Triple(1.4f, 1.4f, -1.4f),
+                Triple(-1.4f, 1.4f, -1.4f),
+                Triple(1.4f, -1.4f, -1.4f),
+                Triple(-1.4f, -1.4f, -1.4f),
+
+            )
+
+
+
+
+// Vòng lặp để thêm các ánh sáng vào scene
+            for ((x, y, z) in positions) {
+                val lightEntity = EntityManager.get().create()
+                LightManager.Builder(LightManager.Type.SPOT)
+                    .color(1.0f, 1.0f, 0.8f)
+                    .intensity(12000000f) // Cường độ thấp hơn để hỗ trợ ánh sáng chính
+                    .position(x, y, z) // Vị trí dựa trên tọa độ x, y, z từ mảng positions
+                    .direction(-x, -y , -z)
+                    .falloff(5000.0f) // Giảm falloff để ánh sáng không quá xa
+                    .build(engine, lightEntity)
+                scene.addEntity(lightEntity)
+
+
+            }
 
 
 
@@ -334,20 +376,26 @@
         }
 
         fun updateCameraTransform() {
-            // Cập nhật currentTargetPosition dựa trên quá trình chuyển tiếp
             val currentTime = System.currentTimeMillis()
             val elapsedTime = currentTime - transitionStartTime
 
-            if (elapsedTime < transitionDuration) {
-                val t = elapsedTime.toFloat() / transitionDuration.toFloat()
-                currentTargetPosition[0] = previousTargetPosition[0] * (1 - t) + targetTargetPosition[0] * t
-                currentTargetPosition[1] = previousTargetPosition[1] * (1 - t) + targetTargetPosition[1] * t
-                currentTargetPosition[2] = previousTargetPosition[2] * (1 - t) + targetTargetPosition[2] * t
-
-                // Yêu cầu cập nhật khung hình tiếp theo
-                Handler(Looper.getMainLooper()).postDelayed({ updateCameraTransform() }, 16L)  // Khoảng 60 FPS
+            if (isTransitioning) {
+                if (elapsedTime < transitionDuration) {
+                    val t = elapsedTime.toFloat() / transitionDuration.toFloat()
+                    // Nội suy vị trí mục tiêu hiện tại
+                    currentTargetPosition[0] = previousTargetPosition[0] * (1 - t) + targetTargetPosition[0] * t
+                    currentTargetPosition[1] = previousTargetPosition[1] * (1 - t) + targetTargetPosition[1] * t
+                    currentTargetPosition[2] = previousTargetPosition[2] * (1 - t) + targetTargetPosition[2] * t
+                } else {
+                    // Hoàn thành chuyển tiếp
+                    currentTargetPosition = targetTargetPosition.copyOf()
+                    isTransitioning = false
+                }
             } else {
-                currentTargetPosition = targetTargetPosition.copyOf()
+                // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
+                targetPlanet?.let { planet ->
+                    currentTargetPosition = planet.getPosition()
+                }
             }
 
             // Tính toán vị trí camera dựa trên currentTargetPosition
@@ -358,14 +406,13 @@
             val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
             val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
 
-            // Sử dụng currentTargetPosition làm điểm nhìn và vị trí camera tính toán từ đó
+            // Cập nhật hướng nhìn của camera
             camera.lookAt(
-                camX.toDouble(), camY.toDouble(), camZ.toDouble(),  // Vị trí camera
-                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(),  // Nhìn vào mục tiêu hiện tại
+                camX.toDouble(), camY.toDouble(), camZ.toDouble(),                      // Vị trí camera
+                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(), // Nhìn vào mục tiêu hiện tại
                 0.0, 1.0, 0.0  // Hướng lên trên
             )
         }
-
 
 
 
