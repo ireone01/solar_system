@@ -138,9 +138,6 @@
             )
 
 
-
-
-// Vòng lặp để thêm các ánh sáng vào scene
             for ((x, y, z) in positions) {
                 val lightEntity = EntityManager.get().create()
                 LightManager.Builder(LightManager.Type.SPOT)
@@ -350,9 +347,13 @@
             swapChain = engine.createSwapChain(surface)
         }
 
-        private fun readAsset(context: Context, fileName: String): ByteArray {
+         fun readAsset(context: Context, fileName: String): ByteBuffer {
             context.assets.open(fileName).use { input ->
-                return input.readBytes()
+                val bytes = input.readBytes()
+                val buffer = ByteBuffer.allocateDirect(bytes.size)
+                buffer.put(bytes)
+                buffer.flip()
+                return buffer
             }
         }
 
@@ -374,6 +375,13 @@
 
             updateCameraTransform()
         }
+        private fun easeInOutQuad(t: Float): Float {
+            return if (t < 0.5f) {
+                2 * t * t
+            } else {
+                -1 + (4 - 2 * t) * t
+            }
+        }
 
         fun updateCameraTransform() {
             val currentTime = System.currentTimeMillis()
@@ -382,15 +390,18 @@
             if (isTransitioning) {
                 if (elapsedTime < transitionDuration) {
                     val t = elapsedTime.toFloat() / transitionDuration.toFloat()
+                    val easedT = easeInOutQuad(t)
+
                     // Nội suy vị trí mục tiêu hiện tại
-                    currentTargetPosition[0] = previousTargetPosition[0] * (1 - t) + targetTargetPosition[0] * t
-                    currentTargetPosition[1] = previousTargetPosition[1] * (1 - t) + targetTargetPosition[1] * t
-                    currentTargetPosition[2] = previousTargetPosition[2] * (1 - t) + targetTargetPosition[2] * t
+                    currentTargetPosition[0] = previousTargetPosition[0] * (1 - easedT) + targetTargetPosition[0] * easedT
+                    currentTargetPosition[1] = previousTargetPosition[1] * (1 - easedT) + targetTargetPosition[1] * easedT
+                    currentTargetPosition[2] = previousTargetPosition[2] * (1 - easedT) + targetTargetPosition[2] * easedT
                 } else {
                     // Hoàn thành chuyển tiếp
                     currentTargetPosition = targetTargetPosition.copyOf()
                     isTransitioning = false
                 }
+
             } else {
                 // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
                 targetPlanet?.let { planet ->
@@ -408,14 +419,14 @@
 
             // Cập nhật hướng nhìn của camera
             camera.lookAt(
-                camX.toDouble(), camY.toDouble(), camZ.toDouble(),                      // Vị trí camera
-                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(), // Nhìn vào mục tiêu hiện tại
+                camX.toDouble(), camY.toDouble(), camZ.toDouble(),
+                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(),
                 0.0, 1.0, 0.0  // Hướng lên trên
             )
         }
 
 
-
+        private val renderHandler  = Handler(Looper.getMainLooper())
         @SuppressLint("SuspiciousIndentation")
         fun addPlanet(fileName: String,
                       name: String,
@@ -426,9 +437,10 @@
                       inclination: Float,
                       axisTilt: Float,
                       rotationSpeed: Float,
-                      parent :  Planet? = null) : Planet {
-            val buffer = readAsset(context, fileName)
-            val planetAsset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
+                      parent :  Planet? = null,
+                      buffer : ByteBuffer ) : Planet {
+
+            val planetAsset = assetLoader.createAsset(buffer)
             val  orbitRadiusB = orbitRadiusA * Math.sqrt((1 - eccentricity * eccentricity).toDouble()).toFloat()
             if (planetAsset == null) {
                 Log.e("FilamentHelper01", "Không thể tạo asset từ tệp $fileName")
@@ -662,14 +674,7 @@
         fun createOrbitMaterial(engine: Engine): MaterialInstance? {
             return try {
                 // Đọc toàn bộ tệp vật liệu một cách chính xác
-                val bytes = readAsset(context, "materials/orbit.filamat")
-                Log.d("createOrbitMaterial", "Kích thước của orbit.filamat: ${bytes.size} bytes")
-
-                val buffer = ByteBuffer.allocateDirect(bytes.size)
-                    .order(ByteOrder.nativeOrder())
-                    .put(bytes)
-                    .flip()
-
+                val buffer = readAsset(context, "materials/orbit.filamat")
                 // Tạo vật liệu từ buffer
                 val material = Material.Builder()
                     .payload(buffer, buffer.remaining())

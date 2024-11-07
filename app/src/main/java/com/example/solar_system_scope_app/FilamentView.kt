@@ -19,7 +19,15 @@ import com.google.android.filament.EntityManager
 import com.google.android.filament.LightManager
 import com.google.android.filament.Scene
 import com.google.android.filament.utils.Utils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.w3c.dom.Text
+import java.nio.Buffer
+import java.nio.ByteBuffer
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -81,6 +89,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
 
 
+
     companion object {
         init {
             System.loadLibrary("filament-jni")
@@ -90,8 +99,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
-            Log.d("FilamentView", "doFrame called with frameTimeNanos: $frameTimeNanos")
-            filament?.updateCameraTransform()
+           filament?.updateCameraTransform()
             filament?.render()
             choreographer.postFrameCallback(this)
         }
@@ -128,29 +136,195 @@ class FilamentView @JvmOverloads constructor(context: Context,
         this.planetNameTextView = planetNameTextView
     }
 
+    private val job = Job()
+    private val scope = CoroutineScope((Dispatchers.Main + job))
+    private val bufferCache = mutableMapOf<String, ByteBuffer?>()
 
-    override fun surfaceCreated(holder: SurfaceHolder) {
-        Log.d("FilamentView", "surfaceCreated called")
 
-        filament = FilamentHelper(context, holder.surface)
-        gestureHandler = GestureHandler(filament)
-        initializePlanets()
-        choreographer.postFrameCallback(frameCallback)
+    private suspend fun getCachedBuffer(fileName: String): ByteBuffer? {
+        return bufferCache[fileName] ?: withContext(Dispatchers.IO) {
+            val buffer = filament?.readAsset(context, fileName)
+            bufferCache[fileName] = buffer
+            buffer
+        }
     }
     private fun initializePlanets() {
-        val filament = this.filament ?: return
-        filament.loadBackground("sky_background.glb")
-        sun812 = filament.addPlanet("Sun.glb", "Sun", 0f, 0f, 0f, 0.1f, 0f, 0.0f, 0.4f)
-        mecury812 = filament.addPlanet("Mercury.glb", "Mercury", 2.0f, 0.2056f, 0.5f, 0.05f, 7.0f, 0.0f, 1.0f)
-        venus812 = filament.addPlanet("Venus.glb", "Venus", 3.7f, 0.0067f, 0.35f, 0.005f, 3.39f, 177.4f, -1.48f)
-        earth812 = filament.addPlanet("Earth.glb", "Earth", 5.0f, 0.0167f, 0.3f, 0.00525f, 0.00005f, 23.44f, 1.0f)
-        moon812 = filament.addPlanet("Moon.glb", "Moon", 130.9f, 0.0549f, 2.5f, 12f, 5.14f, 6.68f, 13.36f, parent = earth812)
-        mars812 = filament.addPlanet("Mars.glb", "Mars", 7.6f, 0.0934f, 0.33f, 0.371f, 1.85f, 25.19f, 1.02f)
-        jupiter812 = filament.addPlanet("Jupiter.glb", "Jupiter", 11f, 0.049f, 2.5f * 0.084f, 0.1f, 1.31f, 3.13f, 2.41f)
-        saturn812 = filament.addPlanet("Saturn.glb", "Saturn", 16f, 0.056f, 2.5f * 0.034f, 3f, 2.49f, 26.73f, 2.24f)
-        uranus812 = filament.addPlanet("Uranus.glb", "Uranus", 19.22f, 0.046f, 2.5f * 0.012f, 0.001f, 0.77f, 97.77f, 1.41f)
-        neptune812 = filament.addPlanet("Neptune.glb", "Neptune", 22f, 0.010f, 2.5f * 0.006f, 0.007f, 1.77f, 28.32f, 1.48f)
+        scope.launch{
+            try {
+                val sunBufferDeferred = async(Dispatchers.IO) { getCachedBuffer(  "Sun.glb")}
+                val mercuryBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Mercury.glb") }
+                val venusBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Venus.glb") }
+                val earthBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Earth.glb") }
+                val moonBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Moon.glb") }
+                val marsBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Mars.glb") }
+                val jupiterBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Jupiter.glb") }
+                val saturnBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Saturn.glb") }
+                val uranusBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Uranus.glb") }
+                val neptuneBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Neptune.glb") }
+
+
+                val sunBuffer = sunBufferDeferred.await()
+                val mercuryBuffer = mercuryBufferDeferred.await()
+                val venusBuffer = venusBufferDeferred.await()
+                val earthBuffer = earthBufferDeferred.await()
+                val moonBuffer = moonBufferDeferred.await()
+                val marsBuffer = marsBufferDeferred.await()
+                val jupiterBuffer = jupiterBufferDeferred.await()
+                val saturnBuffer = saturnBufferDeferred.await()
+                val uranusBuffer = uranusBufferDeferred.await()
+                val neptuneBuffer = neptuneBufferDeferred.await()
+
+                if (sunBuffer == null || mercuryBuffer == null || venusBuffer == null ||
+                    earthBuffer == null || moonBuffer == null || marsBuffer == null ||
+                    jupiterBuffer == null || saturnBuffer == null || uranusBuffer == null ||
+                    neptuneBuffer == null) {
+                    Log.e("initializePlanets", "Một hoặc nhiều buffer mô hình trống.")
+                    return@launch
+                }
+                filament?.let { filamentInstance ->
+                    // Tải nền
+                    filamentInstance.loadBackground("sky_background.glb")
+
+                    // Thêm các hành tinh
+                    sun812 = filamentInstance.addPlanet(
+                        fileName = "Sun.glb",
+                        name = "Sun",
+                        orbitRadiusA = 0f,
+                        eccentricity = 0f,
+                        orbitSpeed = 0f,
+                        scale = 0.1f,
+                        inclination = 0f,
+                        axisTilt = 0.0f,
+                        rotationSpeed = 0.4f,
+                        buffer = sunBuffer
+                    )
+
+                    mecury812 = filamentInstance.addPlanet(
+                        fileName = "Mercury.glb",
+                        name = "Mercury",
+                        orbitRadiusA = 2.0f,
+                        eccentricity = 0.2056f,
+                        orbitSpeed = 0.5f,
+                        scale = 0.05f,
+                        inclination = 7.0f,
+                        axisTilt = 0.0f,
+                        rotationSpeed = 1.0f,
+                        buffer = mercuryBuffer
+                    )
+
+                    venus812 = filamentInstance.addPlanet(
+                        fileName = "Venus.glb",
+                        name = "Venus",
+                        orbitRadiusA = 3.7f,
+                        eccentricity = 0.0067f,
+                        orbitSpeed = 0.35f,
+                        scale = 0.005f,
+                        inclination = 3.39f,
+                        axisTilt = 177.4f,
+                        rotationSpeed = -1.48f,
+                        buffer = venusBuffer
+                    )
+
+                    earth812 = filamentInstance.addPlanet(
+                        fileName = "Earth.glb",
+                        name = "Earth",
+                        orbitRadiusA = 5.0f,
+                        eccentricity = 0.0167f,
+                        orbitSpeed = 0.3f,
+                        scale = 0.00525f,
+                        inclination = 0.00005f,
+                        axisTilt = 23.44f,
+                        rotationSpeed = 1.0f,
+                        buffer = earthBuffer
+                    )
+
+                    moon812 = filamentInstance.addPlanet(
+                        fileName = "Moon.glb",
+                        name = "Moon",
+                        orbitRadiusA = 130.9f,
+                        eccentricity = 0.0549f,
+                        orbitSpeed = 2.5f,
+                        scale = 12f,
+                        inclination = 5.14f,
+                        axisTilt = 6.68f,
+                        rotationSpeed = 13.36f,
+                        parent = earth812,
+                        buffer = moonBuffer
+                    )
+
+                    mars812 = filamentInstance.addPlanet(
+                        fileName = "Mars.glb",
+                        name = "Mars",
+                        orbitRadiusA = 7.6f,
+                        eccentricity = 0.0934f,
+                        orbitSpeed = 0.33f,
+                        scale = 0.371f,
+                        inclination = 1.85f,
+                        axisTilt = 25.19f,
+                        rotationSpeed = 1.02f,
+                        buffer = marsBuffer
+                    )
+
+                    jupiter812 = filamentInstance.addPlanet(
+                        fileName = "Jupiter.glb",
+                        name = "Jupiter",
+                        orbitRadiusA = 11f,
+                        eccentricity = 0.049f,
+                        orbitSpeed = 2.5f * 0.084f,
+                        scale = 0.1f,
+                        inclination = 1.31f,
+                        axisTilt = 3.13f,
+                        rotationSpeed = 2.41f,
+                        buffer = jupiterBuffer
+                    )
+
+                    saturn812 = filamentInstance.addPlanet(
+                        fileName = "Saturn.glb",
+                        name = "Saturn",
+                        orbitRadiusA = 16f,
+                        eccentricity = 0.056f,
+                        orbitSpeed = 2.5f * 0.034f,
+                        scale = 3f,
+                        inclination = 2.49f,
+                        axisTilt = 26.73f,
+                        rotationSpeed = 2.24f,
+                        buffer = saturnBuffer
+                    )
+
+                    uranus812 = filamentInstance.addPlanet(
+                        fileName = "Uranus.glb",
+                        name = "Uranus",
+                        orbitRadiusA = 19.22f,
+                        eccentricity = 0.046f,
+                        orbitSpeed = 2.5f * 0.012f,
+                        scale = 0.001f,
+                        inclination = 0.77f,
+                        axisTilt = 97.77f,
+                        rotationSpeed = 1.41f,
+                        buffer = uranusBuffer
+                    )
+
+                    neptune812 = filamentInstance.addPlanet(
+                        fileName = "Neptune.glb",
+                        name = "Neptune",
+                        orbitRadiusA = 22f,
+                        eccentricity = 0.010f,
+                        orbitSpeed = 2.5f * 0.006f,
+                        scale = 0.007f,
+                        inclination = 1.77f,
+                        axisTilt = 28.32f,
+                        rotationSpeed = 1.48f,
+                        buffer = neptuneBuffer
+                    )
+                }
+            }catch (e : Exception){
+                Log.e("initializePlanets", "Error initializing planets: ${e.message}", e)
+
+            }
+        }
     }
+
+
 
     private fun handleSingleTap(x: Float, y: Float) {
         val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
@@ -185,41 +359,49 @@ class FilamentView @JvmOverloads constructor(context: Context,
             }
         }
         targetPlanet = sun812
+
         post{
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
             miniFilamentHelper?.clearPlanetModel()
         }
     }
+    override fun surfaceCreated(holder: SurfaceHolder){
+        filament = FilamentHelper(context , holder.surface)
+        gestureHandler = GestureHandler(filament)
+        initializePlanets()
+        startRendering()
+    }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-        Log.d("FilamentView", "surfaceChanged called: width=$width, height=$height")
         filament?.resize(width,height)
         filament?.let {
-
-
             choreographer.removeFrameCallback(frameCallback)
-
-
             it.destroySwapChain()
             it.createSwapChain(holder.surface)
             it.resize(width, height)
             it.updateScreenSize(width, height)
-            choreographer.postFrameCallback(frameCallback)
         }
+        choreographer.postFrameCallback(frameCallback)
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        Log.d("FilamentView", "surfaceDestroyed called")
-        choreographer.removeFrameCallback(frameCallback)
+        stopRendering()
         filament?.destroy()
         filament = null
     }
 
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        gestureDetector.onTouchEvent(event)
-        gestureHandler.handleTouch(event)
-        return true
+
+        return gestureDetector.onTouchEvent(event) || gestureHandler.handleTouch(event)
     }
+
+    private fun startRendering(){
+     choreographer.postFrameCallback(frameCallback)
+    }
+    private fun stopRendering(){
+        choreographer.removeFrameCallback(frameCallback)
+    }
+
 }
