@@ -231,6 +231,79 @@
             camera.setProjection(45.0, aspect, 0.1, 1000.0, Camera.Fov.VERTICAL)
         }
 
+        fun updatePlanetTransforms() {
+            val currentTime = System.currentTimeMillis()
+            val deltaTime = currentTime - lastUpdateTime
+
+            // Giới hạn cập nhật để tránh tính toán quá nhiều (ví dụ: cập nhật mỗi 16ms ~ 60fps)
+            if (deltaTime < 16) return
+
+            lastUpdateTime = currentTime
+
+            for (planet in planets) {
+                // Nếu cờ dirtyFlag bật hoặc deltaTime đã đủ, thực hiện cập nhật
+                if (planet.dirtyFlag) {
+                    val transformManager = engine.transformManager
+                    val rootEntity = planet.asset.root
+                    val instance = transformManager.getInstance(rootEntity)
+                    if (instance != 0) {
+                        val transformMatrix = FloatArray(16)
+                        Matrix.setIdentityM(transformMatrix, 0)
+
+                        // Tính toán vị trí mới dựa trên quỹ đạo
+                        val angleInRadians = Math.toRadians(planet.angle.toDouble())
+                        val x: Float
+                        val z: Float
+                        val y = 0.0f
+
+                        if (planet.parent == null) {
+                            val c = planet.orbitRadiusA * planet.eccentricity
+                            x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
+                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
+                        } else {
+                            x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
+                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
+                        }
+
+                        Matrix.translateM(transformMatrix, 0, x, y, z)
+
+                        // Áp dụng nghiêng quỹ đạo
+                        if (planet.inclination != 0.0f) {
+                            val inclinationMatrix = FloatArray(16)
+                            Matrix.setIdentityM(inclinationMatrix, 0)
+                            Matrix.rotateM(inclinationMatrix, 0, planet.inclination, 0.0f, 0.0f, 1.0f)
+                            Matrix.multiplyMM(transformMatrix, 0, inclinationMatrix, 0, transformMatrix, 0)
+                        }
+
+                        // Tính toán ma trận tự quay quanh trục Y
+                        val rotationMatrix = FloatArray(16)
+                        Matrix.setIdentityM(rotationMatrix, 0)
+                        Matrix.rotateM(rotationMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
+
+                        // Tạo ma trận scale
+                        val scaleMatrix = FloatArray(16)
+                        Matrix.setIdentityM(scaleMatrix, 0)
+                        Matrix.scaleM(scaleMatrix, 0, planet.scale, planet.scale, planet.scale)
+
+                        // Kết hợp các ma trận: rotation * scale
+                        val modelMatrix = FloatArray(16)
+                        Matrix.multiplyMM(modelMatrix, 0, rotationMatrix, 0, scaleMatrix, 0)
+
+                        // Kết hợp với ma trận dịch chuyển
+                        Matrix.multiplyMM(transformMatrix, 0, transformMatrix, 0, modelMatrix, 0)
+
+                        // Thiết lập biến đổi cho hành tinh
+                        transformManager.setTransform(instance, transformMatrix)
+
+                        // Đặt lại cờ sau khi cập nhật
+                        planet.dirtyFlag = false
+                    }
+                }
+            }
+        }
+
+
+
         fun render() {
             if (swapChain == null) {
                 Log.e("FilamentHelper", "SwapChain is null, cannot render.")
@@ -323,12 +396,16 @@
                 assetLoader.destroyAsset(asset!!)
                 asset = null
             }
+
+            planets.forEach {
+                planets -> assetLoader.destroyAsset(planets.asset)
+            }
+            planets.clear()
+
+
             assetLoader.destroy()
             resourceLoader.destroy()
-
-
             backgroundLoader.destroy()
-
             engine.destroyRenderer(renderer)
             engine.destroyView(view)
             engine.destroyScene(scene)

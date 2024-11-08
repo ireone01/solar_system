@@ -49,6 +49,8 @@ var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
 var transitionStartTime = 0L
 val transitionDuration = 1000L
 var isTransitioning = false
+var lastUpdateTime : Long = System.currentTimeMillis()
+
 var targetPlanet: Planet? = null
     set(value) {
         if (field != value) {
