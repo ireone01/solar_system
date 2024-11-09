@@ -1,9 +1,5 @@
 package com.example.solar_system_scope_app
 
-import com.google.android.filament.Engine
-import com.google.android.filament.EntityManager
-import com.google.android.filament.LightManager
-import com.google.android.filament.Scene
 import com.google.android.filament.gltfio.FilamentAsset
 
 data class Planet(
@@ -21,7 +17,8 @@ data class Planet(
     var rotation: Float = 0.0f,
     var rotationSpeed: Float = 1.0f,
     val parent: Planet? = null,
-    var dirtyFlag: Boolean = true
+    var dirtyFlag: Boolean = true,
+    var transformMatrix : FloatArray= FloatArray(16)
 ) {
    fun getPosition(): FloatArray {
         // Tính toán vị trí của hành tinh trong không gian 3D
@@ -41,9 +38,10 @@ data class Planet(
         }
     }
 
+
+    // Cập nhật góc quỹ đạo dựa trên tốc độ quỹ đạo và thời gian
     fun updateOrbit(deltaTime: Float) {
-        // Cập nhật góc quỹ đạo dựa trên tốc độ quỹ đạo và thời gian
-        angle = (angle + orbitSpeed * deltaTime) % 360
+           angle = (angle + orbitSpeed * deltaTime) % 360
     }
 
 

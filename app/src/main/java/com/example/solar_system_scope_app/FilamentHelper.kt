@@ -8,14 +8,15 @@
     import android.os.Looper
     import android.util.Log
     import android.view.Surface
-    import androidx.core.graphics.rotationMatrix
-    import androidx.core.graphics.translationMatrix
-    import androidx.core.os.HandlerCompat.postDelayed
     import com.google.android.filament.*
-    import com.google.android.filament.filamat.MaterialBuilder
     import com.google.android.filament.gltfio.*
-    import com.google.android.filament.utils.Float4
-    import com.google.android.filament.utils.Ray
+    import com.google.android.filament.utils.distance
+    import kotlinx.coroutines.CoroutineScope
+    import kotlinx.coroutines.Dispatchers
+    import kotlinx.coroutines.GlobalScope
+    import kotlinx.coroutines.coroutineScope
+    import kotlinx.coroutines.launch
+    import kotlinx.coroutines.withContext
     import java.io.IOException
     import java.nio.ByteBuffer
     import java.nio.ByteOrder
@@ -54,8 +55,25 @@
         private var screenHeight: Float = 0f
 
 
+        var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
+        var transitionStartTime = 0L
+        val transitionDuration = 1000L
+        var isTransitioning = false
+        var lastUpdateTime : Long = System.currentTimeMillis()
 
+        var targetPlanet: Planet? = null
+            set(value) {
+                if (field != value) {
+                    previousTargetPosition = currentTargetPosition.copyOf()
+                    targetTargetPosition = value?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
+                    transitionStartTime = System.currentTimeMillis()
+                    isTransitioning = true
+                    field = value
 
+                }
+            }
         private val backgroundLoader : BackgroundLoader
 
         init {
@@ -231,89 +249,16 @@
             camera.setProjection(45.0, aspect, 0.1, 1000.0, Camera.Fov.VERTICAL)
         }
 
-        fun updatePlanetTransforms() {
-            val currentTime = System.currentTimeMillis()
-            val deltaTime = currentTime - lastUpdateTime
-
-            // Giới hạn cập nhật để tránh tính toán quá nhiều (ví dụ: cập nhật mỗi 16ms ~ 60fps)
-            if (deltaTime < 16) return
-
-            lastUpdateTime = currentTime
-
-            for (planet in planets) {
-                // Nếu cờ dirtyFlag bật hoặc deltaTime đã đủ, thực hiện cập nhật
-                if (planet.dirtyFlag) {
-                    val transformManager = engine.transformManager
-                    val rootEntity = planet.asset.root
-                    val instance = transformManager.getInstance(rootEntity)
-                    if (instance != 0) {
-                        val transformMatrix = FloatArray(16)
-                        Matrix.setIdentityM(transformMatrix, 0)
-
-                        // Tính toán vị trí mới dựa trên quỹ đạo
-                        val angleInRadians = Math.toRadians(planet.angle.toDouble())
-                        val x: Float
-                        val z: Float
-                        val y = 0.0f
-
-                        if (planet.parent == null) {
-                            val c = planet.orbitRadiusA * planet.eccentricity
-                            x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
-                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-                        } else {
-                            x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
-                            z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-                        }
-
-                        Matrix.translateM(transformMatrix, 0, x, y, z)
-
-                        // Áp dụng nghiêng quỹ đạo
-                        if (planet.inclination != 0.0f) {
-                            val inclinationMatrix = FloatArray(16)
-                            Matrix.setIdentityM(inclinationMatrix, 0)
-                            Matrix.rotateM(inclinationMatrix, 0, planet.inclination, 0.0f, 0.0f, 1.0f)
-                            Matrix.multiplyMM(transformMatrix, 0, inclinationMatrix, 0, transformMatrix, 0)
-                        }
-
-                        // Tính toán ma trận tự quay quanh trục Y
-                        val rotationMatrix = FloatArray(16)
-                        Matrix.setIdentityM(rotationMatrix, 0)
-                        Matrix.rotateM(rotationMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
-
-                        // Tạo ma trận scale
-                        val scaleMatrix = FloatArray(16)
-                        Matrix.setIdentityM(scaleMatrix, 0)
-                        Matrix.scaleM(scaleMatrix, 0, planet.scale, planet.scale, planet.scale)
-
-                        // Kết hợp các ma trận: rotation * scale
-                        val modelMatrix = FloatArray(16)
-                        Matrix.multiplyMM(modelMatrix, 0, rotationMatrix, 0, scaleMatrix, 0)
-
-                        // Kết hợp với ma trận dịch chuyển
-                        Matrix.multiplyMM(transformMatrix, 0, transformMatrix, 0, modelMatrix, 0)
-
-                        // Thiết lập biến đổi cho hành tinh
-                        transformManager.setTransform(instance, transformMatrix)
-
-                        // Đặt lại cờ sau khi cập nhật
-                        planet.dirtyFlag = false
-                    }
-                }
-            }
-        }
-
-
-
-        fun render() {
+         fun render() {
             if (swapChain == null) {
                 Log.e("FilamentHelper", "SwapChain is null, cannot render.")
                 return
             }
-
-            try {
                 val frametime = System.nanoTime()
                 Log.d("FilamentHelper", "Bắt đầu render, frameTimeNanos: $frametime")
 
+
+            CoroutineScope(Dispatchers.Default).launch{
                 // Cập nhật và xoay các hành tinh trước khi bắt đầu frame
                 for (planet in planets) {
                     // Cập nhật góc quỹ đạo và tự quay
@@ -322,8 +267,7 @@
 
                     val transformManager = engine.transformManager
                     val rootEntity = planet.asset.root
-                    val instance = transformManager.getInstance(rootEntity)
-                    if (instance != 0) {
+
                         // Tính toán transform cục bộ
                         val transformMatrix = FloatArray(16)
                         Matrix.setIdentityM(transformMatrix, 0)
@@ -369,23 +313,29 @@
 
                         // Kết hợp với ma trận dịch chuyển
                         Matrix.multiplyMM(transformMatrix, 0, transformMatrix, 0, modelMatrix, 0)
+                        planet.transformMatrix = transformMatrix
 
-                        // Thiết lập biến đổi cho hành tinh
-                        transformManager.setTransform(instance, transformMatrix)
+                }
+                withContext(Dispatchers.Main){
+                    for (planet in planets){
+                        val transformManager = engine.transformManager
+                        val rootEntity = planet.asset.root
+                        val instance = transformManager.getInstance(rootEntity)
+                        if(instance !=0){
+                            transformManager.setTransform(instance , planet.transformMatrix)
+                        }
+                    }
 
-                        updateCameraTransform()
+                    updateCameraTransform()
+
+                    if (renderer.beginFrame(swapChain, frametime)) {
+                        renderer.render(view)
+                        renderer.endFrame()
+                    } else {
+                        Log.e("FilamentHelper", "beginFrame thất bại")
                     }
                 }
-
-                if (renderer.beginFrame(swapChain, frametime)) {
-                    renderer.render(view)
-                    renderer.endFrame()
-                } else {
-                    Log.e("FilamentHelper", "beginFrame thất bại")
                 }
-            } catch (e: Exception) {
-                Log.e("FilamentHelper", "Lỗi trong render: ${e.message}", e)
-            }
         }
 
 
@@ -461,48 +411,63 @@
         }
 
         fun updateCameraTransform() {
-            val currentTime = System.currentTimeMillis()
-            val elapsedTime = currentTime - transitionStartTime
 
-            if (isTransitioning) {
-                if (elapsedTime < transitionDuration) {
-                    val t = elapsedTime.toFloat() / transitionDuration.toFloat()
-                    val easedT = easeInOutQuad(t)
+            GlobalScope.launch(Dispatchers.Default) {
+                val currentTime = System.currentTimeMillis()
+                val elapsedTime = currentTime - transitionStartTime
 
-                    // Nội suy vị trí mục tiêu hiện tại
-                    currentTargetPosition[0] = previousTargetPosition[0] * (1 - easedT) + targetTargetPosition[0] * easedT
-                    currentTargetPosition[1] = previousTargetPosition[1] * (1 - easedT) + targetTargetPosition[1] * easedT
-                    currentTargetPosition[2] = previousTargetPosition[2] * (1 - easedT) + targetTargetPosition[2] * easedT
+                if (isTransitioning) {
+                    if (elapsedTime < transitionDuration) {
+                        val t = elapsedTime.toFloat() / transitionDuration.toFloat()
+                        val easedT = easeInOutQuad(t)
+
+                        // Nội suy vị trí mục tiêu hiện tại
+                        currentTargetPosition[0] =
+                            previousTargetPosition[0] * (1 - easedT) + targetTargetPosition[0] * easedT
+                        currentTargetPosition[1] =
+                            previousTargetPosition[1] * (1 - easedT) + targetTargetPosition[1] * easedT
+                        currentTargetPosition[2] =
+                            previousTargetPosition[2] * (1 - easedT) + targetTargetPosition[2] * easedT
+                    } else {
+                        // Hoàn thành chuyển tiếp
+                        currentTargetPosition = targetTargetPosition.copyOf()
+                        isTransitioning = false
+                    }
+
                 } else {
-                    // Hoàn thành chuyển tiếp
-                    currentTargetPosition = targetTargetPosition.copyOf()
-                    isTransitioning = false
+                    // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
+                    targetPlanet?.let { planet ->
+                        currentTargetPosition = planet.getPosition()
+                    }
                 }
 
-            } else {
-                // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
-                targetPlanet?.let { planet ->
-                    currentTargetPosition = planet.getPosition()
+                // Tính toán vị trí camera dựa trên currentTargetPosition
+                val radX = Math.toRadians(cameraRotationX.toDouble())
+                val radY = Math.toRadians(cameraRotationY.toDouble())
+
+                val camX =
+                    (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
+                val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
+                val camZ =
+                    (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
+
+                // Cập nhật hướng nhìn của camera
+                withContext(Dispatchers.Main) {
+                    camera.lookAt(
+                        camX.toDouble(),
+                        camY.toDouble(),
+                        camZ.toDouble(),
+                        currentTargetPosition[0].toDouble(),
+                        currentTargetPosition[1].toDouble(),
+                        currentTargetPosition[2].toDouble(),
+                        0.0,
+                        1.0,
+                        0.0  // Hướng lên trên
+                    )
                 }
             }
 
-            // Tính toán vị trí camera dựa trên currentTargetPosition
-            val radX = Math.toRadians(cameraRotationX.toDouble())
-            val radY = Math.toRadians(cameraRotationY.toDouble())
-
-            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
-            val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
-            val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
-
-            // Cập nhật hướng nhìn của camera
-            camera.lookAt(
-                camX.toDouble(), camY.toDouble(), camZ.toDouble(),
-                currentTargetPosition[0].toDouble(), currentTargetPosition[1].toDouble(), currentTargetPosition[2].toDouble(),
-                0.0, 1.0, 0.0  // Hướng lên trên
-            )
         }
-
-
         private val renderHandler  = Handler(Looper.getMainLooper())
         @SuppressLint("SuspiciousIndentation")
         fun addPlanet(fileName: String,
@@ -567,7 +532,8 @@
             planets.add(planet)
 
             if(parent == null){
-            val (vertexData, indexData) = createOrbitRing(orbitRadiusA, orbitRadiusB,eccentricity, thickness = 0.02f, verticalThickness = 0.01f)
+                val  segments = getSegmentsForOrbit(cameraDistance)
+                val (vertexData, indexData) = createOrbitRing(orbitRadiusA, orbitRadiusB,eccentricity, segments,thickness = 0.02f, verticalThickness = 0.01f)
             val (vertexBuffer, indexBuffer) = createOrbitBuffers(engine, vertexData, indexData)
             val orbitMaterialInstance = createOrbitMaterial(engine)
             if(orbitMaterialInstance !=null) {
@@ -587,11 +553,13 @@
             }
 
                 } else {
-                // Nếu hành tinh có parent, bạn có thể thêm quỹ đạo quanh hành tinh cha nếu muốn
+                // Nếu hành tinh có parent
+                val  segments = getSegmentsForOrbit(cameraDistance)
                 val (vertexData, indexData) = createOrbitRing(
                     orbitRadiusA,
                     orbitRadiusB,
                     eccentricity,
+                    segments,
                     thickness = 0.05f, // Nhỏ hơn quỹ đạo của các hành tinh quanh Mặt Trời
                     verticalThickness = 0.05f
                 )
@@ -629,7 +597,7 @@
 
 
 
-
+        private val orbitRingCache = mutableMapOf<String,Pair<FloatArray,ShortArray>>()
         fun createOrbitRing(
             orbitRadiusA: Float,
             orbitRadiusB: Float,
@@ -638,6 +606,12 @@
             thickness: Float = 0.01f,
             verticalThickness: Float = 0.01f // Độ dày theo trục Y
         ): Pair<FloatArray, ShortArray> {
+
+            val cacheKey = "$orbitRadiusA - $orbitRadiusB - $eccentricity - $segments - $thickness - $verticalThickness"
+            orbitRingCache[cacheKey]?.let {
+                return it
+            }
+
             val vertexCount = (segments + 1) * 4 // Mỗi segment có 4 đỉnh (top outer, top inner, bottom outer, bottom inner)
             val vertexData = FloatArray(vertexCount * 3) // Mỗi đỉnh có 3 giá trị (x, y, z)
             val indexCount = segments * 18
@@ -649,6 +623,15 @@
             var indexIndex = 0
 
             val halfHeight = verticalThickness / 2
+
+            val cosValue = FloatArray(segments + 1)
+            val sinValue = FloatArray(segments + 1)
+            for(i in 0..segments){
+                val angle = (2.0 * Math.PI * i / segments).toFloat()
+                cosValue[i] = Math.cos(angle.toDouble()).toFloat()
+                sinValue[i] = Math.sin(angle.toDouble()).toFloat()
+            }
+
 
             for (i in 0..segments) {
                 val angle = (2.0 * Math.PI * i / segments).toFloat()
@@ -713,11 +696,19 @@
                 indexData[indexIndex++] = (start + 7).toShort()
                 indexData[indexIndex++] = (start + 3).toShort()
             }
-
-            return Pair(vertexData, indexData)
+            val result = Pair(vertexData, indexData)
+            orbitRingCache[cacheKey] = result
+            return result
         }
 
-
+        fun getSegmentsForOrbit(cameraDistance: Float): Int {
+            return when {
+                cameraDistance < 5f -> 100
+                cameraDistance < 10f -> 70
+                cameraDistance < 30f ->40
+                else -> 20
+            }
+        }
 
 
         fun createOrbitBuffers(

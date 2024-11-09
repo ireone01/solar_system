@@ -43,25 +43,7 @@ lateinit var uranus812 : Planet
 lateinit var neptune812 : Planet
 lateinit var venus812 : Planet
 
-var currentTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-var previousTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-var targetTargetPosition = floatArrayOf(0.0f, 0.0f, 0.0f)
-var transitionStartTime = 0L
-val transitionDuration = 1000L
-var isTransitioning = false
-var lastUpdateTime : Long = System.currentTimeMillis()
 
-var targetPlanet: Planet? = null
-    set(value) {
-        if (field != value) {
-            previousTargetPosition = currentTargetPosition.copyOf()
-            targetTargetPosition = value?.getPosition() ?: floatArrayOf(0.0f, 0.0f, 0.0f)
-            transitionStartTime = System.currentTimeMillis()
-            isTransitioning = true
-            field = value
-
-        }
-    }
 
 // can sua may thang ghe phia tren
 class FilamentView @JvmOverloads constructor(context: Context,
@@ -88,6 +70,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
 
     private var miniFilamentHelper: MiniFilamentHelper? = null
+
 
 
 
@@ -348,7 +331,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
 
                 if (distance < touchThreshold) {
-                    targetPlanet = planet
+                    filament?.targetPlanet = planet
 
 
                     post {
@@ -360,7 +343,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                 }
             }
         }
-        targetPlanet = sun812
+        filament?.targetPlanet = sun812
 
         post{
             infoPanel?.visibility = View.GONE
