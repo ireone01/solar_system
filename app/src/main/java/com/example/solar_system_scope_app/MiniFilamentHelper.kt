@@ -2,6 +2,8 @@ package com.example.solar_system_scope_app
 
 import android.content.Context
 import android.opengl.Matrix
+import android.os.Handler
+import android.os.HandlerThread
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
@@ -11,7 +13,8 @@ import com.google.android.filament.utils.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class MiniFilamentHelper(private val context: Context, private val surface: Surface) {
+class MiniFilamentHelper(private val context: Context,
+                         private val surface: Surface) {
     private val engine = Engine.create()
     private var swapChain: SwapChain? = null
     private val renderer = engine.createRenderer()
@@ -20,12 +23,15 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private val camera = engine.createCamera(EntityManager.get().create())
     private var width = 0
     private var height = 0
-    private val choreographer = Choreographer.getInstance()
+    private lateinit var choreographer : Choreographer
 
     private var rotationAngle = 0.0f
     private var rotationSpeed = 0.5f  //  điều chỉnh tốc độ quay
     private var modelEntity: Int = 0  // Lưu trữ entity của mô hình
 
+
+    private val renderThread = HandlerThread("RenderThread")
+    private lateinit var renderHandler: Handler
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -57,19 +63,26 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
 
 
     fun init(width: Int, height: Int) {
-        swapChain = engine.createSwapChain(surface)
-        view.scene = scene
-        view.camera = camera
-        this.width = width
-        this.height = height
-        view.viewport = Viewport(0, 0, width, height)
-        camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
 
-        // Thêm ánh sáng vào scene
-        setupLighting()
+        renderThread.start()
+        renderHandler = Handler(renderThread.looper)
 
-        // Bắt đầu render loop
-        choreographer.postFrameCallback(frameCallback)
+        renderHandler.post {
+            choreographer = Choreographer.getInstance()
+            swapChain = engine.createSwapChain(surface)
+            view.scene = scene
+            view.camera = camera
+            this.width = width
+            this.height = height
+            view.viewport = Viewport(0, 0, width, height)
+            camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
+
+            // Thêm ánh sáng vào scene
+            setupLighting()
+
+            // Bắt đầu render loop
+            choreographer.postFrameCallback(frameCallback)
+        }
     }
 
     private fun setupLighting() {
