@@ -2,19 +2,21 @@ package com.example.solar_system_scope_app
 
 import android.content.Context
 import android.opengl.Matrix
-import android.os.Handler
-import android.os.HandlerThread
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class MiniFilamentHelper(private val context: Context,
-                         private val surface: Surface) {
+class MiniFilamentHelper(private val context: Context, private val surface: Surface) {
     private val engine = Engine.create()
     private var swapChain: SwapChain? = null
     private val renderer = engine.createRenderer()
@@ -23,15 +25,16 @@ class MiniFilamentHelper(private val context: Context,
     private val camera = engine.createCamera(EntityManager.get().create())
     private var width = 0
     private var height = 0
-    private lateinit var choreographer : Choreographer
+    private val choreographer = Choreographer.getInstance()
 
     private var rotationAngle = 0.0f
     private var rotationSpeed = 0.5f  //  điều chỉnh tốc độ quay
     private var modelEntity: Int = 0  // Lưu trữ entity của mô hình
 
 
-    private val renderThread = HandlerThread("RenderThread")
-    private lateinit var renderHandler: Handler
+    private val job = Job()
+    private val scope = CoroutineScope(Dispatchers.Main + job)
+
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -63,26 +66,19 @@ class MiniFilamentHelper(private val context: Context,
 
 
     fun init(width: Int, height: Int) {
+        swapChain = engine.createSwapChain(surface)
+        view.scene = scene
+        view.camera = camera
+        this.width = width
+        this.height = height
+        view.viewport = Viewport(0, 0, width, height)
+        camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
 
-        renderThread.start()
-        renderHandler = Handler(renderThread.looper)
+        // Thêm ánh sáng vào scene
+        setupLighting()
 
-        renderHandler.post {
-            choreographer = Choreographer.getInstance()
-            swapChain = engine.createSwapChain(surface)
-            view.scene = scene
-            view.camera = camera
-            this.width = width
-            this.height = height
-            view.viewport = Viewport(0, 0, width, height)
-            camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
-
-            // Thêm ánh sáng vào scene
-            setupLighting()
-
-            // Bắt đầu render loop
-            choreographer.postFrameCallback(frameCallback)
-        }
+        // Bắt đầu render loop
+        choreographer.postFrameCallback(frameCallback)
     }
 
     private fun setupLighting() {
@@ -101,9 +97,9 @@ class MiniFilamentHelper(private val context: Context,
 
     }
 
-    private fun readAsset(context: Context, fileName: String): ByteArray {
+    private suspend fun readAsset(context: Context, fileName: String): ByteArray= withContext(Dispatchers.IO) {
         context.assets.open(fileName).use { input ->
-            return input.readBytes()
+             input.readBytes()
         }
     }
 
@@ -115,35 +111,50 @@ class MiniFilamentHelper(private val context: Context,
             engine.destroyEntity(entity)
         }
 
+
         setupLighting()
-        // Tải mô hình của hành tinh
-        val buffer = readAsset(context, "${planet.name}.glb")
 
-      val materialProvider = UbershaderProvider(engine)
-        // Tạo và tải asset
-        val assetLoader = AssetLoader(engine, materialProvider, EntityManager.get())
-        val asset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
+        scope.launch {
+            // Tải mô hình của hành tinh
+            val buffer = withContext(Dispatchers.IO) {
+                getModelBuffer("${planet.name}.glb")
+            }
+            withContext(Dispatchers.Main){
+            val materialProvider = UbershaderProvider(engine)
+            // Tạo và tải asset
+            val assetLoader = AssetLoader(engine, materialProvider, EntityManager.get())
+            val asset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
 
 
-        if (asset == null) {
-            Log.e("MiniFilamentHelper", "Không thể tạo asset cho hành tinh: ${planet.name}")
-            return
+            if (asset == null) {
+                Log.e("MiniFilamentHelper", "Không thể tạo asset cho hành tinh: ${planet.name}")
+                return@withContext
+            }
+
+
+            val resourceLoader = ResourceLoader(engine)
+            resourceLoader.loadResources(asset)
+            resourceLoader.destroy()
+
+
+
+                // Thêm entities vào scene
+                scene.addEntities(asset.entities)
+                Log.d("MiniFilamentHelper", "Số lượng Entity trong Scene: ${scene.entities.size}")
+
+                modelEntity = asset.root
+                // Đặt camera nhìn vào mô hình
+                frameModel(asset)
+            }
         }
-
-
-        val resourceLoader = ResourceLoader(engine)
-        resourceLoader.loadResources(asset)
-        resourceLoader.destroy()
-
-        // Thêm entities vào scene
-        scene.addEntities(asset.entities)
-        Log.d("MiniFilamentHelper", "Số lượng Entity trong Scene: ${scene.entities.size}")
-
-        modelEntity = asset.root
-        // Đặt camera nhìn vào mô hình
-        frameModel(asset)
     }
+    private val modelCatch = mutableMapOf<String, ByteArray>()
 
+    private suspend fun getModelBuffer(fileName: String):ByteArray? {
+        return modelCatch[fileName] ?: readAsset(context, fileName).also {
+            modelCatch[fileName] = it
+        }
+    }
     fun clearPlanetModel() {
         // Kiểm tra xem scene có entities không
         val entities = scene.entities
@@ -196,6 +207,7 @@ class MiniFilamentHelper(private val context: Context,
 
     fun destroy() {
         choreographer.removeFrameCallback(frameCallback)
+        job.cancel()
         engine.destroy()
     }
 }

@@ -50,7 +50,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                                              attrs: AttributeSet? = null)
     : SurfaceView(context,attrs), SurfaceHolder.Callback {
 
-        var filament: FilamentHelper? = null
+    var filament: FilamentHelper? = null
 
 
     private val choreographer = Choreographer.getInstance()
@@ -84,7 +84,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
-           filament?.updateCameraTransform()
+            filament?.updateCameraTransform()
             filament?.render()
             choreographer.postFrameCallback(this)
         }
@@ -383,10 +383,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
     }
 
     private fun startRendering(){
-     choreographer.postFrameCallback(frameCallback)
+        choreographer.postFrameCallback(frameCallback)
     }
     private fun stopRendering(){
         choreographer.removeFrameCallback(frameCallback)
     }
 
 }
+// nhớ phải hủy các coroutine scope

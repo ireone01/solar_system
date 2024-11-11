@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun surfaceDestroyed(p0: SurfaceHolder) {
                 Log.d("MainActivityxxx", "surfaceDestroyed của miniPlanetView được gọi")
-               miniFilamentHelper.destroy()
+                miniFilamentHelper.destroy()
             }
 
         })
