@@ -2,6 +2,7 @@ package com.example.solar_system_scope_app
 
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Choreographer
@@ -312,7 +313,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     private fun handleSingleTap(x: Float, y: Float) {
         val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
-
+        val fragmentContainer : View = (context as MainActivity).findViewById(R.id.fragment_container)
 
         val clickedPlanet = planets.minByOrNull { planet ->
             val planetScreenPos = filament?.getScreenPosition(planet) ?: return@minByOrNull Float.MAX_VALUE
@@ -332,8 +333,9 @@ class FilamentView @JvmOverloads constructor(context: Context,
                 if (distance < touchThreshold) {
                     filament?.targetPlanet = planet
 
-
                     post {
+
+
                         planetNameTextView?.text = planet.name
                         infoPanel?.visibility = View.VISIBLE
                         miniFilamentHelper?.loadPlanetModel(planet)
@@ -348,6 +350,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
             miniFilamentHelper?.clearPlanetModel()
+            fragmentContainer.visibility = GONE
+
         }
     }
     override fun surfaceCreated(holder: SurfaceHolder){

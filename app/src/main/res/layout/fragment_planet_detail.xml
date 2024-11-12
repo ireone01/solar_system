@@ -1,0 +1,51 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#88000000"
+    android:id="@+id/fragment_container">
+
+    <!-- Tiêu đề của hành tinh -->
+    <TextView
+        android:id="@+id/planetNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Tên Hành Tinh"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF" />
+
+    <!-- Các nút thông tin chi tiết -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/planetNameTextView"
+        android:layout_marginTop="20dp">
+
+        <!-- Nút Thăm Quan -->
+        <Button
+            android:id="@+id/exploreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thăm Quan" />
+
+        <!-- Nút Bách Khoa Toàn Thư -->
+        <Button
+            android:id="@+id/encyclopediaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bách Khoa Toàn Thư"
+            android:layout_marginTop="10dp" />
+
+        <!-- Nút Cấu Trúc -->
+        <Button
+            android:id="@+id/structureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cấu Trúc"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+</RelativeLayout>

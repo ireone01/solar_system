@@ -4,7 +4,10 @@ import android.content.Context
 import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
+import android.view.MotionEvent
 import android.view.Surface
+import android.view.SurfaceView
+import android.view.View.OnClickListener
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.*
@@ -16,7 +19,8 @@ import kotlinx.coroutines.withContext
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class MiniFilamentHelper(private val context: Context, private val surface: Surface) {
+class MiniFilamentHelper(private val context: Context, private val surfaceView: SurfaceView,
+                        ) {
     private val engine = Engine.create()
     private var swapChain: SwapChain? = null
     private val renderer = engine.createRenderer()
@@ -30,12 +34,29 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private var rotationAngle = 0.0f
     private var rotationSpeed = 0.5f  //  điều chỉnh tốc độ quay
     private var modelEntity: Int = 0  // Lưu trữ entity của mô hình
-
+    var planetName: String? = null
 
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     private var lightEntity : Int = 0
+
+    init {
+        surfaceView.setOnTouchListener { _, motionEvent ->
+            if(motionEvent.action == MotionEvent.ACTION_DOWN){
+                onClickListener?.invoke("Earth") // can sua cai nay
+                true
+            }else{
+                false
+            }
+        }
+    }
+    private var onClickListener: ((String) -> Unit)? = null
+
+    fun setClinkListener(listener: (String) -> Unit){
+        onClickListener= listener
+    }
+
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -51,6 +72,8 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
             choreographer.postFrameCallback(this)
         }
     }
+
+
     private fun updateModelTransform() {
         val transformManager = engine.transformManager
         val instance = transformManager.getInstance(modelEntity)
@@ -67,6 +90,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
 
 
     fun init(width: Int, height: Int) {
+        val surface = surfaceView.holder.surface
         swapChain = engine.createSwapChain(surface)
         view.scene = scene
         view.camera = camera

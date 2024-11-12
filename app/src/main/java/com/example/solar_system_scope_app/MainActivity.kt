@@ -1,5 +1,6 @@
 package com.example.solar_system_scope_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
@@ -34,12 +35,32 @@ class MainActivity : AppCompatActivity() {
         miniPlanetView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
                 Log.d("MainActivityxxx", "surfaceCreated của miniPlanetView được gọi")
-                miniFilamentHelper = MiniFilamentHelper(this@MainActivity , holder.surface)
+                miniFilamentHelper = MiniFilamentHelper(this@MainActivity ,miniPlanetView)
                 val width = miniPlanetView.width
                 val height = miniPlanetView.height
                 miniFilamentHelper.init(width,height)
 
                 filamentView.setMiniFilamentHelper(miniFilamentHelper)
+                miniFilamentHelper.setClinkListener { planetName ->
+                    var namePlanet = planetNameTextView.text
+                    val fragmentContainer : View = findViewById(R.id.fragment_container)
+                    fragmentContainer.visibility = View.VISIBLE
+                    // Tạo một đối tượng Fragment mới
+                    val detailFragment = PlanetDetailFragment()
+
+                    // Truyền dữ liệu về hành tinh
+                    val bundle = Bundle()
+                    bundle.putString("PLANET_NAME", namePlanet.toString())
+                    detailFragment.arguments = bundle
+
+                    // Thay thế Fragment hiện tại bằng PlanetDetailFragment
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, detailFragment) // `fragment_container` là id của ViewGroup nơi bạn muốn thay thế Fragment
+                        .addToBackStack(null) // Cho phép quay lại Fragment trước đó
+                        .commit()
+                    planetNameTextView.text = ""
+                }
+
 
             }
 
