@@ -9,7 +9,6 @@ import android.view.GestureDetector
 
 
 import android.view.MotionEvent
-import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
@@ -374,6 +373,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
         stopRendering()
         filament?.destroy()
         filament = null
+        bufferCache.clear()
+        job.cancel()
     }
 
 

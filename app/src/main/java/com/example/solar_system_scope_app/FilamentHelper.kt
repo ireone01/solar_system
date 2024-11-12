@@ -324,12 +324,15 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 }
 
                 updateCameraTransform()
-
-                if (renderer.beginFrame(swapChain, frametime)) {
-                    renderer.render(view)
-                    renderer.endFrame()
-                } else {
-                    Log.e("FilamentHelper", "beginFrame thất bại")
+                if (swapChain != null && renderer != null) {
+                    if (renderer.beginFrame(swapChain, frametime)) {
+                        renderer.render(view)
+                        renderer.endFrame()
+                    } else {
+                        Log.e("FilamentHelper", "beginFrame thất bại")
+                    }
+                }else{
+                    Log.e("FilamentHelper", "SwapChain hoặc Renderer chưa sẵn sàng")
                 }
             }
         }

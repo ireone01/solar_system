@@ -35,6 +35,7 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
+    private var lightEntity : Int = 0
 
     private val frameCallback = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
@@ -82,6 +83,9 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     }
 
     private fun setupLighting() {
+        if(lightEntity !=0){
+            return
+        }
         val directionalLight = EntityManager.get().create()
 
         LightManager.Builder(LightManager.Type.SUN)
@@ -104,7 +108,6 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     }
 
     fun loadPlanetModel(planet: Planet) {
-        // Xóa scene hiện tại
         val entities = scene.entities
         scene.removeEntities(entities)
         entities.forEach { entity ->
@@ -208,6 +211,18 @@ class MiniFilamentHelper(private val context: Context, private val surface: Surf
     fun destroy() {
         choreographer.removeFrameCallback(frameCallback)
         job.cancel()
+
+        if(modelEntity !=0){
+            scene.removeEntity(modelEntity)
+            engine.destroyEntity(modelEntity)
+            modelEntity = 0
+        }
+        if(lightEntity !=0){
+            scene.removeEntity(lightEntity)
+            engine.destroyEntity(lightEntity)
+            lightEntity = 0
+        }
+        modelCatch.clear()
         engine.destroy()
     }
 }
