@@ -56,7 +56,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val choreographer = Choreographer.getInstance()
 
 
-
+    private  var count =0
 
     private var infoPanel: View? = null
     private var planetNameTextView : TextView? = null
@@ -67,12 +67,14 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val scene = engine.createScene()
     private lateinit var gestureDetector: GestureDetector
     private lateinit var gestureHandler: GestureHandler
-
+    private var planetSelectionListener: PlanetSelectionListener? = null
 
     private var miniFilamentHelper: MiniFilamentHelper? = null
 
 
-
+    fun setPlanetSelectionListener(listener: PlanetSelectionListener){
+        this.planetSelectionListener = listener
+    }
 
 
     companion object {
@@ -332,9 +334,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
                 if (distance < touchThreshold) {
                     filament?.targetPlanet = planet
-
+                    if(count !=0) {
+                        planetSelectionListener?.onPlanetSelected(planet.name)
+                    }
+                    count++
                     post {
-
 
                         planetNameTextView?.text = planet.name
                         infoPanel?.visibility = View.VISIBLE
@@ -345,7 +349,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
             }
         }
         filament?.targetPlanet = sun812
-
+        planetSelectionListener?.onPlanetSelected("")
+        count =0
         post{
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""

@@ -54,7 +54,7 @@ dependencies {
     implementation ("com.google.android.filament:gltfio-android:1.54.5")
     implementation ("com.google.android.filament:filament-utils-android:1.54.5")
     implementation ("com.google.android.filament:filamat-android:1.53.1")
-
+    implementation ("com.google.android.material:material:1.12.0")
 
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

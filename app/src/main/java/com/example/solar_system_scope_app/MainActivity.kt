@@ -1,6 +1,6 @@
 package com.example.solar_system_scope_app
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.filament.utils.Utils
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
     private lateinit var filamentView: FilamentView
     private lateinit var infoPanel: View
-    private lateinit var planetNameTextView: TextView
+    lateinit var planetNameTextView: TextView
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
+    private var namePlanet : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         miniPlanetView = findViewById(R.id.miniPlanetView)
 
 
+        filamentView.setPlanetSelectionListener(this)
         filamentView.setInfoPanel(infoPanel , planetNameTextView)
+
+
 
         miniPlanetView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
@@ -43,22 +48,7 @@ class MainActivity : AppCompatActivity() {
                 filamentView.setMiniFilamentHelper(miniFilamentHelper)
                 miniFilamentHelper.setClinkListener { planetName ->
                     var namePlanet = planetNameTextView.text
-                    val fragmentContainer : View = findViewById(R.id.fragment_container)
-                    fragmentContainer.visibility = View.VISIBLE
-                    // Tạo một đối tượng Fragment mới
-                    val detailFragment = PlanetDetailFragment()
-
-                    // Truyền dữ liệu về hành tinh
-                    val bundle = Bundle()
-                    bundle.putString("PLANET_NAME", namePlanet.toString())
-                    detailFragment.arguments = bundle
-
-                    // Thay thế Fragment hiện tại bằng PlanetDetailFragment
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, detailFragment) // `fragment_container` là id của ViewGroup nơi bạn muốn thay thế Fragment
-                        .addToBackStack(null) // Cho phép quay lại Fragment trước đó
-                        .commit()
-                    planetNameTextView.text = ""
+                   replaceFragmentWithPlanetDetail(namePlanet.toString())
                 }
 
 
@@ -76,5 +66,53 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onPlanetSelected(planetName: String) {
+        replaceFragmentWithPlanetDetail(planetName)
+    }
 
+    override fun onPlanetDataChanged(planetName: String) {
+        Log.d("MainActivityxxx", "onPlanetDataChanged called with planet: $planetName")
+        replaceFragmentWithPlanetDetail(planetName)
+    }
+
+    fun replaceFragmentWithPlanetDetail(planetName: String) {
+        Log.d("MainActivityxxx", "replaceFragmentWithPlanetDetail called with planet: $planetName")
+        val fragmentManager = supportFragmentManager
+        val fragmentContainer: View = findViewById(R.id.fragment_container)
+
+        if (planetName.isNotEmpty()) {
+            // Hiển thị fragment_container nếu nó đang ẩn
+            if (fragmentContainer.visibility != View.VISIBLE) {
+                fragmentContainer.visibility = View.VISIBLE
+            }
+
+            // Tìm fragment hiện tại theo tag
+            val existingFragment = fragmentManager.findFragmentByTag("PLANET_DETAIL_FRAGMENT")
+
+            if (existingFragment is PlanetDetailFragment) {
+                // Nếu fragment đã tồn tại và đang hiển thị, cập nhật dữ liệu
+                existingFragment.updatePlanetName(planetName)
+                Log.d("MainActivityxxx", "Updated existing PlanetDetailFragment with planet: $planetName")
+            } else {
+                // Nếu fragment chưa tồn tại, tạo và hiển thị fragment mới
+                val detailFragment = PlanetDetailFragment()
+                val bundle = Bundle()
+                bundle.putString("PLANET_NAME", planetName)
+                detailFragment.arguments = bundle
+
+                fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment, "PLANET_DETAIL_FRAGMENT")
+                    .addToBackStack(null)
+                    .commit()
+                Log.d("MainActivityxxx", "Replaced fragment_container with new PlanetDetailFragment for planet: $planetName")
+            }
+
+            // Cập nhật tên hành tinh trong MainActivity
+            planetNameTextView.text = planetName
+        } else {
+            // Nếu không có hành tinh nào được chọn, ẩn fragment_container
+            fragmentContainer.visibility = View.GONE
+            planetNameTextView.text = ""
+        }
+    }
 }

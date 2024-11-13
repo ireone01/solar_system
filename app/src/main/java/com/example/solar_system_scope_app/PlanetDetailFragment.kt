@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 class PlanetDetailFragment : Fragment() {
-
+    private var planetNameTextView: TextView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,7 +21,11 @@ class PlanetDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val planetName = arguments?.getString("PLANET_NAME") ?: "Unknown Planet"
 
-        val planetNameTextView: TextView = view.findViewById(R.id.planetNameTextView)
-        planetNameTextView.text = planetName
+        planetNameTextView = view.findViewById(R.id.planetNameTextView)
+        planetNameTextView?.text = planetName
+    }
+
+    fun updatePlanetName(newName: String) {
+        planetNameTextView?.text = newName
     }
 }
