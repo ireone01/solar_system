@@ -350,6 +350,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
         }
         filament?.targetPlanet = sun812
         planetSelectionListener?.onPlanetSelected("")
+
         count =0
         post{
             infoPanel?.visibility = View.GONE
@@ -400,4 +401,3 @@ class FilamentView @JvmOverloads constructor(context: Context,
     }
 
 }
-// nhớ phải hủy các coroutine scope

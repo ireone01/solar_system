@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.filament.utils.Utils
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     lateinit var planetNameTextView: TextView
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
-    private var namePlanet : String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         infoPanel = findViewById(R.id.infoPanel)
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
+
 
 
         filamentView.setPlanetSelectionListener(this)
@@ -68,11 +71,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
     override fun onPlanetSelected(planetName: String) {
         replaceFragmentWithPlanetDetail(planetName)
-    }
 
-    override fun onPlanetDataChanged(planetName: String) {
-        Log.d("MainActivityxxx", "onPlanetDataChanged called with planet: $planetName")
-        replaceFragmentWithPlanetDetail(planetName)
     }
 
     fun replaceFragmentWithPlanetDetail(planetName: String) {

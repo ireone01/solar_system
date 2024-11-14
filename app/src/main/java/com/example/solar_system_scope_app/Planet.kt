@@ -38,7 +38,15 @@ data class Planet(
         }
     }
 
-
+    data class Encyclopedia(
+        val equatorial_diameter: String,
+        val mass: String,
+        val distance_to_center: String,
+        val rotation_period: String,
+        val orbit: String,
+        val gravity: String,
+        val temperature: String
+    )
 
 
 }
