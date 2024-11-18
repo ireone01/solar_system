@@ -10,7 +10,7 @@ data class Planet(
     val orbitRadiusA: Float,  // Bán kính trục lớn của quỹ đạo
     val orbitRadiusB: Float, //Bán kính trục nhỏ của quỹ đạo
     val eccentricity: Float,//Độ lệch tâm của quỹ đạo.
-    val orbitSpeed: Float,//  Tốc độ di chuyển của hành tinh trên quỹ đạo.
+    var orbitSpeed: Float,//  Tốc độ di chuyển của hành tinh trên quỹ đạo.
     val scale: Float,// Tỷ lệ kích thước của hành tinh.
     val inclination: Float,// Độ nghiêng của mặt phẳng quỹ đạo, tính bằng độ.
     val axisTilt: Float,// Độ nghiêng của trục hành tinh, tính bằng độ.

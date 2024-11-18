@@ -41,6 +41,11 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
     private var lightEntity : Int = 0
 
+
+    private var assetLoader: AssetLoader? = null
+    private var asset: FilamentAsset? = null
+    private var materialProvider: MaterialProvider? = null
+
     init {
         surfaceView.setOnTouchListener { _, motionEvent ->
             if(motionEvent.action == MotionEvent.ACTION_DOWN){
@@ -147,10 +152,10 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
                 getModelBuffer("${planet.name}.glb")
             }
             withContext(Dispatchers.Main){
-            val materialProvider = UbershaderProvider(engine)
-            // Tạo và tải asset
-            val assetLoader = AssetLoader(engine, materialProvider, EntityManager.get())
-            val asset = assetLoader.createAsset(ByteBuffer.wrap(buffer))
+             materialProvider = UbershaderProvider(engine)
+                 // Tạo và tải asset
+                 assetLoader = AssetLoader(engine, materialProvider!!, EntityManager.get())
+             asset = assetLoader!!.createAsset(ByteBuffer.wrap(buffer))
 
 
             if (asset == null) {
@@ -160,18 +165,18 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
 
             val resourceLoader = ResourceLoader(engine)
-            resourceLoader.loadResources(asset)
+            resourceLoader.loadResources(asset!!)
             resourceLoader.destroy()
 
 
 
                 // Thêm entities vào scene
-                scene.addEntities(asset.entities)
+                scene.addEntities(asset!!.entities)
                 Log.d("MiniFilamentHelper", "Số lượng Entity trong Scene: ${scene.entities.size}")
 
-                modelEntity = asset.root
+                modelEntity = asset!!.root
                 // Đặt camera nhìn vào mô hình
-                frameModel(asset)
+                frameModel(asset!!)
             }
         }
     }
@@ -183,19 +188,30 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         }
     }
     fun clearPlanetModel() {
-        // Kiểm tra xem scene có entities không
-        val entities = scene.entities
-        if (entities.isNotEmpty()) {
-            // Xóa các entities khỏi scene
-            scene.removeEntities(entities)
-
-            // Giải phóng các entities khỏi engine
-            entities.forEach { entity ->
-                engine.destroyEntity(entity)
+        scope.launch(Dispatchers.Main) {
+            // Xóa các entity khỏi scene
+            val entities = scene.entities
+            if (entities.isNotEmpty()) {
+                scene.removeEntities(entities)
+                entities.forEach { entity ->
+                    engine.destroyEntity(entity)
+                }
             }
-            Log.d("MiniFilamentHelper", "Đã xóa tất cả các mô hình khỏi scene")
-        } else {
-            Log.d("MiniFilamentHelper", "Không có mô hình nào để xóa")
+
+            // Giải phóng dữ liệu nguồn và hủy asset
+            asset?.let { currentAsset ->
+                currentAsset.releaseSourceData()
+                assetLoader?.destroyAsset(currentAsset)
+                asset = null
+            }
+
+            // Hủy assetLoader
+            assetLoader?.destroy()
+            assetLoader = null
+
+            // Hủy materialProvider
+            materialProvider?.destroyMaterials()
+            materialProvider = null
         }
     }
 

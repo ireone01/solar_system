@@ -7,6 +7,7 @@ import android.opengl.Matrix
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Choreographer
 import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
@@ -26,7 +27,7 @@ import kotlin.random.Random
 class FilamentHelper(private val context: Context, private var surface: Surface) {
 
     val engine: Engine = Engine.create()
-    private var swapChain: SwapChain = engine.createSwapChain(surface)
+    private var swapChain: SwapChain? = null
     private val renderer: Renderer = engine.createRenderer()
     val scene: Scene = engine.createScene()
     private val view: View = engine.createView()
@@ -75,12 +76,18 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             }
         }
     private val backgroundLoader : BackgroundLoader
+    private val choreographer = Choreographer.getInstance()
+    private val frameCallback = object : Choreographer.FrameCallback {
+        override fun doFrame(frameTimeNanos: Long) {
+          render()
+            choreographer.postFrameCallback(this)
+        }
+        
+    }
+
 
     init {
-        Log.d("FilamentHelper", "Khởi tạo FilamentHelper")
-        Log.d("FilamentHelper", "Engine created: $engine")
-        Log.d("FilamentHelper", "Renderer created: $renderer")
-
+        swapChain = engine.createSwapChain(surface)
         cameraEntity = entityManager.create()
         camera = engine.createCamera(cameraEntity)
         camera.lookAt(
@@ -91,6 +98,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
         view.scene = scene
         view.camera = camera
+
+        choreographer.postFrameCallback(frameCallback)
 
         view.isPostProcessingEnabled =true
 
@@ -179,11 +188,11 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
     }
 
-    fun init(surface: Surface){
-        swapChain = engine.createSwapChain(surface)
-        view.scene = scene
-        view.camera = camera
-    }
+//    fun init(surface: Surface){
+//        swapChain = engine.createSwapChain(surface)
+//        view.scene = scene
+//        view.camera = camera
+//    }
 
     fun getScreenPosition(planet: Planet): PointF? {
         val camera = camera ?: return null
@@ -243,8 +252,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
 
     fun resize(width: Int, height: Int) {
-        Log.d("FilamentHelper", "resize: width=$width, height=$height")
-        view.viewport = Viewport(0, 0, width, height)
+         view.viewport = Viewport(0, 0, width, height)
         val aspect = width.toDouble() / height
         camera.setProjection(45.0, aspect, 0.1, 1000.0, Camera.Fov.VERTICAL)
     }
@@ -255,12 +263,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             return
         }
         val frametime = System.nanoTime()
-        Log.d("FilamentHelper", "Bắt đầu render, frameTimeNanos: $frametime")
 
-
-        CoroutineScope(Dispatchers.Default).launch{
-            // Cập nhật và xoay các hành tinh trước khi bắt đầu frame
-            for (planet in planets) {
+         for (planet in planets) {
                 // Cập nhật góc quỹ đạo và tự quay
                 planet.angle += planet.orbitSpeed
                 planet.rotation += planet.rotationSpeed
@@ -313,7 +317,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 planet.transformMatrix = transformMatrix
 
             }
-            withContext(Dispatchers.Main){
+
                 for (planet in planets){
                     val transformManager = engine.transformManager
                     val rootEntity = planet.asset.root
@@ -325,7 +329,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
                 updateCameraTransform()
                 if (swapChain != null && renderer != null) {
-                    if (renderer.beginFrame(swapChain, frametime)) {
+                    if (renderer.beginFrame(swapChain!!, frametime)) {
                         renderer.render(view)
                         renderer.endFrame()
                     } else {
@@ -335,12 +339,12 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     Log.e("FilamentHelper", "SwapChain hoặc Renderer chưa sẵn sàng")
                 }
             }
-        }
-    }
+
+
 
 
     fun destroy() {
-        Log.d("FilamentHelper", "Destroying FilamentHelper")
+        choreographer.removeFrameCallback(frameCallback)
         // Giải phóng tài nguyên
         if (asset != null) {
             assetLoader.destroyAsset(asset!!)
@@ -360,16 +364,17 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         engine.destroyView(view)
         engine.destroyScene(scene)
         engine.destroyCameraComponent(cameraEntity)
-        engine.destroySwapChain(swapChain)
+        engine.destroySwapChain(swapChain!!)
         engine.destroy()
     }
     fun destroySwapChain() {
-        Log.d("FilamentHelper", "Destroying SwapChain")
-        engine.destroySwapChain(swapChain)
+        swapChain?.let {
+            engine.destroySwapChain(it)
+            swapChain = null
+        }
     }
 
     fun createSwapChain(surface: Surface) {
-        Log.d("FilamentHelper", "Creating SwapChain")
         this.surface = surface
         swapChain = engine.createSwapChain(surface)
     }
@@ -410,9 +415,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun updateCameraTransform() {
 
-        CoroutineScope(Dispatchers.Default).launch {
+
             val currentTime = System.currentTimeMillis()
             val elapsedTime = currentTime - transitionStartTime
 
@@ -432,7 +438,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     // Hoàn thành chuyển tiếp
                     currentTargetPosition = targetTargetPosition.copyOf()
                     isTransitioning = false
-                }
+                 }
 
             } else {
                 // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
@@ -445,14 +451,12 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             val radX = Math.toRadians(cameraRotationX.toDouble())
             val radY = Math.toRadians(cameraRotationY.toDouble())
 
-            val camX =
-                (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
+            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
             val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
-            val camZ =
-                (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
+            val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
 
             // Cập nhật hướng nhìn của camera
-            withContext(Dispatchers.Main) {
+
                 camera.lookAt(
                     camX.toDouble(),
                     camY.toDouble(),
@@ -465,9 +469,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     0.0  // Hướng lên trên
                 )
             }
-        }
 
-    }
+
 
 
     @SuppressLint("SuspiciousIndentation")
@@ -525,7 +528,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             val parentInstance = transformManager.getInstance(planet.parent.asset.root)
             if (instance != 0 && parentInstance != 0) {
                 transformManager.setParent(instance, parentInstance)
-                Log.d("addPlanetzzzz", "Thiết lập parent của $name là ${planet.parent.name}")
             } else {
                 Log.e("addPlanet", "Không thể thiết lập parent cho $name")
             }
@@ -547,8 +549,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 )
 
                 applyOrbitInclination(engine , orbitEntity , inclination)
-
-                Log.d("addPlanet", "Đã thêm quỹ đạo cho hành tinh $name")
             }else{
                 Log.e("addPlanet", "orbitMaterialInstance là null")
             }
@@ -582,10 +582,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 val parentInstance = transformManager.getInstance(parent.asset.root)
                 if (orbitInstance != 0 && parentInstance != 0) {
                     transformManager.setParent(orbitInstance, parentInstance)
-                    Log.d("addPlanet", "Thiết lập parent của quỹ đạo $name là ${parent.name}")
                 }
 
-                Log.d("addPlanet", "Đã thêm quỹ đạo cho hành tinh $name")
             } else {
                 Log.e("addPlanet", "orbitMaterialInstance là null")
             }
@@ -748,8 +746,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             val material = Material.Builder()
                 .payload(buffer, buffer.remaining())
                 .build(engine)
-            Log.d("createOrbitMaterial", "Vật liệu được tạo thành công")
-
             val materialInstance = material.createInstance()
             materialInstance.setParameter("baseColor", 1.0f, 1.0f, 1.0f, 1.0f)
             return materialInstance
@@ -775,8 +771,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         materialInstance: MaterialInstance
     ): Int {
         val entity = EntityManager.get().create()
-        Log.d("addOrbitEntityToScene", "Entity được tạo: $entity")
-        RenderableManager.Builder(1)
+      RenderableManager.Builder(1)
             .geometry(
                 0,
                 RenderableManager.PrimitiveType.TRIANGLES,
@@ -791,8 +786,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             .receiveShadows(false)
             .build(engine, entity)
         scene.addEntity(entity)
-        Log.d("addOrbitEntityToScene", "Entity được thêm vào scene")
-
         return entity
     }
 
