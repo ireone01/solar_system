@@ -12,6 +12,7 @@ import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.distance
+import com.google.android.filament.utils.sqr
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,6 +23,9 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 class FilamentHelper(private val context: Context, private var surface: Surface) {
@@ -264,81 +268,86 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
         val frametime = System.nanoTime()
 
-         for (planet in planets) {
-                // Cập nhật góc quỹ đạo và tự quay
-                planet.angle += planet.orbitSpeed
-                planet.rotation += planet.rotationSpeed
+        for (planet in planets) {
+            // Cập nhật góc quỹ đạo và tự quay
+            planet.angle += planet.orbitSpeed
+            planet.rotation += planet.rotationSpeed
 
-                // Tính toán transform cục bộ
-                val transformMatrix = FloatArray(16)
-                Matrix.setIdentityM(transformMatrix, 0)
+            // Tính toán vị trí trên quỹ đạo
+            val angleInRadians = Math.toRadians(planet.angle.toDouble())
+            val x: Float
+            val z: Float
+            val y = 0.0f
 
-                // Tính toán vị trí trên quỹ đạo
-                val angleInRadians = Math.toRadians(planet.angle.toDouble())
-                val x: Float
-                val z: Float
-                val y = 0.0f
-
-                if (planet.parent == null) {
-                    val c = planet.orbitRadiusA * planet.eccentricity
-                    x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
-                    z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-                } else {
-                    x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
-                    z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-                }
-
-                Matrix.translateM(transformMatrix, 0, x, y, z)
-
-                // Áp dụng nghiêng quỹ đạo
-                if (planet.inclination != 0.0f) {
-                    val inclinationMatrix = FloatArray(16)
-                    Matrix.setIdentityM(inclinationMatrix, 0)
-                    Matrix.rotateM(inclinationMatrix, 0, planet.inclination, 0.0f, 0.0f, 1.0f)
-                    Matrix.multiplyMM(transformMatrix, 0, inclinationMatrix, 0, transformMatrix, 0)
-                }
-
-                // Tạo ma trận tự quay quanh trục Y
-                val rotationMatrix = FloatArray(16)
-                Matrix.setIdentityM(rotationMatrix, 0)
-                Matrix.rotateM(rotationMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
-
-                // Tạo ma trận scale
-                val scaleMatrix = FloatArray(16)
-                Matrix.setIdentityM(scaleMatrix, 0)
-                Matrix.scaleM(scaleMatrix, 0, planet.scale, planet.scale, planet.scale)
-
-                // Kết hợp các ma trận: rotation * scale
-                val modelMatrix = FloatArray(16)
-                Matrix.multiplyMM(modelMatrix, 0, rotationMatrix, 0, scaleMatrix, 0)
-
-                // Kết hợp với ma trận dịch chuyển
-                Matrix.multiplyMM(transformMatrix, 0, transformMatrix, 0, modelMatrix, 0)
-                planet.transformMatrix = transformMatrix
-
+            if (planet.parent == null) {
+                val c = planet.orbitRadiusA * planet.eccentricity
+                x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
+                z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
+            } else {
+                x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
+                z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
             }
 
-                for (planet in planets){
-                    val transformManager = engine.transformManager
-                    val rootEntity = planet.asset.root
-                    val instance = transformManager.getInstance(rootEntity)
-                    if(instance !=0){
-                        transformManager.setTransform(instance , planet.transformMatrix)
-                    }
-                }
+            // Tạo ma trận nghiêng trục hành tinh (axis tilt)
+            val tiltMatrix = FloatArray(16)
+            Matrix.setIdentityM(tiltMatrix, 0)
+            Matrix.rotateM(tiltMatrix, 0, planet.axisTilt, 1.0f, 0.0f, 0.0f)
 
-                updateCameraTransform()
-                if (swapChain != null && renderer != null) {
-                    if (renderer.beginFrame(swapChain!!, frametime)) {
-                        renderer.render(view)
-                        renderer.endFrame()
-                    } else {
-                        Log.e("FilamentHelper", "beginFrame thất bại")
-                    }
-                }else{
-                    Log.e("FilamentHelper", "SwapChain hoặc Renderer chưa sẵn sàng")
-                }
+            // Tạo ma trận biến đổi cục bộ (modelMatrix)
+            val modelMatrix = FloatArray(16)
+            Matrix.setIdentityM(modelMatrix, 0)
+
+            // Áp dụng nghiêng trục trước khi quay quanh trục
+            Matrix.multiplyMM(modelMatrix, 0, tiltMatrix, 0, modelMatrix, 0)
+
+            // Áp dụng tự quay quanh trục của hành tinh
+            Matrix.rotateM(modelMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
+
+            // Áp dụng scale
+            Matrix.scaleM(modelMatrix, 0, planet.scale, planet.scale, planet.scale)
+
+            // Tạo ma trận biến đổi quỹ đạo (orbitMatrix)
+            val orbitMatrix = FloatArray(16)
+            Matrix.setIdentityM(orbitMatrix, 0)
+
+            // Áp dụng độ nghiêng quỹ đạo (inclination)
+            if (planet.inclination != 0.0f) {
+                Matrix.rotateM(orbitMatrix, 0, planet.inclination, 0.0f, 0.0f, 1.0f)
             }
+
+            // Dịch chuyển đến vị trí trên quỹ đạo
+            Matrix.translateM(orbitMatrix, 0, x, y, z)
+
+            // Kết hợp các ma trận biến đổi: finalMatrix = orbitMatrix * modelMatrix
+            val finalMatrix = FloatArray(16)
+            Matrix.multiplyMM(finalMatrix, 0, orbitMatrix, 0, modelMatrix, 0)
+
+            // Gán ma trận biến đổi cho hành tinh
+            planet.transformMatrix = finalMatrix
+        }
+
+        for (planet in planets) {
+            val transformManager = engine.transformManager
+            val rootEntity = planet.asset.root
+            val instance = transformManager.getInstance(rootEntity)
+            if (instance != 0) {
+                transformManager.setTransform(instance, planet.transformMatrix)
+            }
+        }
+
+        updateCameraTransform()
+        if (swapChain != null && renderer != null) {
+            if (renderer.beginFrame(swapChain!!, frametime)) {
+                renderer.render(view)
+                renderer.endFrame()
+            } else {
+                Log.e("FilamentHelper", "beginFrame thất bại")
+            }
+        } else {
+            Log.e("FilamentHelper", "SwapChain hoặc Renderer chưa sẵn sàng")
+        }
+    }
+
 
 
 
@@ -482,6 +491,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                   scale: Float,
                   inclination: Float,
                   axisTilt: Float,
+                  rotation: Float,
                   rotationSpeed: Float,
                   parent :  Planet? = null,
                   buffer : ByteBuffer ) : Planet {
@@ -507,7 +517,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             orbitSpeed = orbitSpeed,
             scale = scale,
             inclination = inclination,
-            rotation = 0.0f ,
+            rotation = rotation ,
             axisTilt = axisTilt,
             rotationSpeed = rotationSpeed,
             parent = parent
@@ -588,7 +598,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 Log.e("addPlanet", "orbitMaterialInstance là null")
             }
         }
-
 
         return planet
     }

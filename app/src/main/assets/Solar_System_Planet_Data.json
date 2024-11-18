@@ -1,5 +1,4 @@
-{
-  "planets": [
+ [
     {
       "name": "Sun",
       "id": "sun812",
@@ -154,4 +153,3 @@
       "additional_info": "Sao Kim là hành tinh nóng nhất trong Hệ mặt trời do hiệu ứng nhà kính mạnh mẽ."
     }
   ]
-}

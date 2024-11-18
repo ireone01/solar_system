@@ -15,7 +15,8 @@ class PlanetDetailFragment : Fragment() {
     private lateinit var exploreButton: Button
     private lateinit var encycloediaButton: Button
     private lateinit var structureButton: Button
-
+    private var planetId: String? = null
+    private var planetName1: String? = null
     private var currentFragment: Fragment? = null
 
     override fun onCreateView(
@@ -35,7 +36,11 @@ class PlanetDetailFragment : Fragment() {
             replaceFragment(ExploreFragment() , "Thăm Quan")
         }
         encycloediaButton.setOnClickListener{
-            replaceFragment(EncyclopediaFragment() , "Bách Khoa Toàn Thư")
+            val fragment = EncyclopediaFragment()
+            val args = Bundle()
+            args.putString("PLANET_NAME",planetName1)
+            fragment.arguments = args
+            replaceFragment(fragment , "Bách Khoa Toàn Thư")
         }
 
         structureButton.setOnClickListener{
@@ -48,31 +53,26 @@ class PlanetDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val planetName = arguments?.getString("PLANET_NAME") ?: "Unknown Planet"
-
+        planetId = arguments?.getString("PLANET_ID")
+        planetName1 = planetName
         planetNameTextView = view.findViewById(R.id.planetNameTextView)
         planetNameTextView?.text = planetName
     }
 
     fun updatePlanetName(newName: String) {
+        planetName1 = newName
         planetNameTextView?.text = newName
+
+        val encyclopediaFragment = childFragmentManager.findFragmentByTag("Bách Khoa Toàn Thư") as? EncyclopediaFragment
+        encyclopediaFragment?.updateData(newName)
     }
-
-    private fun replaceFragment(fragment: Fragment , tag: String){
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        val existingFragment = parentFragmentManager.findFragmentByTag(tag)
-
-        if(currentFragment != null){
-            fragmentTransaction.hide(currentFragment!!)
-        }
-
-        if(existingFragment != null){
-            fragmentTransaction.hide(existingFragment)
-        }else{
-            fragmentTransaction.add(R.id.fragment_container , fragment , tag)
-        }
+    private fun replaceFragment(fragment: Fragment, tag: String) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment, tag)
+            .addToBackStack(tag)
+            .commit()
         currentFragment = fragment
-        fragmentTransaction.addToBackStack(tag).commit()
-
     }
+
 
 }

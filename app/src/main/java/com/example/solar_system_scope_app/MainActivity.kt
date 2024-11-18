@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     }
 
     fun replaceFragmentWithPlanetDetail(planetName: String) {
-        Log.d("MainActivityxxx", "replaceFragmentWithPlanetDetail called with planet: $planetName")
         val fragmentManager = supportFragmentManager
         val fragmentContainer: View = findViewById(R.id.fragment_container)
 
@@ -85,33 +84,30 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 fragmentContainer.visibility = View.VISIBLE
             }
 
-            // Tìm fragment hiện tại theo tag
-            val existingFragment = fragmentManager.findFragmentByTag("PLANET_DETAIL_FRAGMENT")
+            val detailFragment = PlanetDetailFragment()
+            val bundle = Bundle()
+            bundle.putString("PLANET_NAME", planetName)
+            detailFragment.arguments = bundle
 
-            if (existingFragment is PlanetDetailFragment) {
-                // Nếu fragment đã tồn tại và đang hiển thị, cập nhật dữ liệu
-                existingFragment.updatePlanetName(planetName)
-                Log.d("MainActivityxxx", "Updated existing PlanetDetailFragment with planet: $planetName")
-            } else {
-                // Nếu fragment chưa tồn tại, tạo và hiển thị fragment mới
-                val detailFragment = PlanetDetailFragment()
-                val bundle = Bundle()
-                bundle.putString("PLANET_NAME", planetName)
-                detailFragment.arguments = bundle
-
-                fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, detailFragment, "PLANET_DETAIL_FRAGMENT")
-                    .addToBackStack(null)
-                    .commit()
-                Log.d("MainActivityxxx", "Replaced fragment_container with new PlanetDetailFragment for planet: $planetName")
-            }
-
-            // Cập nhật tên hành tinh trong MainActivity
-            planetNameTextView.text = planetName
+            fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, detailFragment, "PLANET_DETAIL_FRAGMENT")
+                .commit()
         } else {
-            // Nếu không có hành tinh nào được chọn, ẩn fragment_container
+            // Xóa fragment khi không có hành tinh nào được chọn
+            removePlanetDetailFragment()
             fragmentContainer.visibility = View.GONE
-            planetNameTextView.text = ""
+        }
+
+        // Cập nhật tên hành tinh trong MainActivity
+        planetNameTextView.text = planetName
+    }
+    fun removePlanetDetailFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
+        if (fragment != null) {
+            fragmentManager.beginTransaction()
+                .remove(fragment)
+                .commit()
         }
     }
 }
