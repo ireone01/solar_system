@@ -44,8 +44,17 @@ class EncyclopediaFragment : Fragment() {
             view.findViewById<TextView>(R.id.subtitle).text = it.description
             view.findViewById<TextView>(R.id.equatorial_diameter).text = it.encyclopedia.equatorial_diameter
             view.findViewById<TextView>(R.id.mass).text = it.encyclopedia.mass
+
+            view.findViewById<TextView>(R.id.title).text = it.name.uppercase()
+            view.findViewById<TextView>(R.id.distance_to_center).text = it.encyclopedia.distance_to_center
+            view.findViewById<TextView>(R.id.rotation_period).text = it.encyclopedia.rotation_period
+            view.findViewById<TextView>(R.id.orbit_period).text = it.encyclopedia.orbit
+            view.findViewById<TextView>(R.id.surface_gravity).text = it.encyclopedia.gravity
+            view.findViewById<TextView>(R.id.surface_temperature).text = it.encyclopedia.temperature
             view.findViewById<TextView>(R.id.description).text = it.additional_info
-            view.findViewById<TextView>(R.id.namePlanet).text = it.name.uppercase()
+            view.findViewById<TextView>(R.id.structure).text = it.structure
+            view.findViewById<TextView>(R.id.distance).text = it.distance
+            view.findViewById<TextView>(R.id.in_milky_way).text = it.in_milky_way
         }
     }
 }

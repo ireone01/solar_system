@@ -70,10 +70,13 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private var planetSelectionListener: PlanetSelectionListener? = null
 
     private var miniFilamentHelper: MiniFilamentHelper? = null
-
+    private lateinit var effectmanager: Effectmanager
 
     fun setPlanetSelectionListener(listener: PlanetSelectionListener){
         this.planetSelectionListener = listener
+    }
+    fun getFilamentHelper(): FilamentHelper? {
+        return filament
     }
 
 
@@ -176,7 +179,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     sun812 = filamentInstance.addPlanet(
                         fileName = "Sun.glb",
                         name = "Sun",
-                        orbitRadiusA = 0f,
+                        orbitRadiusA = 2f*0f,
                         eccentricity = 0f,
                         orbitSpeed = .1f*0f,
                         scale = 0.1f,
@@ -190,7 +193,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     mecury812 = filamentInstance.addPlanet(
                         fileName = "Mercury.glb",
                         name = "Mercury",
-                        orbitRadiusA = 2.0f,
+                        orbitRadiusA = 2f*2.0f,
                         eccentricity = 0.2056f,
                         orbitSpeed = .1f*0.5f,
                         scale = 0.05f,
@@ -204,7 +207,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     venus812 = filamentInstance.addPlanet(
                         fileName = "Venus.glb",
                         name = "Venus",
-                        orbitRadiusA = 3.7f,
+                        orbitRadiusA = 2f*3.7f,
                         eccentricity = 0.0067f,
                         orbitSpeed = .1f*0.35f,
                         scale = 0.005f,
@@ -218,7 +221,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     earth812 = filamentInstance.addPlanet(
                         fileName = "Earth.glb",
                         name = "Earth",
-                        orbitRadiusA = 5.0f,
+                        orbitRadiusA = 2f*5.0f,
                         eccentricity = 0.0167f,
                         orbitSpeed = .1f*0.3f,
                         scale = 0.00525f,
@@ -232,7 +235,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     moon812 = filamentInstance.addPlanet(
                         fileName = "Moon.glb",
                         name = "Moon",
-                        orbitRadiusA = 130.9f,
+                        orbitRadiusA = 2f*130.9f,
                         eccentricity = 0.0549f,
                         orbitSpeed = 1.5f,
                         scale = 12f,
@@ -247,7 +250,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     mars812 = filamentInstance.addPlanet(
                         fileName = "Mars.glb",
                         name = "Mars",
-                        orbitRadiusA = 7.6f,
+                        orbitRadiusA = 2f*7.6f,
                         eccentricity = 0.0934f,
                         orbitSpeed = .1f*0.33f,
                         scale = 0.371f,
@@ -261,7 +264,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     jupiter812 = filamentInstance.addPlanet(
                         fileName = "Jupiter.glb",
                         name = "Jupiter",
-                        orbitRadiusA = 11f,
+                        orbitRadiusA = 2f*11f,
                         eccentricity = 0.049f,
                         orbitSpeed = .1f*2.5f * 0.084f,
                         scale = 0.1f,
@@ -275,7 +278,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     saturn812 = filamentInstance.addPlanet(
                         fileName = "Saturn.glb",
                         name = "Saturn",
-                        orbitRadiusA = 16f,
+                        orbitRadiusA = 2f*16f,
                         eccentricity = 0.056f,
                         orbitSpeed = .01f*2.5f * 0.034f,
                         scale = 3f,
@@ -289,7 +292,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     uranus812 = filamentInstance.addPlanet(
                         fileName = "Uranus.glb",
                         name = "Uranus",
-                        orbitRadiusA = 19.22f,
+                        orbitRadiusA = 2f*19.22f,
                         eccentricity = 0.046f,
                         orbitSpeed = .1f*2.5f * 0.012f,
                         scale = 0.001f,
@@ -303,7 +306,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     neptune812 = filamentInstance.addPlanet(
                         fileName = "Neptune.glb",
                         name = "Neptune",
-                        orbitRadiusA = 22f,
+                        orbitRadiusA = 2f*22f,
                         eccentricity = 0.010f,
                         orbitSpeed = .1f*2.5f * 0.006f,
                         scale = 0.007f,
@@ -363,6 +366,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
         count =0
         post{
+            effectmanager = Effectmanager(filament!!)
+            effectmanager.deactivateEffect()
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
             miniFilamentHelper?.clearPlanetModel()

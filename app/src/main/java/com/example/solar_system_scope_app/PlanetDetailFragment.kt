@@ -19,6 +19,10 @@ class PlanetDetailFragment : Fragment() {
     private var planetName1: String? = null
     private var currentFragment: Fragment? = null
 
+
+    private lateinit var filamentHelper: FilamentHelper
+    private lateinit var effectmanager: Effectmanager
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,9 +34,14 @@ class PlanetDetailFragment : Fragment() {
         encycloediaButton = view.findViewById(R.id.encyclopediaButton)
         structureButton = view.findViewById(R.id.structureButton)
 
-
+        val filamentView = activity?.findViewById<FilamentView>(R.id.solarSystemView)
+            ?: throw IllegalStateException("FIlamentview not found")
+        filamentHelper = filamentView.getFilamentHelper()
+            ?: throw  IllegalStateException("filament helper not found")
 
         exploreButton.setOnClickListener{
+            filamentHelper.targetPlanet = filamentHelper.getPlanets().find { it.name == planetName1 }
+            effectmanager.activateEffect()
             replaceFragment(ExploreFragment() , "Thăm Quan")
         }
         encycloediaButton.setOnClickListener{
@@ -57,6 +66,9 @@ class PlanetDetailFragment : Fragment() {
         planetName1 = planetName
         planetNameTextView = view.findViewById(R.id.planetNameTextView)
         planetNameTextView?.text = planetName
+
+
+        effectmanager = Effectmanager(filamentHelper)
     }
 
     fun updatePlanetName(newName: String) {

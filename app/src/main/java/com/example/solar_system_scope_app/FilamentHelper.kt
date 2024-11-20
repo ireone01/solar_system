@@ -4,29 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.PointF
 import android.opengl.Matrix
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
-import com.google.android.filament.utils.distance
-import com.google.android.filament.utils.sqr
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
-import kotlin.random.Random
 
 class FilamentHelper(private val context: Context, private var surface: Surface) {
 
@@ -43,16 +28,12 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private val resourceLoader: ResourceLoader
     private val entityManager: EntityManager = EntityManager.get()
     private var asset: FilamentAsset? = null
-    private var totalScale = 1.0f
 
-    private var rotationX = 0.0f
-    private var rotationY = 0.0f
-
-    private var cameraRotationX = 0f
-    private var cameraRotationY = 0f
-    private var cameraDistance = 10f
+     var cameraRotationX = 0f
+     var cameraRotationY = 0f
+    var cameraDistance = 10f
     private val minDistance = 1f
-    private val maxDistance = 80f
+    private val maxDistance = 70f
 
     private val planets = mutableListOf<Planet>()
 
@@ -66,7 +47,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     var transitionStartTime = 0L
     val transitionDuration = 1000L
     var isTransitioning = false
-    var lastUpdateTime : Long = System.currentTimeMillis()
 
     var targetPlanet: Planet? = null
         set(value) {
@@ -192,12 +172,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
     }
 
-//    fun init(surface: Surface){
-//        swapChain = engine.createSwapChain(surface)
-//        view.scene = scene
-//        view.camera = camera
-//    }
 
+    fun getPlanets(): List<Planet> {
+        return planets
+    }
     fun getScreenPosition(planet: Planet): PointF? {
         val camera = camera ?: return null
         val viewMatrix = FloatArray(16)
@@ -557,7 +535,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     indexBuffer,
                     orbitMaterialInstance
                 )
-
+                orbitEntities.add(orbitEntity)
                 applyOrbitInclination(engine , orbitEntity , inclination)
             }else{
                 Log.e("addPlanet", "orbitMaterialInstance là null")
@@ -603,6 +581,70 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     }
 
 
+    fun reloadOrbits(){
+
+        removeOrbits()
+
+        for(planet in planets){
+            val segments = getSegmentsForOrbit(cameraDistance)
+            val (vertexData ,indexData) = createOrbitRing(planet.orbitRadiusA,
+                planet.orbitRadiusB , planet.eccentricity , thickness = 0.02f , verticalThickness =  0.01f)
+            val (vertexBuffer , indexBuffer) = createOrbitBuffers(engine , vertexData, indexData)
+            val orbitMaterialInstance = createOrbitMaterial(engine)
+            if(orbitMaterialInstance != null){
+                val orbitEntity = addOrbitEntityToScene(engine, scene , vertexBuffer,
+                    indexBuffer , orbitMaterialInstance)
+                applyOrbitInclination(engine , orbitEntity , planet.inclination)
+                orbitEntities.add(orbitEntity)
+
+                if(planet.parent != null){
+                    val transformManager = engine.transformManager
+                    val orbitInstance = transformManager.getInstance(orbitEntity)
+                    val parentInstance = transformManager.getInstance(planet.parent.asset.root)
+                    if(orbitInstance != 0  && parentInstance != 0){
+                        transformManager.setParent(orbitInstance , parentInstance)
+                    }
+                }
+            }
+        }
+    }
+    fun scalePlanet(planet: Planet,  scale: Float){
+            val transformManager = engine.transformManager
+            val instance = transformManager.getInstance(planet.entity)
+            if (instance != 0) {
+                val currentTranform = FloatArray(16)
+                transformManager.getTransform(instance, currentTranform)
+
+
+                val scaleMatrix = FloatArray(16)
+                Matrix.setIdentityM(scaleMatrix, 0)
+                Matrix.scaleM(scaleMatrix, 0 , scale, scale, scale )
+
+                Matrix.multiplyMM(currentTranform,0,currentTranform , 0 , scaleMatrix ,0)
+
+                transformManager.setTransform(instance , currentTranform)
+            }
+        planet.scale = scale
+    }
+    private val orbitEntities = mutableListOf<Int>()
+    fun removeOrbits(){
+        for(entity in orbitEntities) {
+            scene.removeEntity(entity)
+            engine.destroyEntity(entity)
+        }
+        orbitEntities.clear()
+    }
+
+    private var orbitVisible = true
+
+    fun toggleOrbits(){
+        if(orbitVisible) {
+            removeOrbits()
+        }else{
+            reloadOrbits()
+        }
+        orbitVisible = !orbitVisible
+    }
 
 
     private val orbitRingCache = mutableMapOf<String,Pair<FloatArray,ShortArray>>()
@@ -708,6 +750,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         orbitRingCache[cacheKey] = result
         return result
     }
+
+
 
     fun getSegmentsForOrbit(cameraDistance: Float): Int {
         return when {
@@ -822,8 +866,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             transformManager.setTransform(instance, transformMatrix)
         }
     }
-
-
 
 
 
