@@ -16,7 +16,7 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-
+    private var planetNameClick : String? = null
     fun activateEffect(){
         filamentHelper.targetPlanet?.let { targetPlanet ->
             originalCameraDistance = filamentHelper.cameraDistance
@@ -27,16 +27,19 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
 
             filamentHelper.removeOrbits()
 
+            val childPlanets = filamentHelper.getChildPlanets(targetPlanet)
+
+
             filamentHelper.getPlanets().forEach{ planet ->
-                if(planet != targetPlanet) {
+                if(planet != targetPlanet && !childPlanets.contains(planet)) {
                     filamentHelper.scalePlanet(planet , planet.scale / 1000f)
+                    planetNameClick = targetPlanet.name
                 }
 
             }
-
             val newCameraRotationX = 0f
-            val newCameraRotationY = 90f
-            val newCameradistance = 10f
+            val newCameraRotationY = 150f
+            val newCameradistance = 2f
 
             scope.launch {
                 animateCamera(startDistance = filamentHelper.cameraDistance,
@@ -55,10 +58,12 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
     fun deactivateEffect() {
         filamentHelper.reloadOrbits()
 
-        originalScales.forEach{ (planet, originalScale) ->
-            filamentHelper.scalePlanet(planet , originalScale)
-        }
-        scope.launch {
+        filamentHelper.getPlanets().forEach{ planet ->
+            if(planetNameClick != null && planetNameClick != planet.name) {
+                filamentHelper.scalePlanet(planet, planet.scale * 1000f)
+            }
+            }
+            scope.launch {
             animateCamera(
                 startDistance = filamentHelper.cameraDistance,
                 endDistance = originalCameraDistance,

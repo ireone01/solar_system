@@ -611,7 +611,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     fun scalePlanet(planet: Planet,  scale: Float){
             val transformManager = engine.transformManager
             val instance = transformManager.getInstance(planet.entity)
-            if (instance != 0) {
+        if (instance != 0) {
                 val currentTranform = FloatArray(16)
                 transformManager.getTransform(instance, currentTranform)
 
@@ -626,6 +626,11 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             }
         planet.scale = scale
     }
+
+    fun getChildPlanets(parent: Planet): List<Planet> {
+        return planets.filter { it.parent == parent }
+    }
+
     private val orbitEntities = mutableListOf<Int>()
     fun removeOrbits(){
         for(entity in orbitEntities) {
@@ -637,14 +642,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
     private var orbitVisible = true
 
-    fun toggleOrbits(){
-        if(orbitVisible) {
-            removeOrbits()
-        }else{
-            reloadOrbits()
-        }
-        orbitVisible = !orbitVisible
-    }
+
 
 
     private val orbitRingCache = mutableMapOf<String,Pair<FloatArray,ShortArray>>()

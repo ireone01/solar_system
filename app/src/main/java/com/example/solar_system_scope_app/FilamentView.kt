@@ -200,7 +200,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 7.0f,
                         axisTilt = 0.0f,
                         rotation = 0.0f,
-                        rotationSpeed = 1.0f,
+                        rotationSpeed = .1f*1.0f,
                         buffer = mercuryBuffer
                     )
 
@@ -214,7 +214,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 3.39f,
                         axisTilt = 177.4f,
                         rotation = 177.4f ,
-                        rotationSpeed = -1.48f,
+                        rotationSpeed = .1f*-1.48f,
                         buffer = venusBuffer
                     )
 
@@ -228,21 +228,21 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 0.00005f,
                         axisTilt = 23.44f,
                         rotation = 23.44f,
-                        rotationSpeed = 1.0f,
+                        rotationSpeed = .1f*1.0f,
                         buffer = earthBuffer
                     )
 
                     moon812 = filamentInstance.addPlanet(
                         fileName = "Moon.glb",
                         name = "Moon",
-                        orbitRadiusA = 2f*130.9f,
+                        orbitRadiusA = 130.9f,
                         eccentricity = 0.0549f,
-                        orbitSpeed = 1.5f,
+                        orbitSpeed = .5f*1.5f,
                         scale = 12f,
                         inclination = 5.14f,
                         axisTilt = 6.68f,
                         rotation = 6.68f,
-                        rotationSpeed = 13.36f,
+                        rotationSpeed = .6f*13.36f,
                         parent = earth812,
                         buffer = moonBuffer
                     )
@@ -257,7 +257,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 1.85f,
                         axisTilt = 25.19f,
                         rotation = 25.19f,
-                        rotationSpeed = 1.02f,
+                        rotationSpeed = .1f*1.02f,
                         buffer = marsBuffer
                     )
 
@@ -271,7 +271,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 1.31f,
                         axisTilt = -7.13f,
                         rotation = 13.13f,
-                        rotationSpeed = 1.41f,
+                        rotationSpeed = .1f*1.41f,
                         buffer = jupiterBuffer
                     )
 
@@ -285,7 +285,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 2.49f,
                         axisTilt = 0.0f*23.73f,
                         rotation = 23.73f,
-                        rotationSpeed = 0.1f*2.24f,
+                        rotationSpeed = .1f*0.1f*2.24f,
                         buffer = saturnBuffer
                     )
 
@@ -299,7 +299,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 0.77f,
                         axisTilt = 0.0f*17.77f,
                         rotation = 17.77f,
-                        rotationSpeed = 0.41f,
+                        rotationSpeed = .1f*0.41f,
                         buffer = uranusBuffer
                     )
 
@@ -313,7 +313,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 1.77f,
                         axisTilt = 0.0f*28.32f,
                         rotation = 0.0f*28.32f,
-                        rotationSpeed = 0.48f,
+                        rotationSpeed = .1f*0.48f,
                         buffer = neptuneBuffer
                     )
                 }
@@ -336,8 +336,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
             val dy = planetScreenPos.y - y
             sqrt(dx * dx + dy * dy)
         }
-
-
         clickedPlanet?.let { planet ->
             val planetScreenPos = filament?.getScreenPosition(planet)
             if (planetScreenPos != null) {
@@ -352,7 +350,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     }
                     count++
                     post {
-
                         planetNameTextView?.text = planet.name
                         infoPanel?.visibility = View.VISIBLE
                         miniFilamentHelper?.loadPlanetModel(planet)
