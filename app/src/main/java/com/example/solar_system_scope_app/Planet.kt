@@ -18,7 +18,7 @@ data class Planet(
     var rotation: Float,//  Góc tự quay của hành tinh quanh trục của nó.
     var rotationSpeed: Float = 1.0f, // Tốc độ tự quay của hành tinh quanh trục.
     val parent: Planet? = null,// Hành tinh mẹ của hành tinh này (nếu có).
-    var dirtyFlag: Boolean = true,// có sự thay đổi cần cập nhật
+    var dirtyFlag: Boolean = false,// có sự thay đổi cần cập nhật
     var transformMatrix : FloatArray= FloatArray(16),// lưu trữ các phép biến đổi của hành tinh trong không gian 3D
 ) {
 
