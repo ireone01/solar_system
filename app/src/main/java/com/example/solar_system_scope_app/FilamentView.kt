@@ -42,7 +42,7 @@ lateinit var jupiter812 : Planet
 lateinit var uranus812 : Planet
 lateinit var neptune812 : Planet
 lateinit var venus812 : Planet
-
+var access : Boolean = false
 
 
 // can sua may thang ghe phia tren
@@ -358,13 +358,17 @@ class FilamentView @JvmOverloads constructor(context: Context,
                 }
             }
         }
+
         filament?.targetPlanet = sun812
         planetSelectionListener?.onPlanetSelected("")
 
         count =0
         post{
-            effectmanager = Effectmanager(filament!!)
-            effectmanager.deactivateEffect()
+            if(access) {
+                effectmanager = Effectmanager(filament!!)
+                effectmanager.deactivateEffect()
+                access = false
+            }
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
             miniFilamentHelper?.clearPlanetModel()

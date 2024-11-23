@@ -16,8 +16,10 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-
     fun activateEffect(){
+        if(!access){
+            access = true
+        }
         filamentHelper.targetPlanet?.let { targetPlanet ->
             originalCameraDistance = filamentHelper.cameraDistance
             originalCameraRotationX = filamentHelper.cameraRotationX
@@ -34,7 +36,14 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
                 if(planet != targetPlanet && !childPlanets.contains(planet)) {
                     filamentHelper.scalePlanet(planet , planet.scale / 1000f)
                     planet.dirtyFlag = true
+                }else{
+                    if(planet == targetPlanet) {
+                        planet.orbitSpeed /= 1000f
+                    }else{
+                        planet.orbitSpeed /= 2f
+                    }
                 }
+
 
             }
             val newCameraRotationX = 0f
@@ -56,6 +65,8 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
 
     }
     fun deactivateEffect() {
+
+
         filamentHelper.reloadOrbits()
 
         filamentHelper.getPlanets().forEach{ planet ->
@@ -63,12 +74,18 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
             if(planet.dirtyFlag) {
                 filamentHelper.scalePlanet(planet, planet.scale * 1000f)
                 planet.dirtyFlag = false
+            }else{
+                if(planet.parent == null) {
+                    planet.orbitSpeed *= 1000f
+                }else{
+                    planet.orbitSpeed *= 2f
+                }
             }
             }
             scope.launch {
             animateCamera(
                 startDistance = filamentHelper.cameraDistance,
-                endDistance = 15f,
+                endDistance = 25f,
                 startRotationX = filamentHelper.cameraRotationX,
                 endRotationX = 12f,
                 startRotationY = filamentHelper.cameraRotationY,
@@ -76,6 +93,7 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
                 duration = 1000L
             )
         }
+
     }
     private suspend fun animateCamera(
         startDistance: Float ,
