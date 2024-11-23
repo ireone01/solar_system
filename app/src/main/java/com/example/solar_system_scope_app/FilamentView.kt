@@ -368,6 +368,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                 effectmanager = Effectmanager(filament!!)
                 effectmanager.deactivateEffect()
                 access = false
+                Log.d("access!!!!!" , "${access} thay doi ")
             }
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""

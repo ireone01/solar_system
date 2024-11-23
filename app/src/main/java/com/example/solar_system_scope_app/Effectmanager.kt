@@ -1,5 +1,6 @@
 package com.example.solar_system_scope_app
 
+import android.util.Log
 import androidx.compose.ui.unit.fontscaling.MathUtils.lerp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,53 +17,56 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    fun activateEffect(){
-        if(!access){
+    fun activateEffect() {
+        if (!access) {
             access = true
-        }
-        filamentHelper.targetPlanet?.let { targetPlanet ->
-            originalCameraDistance = filamentHelper.cameraDistance
-            originalCameraRotationX = filamentHelper.cameraRotationX
-            originalCameraRotationY = filamentHelper.cameraRotationY
+            Log.d("access!!!!!", "${access} thay doi ")
 
-            originalScales = filamentHelper.getPlanets().associateWith { it.scale }
+            filamentHelper.targetPlanet?.let { targetPlanet ->
+                originalCameraDistance = filamentHelper.cameraDistance
+                originalCameraRotationX = filamentHelper.cameraRotationX
+                originalCameraRotationY = filamentHelper.cameraRotationY
 
-            filamentHelper.removeOrbits()
+                originalScales = filamentHelper.getPlanets().associateWith { it.scale }
 
-            val childPlanets = filamentHelper.getChildPlanets(targetPlanet)
+                filamentHelper.removeOrbits()
+
+                val childPlanets = filamentHelper.getChildPlanets(targetPlanet)
 
 
-            filamentHelper.getPlanets().forEach{ planet ->
-                if(planet != targetPlanet && !childPlanets.contains(planet)) {
-                    filamentHelper.scalePlanet(planet , planet.scale / 1000f)
-                    planet.dirtyFlag = true
-                }else{
-                    if(planet == targetPlanet) {
-                        planet.orbitSpeed /= 1000f
-                    }else{
-                        planet.orbitSpeed /= 2f
+                filamentHelper.getPlanets().forEach { planet ->
+                    if (planet != targetPlanet && !childPlanets.contains(planet)) {
+                        filamentHelper.scalePlanet(planet, planet.scale / 1000f)
+                        planet.dirtyFlag = true
+                    } else {
+                        if (planet == targetPlanet) {
+                            planet.orbitSpeed /= 1000f
+                        } else {
+                            planet.orbitSpeed /= 2f
+                        }
                     }
+
+
+                }
+                val newCameraRotationX = 40f
+                val newCameraRotationY = 150f
+                val newCameradistance = 4f
+
+                scope.launch {
+                    animateCamera(
+                        startDistance = filamentHelper.cameraDistance,
+                        endDistance = newCameradistance,
+                        startRotationX = filamentHelper.cameraRotationX,
+                        endRotationX = newCameraRotationX,
+                        startRotationY = filamentHelper.cameraRotationY,
+                        endRotationY = newCameraRotationY,
+                        duration = 1000L
+                    )
                 }
 
-
-            }
-            val newCameraRotationX = 0f
-            val newCameraRotationY = 150f
-            val newCameradistance = 2f
-
-            scope.launch {
-                animateCamera(startDistance = filamentHelper.cameraDistance,
-                    endDistance = newCameradistance,
-                    startRotationX =  filamentHelper.cameraRotationX,
-                    endRotationX =  newCameraRotationX,
-                    startRotationY =  filamentHelper.cameraRotationY,
-                    endRotationY =  newCameraRotationY,
-                    duration = 1000L
-                    )
             }
 
         }
-
     }
     fun deactivateEffect() {
 
