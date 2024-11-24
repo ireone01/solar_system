@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,9 +47,19 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 miniFilamentHelper.init(width,height)
 
                 filamentView.setMiniFilamentHelper(miniFilamentHelper)
-                miniFilamentHelper.setClinkListener { planetName ->
-                    var namePlanet = planetNameTextView.text
-                   replaceFragmentWithPlanetDetail(namePlanet.toString())
+
+                miniFilamentHelper.setClinkListener {
+                    miniFilamentHelper.setClinkListener { clickedPlanetName ->
+                        var displayedPlanetName  = planetNameTextView.text.toString()
+//                    filamentView.filament!!.startCameraOffsetTransition(-2f)
+                        if (clickedPlanetName == displayedPlanetName) {
+                            replaceFragmentWithPlanetDetail(clickedPlanetName)
+                            Log.d("MainActivityzzzzz", "Hành tinh nhấp ${clickedPlanetName}")
+
+                        } else {
+                            Log.d("MainActivityzzzzz", "Hành tinh nhấp không khớp với hành tinh hiển thị")
+                        }
+                    }
                 }
 
 
@@ -70,11 +78,11 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     }
 
     override fun onPlanetSelected(planetName: String) {
+        planetNameTextView.text = planetName
         replaceFragmentWithPlanetDetail(planetName)
-
     }
 
-    fun replaceFragmentWithPlanetDetail(planetName: String) {
+   private fun replaceFragmentWithPlanetDetail(planetName: String) {
         val fragmentManager = supportFragmentManager
         val fragmentContainer: View = findViewById(R.id.fragment_container)
 
@@ -109,5 +117,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .remove(fragment)
                 .commit()
         }
+//            filamentView.filament!!.startCameraOffsetTransition(0f)
+
     }
 }

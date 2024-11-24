@@ -49,7 +49,9 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
     init {
         surfaceView.setOnTouchListener { _, motionEvent ->
             if(motionEvent.action == MotionEvent.ACTION_DOWN){
-                onClickListener?.invoke("Earth") // can sua cai nay
+                planetName?.let { name ->
+                    onClickListener?.invoke(name)
+                }
                 true
             }else{
                 false
@@ -137,6 +139,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
     }
 
     fun loadPlanetModel(planet: Planet) {
+        planetName = planet.name
         val entities = scene.entities
         scene.removeEntities(entities)
         entities.forEach { entity ->

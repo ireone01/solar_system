@@ -29,6 +29,19 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private val entityManager: EntityManager = EntityManager.get()
     private var asset: FilamentAsset? = null
 
+
+    // Biến để điều chỉnh camera trên trục X
+    private var currentCameraOffsetX: Float = 0f
+    private var previousCameraOffsetX: Float = 0f
+    private var targetCameraOffsetX: Float = 0f
+
+    // Biến để quản lý chuyển tiếp cameraOffsetX
+    private var isCameraOffsetTransitioning: Boolean = false
+
+    // Biến thời gian cho chuyển tiếp cameraOffsetX
+    private var cameraOffsetTransitionStartTime: Long = 0L
+    private var cameraOffsetTransitionDuration: Long = 1000L // Thời gian chuyển tiếp, ví dụ 1 giây
+
      var cameraRotationX = 0f
      var cameraRotationY = 0f
     var cameraDistance = 10f
@@ -47,7 +60,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     var transitionStartTime = 0L
     val transitionDuration = 1000L
     var isTransitioning = false
-
+    var width1:Int = 0
+    var height1: Int = 0
     var targetPlanet: Planet? = null
         set(value) {
             if (field != value) {
@@ -237,6 +251,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
          view.viewport = Viewport(0, 0, width, height)
         val aspect = width.toDouble() / height
         camera.setProjection(45.0, aspect, 0.1, 1000.0, Camera.Fov.VERTICAL)
+        width1 = width
+        height1= height
     }
 
     fun render() {
@@ -318,8 +334,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             if (renderer.beginFrame(swapChain!!, frametime)) {
                 renderer.render(view)
                 renderer.endFrame()
-            } else {
-                Log.e("FilamentHelper", "beginFrame thất bại")
             }
         } else {
             Log.e("FilamentHelper", "SwapChain hoặc Renderer chưa sẵn sàng")
@@ -434,11 +448,33 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 }
             }
 
+
+        // Xử lý chuyển tiếp cameraOffsetX
+        val elapsedOffsetTime = currentTime - cameraOffsetTransitionStartTime
+        if (isCameraOffsetTransitioning) {
+            if (elapsedOffsetTime < cameraOffsetTransitionDuration) {
+                val t = elapsedOffsetTime.toFloat() / cameraOffsetTransitionDuration.toFloat()
+                val easedT = easeInOutQuad(t)
+
+                // Nội suy cameraOffsetX hiện tại
+                currentCameraOffsetX =
+                    previousCameraOffsetX * (1 - easedT) + targetCameraOffsetX * easedT
+            } else {
+                // Hoàn thành chuyển tiếp
+                currentCameraOffsetX = targetCameraOffsetX
+                isCameraOffsetTransitioning = false
+            }
+            Log.d("isCameraOffsetTransitioning" , "targetCameraOffsetX = ${targetCameraOffsetX}")
+
+
+        }
+
+
             // Tính toán vị trí camera dựa trên currentTargetPosition
             val radX = Math.toRadians(cameraRotationX.toDouble())
             val radY = Math.toRadians(cameraRotationY.toDouble())
 
-            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
+            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0] + currentCameraOffsetX
             val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
             val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
 
@@ -448,7 +484,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     camX.toDouble(),
                     camY.toDouble(),
                     camZ.toDouble(),
-                    currentTargetPosition[0].toDouble(),
+                    currentTargetPosition[0].toDouble()  ,
                     currentTargetPosition[1].toDouble(),
                     currentTargetPosition[2].toDouble(),
                     0.0,
@@ -457,8 +493,16 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 )
 
             }
+   // hàm để bắt đầu và kết thúc chuyển tiếp
+    fun startCameraOffsetTransition(toOffsetX: Float, duration: Long = 1000L) {
+        isCameraOffsetTransitioning = true
+        cameraOffsetTransitionStartTime = System.currentTimeMillis()
+        cameraOffsetTransitionDuration = duration
 
-
+        previousCameraOffsetX = currentCameraOffsetX
+        targetCameraOffsetX = toOffsetX
+       Log.d("startCameraOffsetTransition","run okee toOffsetX = ${toOffsetX}")
+    }
 
 
     @SuppressLint("SuspiciousIndentation")

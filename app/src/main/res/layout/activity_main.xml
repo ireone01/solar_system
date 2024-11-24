@@ -19,6 +19,7 @@
         android:layout_margin="10dp"
         android:background="#88000000"
         android:padding="8dp"
+        android:elevation="4dp"
         android:visibility="gone">
 
         <!-- TextView hiển thị tên hành tinh -->
@@ -35,7 +36,9 @@
             android:id="@+id/miniPlanetView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
 
     <FrameLayout

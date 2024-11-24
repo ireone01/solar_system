@@ -43,6 +43,7 @@ class PlanetDetailFragment : Fragment() {
             filamentHelper.targetPlanet = filamentHelper.getPlanets().find { it.name == planetName1 }
             effectmanager.activateEffect()
             replaceFragment(ExploreFragment() , "Thăm Quan")
+            filamentView.filament!!.startCameraOffsetTransition(0f)
         }
         encycloediaButton.setOnClickListener{
             val fragment = EncyclopediaFragment()

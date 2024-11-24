@@ -345,9 +345,9 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
                 if (distance < touchThreshold) {
                     filament?.targetPlanet = planet
-                    if(count !=0) {
-                        planetSelectionListener?.onPlanetSelected(planet.name)
-                    }
+//                    if(count !=0) {
+//                        planetSelectionListener?.onPlanetSelected(planet.name)
+//                    }
                     count++
                     post {
                         planetNameTextView?.text = planet.name
