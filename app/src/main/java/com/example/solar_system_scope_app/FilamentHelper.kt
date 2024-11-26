@@ -9,6 +9,7 @@ import android.view.Choreographer
 import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
+import com.google.android.filament.utils.Mat4
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -246,14 +247,75 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     }
 
 
+    var isAsymmetricProjection: Boolean = false
 
     fun resize(width: Int, height: Int) {
-         view.viewport = Viewport(0, 0, width, height)
+        view.viewport = Viewport(0, 0, width, height)
         val aspect = width.toDouble() / height
-        camera.setProjection(45.0, aspect, 0.1, 1000.0, Camera.Fov.VERTICAL)
+        val verticalFov = 45.0
+        val near = 0.1
+        val far = 1000.0
+
+        if (isAsymmetricProjection) {
+            // Thiết lập ma trận chiếu không đối xứng
+            val offsetX = 1.0f // Điều chỉnh giá trị này theo nhu cầu
+            val eyeZ = cameraDistance.toDouble()
+
+            // Tính toán top và bottom của frustum
+            val verticalFovRadians = Math.toRadians(verticalFov)
+            val top = near * Math.tan(verticalFovRadians / 2)
+            val bottom = -top
+
+            // Tính toán right và left của frustum trước khi điều chỉnh
+            val right = top * aspect
+            val left = -right
+
+            // Điều chỉnh left và right để tạo ma trận chiếu không đối xứng
+            val leftAdjusted = left - offsetX * near / eyeZ
+            val rightAdjusted = right - offsetX * near / eyeZ
+
+            // Tạo mảng DoubleArray cho ma trận chiếu (theo thứ tự cột chính - column-major order)
+            val projectionMatrix = DoubleArray(16)
+
+
+// Cột thứ nhất (column 0)
+            projectionMatrix[0] = (2 * near) / (rightAdjusted - leftAdjusted) // m00
+            projectionMatrix[1] = 0.0                                         // m10
+            projectionMatrix[2] = 0.0                                         // m20
+            projectionMatrix[3] = 0.0                                         // m30
+
+// Cột thứ hai (column 1)
+            projectionMatrix[4] = 0.0                                         // m01
+            projectionMatrix[5] = (2 * near) / (top - bottom)                 // m11
+            projectionMatrix[6] = 0.0                                         // m21
+            projectionMatrix[7] = 0.0                                         // m31
+
+// Cột thứ ba (column 2)
+            projectionMatrix[8] = (rightAdjusted + leftAdjusted) / (rightAdjusted - leftAdjusted) // m02
+            projectionMatrix[9] = (top + bottom) / (top - bottom)                                 // m12
+            projectionMatrix[10] = -(far + near) / (far - near)                                   // m22
+            projectionMatrix[11] = -1.0                                                           // m32
+
+// Cột thứ tư (column 3)
+            projectionMatrix[12] = 0.0                                          // m03
+            projectionMatrix[13] = 0.0                                          // m13
+            projectionMatrix[14] = -(2 * far * near) / (far - near)             // m23
+            projectionMatrix[15] = 0.0                                          // m33
+
+            // Thiết lập ma trận chiếu tùy chỉnh
+            camera.setCustomProjection(projectionMatrix, near, far)
+        } else {
+            // Thiết lập ma trận chiếu bình thường
+            camera.setProjection(verticalFov, aspect, near, far, Camera.Fov.VERTICAL)
+        }
+
         width1 = width
-        height1= height
+        height1 = height
     }
+
+
+
+
 
     fun render() {
         if (swapChain == null) {
@@ -449,32 +511,11 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             }
 
 
-        // Xử lý chuyển tiếp cameraOffsetX
-        val elapsedOffsetTime = currentTime - cameraOffsetTransitionStartTime
-        if (isCameraOffsetTransitioning) {
-            if (elapsedOffsetTime < cameraOffsetTransitionDuration) {
-                val t = elapsedOffsetTime.toFloat() / cameraOffsetTransitionDuration.toFloat()
-                val easedT = easeInOutQuad(t)
-
-                // Nội suy cameraOffsetX hiện tại
-                currentCameraOffsetX =
-                    previousCameraOffsetX * (1 - easedT) + targetCameraOffsetX * easedT
-            } else {
-                // Hoàn thành chuyển tiếp
-                currentCameraOffsetX = targetCameraOffsetX
-                isCameraOffsetTransitioning = false
-            }
-            Log.d("isCameraOffsetTransitioning" , "targetCameraOffsetX = ${targetCameraOffsetX}")
-
-
-        }
-
-
             // Tính toán vị trí camera dựa trên currentTargetPosition
             val radX = Math.toRadians(cameraRotationX.toDouble())
             val radY = Math.toRadians(cameraRotationY.toDouble())
 
-            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0] + currentCameraOffsetX
+            val camX = (cameraDistance * Math.cos(radX) * Math.sin(radY)).toFloat() + currentTargetPosition[0]
             val camY = (cameraDistance * Math.sin(radX)).toFloat() + currentTargetPosition[1]
             val camZ = (cameraDistance * Math.cos(radX) * Math.cos(radY)).toFloat() + currentTargetPosition[2]
 
@@ -484,15 +525,16 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     camX.toDouble(),
                     camY.toDouble(),
                     camZ.toDouble(),
-                    currentTargetPosition[0].toDouble()  ,
+                    currentTargetPosition[0].toDouble() ,
                     currentTargetPosition[1].toDouble(),
                     currentTargetPosition[2].toDouble(),
                     0.0,
                     1.0,
                     0.0  // Hướng lên trên
                 )
-
+                 resize(width1, height1)
             }
+
    // hàm để bắt đầu và kết thúc chuyển tiếp
     fun startCameraOffsetTransition(toOffsetX: Float, duration: Long = 1000L) {
         isCameraOffsetTransitioning = true

@@ -51,8 +51,9 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 miniFilamentHelper.setClinkListener {
                     miniFilamentHelper.setClinkListener { clickedPlanetName ->
                         var displayedPlanetName  = planetNameTextView.text.toString()
-//                    filamentView.filament!!.startCameraOffsetTransition(-2f)
                         if (clickedPlanetName == displayedPlanetName) {
+                            filamentView.filament!!.isAsymmetricProjection = false
+                            filamentView.switchProjection()
                             replaceFragmentWithPlanetDetail(clickedPlanetName)
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp ${clickedPlanetName}")
 
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .remove(fragment)
                 .commit()
         }
-//            filamentView.filament!!.startCameraOffsetTransition(0f)
+            filamentView.filament!!.startCameraOffsetTransition(0f)
 
     }
 }

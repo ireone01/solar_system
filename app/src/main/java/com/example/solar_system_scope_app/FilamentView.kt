@@ -417,5 +417,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private fun stopRendering(){
         choreographer.removeFrameCallback(frameCallback)
     }
+    fun switchProjection() {
+        filament?.let {
+            it.isAsymmetricProjection = !it.isAsymmetricProjection
+            it.resize(it.width1, it.height1)
+        }
+    }
 
 }
