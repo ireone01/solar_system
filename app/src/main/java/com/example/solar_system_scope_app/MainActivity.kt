@@ -52,8 +52,9 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                     miniFilamentHelper.setClinkListener { clickedPlanetName ->
                         var displayedPlanetName  = planetNameTextView.text.toString()
                         if (clickedPlanetName == displayedPlanetName) {
-                            filamentView.filament!!.isAsymmetricProjection = false
-                            filamentView.switchProjection()
+                            if(filamentView.filament!!.currentCameraOffsetX == 0.0f ) {
+                                filamentView.switchProjection()
+                            }
                             replaceFragmentWithPlanetDetail(clickedPlanetName)
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp ${clickedPlanetName}")
 

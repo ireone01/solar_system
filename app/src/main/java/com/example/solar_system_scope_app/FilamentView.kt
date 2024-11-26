@@ -204,6 +204,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         buffer = mercuryBuffer
                     )
 
+
+
                     venus812 = filamentInstance.addPlanet(
                         fileName = "Venus.glb",
                         name = "Venus",
@@ -419,8 +421,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
     }
     fun switchProjection() {
         filament?.let {
-            it.isAsymmetricProjection = !it.isAsymmetricProjection
-            it.resize(it.width1, it.height1)
+            val targetOffsetX = if (it.currentCameraOffsetX == 0f) 1.0f else 0.0f
+            it.startCameraOffsetTransition(targetOffsetX)
         }
     }
 

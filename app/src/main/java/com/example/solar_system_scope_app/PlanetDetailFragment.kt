@@ -40,12 +40,12 @@ class PlanetDetailFragment : Fragment() {
             ?: throw  IllegalStateException("filament helper not found")
 
         exploreButton.setOnClickListener{
-            filamentView.filament!!.isAsymmetricProjection = true
-            filamentView.switchProjection()
+            if(filamentView.filament!!.currentCameraOffsetX != 0.0f) {
+                filamentView.switchProjection()
+            }
             filamentHelper.targetPlanet = filamentHelper.getPlanets().find { it.name == planetName1 }
             effectmanager.activateEffect()
             replaceFragment(ExploreFragment() , "Thăm Quan")
-            filamentView.filament!!.startCameraOffsetTransition(0f)
         }
         encycloediaButton.setOnClickListener{
             val fragment = EncyclopediaFragment()
@@ -53,7 +53,9 @@ class PlanetDetailFragment : Fragment() {
             args.putString("PLANET_NAME",planetName1)
             fragment.arguments = args
             replaceFragment(fragment , "Bách Khoa Toàn Thư")
-            filamentView.filament!!.startCameraOffsetTransition(2f)
+            if(filamentView.filament!!.currentCameraOffsetX == 0.0f) {
+                filamentView.switchProjection()
+            }
         }
 
         structureButton.setOnClickListener{

@@ -32,7 +32,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
 
     // Biến để điều chỉnh camera trên trục X
-    private var currentCameraOffsetX: Float = 0f
+     var currentCameraOffsetX: Float = 0f
     private var previousCameraOffsetX: Float = 0f
     private var targetCameraOffsetX: Float = 0f
 
@@ -247,8 +247,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     }
 
 
-    var isAsymmetricProjection: Boolean = false
-
     fun resize(width: Int, height: Int) {
         view.viewport = Viewport(0, 0, width, height)
         val aspect = width.toDouble() / height
@@ -256,9 +254,9 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val near = 0.1
         val far = 1000.0
 
-        if (isAsymmetricProjection) {
+
             // Thiết lập ma trận chiếu không đối xứng
-            val offsetX = 1.0f // Điều chỉnh giá trị này theo nhu cầu
+            val offsetX = currentCameraOffsetX.toDouble() // Điều chỉnh giá trị này theo nhu cầu
             val eyeZ = cameraDistance.toDouble()
 
             // Tính toán top và bottom của frustum
@@ -304,10 +302,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
             // Thiết lập ma trận chiếu tùy chỉnh
             camera.setCustomProjection(projectionMatrix, near, far)
-        } else {
-            // Thiết lập ma trận chiếu bình thường
-            camera.setProjection(verticalFov, aspect, near, far, Camera.Fov.VERTICAL)
-        }
+
 
         width1 = width
         height1 = height
@@ -454,6 +449,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
 
 
+
     fun rotateCamera(deltaX: Float , deltaY: Float){
         cameraRotationY = (cameraRotationY + deltaX * 0.1f) % 360f
         cameraRotationX += deltaY * 0.1f
@@ -509,7 +505,24 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     currentTargetPosition = planet.getPosition()
                 }
             }
+        val elapsedOffsetTime = currentTime - cameraOffsetTransitionStartTime
+        if (isCameraOffsetTransitioning) {
+            if (elapsedOffsetTime < cameraOffsetTransitionDuration) {
+                val t = elapsedOffsetTime.toFloat() / cameraOffsetTransitionDuration.toFloat()
+                val easedT = easeInOutQuad(t.coerceIn(0f, 1f))
 
+                // Nội suy cameraOffsetX hiện tại
+                currentCameraOffsetX =
+                    previousCameraOffsetX * (1 - easedT) + targetCameraOffsetX * easedT
+            } else {
+                // Hoàn thành chuyển tiếp
+                currentCameraOffsetX = targetCameraOffsetX
+                isCameraOffsetTransitioning = false
+            }
+            // Gọi lại hàm resize để cập nhật ma trận chiếu
+            resize(width1, height1)
+
+        }
 
             // Tính toán vị trí camera dựa trên currentTargetPosition
             val radX = Math.toRadians(cameraRotationX.toDouble())
@@ -532,7 +545,11 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                     1.0,
                     0.0  // Hướng lên trên
                 )
-                 resize(width1, height1)
+
+        if (!isCameraOffsetTransitioning) {
+            resize(width1, height1)
+        }
+
             }
 
    // hàm để bắt đầu và kết thúc chuyển tiếp
