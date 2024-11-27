@@ -29,7 +29,7 @@
                 android:layout_height="48dp"
                 android:src="@drawable/ic_back_arrow"
                 android:contentDescription="Back"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/button_backgound"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

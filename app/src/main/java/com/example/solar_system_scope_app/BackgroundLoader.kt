@@ -31,6 +31,7 @@ class BackgroundLoader(
         Log.d("BackgroundLoader", "Đã thêm nền vào scene")
 
         adjustBackgroundTransform()
+
     }
 
     private fun adjustBackgroundTransform() {
@@ -51,6 +52,7 @@ class BackgroundLoader(
             transformManager.setTransform(instance, transformMatrix)
         }
     }
+
 
     private fun readAsset(context: Context, fileName: String): ByteArray {
         context.assets.open(fileName).use { input ->

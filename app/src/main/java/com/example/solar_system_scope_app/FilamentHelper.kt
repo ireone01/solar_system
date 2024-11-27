@@ -43,6 +43,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private var cameraOffsetTransitionStartTime: Long = 0L
     private var cameraOffsetTransitionDuration: Long = 1000L // Thời gian chuyển tiếp, ví dụ 1 giây
 
+
      var cameraRotationX = 0f
      var cameraRotationY = 0f
     var cameraDistance = 10f
@@ -105,7 +106,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val bloomOptions = View.BloomOptions().apply {
             enabled = true
             strength = 2f       // Điều chỉnh cường độ của hiệu ứng Bloom
-            resolution = 1080      // Độ phân giải của hiệu ứng Bloom
+            resolution = 1080       // Độ phân giải của hiệu ứng Bloom
             levels = 10
             blendMode = View.BloomOptions.BlendMode.ADD
             threshold = false     // Sử dụng ngưỡng phát sáng
@@ -128,29 +129,13 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val sunLightEntity = EntityManager.get().create()
         LightManager.Builder(LightManager.Type.POINT)
             .color(1.0f, 1.0f, 0.9f)
-            .intensity(10000000f)
+            .intensity(1000000f)
             .position(0.0f, 2f, 0.0f)
-            .falloff(100000000.0f)
+            .falloff(2000000.0f)
             .build(engine, sunLightEntity)
+
         scene.addEntity(sunLightEntity)
 
-        val positions1 = mutableListOf(
-            Triple(25f, 0f, 0f),
-            Triple(-25f, 0f, 0f),
-            Triple(0f, 0f, 25f),
-            Triple(0f, 0f, -25f),
-        )
-        for((x,y,z) in positions1){
-            val sunLightEntity1 = EntityManager.get().create()
-            LightManager.Builder(LightManager.Type.POINT)
-                .color(1.0f, 1.0f, 0.9f)
-                .intensity(10000000f)
-                .position(x, y, z)
-                .falloff(1000000.0f)
-                .build(engine, sunLightEntity1)
-            scene.addEntity(sunLightEntity1)
-
-        }
         val positions = mutableListOf(
             Triple(1.4f, 1.4f, 1.4f),
             Triple(-1.4f, 1.4f, 1.4f),
@@ -171,7 +156,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 .intensity(12000000f) // Cường độ thấp hơn để hỗ trợ ánh sáng chính
                 .position(x, y, z) // Vị trí dựa trên tọa độ x, y, z từ mảng positions
                 .direction(-x, -y , -z)
-                .falloff(5000.0f) // Giảm falloff để ánh sáng không quá xa
+                .falloff(50000.0f) // Giảm falloff để ánh sáng không quá xa
                 .build(engine, lightEntity)
             scene.addEntity(lightEntity)
 
@@ -187,6 +172,29 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
     }
 
+    private var orbitVisible: Boolean = true
+
+    fun setOrbitsVisible(visible:Boolean){
+        if(visible == orbitVisible) {
+            return
+        }
+
+        if(visible){
+
+            for(entity in orbitEntities){
+                scene.addEntity(entity)
+            }
+        }else{
+            for(entity in orbitEntities){
+                scene.removeEntity(entity)
+            }
+        }
+        orbitVisible = visible
+    }
+
+    fun areOrbitVisible(): Boolean{
+        return orbitVisible
+    }
 
     fun getPlanets(): List<Planet> {
         return planets
@@ -318,26 +326,18 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             return
         }
         val frametime = System.nanoTime()
-
+        val currentTime = System.currentTimeMillis()
         for (planet in planets) {
             // Cập nhật góc quỹ đạo và tự quay
             planet.angle += planet.orbitSpeed
             planet.rotation += planet.rotationSpeed
 
-            // Tính toán vị trí trên quỹ đạo
-            val angleInRadians = Math.toRadians(planet.angle.toDouble())
-            val x: Float
-            val z: Float
-            val y = 0.0f
 
-            if (planet.parent == null) {
-                val c = planet.orbitRadiusA * planet.eccentricity
-                x = (planet.orbitRadiusA * Math.cos(angleInRadians) - c).toFloat()
-                z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-            } else {
-                x = (planet.orbitRadiusA * Math.cos(angleInRadians)).toFloat()
-                z = (planet.orbitRadiusB * Math.sin(angleInRadians)).toFloat()
-            }
+            // Tính toán vị trí trên quỹ đạo
+            val position = planet.getPosition()
+            val x = position[0]
+            val y = position[1]
+            val z = position[2]
 
             // Tạo ma trận nghiêng trục hành tinh (axis tilt)
             val tiltMatrix = FloatArray(16)
@@ -375,6 +375,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
             // Gán ma trận biến đổi cho hành tinh
             planet.transformMatrix = finalMatrix
+
+
         }
 
         for (planet in planets) {
@@ -384,6 +386,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             if (instance != 0) {
                 transformManager.setTransform(instance, planet.transformMatrix)
             }
+
         }
 
         updateCameraTransform()
@@ -503,7 +506,11 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
                 targetPlanet?.let { planet ->
                     currentTargetPosition = planet.getPosition()
+
+
+
                 }
+
             }
         val elapsedOffsetTime = currentTime - cameraOffsetTransitionStartTime
         if (isCameraOffsetTransitioning) {
@@ -743,10 +750,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
         orbitEntities.clear()
     }
-
-    private var orbitVisible = true
-
-
 
 
     private val orbitRingCache = mutableMapOf<String,Pair<FloatArray,ShortArray>>()
