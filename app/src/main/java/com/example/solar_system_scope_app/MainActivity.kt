@@ -7,6 +7,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.filament.utils.Utils
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     lateinit var planetNameTextView: TextView
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
-
+    private lateinit var toggleOrbitsButton: ImageButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,6 +31,29 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         infoPanel = findViewById(R.id.infoPanel)
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
+
+
+        toggleOrbitsButton = findViewById(R.id.btn_orbit)
+        toggleOrbitsButton.setOnClickListener{
+            filamentView.filament?.let { filamentHelper ->
+                val currentlyVisible = filamentHelper.areOrbitVisible()
+                filamentHelper.setOrbitsVisible(!currentlyVisible)
+
+             }
+            toggleOrbitsButton.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(100)
+                .withEndAction {
+                    toggleOrbitsButton.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
+        }
+
 
 
 

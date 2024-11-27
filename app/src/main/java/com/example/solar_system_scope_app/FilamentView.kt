@@ -44,7 +44,6 @@ lateinit var neptune812 : Planet
 lateinit var venus812 : Planet
 var access : Boolean = false
 
-
 // can sua may thang ghe phia tren
 class FilamentView @JvmOverloads constructor(context: Context,
                                              attrs: AttributeSet? = null)
@@ -237,10 +236,10 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     moon812 = filamentInstance.addPlanet(
                         fileName = "Moon.glb",
                         name = "Moon",
-                        orbitRadiusA = 0.5f*130.9f,
+                        orbitRadiusA = 130.9f, // khong duoc thay doi neu doi phai doi cung voi scale trai dat
                         eccentricity = 0.0549f,
                         orbitSpeed = .5f*1.5f,
-                        scale = 12f,
+                        scale = 12f,// khong duoc thay doi
                         inclination = 5.14f,
                         axisTilt = 6.68f,
                         rotation = 6.68f,
