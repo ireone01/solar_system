@@ -164,13 +164,18 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
 
 
-
         backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
 
 
         updateCameraTransform()
 
     }
+
+
+
+
+
+
 
     private var orbitVisible: Boolean = true
 
@@ -320,6 +325,13 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
 
 
 
+
+    fun setOrbitSpeedMultiplier(multiplier: Float){
+        orbitSpeedMultiplier = multiplier
+    }
+
+
+
     fun render() {
         if (swapChain == null) {
             Log.e("FilamentHelper", "SwapChain is null, cannot render.")
@@ -329,9 +341,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val currentTime = System.currentTimeMillis()
         for (planet in planets) {
             // Cập nhật góc quỹ đạo và tự quay
-            planet.angle += planet.orbitSpeed
-            planet.rotation += planet.rotationSpeed
-
+            planet.angle += planet.orbitSpeed * orbitSpeedMultiplier
+            planet.rotation += planet.rotationSpeed * orbitSpeedMultiplier
 
             // Tính toán vị trí trên quỹ đạo
             val position = planet.getPosition()
@@ -691,7 +702,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         return planet
     }
 
-
     fun reloadOrbits(){
 
         removeOrbits()
@@ -905,7 +915,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 .payload(buffer, buffer.remaining())
                 .build(engine)
             val materialInstance = material.createInstance()
-            materialInstance.setParameter("baseColor", 1.0f, 1.0f, 1.0f, 1.0f)
+            materialInstance.setParameter("baseColor", 1.0f, 1.0f, 1.0f)
+
             return materialInstance
 
         } catch (e: IOException) {
@@ -971,9 +982,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             transformManager.setTransform(instance, transformMatrix)
         }
     }
-
-
-
 
 
 }

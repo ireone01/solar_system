@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M0,0 L80,0 L100,20 L100,80 L80,100 L0,100 Z"/>
+</shape>

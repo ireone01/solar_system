@@ -1,6 +1,8 @@
 package com.example.solar_system_scope_app
 
 import com.google.android.filament.gltfio.FilamentAsset
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 data class Planet(
@@ -22,10 +24,24 @@ data class Planet(
     var transformMatrix : FloatArray= FloatArray(16),// lưu trữ các phép biến đổi của hành tinh trong không gian 3D
 ) {
 
+    // cau hoi dặt ra :
+    //neu lay 1/1/2000 lam moc khoi tao , vay thi , cong thuc tinh toan den thoi gian hien tại này cua cac hanh tinh co chinh xac không .
+
+    private val epochTime = "01/01/2000 00:00:00"
+    private val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+
+    private fun getElapsedTimeInSeconds(): Long {
+        val startDate = dateFormatter.parse(epochTime)
+        val currentDate = Date()
+        val diffInMillis = currentDate.time - startDate.time
+        return diffInMillis/1000
+    }
+
+
     fun getPosition(): FloatArray {
-        angle += orbitSpeed
-        rotation += rotationSpeed
-        val angleInRadians = Math.toRadians(angle.toDouble())
+        val elapsedTimeInSecond = getElapsedTimeInSeconds()
+
+        val angleInRadians = Math.toRadians((angle + (orbitSpeed * elapsedTimeInSecond / 86400.0f)).toDouble())
         val x: Float
         val z: Float
         val y = 0.0f

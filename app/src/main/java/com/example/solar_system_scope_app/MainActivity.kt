@@ -1,6 +1,8 @@
 package com.example.solar_system_scope_app
 
 
+import android.graphics.Canvas
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceHolder
@@ -8,8 +10,10 @@ import android.view.SurfaceView
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+
 import com.google.android.filament.utils.Utils
 
 class MainActivity : AppCompatActivity() , PlanetSelectionListener{
@@ -20,6 +24,11 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
     private lateinit var toggleOrbitsButton: ImageButton
+
+
+    private lateinit var speedSeekBar: SeekBar
+    private lateinit var speedTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,7 +63,24 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .start()
         }
 
+        speedSeekBar = findViewById(R.id.speed_seekbar)
+        speedTextView = findViewById(R.id.speed_textview)
+        speedSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val multiplier = progress / 1f
+                filamentView.filament!!.setOrbitSpeedMultiplier(multiplier)
 
+                speedTextView.text = String.format("Speed: %.1fx", multiplier)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+        })
 
 
         filamentView.setPlanetSelectionListener(this)

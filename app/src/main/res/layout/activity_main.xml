@@ -57,7 +57,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:tooltipText="btn_setting_tooltip" />
 
+    <SeekBar
+        android:id="@+id/speed_seekbar"
+        android:layout_width="365dp"
+        android:layout_height="30dp"
+        android:max="365"
+        android:progress="100"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/seekbar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <!-- TextView Hiển Thị Giá Trị Tốc Độ -->
+    <TextView
+        android:id="@+id/speed_textview"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="Speed: 1.0x"
+        android:textSize="16sp"
+        android:background="@drawable/button_backgound"
+        android:layout_above="@id/speed_seekbar"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toStartOf="@id/speed_seekbar"
+        app:layout_constraintBottom_toBottomOf="@id/speed_seekbar"/>
 
     <LinearLayout
         android:id="@+id/infoPanel"
