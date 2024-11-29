@@ -187,7 +187,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         inclination = 0f,
                         axisTilt = 0.0f,
                         rotation = 0.0f,
-                        rotationSpeed = 0.4f,
+                        rotationSpeed = (1/86400f)*0.4f,
                         buffer = sunBuffer
                     )
 
@@ -196,12 +196,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Mercury",
                         orbitRadiusA = 0.5f*2f*2.0f,
                         eccentricity = 0.2056f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*0.5f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.5f,
                         scale = 0.05f,
                         inclination = 7.0f,
                         axisTilt = 0.0f,
                         rotation = 0.0f,
-                        rotationSpeed = .1f*1.0f,
+                        rotationSpeed = (1/86400f)*.1f*1.0f,
                         buffer = mercuryBuffer
                     )
 
@@ -212,12 +212,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Venus",
                         orbitRadiusA = 0.5f*2f*3.7f,
                         eccentricity = 0.0067f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*0.35f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.35f,
                         scale = 0.005f,
                         inclination = 3.39f,
                         axisTilt = 177.4f,
                         rotation = 177.4f ,
-                        rotationSpeed = .1f*-1.48f,
+                        rotationSpeed = (1/86400f)*.1f*-1.48f,
                         buffer = venusBuffer
                     )
 
@@ -226,12 +226,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Earth",
                         orbitRadiusA = 0.5f*2f*5.0f,
                         eccentricity = 0.0167f,
-                        orbitSpeed =100f*(1/365.25f)*.1f*0.3f,
+                        orbitSpeed =(1/86400f)*100f*(1/365.25f)*.1f*0.3f,
                         scale = 0.00525f,
                         inclination = 0.00005f,
                         axisTilt = 23.44f,
                         rotation = 23.44f,
-                        rotationSpeed = .1f*1.0f,
+                        rotationSpeed = (1/86400f)*2.8f,
                         buffer = earthBuffer
                     )
 
@@ -240,12 +240,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Moon",
                         orbitRadiusA = 130.9f, // khong duoc thay doi neu doi phai doi cung voi scale trai dat
                         eccentricity = 0.0549f,
-                        orbitSpeed = 100f*(1/365.25f)*.5f*1.5f,
+                        orbitSpeed = (1/86400f)*.5f*2.5f,
                         scale = 12f,// khong duoc thay doi
                         inclination = 5.14f,
                         axisTilt = 6.68f,
                         rotation = 6.68f,
-                        rotationSpeed = .6f*13.36f,
+                        rotationSpeed = (1/86400f)*.6f*13.36f,
                         parent = earth812,
                         buffer = moonBuffer
                     )
@@ -255,12 +255,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Mars",
                         orbitRadiusA = 0.5f*2f*7.6f,
                         eccentricity = 0.0934f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*0.33f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.33f,
                         scale = 0.371f,
                         inclination = 1.85f,
                         axisTilt = 25.19f,
                         rotation = 25.19f,
-                        rotationSpeed = .1f*1.02f,
+                        rotationSpeed = (1/86400f)*.1f*1.02f,
                         buffer = marsBuffer
                     )
 
@@ -269,12 +269,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Jupiter",
                         orbitRadiusA = 0.5f*2f*11f,
                         eccentricity = 0.049f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*2.5f * 0.084f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.084f,
                         scale = 0.1f,
                         inclination = 1.31f,
                         axisTilt = -7.13f,
                         rotation = 13.13f,
-                        rotationSpeed = .1f*1.41f,
+                        rotationSpeed = (1/86400f)*.1f*1.41f,
                         buffer = jupiterBuffer
                     )
 
@@ -283,12 +283,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Saturn",
                         orbitRadiusA = 0.5f*2f*16f,
                         eccentricity = 0.056f,
-                        orbitSpeed = 100f*(1/365.25f)*.01f*2.5f * 0.034f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.01f*2.5f * 0.034f,
                         scale = 3f,
                         inclination = 2.49f,
                         axisTilt = 0.0f*23.73f,
                         rotation = 23.73f,
-                        rotationSpeed = 0.001f*.1f*0.1f*2.24f,
+                        rotationSpeed = (1/86400f)*0.001f*.1f*0.1f*2.24f,
                         buffer = saturnBuffer
                     )
 
@@ -297,12 +297,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Uranus",
                         orbitRadiusA = 0.5f*2f*19.22f,
                         eccentricity = 0.046f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*2.5f * 0.012f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.012f,
                         scale = 0.001f,
                         inclination = 0.77f,
                         axisTilt = 0.0f*17.77f,
                         rotation = 17.77f,
-                        rotationSpeed = 0.001f*.1f*0.41f,
+                        rotationSpeed = (1/86400f)*0.001f*.1f*0.41f,
                         buffer = uranusBuffer
                     )
 
@@ -311,12 +311,12 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         name = "Neptune",
                         orbitRadiusA = 0.5f*2f*22f,
                         eccentricity = 0.010f,
-                        orbitSpeed = 100f*(1/365.25f)*.1f*2.5f * 0.006f,
+                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.006f,
                         scale = 0.007f,
                         inclination = 1.77f,
                         axisTilt = 0.0f*28.32f,
                         rotation = 0.0f*28.32f,
-                        rotationSpeed = 0.001f*.1f*0.48f,
+                        rotationSpeed = (1/86400f)*0.001f*.1f*0.48f,
                         buffer = neptuneBuffer
                     )
                 }

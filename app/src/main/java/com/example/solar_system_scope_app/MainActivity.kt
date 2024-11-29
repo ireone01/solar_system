@@ -4,6 +4,8 @@ package com.example.solar_system_scope_app
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -15,6 +17,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 import com.google.android.filament.utils.Utils
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
@@ -29,6 +34,26 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var speedSeekBar: SeekBar
     private lateinit var speedTextView: TextView
 
+
+    private lateinit var textYear: TextView
+    private lateinit var textMonthDay: TextView
+    private lateinit var textHourMinus: TextView
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateTimeRunnable = object : Runnable {
+        override fun run() {
+            updateRealTime()
+            handler.postDelayed(this, 60000)
+        }
+
+    }
+
+    private val secondsInMinute = 60
+    private val secondsInHour = 3600
+    private val secondsInDay = 86400
+    private val secondsInMonth = 2592000
+    private val secondsInYear = (365.25 * 86400).toInt()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,6 +66,12 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
 
+
+        textYear = findViewById(R.id.text_year)
+        textMonthDay = findViewById(R.id.text_month_day)
+        textHourMinus = findViewById(R.id.text_hour_minus)
+        updateRealTime()
+        handler.post(updateTimeRunnable)
 
         toggleOrbitsButton = findViewById(R.id.btn_orbit)
         toggleOrbitsButton.setOnClickListener{
@@ -65,12 +96,14 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
         speedSeekBar = findViewById(R.id.speed_seekbar)
         speedTextView = findViewById(R.id.speed_textview)
+        speedSeekBar.progress = 0
+        speedSeekBar.max = (365.25*86400).toInt()
         speedSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val multiplier = progress / 1f
+                val multiplier = progress/1f
                 filamentView.filament!!.setOrbitSpeedMultiplier(multiplier)
+                updateElapsedTime(multiplier)
 
-                speedTextView.text = String.format("Speed: %.1fx", multiplier)
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -129,6 +162,52 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         })
     }
 
+    private fun updateRealTime(){
+         val currentTime = Calendar.getInstance()
+
+        val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+        val year = yearFormat.format(currentTime.time)
+
+        val monthDayFormat = SimpleDateFormat("dd 'th.' MMM", Locale.getDefault())
+        val monthDay = monthDayFormat.format(currentTime.time)
+
+        val hourFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val time = hourFormat.format(currentTime.time)
+
+        textYear.text = year
+        textMonthDay.text = monthDay
+        textHourMinus.text = time
+    }
+
+
+    private fun updateElapsedTime(multiplier: Float){
+        val realTimeSeconds =  multiplier / 1.0f
+
+        val minutes = (realTimeSeconds / secondsInMinute)
+        val hours = (realTimeSeconds / secondsInHour)
+        val days = (realTimeSeconds / secondsInDay)
+        val months  = (realTimeSeconds / secondsInMonth)
+        val years = (realTimeSeconds / secondsInYear)
+        var timeDisplay = ""
+        if(realTimeSeconds < secondsInMinute){
+            timeDisplay = String.format("%.1f s/s", realTimeSeconds)
+        }else if(realTimeSeconds < secondsInHour) {
+            timeDisplay = String.format("%.1f m/s", minutes)
+        }else if(realTimeSeconds < secondsInDay){
+            timeDisplay = String.format("%.1f h/s", hours)
+        }else if(realTimeSeconds < secondsInMonth){
+            timeDisplay = String.format("%.1f d/s", days)
+        }else if(realTimeSeconds < secondsInYear){
+            timeDisplay = String.format("%.1f month/s", months)
+        }else{
+            timeDisplay = String.format("%d year/s", years)
+        }
+
+        speedTextView.text = String.format("Speed: ${timeDisplay}")
+    }
+
+
+
     override fun onPlanetSelected(planetName: String) {
         planetNameTextView.text = planetName
         replaceFragmentWithPlanetDetail(planetName)
@@ -171,5 +250,10 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         }
             filamentView.filament!!.startCameraOffsetTransition(0f)
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(updateTimeRunnable)
     }
 }
