@@ -39,11 +39,14 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var textMonthDay: TextView
     private lateinit var textHourMinus: TextView
 
+    private var multiplier: Float = 0.0f
+    private var realTimeSeconds = 0L
     private val handler = Handler(Looper.getMainLooper())
     private val updateTimeRunnable = object : Runnable {
         override fun run() {
+            realTimeSeconds += (1 * multiplier).toLong()
             updateRealTime()
-            handler.postDelayed(this, 60000)
+            handler.postDelayed(this, 1000)
         }
 
     }
@@ -100,10 +103,9 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         speedSeekBar.max = (365.25*86400).toInt()
         speedSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val multiplier = progress/1f
+                multiplier = progress/1f
                 filamentView.filament!!.setOrbitSpeedMultiplier(multiplier)
                 updateElapsedTime(multiplier)
-
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -163,7 +165,14 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     }
 
     private fun updateRealTime(){
-         val currentTime = Calendar.getInstance()
+        val currentTime = Calendar.getInstance()
+
+
+        val minutes = (realTimeSeconds / secondsInMinute).toInt()
+        // Cập nhật thời gian thực trong Calendar
+        currentTime.add(Calendar.MINUTE, minutes)
+
+
 
         val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
         val year = yearFormat.format(currentTime.time)
@@ -187,7 +196,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         val hours = (realTimeSeconds / secondsInHour)
         val days = (realTimeSeconds / secondsInDay)
         val months  = (realTimeSeconds / secondsInMonth)
-        val years = (realTimeSeconds / secondsInYear)
+        val years = (realTimeSeconds / secondsInYear).toInt()
         var timeDisplay = ""
         if(realTimeSeconds < secondsInMinute){
             timeDisplay = String.format("%.1f s/s", realTimeSeconds)
@@ -197,7 +206,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             timeDisplay = String.format("%.1f h/s", hours)
         }else if(realTimeSeconds < secondsInMonth){
             timeDisplay = String.format("%.1f d/s", days)
-        }else if(realTimeSeconds < secondsInYear){
+        }else if(realTimeSeconds < secondsInYear && months<=12){
             timeDisplay = String.format("%.1f month/s", months)
         }else{
             timeDisplay = String.format("%d year/s", years)
