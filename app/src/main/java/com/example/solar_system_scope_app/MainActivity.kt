@@ -236,7 +236,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             removePlanetDetailFragment()
             fragmentContainer.visibility = View.GONE
         }
-
         // Cập nhật tên hành tinh trong MainActivity
         planetNameTextView.text = planetName
     }
