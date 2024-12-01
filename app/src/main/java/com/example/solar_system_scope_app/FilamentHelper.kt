@@ -10,6 +10,7 @@ import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.Mat4
+import com.google.android.filament.utils.angle
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -340,9 +341,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val frametime = System.nanoTime()
         val currentTime = System.currentTimeMillis()
         for (planet in planets) {
+
             // Cập nhật góc quỹ đạo và tự quay
-            planet.angle += planet.orbitSpeed * orbitSpeedMultiplier
-            planet.rotation += planet.rotationSpeed * orbitSpeedMultiplier
+            planet.tempAngle += planet.orbitSpeed * orbitSpeedMultiplier
+            planet.tempRotation += planet.rotationSpeed * orbitSpeedMultiplier
 
             // Tính toán vị trí trên quỹ đạo
             val position = planet.getPosition()
@@ -363,7 +365,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             Matrix.multiplyMM(modelMatrix, 0, tiltMatrix, 0, modelMatrix, 0)
 
             // Áp dụng tự quay quanh trục của hành tinh
-            Matrix.rotateM(modelMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
+            Matrix.rotateM(modelMatrix, 0, planet.tempRotation, 0.0f, 1.0f, 0.0f)
 
             // Áp dụng scale
             Matrix.scaleM(modelMatrix, 0, planet.scale, planet.scale, planet.scale)
@@ -610,7 +612,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             name = name,
             asset = planetAsset,
             entity = entity ,
-            angle = 0.0f,
             orbitRadiusA = orbitRadiusA,
             orbitRadiusB = orbitRadiusB,
             eccentricity = eccentricity,

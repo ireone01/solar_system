@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var textMonthDay: TextView
     private lateinit var textHourMinus: TextView
 
+    private lateinit var btn_TgT: Button
+
     private var multiplier: Float = 0.0f
     private var realTimeSeconds = 0L
     private val handler = Handler(Looper.getMainLooper())
@@ -99,6 +101,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
         speedSeekBar = findViewById(R.id.speed_seekbar)
         speedTextView = findViewById(R.id.speed_textview)
+
         speedSeekBar.progress = 0
         speedSeekBar.max = (365.25*86400).toInt()
         speedSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
@@ -117,6 +120,24 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             }
         })
 
+        btn_TgT = findViewById(R.id.btn_TgT)
+        btn_TgT.setOnClickListener{
+            multiplier =1f
+            speedSeekBar.progress = multiplier.toInt()
+            filamentView.filament?.let { filamentHelper ->
+                filamentHelper.setOrbitSpeedMultiplier(multiplier)
+            }
+
+            filamentView.filament?.let { filamentHelper ->
+                for(planet in filamentHelper.getPlanets()){
+                    planet.tempAngle = planet.angle
+                    planet.tempRotation = planet.tempRotation
+                }
+                filamentHelper.render()
+            }
+
+            updateElapsedTime(multiplier)
+        }
 
         filamentView.setPlanetSelectionListener(this)
         filamentView.setInfoPanel(infoPanel , planetNameTextView)

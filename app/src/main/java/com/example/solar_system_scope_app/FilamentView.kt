@@ -19,6 +19,7 @@ import com.google.android.filament.EntityManager
 import com.google.android.filament.LightManager
 import com.google.android.filament.Scene
 import com.google.android.filament.utils.Utils
+import com.google.android.filament.utils.angle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -172,6 +173,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     Log.e("initializePlanets", "Một hoặc nhiều buffer mô hình trống.")
                     return@launch
                 }
+
                 filament?.let { filamentInstance ->
                     // Tải nền
                     filamentInstance.loadBackground("sky_background.glb")
@@ -188,7 +190,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         axisTilt = 0.0f,
                         rotation = 0.0f,
                         rotationSpeed = (1/86400f)*0.4f,
-                        buffer = sunBuffer
+                        buffer = sunBuffer,
                     )
 
                     mecury812 = filamentInstance.addPlanet(
@@ -198,6 +200,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         eccentricity = 0.2056f,
                         orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.5f,
                         scale = 0.05f,
+
                         inclination = 7.0f,
                         axisTilt = 0.0f,
                         rotation = 0.0f,
