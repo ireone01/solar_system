@@ -51,7 +51,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private val minDistance = 1f
     private val maxDistance = 70f
 
-    private val planets = mutableListOf<Planet>()
+    val planets = mutableListOf<Planet>()
 
     private var screenWidth: Float = 0f
     private var screenHeight: Float = 0f
@@ -202,9 +202,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         return orbitVisible
     }
 
-    fun getPlanets(): List<Planet> {
-        return planets
-    }
+
     fun getScreenPosition(planet: Planet): PointF? {
         val camera = camera ?: return null
         val viewMatrix = FloatArray(16)
@@ -399,8 +397,8 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             if (instance != 0) {
                 transformManager.setTransform(instance, planet.transformMatrix)
             }
-
         }
+        (context as MainActivity).showPlanetNames()
 
         updateCameraTransform()
         if (swapChain != null && renderer != null) {

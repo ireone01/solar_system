@@ -12,6 +12,7 @@ import android.view.SurfaceView
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         infoPanel = findViewById(R.id.infoPanel)
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
-
+        showPlanetNames()
 
         textYear = findViewById(R.id.text_year)
         textMonthDay = findViewById(R.id.text_month_day)
@@ -129,7 +130,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             }
 
             filamentView.filament?.let { filamentHelper ->
-                for(planet in filamentHelper.getPlanets()){
+                for(planet in filamentHelper.planets){
                     planet.tempAngle = planet.angle
                     planet.tempRotation = planet.tempRotation
                 }
@@ -137,6 +138,8 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             }
 
             updateElapsedTime(multiplier)
+            realTimeSeconds = 0L
+            updateRealTime()
         }
 
         filamentView.setPlanetSelectionListener(this)
@@ -278,6 +281,71 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .commit()
         }
             filamentView.filament!!.startCameraOffsetTransition(0f)
+
+    }
+    val planetTextViews  = mutableListOf<TextView>()
+
+    val usedYPositions = mutableListOf<Int>()
+
+    fun showPlanetNames() {
+
+        filamentView.filament?.let { filamentHelper ->
+            val layout = findViewById<RelativeLayout>(R.id.layout_name_planets)
+
+            for(planet in filamentHelper.planets){
+                val screenPosition = filamentHelper.getScreenPosition(planet)
+                if(screenPosition != null && planet.parent==null) {
+                    var textView: TextView? = planetTextViews.find { it.tag == planet.name }
+                    if(textView == null){
+                        textView = TextView(this)
+                        textView.text = planet.name
+                        textView.tag = planet.name
+                        textView.setTextColor(Color.WHITE)
+                        textView.setTextSize(16f)
+                        textView.setTypeface(null, android.graphics.Typeface.BOLD)
+
+                        val layoutParams = RelativeLayout.LayoutParams(
+                          RelativeLayout.LayoutParams.WRAP_CONTENT,
+                           70
+                        )
+
+                        var newYPosition = (screenPosition.y + 20).toInt()
+                        if(planet.name == "Sun"){
+                            newYPosition += 30
+                        }
+                        usedYPositions.add(newYPosition)
+
+                        layoutParams.leftMargin = screenPosition.x.toInt()
+                        layoutParams.topMargin = newYPosition
+
+                        textView.layoutParams = layoutParams
+                        textView.requestLayout()
+
+                        layout.addView(textView)
+                        planetTextViews.add(textView)
+                        Log.d("PlanetNames", "Position of ${planet.name}: x = ${screenPosition.x}, y = ${screenPosition.y}")
+
+                    }else{
+                        val layoutParams = textView.layoutParams as RelativeLayout.LayoutParams
+
+
+                        var newYPosition = (screenPosition.y + 20).toInt()
+
+
+                        while (usedYPositions.contains(newYPosition)) {
+                            newYPosition += 20
+                        }
+                        layoutParams.leftMargin = screenPosition.x.toInt()
+                        layoutParams.topMargin = newYPosition
+                        textView.layoutParams = layoutParams
+                        textView.requestLayout()
+
+
+
+                    }
+                }
+            }
+        }
 
     }
 

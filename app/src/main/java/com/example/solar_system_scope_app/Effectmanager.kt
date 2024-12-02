@@ -27,14 +27,14 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
                 originalCameraRotationX = filamentHelper.cameraRotationX
                 originalCameraRotationY = filamentHelper.cameraRotationY
 
-                originalScales = filamentHelper.getPlanets().associateWith { it.scale }
+                originalScales = filamentHelper.planets.associateWith { it.scale }
 
                 filamentHelper.removeOrbits()
 
                 val childPlanets = filamentHelper.getChildPlanets(targetPlanet)
 
 
-                filamentHelper.getPlanets().forEach { planet ->
+                filamentHelper.planets.forEach { planet ->
                     if (planet != targetPlanet && !childPlanets.contains(planet)) {
                         filamentHelper.scalePlanet(planet, planet.scale / 1000f)
                         planet.dirtyFlag = true
@@ -73,7 +73,7 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
 
         filamentHelper.reloadOrbits()
 
-        filamentHelper.getPlanets().forEach{ planet ->
+        filamentHelper.planets.forEach{ planet ->
 
             if(planet.dirtyFlag) {
                 filamentHelper.scalePlanet(planet, planet.scale * 1000f)

@@ -5,6 +5,10 @@
     android:layout_height="match_parent">
 
 
+
+
+
+
     <com.example.solar_system_scope_app.FilamentView
         android:id="@+id/solarSystemView"
         android:layout_width="0dp"
@@ -13,6 +17,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_name_planets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+    </RelativeLayout>
 
     <ImageButton
         android:id="@+id/btn_orbit"

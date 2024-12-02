@@ -43,7 +43,7 @@ class PlanetDetailFragment : Fragment() {
             if(filamentView.filament!!.currentCameraOffsetX != 0.0f) {
                 filamentView.switchProjection()
             }
-            filamentHelper.targetPlanet = filamentHelper.getPlanets().find { it.name == planetName1 }
+            filamentHelper.targetPlanet = filamentHelper.planets.find { it.name == planetName1 }
             effectmanager.activateEffect()
             replaceFragment(ExploreFragment() , "Thăm Quan")
         }
