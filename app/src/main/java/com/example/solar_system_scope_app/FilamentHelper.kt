@@ -11,16 +11,20 @@ import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.Mat4
 import com.google.android.filament.utils.angle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class FilamentHelper(private val context: Context, private var surface: Surface) {
+class FilamentHelper(private val context: Context,
+                     private var surface: Surface,
+                    private val engine: Engine,
+                    private val scene: Scene) {
 
-    val engine: Engine = Engine.create()
+
     private var swapChain: SwapChain? = null
     private val renderer: Renderer = engine.createRenderer()
-    val scene: Scene = engine.createScene()
     private val view: View = engine.createView()
     private val camera: Camera
     private val cameraEntity: Int
@@ -85,7 +89,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
         
     }
-
+    private var listener: PlanetNameListener? = null
+    interface PlanetNameListener {
+        fun onPlanetNameUpdated(planetName: String)
+    }
 
     init {
         swapChain = engine.createSwapChain(surface)
@@ -136,6 +143,13 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             .build(engine, sunLightEntity)
 
         scene.addEntity(sunLightEntity)
+
+        val skyLightEntity = EntityManager.get().create()
+        LightManager.Builder(LightManager.Type.DIRECTIONAL)
+            .color(1.0f, 1.0f,0.9f)
+            .intensity(10000f)
+            .build(engine,skyLightEntity)
+        scene.addEntity(skyLightEntity)
 
         val positions = mutableListOf(
             Triple(1.4f, 1.4f, 1.4f),
@@ -398,6 +412,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
                 transformManager.setTransform(instance, planet.transformMatrix)
             }
         }
+//        listener?.onPlanetNameUpdated(currentPlanetName)
         (context as MainActivity).showPlanetNames()
 
         updateCameraTransform()
@@ -479,6 +494,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         cameraDistance = Math.max(minDistance, Math.min(maxDistance, cameraDistance))
 
         updateCameraTransform()
+
     }
     private fun easeInOutQuad(t: Float): Float {
         return if (t < 0.5f) {

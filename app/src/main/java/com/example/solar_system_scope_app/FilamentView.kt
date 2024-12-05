@@ -33,16 +33,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 
-lateinit var earth812: Planet
-lateinit var moon812: Planet
-lateinit var sun812: Planet
-lateinit var mecury812 : Planet
-lateinit var saturn812 : Planet
-lateinit var mars812 : Planet
-lateinit var jupiter812 : Planet
-lateinit var uranus812 : Planet
-lateinit var neptune812 : Planet
-lateinit var venus812 : Planet
+
 var access : Boolean = false
 var orbitSpeedMultiplier: Float = 1.0f
 
@@ -65,15 +56,24 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val planetLights = mutableMapOf<Planet, Int>()
 
 
-    private val engine = Engine.create()
-    private val scene = engine.createScene()
+//    private val engine = FilamentManager.engine
+//    private val scene = engine!!.createScene()
     private lateinit var gestureDetector: GestureDetector
     private lateinit var gestureHandler: GestureHandler
     private var planetSelectionListener: PlanetSelectionListener? = null
 
     private var miniFilamentHelper: MiniFilamentHelper? = null
     private lateinit var effectmanager: Effectmanager
-
+    lateinit var earth812: Planet
+    lateinit var moon812: Planet
+    lateinit var sun812: Planet
+    lateinit var mecury812 : Planet
+    lateinit var saturn812 : Planet
+    lateinit var mars812 : Planet
+    lateinit var jupiter812 : Planet
+    lateinit var uranus812 : Planet
+    lateinit var neptune812 : Planet
+    lateinit var venus812 : Planet
     fun setPlanetSelectionListener(listener: PlanetSelectionListener){
         this.planetSelectionListener = listener
     }
@@ -128,43 +128,27 @@ class FilamentView @JvmOverloads constructor(context: Context,
         this.planetNameTextView = planetNameTextView
     }
 
+    
     private val job = Job()
     private val scope = CoroutineScope((Dispatchers.Main + job))
-    private val bufferCache = mutableMapOf<String, ByteBuffer?>()
 
 
-    private suspend fun getCachedBuffer(fileName: String): ByteBuffer? {
-        return bufferCache[fileName] ?: withContext(Dispatchers.IO) {
-            val buffer = filament?.readAsset(context, fileName)
-            bufferCache[fileName] = buffer
-            buffer
-        }
-    }
+
     private fun initializePlanets() {
         scope.launch{
             try {
-                val sunBufferDeferred = async(Dispatchers.IO) { getCachedBuffer(  "Sun.glb")}
-                val mercuryBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Mercury.glb") }
-                val venusBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Venus.glb") }
-                val earthBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Earth.glb") }
-                val moonBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Moon.glb") }
-                val marsBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Mars.glb") }
-                val jupiterBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Jupiter.glb") }
-                val saturnBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Saturn.glb") }
-                val uranusBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Uranus.glb") }
-                val neptuneBufferDeferred = async(Dispatchers.IO) { getCachedBuffer( "Neptune.glb") }
+                val filamentInstance = filament ?: return@launch
+                val sunBuffer = DataManager.getPlanetBuffer(  "Sun.glb")
+                val mercuryBuffer = DataManager.getPlanetBuffer( "Mercury.glb")
+                val venusBuffer = DataManager.getPlanetBuffer( "Venus.glb")
+                val earthBuffer = DataManager.getPlanetBuffer( "Earth.glb")
+                val moonBuffer = DataManager.getPlanetBuffer( "Moon.glb")
+                val marsBuffer = DataManager.getPlanetBuffer( "Mars.glb")
+                val jupiterBuffer = DataManager.getPlanetBuffer( "Jupiter.glb")
+                val saturnBuffer = DataManager.getPlanetBuffer( "Saturn.glb")
+                val uranusBuffer = DataManager.getPlanetBuffer( "Uranus.glb")
+                val neptuneBuffer = DataManager.getPlanetBuffer( "Neptune.glb")
 
-
-                val sunBuffer = sunBufferDeferred.await()
-                val mercuryBuffer = mercuryBufferDeferred.await()
-                val venusBuffer = venusBufferDeferred.await()
-                val earthBuffer = earthBufferDeferred.await()
-                val moonBuffer = moonBufferDeferred.await()
-                val marsBuffer = marsBufferDeferred.await()
-                val jupiterBuffer = jupiterBufferDeferred.await()
-                val saturnBuffer = saturnBufferDeferred.await()
-                val uranusBuffer = uranusBufferDeferred.await()
-                val neptuneBuffer = neptuneBufferDeferred.await()
 
                 if (sunBuffer == null || mercuryBuffer == null || venusBuffer == null ||
                     earthBuffer == null || moonBuffer == null || marsBuffer == null ||
@@ -174,7 +158,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     return@launch
                 }
 
-                filament?.let { filamentInstance ->
+
                     // Tải nền
                     filamentInstance.loadBackground("sky_background.glb")
 
@@ -322,7 +306,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
                         rotationSpeed = (1/86400f)*0.001f*.1f*0.48f,
                         buffer = neptuneBuffer
                     )
-                }
+
             }catch (e : Exception){
                 Log.e("initializePlanets", "Error initializing planets: ${e.message}", e)
 
@@ -346,14 +330,10 @@ class FilamentView @JvmOverloads constructor(context: Context,
             val planetScreenPos = filament?.getScreenPosition(planet)
             if (planetScreenPos != null) {
                 val distance = sqrt((planetScreenPos.x - x).pow(2) + (planetScreenPos.y - y).pow(2))
-                val touchThreshold = 100f
-
+                val touchThreshold = 120f
 
                 if (distance < touchThreshold) {
                     filament?.targetPlanet = planet
-//                    if(count !=0) {
-//                        planetSelectionListener?.onPlanetSelected(planet.name)
-//                    }
                     count++
                     post {
                         planetNameTextView?.text = planet.name
@@ -368,6 +348,7 @@ class FilamentView @JvmOverloads constructor(context: Context,
         filament?.targetPlanet = sun812
         planetSelectionListener?.onPlanetSelected("")
 
+
         count =0
         post{
             if(access) {
@@ -376,15 +357,18 @@ class FilamentView @JvmOverloads constructor(context: Context,
                 access = false
                 Log.d("access!!!!!" , "${access} thay doi ")
             }
+            miniFilamentHelper?.clearPlanetModel()
             infoPanel?.visibility = View.GONE
             planetNameTextView?.text = ""
-            miniFilamentHelper?.clearPlanetModel()
             fragmentContainer.visibility = GONE
+
 
         }
     }
+
     override fun surfaceCreated(holder: SurfaceHolder){
-        filament = FilamentHelper(context , holder.surface)
+        FilamentManager.initialize(context , holder.surface)
+        filament = FilamentManager.filamentHelper
 
         gestureHandler = GestureHandler(filament)
         initializePlanets()
@@ -405,9 +389,8 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         stopRendering()
-        filament?.destroy()
+        FilamentManager.destroy()
         filament = null
-        bufferCache.clear()
         job.cancel()
     }
 

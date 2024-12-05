@@ -14,10 +14,13 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 import com.google.android.filament.utils.Utils
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var speedSeekBar: SeekBar
     private lateinit var speedTextView: TextView
 
+    private lateinit var zoomBar : VerticalSeekBar
 
     private lateinit var textYear: TextView
     private lateinit var textMonthDay: TextView
@@ -103,11 +107,11 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         speedSeekBar = findViewById(R.id.speed_seekbar)
         speedTextView = findViewById(R.id.speed_textview)
 
-        speedSeekBar.progress = 0
+        speedSeekBar.progress = 1
         speedSeekBar.max = (365.25*86400).toInt()
         speedSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                multiplier = progress/1f
+                multiplier = mapValue(progress)
                 filamentView.filament!!.setOrbitSpeedMultiplier(multiplier)
                 updateElapsedTime(multiplier)
             }
@@ -120,6 +124,32 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
             }
         })
+        zoomBar = findViewById(R.id.vertical)
+        zoomBar.progress = 50
+        zoomBar.max = 100
+        val centerProgress: Int = zoomBar.max/2
+        var isSeeking = false
+        var lastProgress = centerProgress
+        zoomBar.setOnSeekBarChangeListener(object :OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if(fromUser && isSeeking) {
+                    val delta = progress - centerProgress
+                    val scaleFactor = 1+(delta.toFloat()/centerProgress)*0.03f
+                    filamentView.filament!!.zoomCamera(scaleFactor)
+                    lastProgress = progress
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+                isSeeking = true
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                isSeeking = false
+                zoomBar.progress =centerProgress
+            }
+
+        })
 
         btn_TgT = findViewById(R.id.btn_TgT)
         btn_TgT.setOnClickListener{
@@ -128,6 +158,18 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             filamentView.filament?.let { filamentHelper ->
                 filamentHelper.setOrbitSpeedMultiplier(multiplier)
             }
+            btn_TgT.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(100)
+                .withEndAction {
+                    btn_TgT.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(100)
+                        .start()
+                }
+                .start()
 
             filamentView.filament?.let { filamentHelper ->
                 for(planet in filamentHelper.planets){
@@ -136,6 +178,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 }
                 filamentHelper.render()
             }
+
 
             updateElapsedTime(multiplier)
             realTimeSeconds = 0L
@@ -157,7 +200,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
                 filamentView.setMiniFilamentHelper(miniFilamentHelper)
 
-                miniFilamentHelper.setClinkListener {
+
                     miniFilamentHelper.setClinkListener { clickedPlanetName ->
                         var displayedPlanetName  = planetNameTextView.text.toString()
                         if (clickedPlanetName == displayedPlanetName) {
@@ -170,15 +213,12 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                         } else {
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp không khớp với hành tinh hiển thị")
                         }
-                    }
                 }
 
 
             }
 
-            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-
-            }
+            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
 
             override fun surfaceDestroyed(p0: SurfaceHolder) {
                 Log.d("MainActivityxxx", "surfaceDestroyed của miniPlanetView được gọi")
@@ -349,8 +389,26 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
     }
 
+    private fun mapValue(progress: Int): Float{
+        return when {
+            progress <=  (365.25*86400)/2 -> (progress*2/(365.25)).toFloat()
+            else -> (progress- ((365.25*86400)/2).toFloat())*((364.25*2/365.25).toFloat())+86400
+        }
+    }
+
     override fun onStop() {
         super.onStop()
         handler.removeCallbacks(updateTimeRunnable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(updateTimeRunnable)
+
+        if (::miniFilamentHelper.isInitialized) {
+            miniFilamentHelper.destroy()
+        }
+
+        FilamentManager.destroy()
     }
 }

@@ -35,7 +35,7 @@ class Effectmanager(private val filamentHelper: FilamentHelper) {
 
 
                 filamentHelper.planets.forEach { planet ->
-                    if (planet != targetPlanet && !childPlanets.contains(planet)) {
+                    if (planet != targetPlanet && !childPlanets.contains(planet) ) {
                         filamentHelper.scalePlanet(planet, planet.scale / 1000f)
                         planet.dirtyFlag = true
                     } else {
