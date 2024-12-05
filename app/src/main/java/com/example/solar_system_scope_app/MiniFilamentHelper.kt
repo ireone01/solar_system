@@ -233,11 +233,6 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         val fov = 45.0
         val distance = radius / Math.tan(Math.toRadians(fov / 2.0))
 
-        Log.d("CameraSetup", "Center: (${center[0]}, ${center[1]}, ${center[2]})")
-        Log.d("CameraSetup", "HalfExtent: (${halfExtent[0]}, ${halfExtent[1]}, ${halfExtent[2]})")
-        Log.d("CameraSetup", "Bán kính mô hình (radius): $radius")
-        Log.d("CameraSetup", "Khoảng cách camera (distance): $distance")
-        Log.d("CameraSetup", "Vị trí camera (eye): ${center[0].toDouble()}, ${center[1].toDouble()}, ${center[2].toDouble() + distance}")
 
         // Đặt camera nhìn vào mô hình
         camera.lookAt(
