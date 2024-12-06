@@ -3,6 +3,7 @@ package com.example.solar_system_scope_app
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -17,17 +18,23 @@ class StartActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_activity)
 
+        startButton  = findViewById(R.id.btn_start)
+        startButton.visibility = View.INVISIBLE
         videoView = findViewById(R.id.backgroundVideoView)
+        bounceAnimation  = AnimationUtils.loadAnimation(this, R.anim.bounce)
+
         val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.video_start}")
         videoView.setVideoURI(videoUri)
         videoView.setOnPreparedListener { mediaPlayer ->
-            mediaPlayer.isLooping = true
             videoView.start()
         }
 
-         startButton  = findViewById(R.id.btn_start)
-         bounceAnimation  = AnimationUtils.loadAnimation(this, R.anim.bounce)
-        startButton.startAnimation(bounceAnimation)
+
+        videoView.setOnCompletionListener {
+            startButton.visibility = View.VISIBLE
+            startButton.startAnimation(bounceAnimation)
+        }
+
 
         startButton.setOnClickListener{
             startButton.animate()
@@ -42,6 +49,7 @@ class StartActivity : AppCompatActivity(){
                         .start()
                 }
                 .start()
+
             val intent = Intent(this@StartActivity , MainActivity::class.java)
             startActivity(intent)
             finish()

@@ -39,7 +39,7 @@
         app:tooltipText="btn_setting_tooltip" />
 
     <ImageButton
-        android:id="@+id/btn_orbit1"
+        android:id="@+id/btn_setting"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
@@ -205,5 +205,15 @@
         app:layout_constraintWidth_percent="0.5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/fragment_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
