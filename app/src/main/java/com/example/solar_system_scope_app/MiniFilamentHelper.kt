@@ -21,12 +21,14 @@ import java.nio.ByteOrder
 
 class MiniFilamentHelper(private val context: Context, private val surfaceView: SurfaceView,
                         ) {
-    private val engine = Engine.create()
+    private val engine1 = FilamentManager.engine
+    private val engine = engine1!!
     private var swapChain: SwapChain? = null
     private val renderer = engine.createRenderer()
     private val view = engine.createView()
     private val scene = engine.createScene()
-    private val camera = engine.createCamera(EntityManager.get().create())
+    private val cameraEntity = EntityManager.get().create()
+    private val camera = engine.createCamera(cameraEntity)
     private var width = 0
     private var height = 0
     private val choreographer = Choreographer.getInstance()
@@ -121,7 +123,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
         LightManager.Builder(LightManager.Type.SUN)
             .color(1.0f, 1.0f, 1.0f)  // Màu trắng cho ánh sáng
-            .intensity(200_000.0f)    // Tăng độ sáng để chiếu sáng tốt hơn
+            .intensity(250000.0f)    // Tăng độ sáng để chiếu sáng tốt hơn
             .direction(-0.5f, -1.0f, -0.5f)  // Điều chỉnh hướng của ánh sáng để chiếu sáng mô hình tốt hơn
             .castShadows(true)        // Cho phép đổ bóng nếu cần
             .build(engine, directionalLight)
@@ -129,22 +131,18 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         // Thêm đèn vào scene
         scene.addEntity(directionalLight)
 
-
+        lightEntity = directionalLight
     }
 
-    private suspend fun readAsset(context: Context, fileName: String): ByteArray= withContext(Dispatchers.IO) {
-        context.assets.open(fileName).use { input ->
-             input.readBytes()
-        }
-    }
 
     fun loadPlanetModel(planet: Planet) {
+        clearPlanetModel()
         planetName = planet.name
-        val entities = scene.entities
-        scene.removeEntities(entities)
-        entities.forEach { entity ->
-            engine.destroyEntity(entity)
-        }
+//        val entities = scene.entities
+//        scene.removeEntities(entities)
+//        entities.forEach { entity ->
+//            engine.destroyEntity(entity)
+//        }
 
 
         setupLighting()
@@ -152,13 +150,16 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         scope.launch {
             // Tải mô hình của hành tinh
             val buffer = withContext(Dispatchers.IO) {
-                getModelBuffer("${planet.name}.glb")
+              DataManager.getPlanetBuffer("${planet.name}.glb")
+            }
+            if(buffer == null){
+                return@launch
             }
             withContext(Dispatchers.Main){
              materialProvider = UbershaderProvider(engine)
                  // Tạo và tải asset
                  assetLoader = AssetLoader(engine, materialProvider!!, EntityManager.get())
-             asset = assetLoader!!.createAsset(ByteBuffer.wrap(buffer))
+             asset = assetLoader!!.createAsset(buffer!!)
 
 
             if (asset == null) {
@@ -185,20 +186,21 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
     }
     private val modelCatch = mutableMapOf<String, ByteArray>()
 
-    private suspend fun getModelBuffer(fileName: String):ByteArray? {
-        return modelCatch[fileName] ?: readAsset(context, fileName).also {
-            modelCatch[fileName] = it
-        }
-    }
+
     fun clearPlanetModel() {
         scope.launch(Dispatchers.Main) {
-            // Xóa các entity khỏi scene
-            val entities = scene.entities
-            if (entities.isNotEmpty()) {
-                scene.removeEntities(entities)
-                entities.forEach { entity ->
-                    engine.destroyEntity(entity)
-                }
+//            // Xóa các entity khỏi scene
+//            val entities = scene.entities
+//            if (entities.isNotEmpty()) {
+//                scene.removeEntities(entities)
+//                entities.forEach { entity ->
+//                    engine.destroyEntity(entity)
+//                }
+//            }
+            if (modelEntity != 0) {
+                scene.removeEntity(modelEntity)
+                engine.destroyEntity(modelEntity)
+                modelEntity = 0
             }
 
             // Giải phóng dữ liệu nguồn và hủy asset
@@ -229,13 +231,8 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         )
 
         val fov = 45.0
-        val distance = radius / Math.tan(Math.toRadians(fov / 2.0)) + 2.0 // Tăng khoảng cách để tránh clipping
+        val distance = radius / Math.tan(Math.toRadians(fov / 2.0))
 
-        Log.d("CameraSetup", "Center: (${center[0]}, ${center[1]}, ${center[2]})")
-        Log.d("CameraSetup", "HalfExtent: (${halfExtent[0]}, ${halfExtent[1]}, ${halfExtent[2]})")
-        Log.d("CameraSetup", "Bán kính mô hình (radius): $radius")
-        Log.d("CameraSetup", "Khoảng cách camera (distance): $distance")
-        Log.d("CameraSetup", "Vị trí camera (eye): ${center[0].toDouble()}, ${center[1].toDouble()}, ${center[2].toDouble() + distance}")
 
         // Đặt camera nhìn vào mô hình
         camera.lookAt(
@@ -254,7 +251,6 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
     fun destroy() {
         choreographer.removeFrameCallback(frameCallback)
         job.cancel()
-
         if(modelEntity !=0){
             scene.removeEntity(modelEntity)
             engine.destroyEntity(modelEntity)
@@ -265,7 +261,24 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
             engine.destroyEntity(lightEntity)
             lightEntity = 0
         }
+        asset?.let { currentAsset ->
+            assetLoader?.destroyAsset(currentAsset)
+            asset = null
+        }
+        surfaceView.setOnTouchListener(null)
+        materialProvider?.destroyMaterials()
+        materialProvider = null
+        assetLoader?.destroy()
+        assetLoader = null
         modelCatch.clear()
-        engine.destroy()
+
+        engine.destroyRenderer(renderer)
+        engine.destroyView(view)
+        engine.destroyScene(scene)
+        engine.destroyCameraComponent(cameraEntity)
+        swapChain?.let {
+            engine.destroySwapChain(it)
+            swapChain = null
+        }
     }
 }

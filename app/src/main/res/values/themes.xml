@@ -2,4 +2,5 @@
 <resources>
 
     <style name="Theme.Solar_system_scope_app" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+    <style name="Theme.Solar_system_scope_app.StartActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar"/>
 </resources>

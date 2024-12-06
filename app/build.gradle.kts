@@ -55,7 +55,7 @@ dependencies {
     implementation ("com.google.android.filament:filament-utils-android:1.54.5")
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("com.google.code.gson:gson:2.11.0")
-
+    implementation ("com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 

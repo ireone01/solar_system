@@ -10,16 +10,21 @@ import android.view.Surface
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
 import com.google.android.filament.utils.Mat4
+import com.google.android.filament.utils.angle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class FilamentHelper(private val context: Context, private var surface: Surface) {
+class FilamentHelper(private val context: Context,
+                     private var surface: Surface,
+                    private val engine: Engine,
+                    private val scene: Scene) {
 
-    val engine: Engine = Engine.create()
+
     private var swapChain: SwapChain? = null
     private val renderer: Renderer = engine.createRenderer()
-    val scene: Scene = engine.createScene()
     private val view: View = engine.createView()
     private val camera: Camera
     private val cameraEntity: Int
@@ -50,7 +55,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
     private val minDistance = 1f
     private val maxDistance = 70f
 
-    private val planets = mutableListOf<Planet>()
+    val planets = mutableListOf<Planet>()
 
     private var screenWidth: Float = 0f
     private var screenHeight: Float = 0f
@@ -84,7 +89,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         }
         
     }
-
+    private var listener: PlanetNameListener? = null
+    interface PlanetNameListener {
+        fun onPlanetNameUpdated(planetName: String)
+    }
 
     init {
         swapChain = engine.createSwapChain(surface)
@@ -135,6 +143,13 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             .build(engine, sunLightEntity)
 
         scene.addEntity(sunLightEntity)
+
+        val skyLightEntity = EntityManager.get().create()
+        LightManager.Builder(LightManager.Type.DIRECTIONAL)
+            .color(1.0f, 1.0f,0.9f)
+            .intensity(10000f)
+            .build(engine,skyLightEntity)
+        scene.addEntity(skyLightEntity)
 
         val positions = mutableListOf(
             Triple(1.4f, 1.4f, 1.4f),
@@ -201,9 +216,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         return orbitVisible
     }
 
-    fun getPlanets(): List<Planet> {
-        return planets
-    }
+
     fun getScreenPosition(planet: Planet): PointF? {
         val camera = camera ?: return null
         val viewMatrix = FloatArray(16)
@@ -340,9 +353,10 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         val frametime = System.nanoTime()
         val currentTime = System.currentTimeMillis()
         for (planet in planets) {
+
             // Cập nhật góc quỹ đạo và tự quay
-            planet.angle += planet.orbitSpeed * orbitSpeedMultiplier
-            planet.rotation += planet.rotationSpeed * orbitSpeedMultiplier
+            planet.tempAngle += planet.orbitSpeed * orbitSpeedMultiplier
+            planet.tempRotation += planet.rotationSpeed * orbitSpeedMultiplier
 
             // Tính toán vị trí trên quỹ đạo
             val position = planet.getPosition()
@@ -363,7 +377,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             Matrix.multiplyMM(modelMatrix, 0, tiltMatrix, 0, modelMatrix, 0)
 
             // Áp dụng tự quay quanh trục của hành tinh
-            Matrix.rotateM(modelMatrix, 0, planet.rotation, 0.0f, 1.0f, 0.0f)
+            Matrix.rotateM(modelMatrix, 0, planet.tempRotation, 0.0f, 1.0f, 0.0f)
 
             // Áp dụng scale
             Matrix.scaleM(modelMatrix, 0, planet.scale, planet.scale, planet.scale)
@@ -397,8 +411,9 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             if (instance != 0) {
                 transformManager.setTransform(instance, planet.transformMatrix)
             }
-
         }
+//        listener?.onPlanetNameUpdated(currentPlanetName)
+        (context as MainActivity).showPlanetNames()
 
         updateCameraTransform()
         if (swapChain != null && renderer != null) {
@@ -479,6 +494,7 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
         cameraDistance = Math.max(minDistance, Math.min(maxDistance, cameraDistance))
 
         updateCameraTransform()
+
     }
     private fun easeInOutQuad(t: Float): Float {
         return if (t < 0.5f) {
@@ -610,7 +626,6 @@ class FilamentHelper(private val context: Context, private var surface: Surface)
             name = name,
             asset = planetAsset,
             entity = entity ,
-            angle = 0.0f,
             orbitRadiusA = orbitRadiusA,
             orbitRadiusB = orbitRadiusB,
             eccentricity = eccentricity,

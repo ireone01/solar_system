@@ -5,6 +5,10 @@
     android:layout_height="match_parent">
 
 
+
+
+
+
     <com.example.solar_system_scope_app.FilamentView
         android:id="@+id/solarSystemView"
         android:layout_width="0dp"
@@ -14,20 +18,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <RelativeLayout
+        android:id="@+id/layout_name_planets"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+    </RelativeLayout>
+
     <ImageButton
         android:id="@+id/btn_orbit"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:background="@drawable/button_backgound"
-    android:contentDescription="btn_setting"
-    android:scaleType="centerInside"
-    android:padding="8dp"
-    android:src="@drawable/settings"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:tooltipText="btn_setting_tooltip" />
+        android:scaleType="centerInside"
+        android:padding="8dp"
+        android:src="@drawable/settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tooltipText="btn_setting_tooltip" />
 
     <ImageButton
         android:id="@+id/btn_orbit1"
@@ -35,56 +44,78 @@
         android:layout_height="48dp"
         android:layout_margin="8dp"
         android:background="@drawable/button_backgound"
-        android:contentDescription="btn_setting"
         android:scaleType="centerInside"
         android:padding="8dp"
         android:src="@drawable/settings"
-        app:layout_constraintTop_toBottomOf="@id/btn_orbit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tooltipText="btn_setting_tooltip" />
-
-    <ImageButton
-        android:id="@+id/btn_orbit2"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/button_backgound"
-        android:contentDescription="btn_setting"
-        android:scaleType="centerInside"
-        android:padding="8dp"
-        android:src="@drawable/settings"
-        app:layout_constraintTop_toBottomOf="@id/btn_orbit1"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_orbit"
+        app:layout_constraintTop_toTopOf="parent"
         app:tooltipText="btn_setting_tooltip" />
 
     <SeekBar
         android:id="@+id/speed_seekbar"
-        android:layout_width="365dp"
+        android:layout_width="300dp"
         android:layout_height="30dp"
         android:progress="100"
+        android:thumb="@drawable/planet"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/seekbar_background"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        />
     <!-- TextView Hiển Thị Giá Trị Tốc Độ -->
     <TextView
         android:id="@+id/speed_textview"
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="Speed: 1.0x"
-        android:textSize="16sp"
+        android:text="Speed: 1,0 s/s"
+        android:textSize="14sp"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:background="@drawable/button_backgound"
         android:layout_above="@id/speed_seekbar"
-        android:layout_centerHorizontal="true"
+
+        android:padding="5dp"
         app:layout_constraintStart_toEndOf="@id/speed_seekbar"
         app:layout_constraintBottom_toBottomOf="@id/speed_seekbar"/>
+
+
+    <Button
+        android:id="@+id/btn_TgT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THỜI GIAN THỰC"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/button_backgound"
+        app:layout_constraintStart_toEndOf="@id/speed_textview"
+        app:layout_constraintBottom_toBottomOf="@id/speed_textview"
+
+        />
+
+    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+        android:id="@+id/vertical_seekbar"
+        android:layout_width="30dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="@id/btn_orbit"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/seekbar_background"
+        android:layout_marginStart="5dp">
+    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+        android:id="@+id/vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="30"
+        android:thumb="@drawable/planet"
+
+        />
+    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/realTimeTextView"
         android:layout_width="wrap_content"
@@ -96,12 +127,12 @@
         android:padding="5dp">
         <TextView
             android:id="@+id/text_year"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:text="2024"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +144,7 @@
             android:layout_height="wrap_content"
             android:text="29 th.11"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_marginEnd="5dp"
             app:layout_constraintStart_toEndOf="@id/text_year"
             app:layout_constraintTop_toTopOf="parent"
@@ -128,7 +159,7 @@
             app:layout_constraintStart_toEndOf="@id/text_year"
             android:textColor="@color/white"
             android:text="12:26 pm"
-            android:textSize="17dp"
+            android:textSize="15dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             />
