@@ -85,26 +85,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         updateRealTime()
         handler.post(updateTimeRunnable)
 
-        toggleOrbitsButton = findViewById(R.id.btn_orbit)
-        toggleOrbitsButton.setOnClickListener{
-            filamentView.filament?.let { filamentHelper ->
-                val currentlyVisible = filamentHelper.areOrbitVisible()
-                filamentHelper.setOrbitsVisible(!currentlyVisible)
-
-             }
-            toggleOrbitsButton.animate()
-                .scaleX(0.8f)
-                .scaleY(0.8f)
-                .setDuration(100)
-                .withEndAction {
-                    toggleOrbitsButton.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1f)
-                        .setDuration(100)
-                        .start()
-                }
-                .start()
-        }
 
         btn_Setting = findViewById(R.id.btn_setting)
         btn_Setting.setOnClickListener {

@@ -36,6 +36,7 @@ class FilamentHelper(private val context: Context,
     private var asset: FilamentAsset? = null
 
 
+
     // Biến để điều chỉnh camera trên trục X
      var currentCameraOffsetX: Float = 0f
     private var previousCameraOffsetX: Float = 0f
@@ -152,14 +153,14 @@ class FilamentHelper(private val context: Context,
         scene.addEntity(skyLightEntity)
 
         val positions = mutableListOf(
-            Triple(1.4f, 1.4f, 1.4f),
-            Triple(-1.4f, 1.4f, 1.4f),
-            Triple(1.4f, -1.4f, 1.4f),
-            Triple(-1.4f, -1.4f, 1.4f),
-            Triple(1.4f, 1.4f, -1.4f),
-            Triple(-1.4f, 1.4f, -1.4f),
-            Triple(1.4f, -1.4f, -1.4f),
-            Triple(-1.4f, -1.4f, -1.4f),
+            Triple(1.8f, 1.8f, 1.8f),
+            Triple(-1.8f, 1.8f, 1.8f),
+            Triple(1.8f, -1.8f, 1.8f),
+            Triple(-1.8f, -1.8f, 1.8f),
+            Triple(1.8f, 1.8f, -1.8f),
+            Triple(-1.8f, 1.8f, -1.8f),
+            Triple(1.8f, -1.8f, -1.8f),
+            Triple(-1.8f, -1.8f, -1.8f),
 
             )
 
@@ -187,17 +188,13 @@ class FilamentHelper(private val context: Context,
     }
 
 
-
-
-
-
-
-    private var orbitVisible: Boolean = true
+//
+//    private var orbitVisible: Boolean = true
 
     fun setOrbitsVisible(visible:Boolean){
-        if(visible == orbitVisible) {
-            return
-        }
+//        if(visible == orbitVisible) {
+//            return
+//        }
 
         if(visible){
 
@@ -209,12 +206,12 @@ class FilamentHelper(private val context: Context,
                 scene.removeEntity(entity)
             }
         }
-        orbitVisible = visible
+//        orbitVisible = visible
     }
-
-    fun areOrbitVisible(): Boolean{
-        return orbitVisible
-    }
+//
+//    fun areOrbitVisible(): Boolean{
+//        return orbitVisible
+//    }
 
 
     fun getScreenPosition(planet: Planet): PointF? {
@@ -533,9 +530,6 @@ class FilamentHelper(private val context: Context,
                 // Khi không trong quá trình chuyển tiếp, cập nhật vị trí mục tiêu theo hành tinh di chuyển
                 targetPlanet?.let { planet ->
                     currentTargetPosition = planet.getPosition()
-
-
-
                 }
 
             }
@@ -557,6 +551,7 @@ class FilamentHelper(private val context: Context,
             resize(width1, height1)
 
         }
+
 
             // Tính toán vị trí camera dựa trên currentTargetPosition
             val radX = Math.toRadians(cameraRotationX.toDouble())

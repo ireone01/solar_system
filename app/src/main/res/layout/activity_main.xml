@@ -26,7 +26,7 @@
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/btn_orbit"
+        android:id="@+id/btn_setting"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
@@ -38,18 +38,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tooltipText="btn_setting_tooltip" />
 
-    <ImageButton
-        android:id="@+id/btn_setting"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/button_backgound"
-        android:scaleType="centerInside"
-        android:padding="8dp"
-        android:src="@drawable/settings"
-        app:layout_constraintStart_toEndOf="@id/btn_orbit"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tooltipText="btn_setting_tooltip" />
 
     <SeekBar
         android:id="@+id/speed_seekbar"
@@ -102,7 +90,7 @@
         android:layout_width="30dp"
         android:layout_height="150dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="@id/btn_orbit"
+        app:layout_constraintStart_toStartOf="@id/btn_setting"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/seekbar_background"
