@@ -3,6 +3,7 @@ package com.example.solar_system_scope_app
 
 import android.graphics.Canvas
 import android.graphics.Color
+import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     private lateinit var textHourMinus: TextView
 
     private lateinit var btn_TgT: Button
+    private lateinit var btn_Setting : ImageButton
 
     private var multiplier: Float = 0.0f
     private var realTimeSeconds = 0L
@@ -83,27 +85,16 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         updateRealTime()
         handler.post(updateTimeRunnable)
 
-        toggleOrbitsButton = findViewById(R.id.btn_orbit)
-        toggleOrbitsButton.setOnClickListener{
-            filamentView.filament?.let { filamentHelper ->
-                val currentlyVisible = filamentHelper.areOrbitVisible()
-                filamentHelper.setOrbitsVisible(!currentlyVisible)
 
-             }
-            toggleOrbitsButton.animate()
-                .scaleX(0.8f)
-                .scaleY(0.8f)
-                .setDuration(100)
-                .withEndAction {
-                    toggleOrbitsButton.animate()
-                        .scaleX(1.0f)
-                        .scaleY(1f)
-                        .setDuration(100)
-                        .start()
-                }
-                .start()
+        btn_Setting = findViewById(R.id.btn_setting)
+        btn_Setting.setOnClickListener {
+            val fragment = FragmentSetting()
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_setting,fragment)
+                .addToBackStack(null)
+                .commit()
         }
-
         speedSeekBar = findViewById(R.id.speed_seekbar)
         speedTextView = findViewById(R.id.speed_textview)
 
