@@ -1,6 +1,7 @@
 package com.example.solar_system_scope_app
 
 import com.google.android.filament.gltfio.FilamentAsset
+import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -91,4 +92,43 @@ data class Encyclopedia(
     val temperature: String
 )
 
+data class CelestialBodies(
+    val id : String,
+    val name : String,
+    val layers : Layers
 
+)
+
+data class Layers(
+    @SerializedName("mô_tả_cơ_bản")  val mo_ta : String ,
+    @SerializedName("hình_ảnh_mặt_cắt")  val core_img : String,
+    @SerializedName("vỏ") val crust : Crust,
+    @SerializedName("manti") val mantle : Mantle,
+    @SerializedName("lõi") val core : Core ,
+    @SerializedName("lớp_silic_nước") val silicate_water_layer : Silicate?
+)
+data class Crust(
+    @SerializedName("id") val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+
+data class Mantle(
+    @SerializedName("id")  val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+data class Core(
+    @SerializedName("id")  val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+data class Silicate(
+    @SerializedName("id") var id : String ,
+    @SerializedName("vị_trí_và_độ_dày") var posotion : String,
+    @SerializedName("thành_phần") var composition : String,
+    @SerializedName("đặc_điểm") var characteristics : String
+)

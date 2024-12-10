@@ -59,7 +59,11 @@ class PlanetDetailFragment : Fragment() {
         }
 
         structureButton.setOnClickListener{
-            replaceFragment(StructureFragment(),"Cấu Trúc")
+            val fragment = StructureFragment()
+            val args = Bundle()
+            args.putString("PLANET_NAME",planetName1)
+            fragment.arguments = args
+            replaceFragment(fragment,"Cấu Trúc")
         }
 
         return view
@@ -77,13 +81,6 @@ class PlanetDetailFragment : Fragment() {
         effectmanager = Effectmanager(filamentHelper)
     }
 
-    fun updatePlanetName(newName: String) {
-        planetName1 = newName
-        planetNameTextView?.text = newName
-
-        val encyclopediaFragment = childFragmentManager.findFragmentByTag("Bách Khoa Toàn Thư") as? EncyclopediaFragment
-        encyclopediaFragment?.updateData(newName)
-    }
     private fun replaceFragment(fragment: Fragment, tag: String) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment, tag)

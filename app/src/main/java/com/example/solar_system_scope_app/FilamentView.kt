@@ -407,11 +407,16 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private fun stopRendering(){
         choreographer.removeFrameCallback(frameCallback)
     }
+    var height : Pair<Float,Float>? = null
+
     fun switchProjection() {
         filament?.let {
-            val targetOffsetX = if (it.currentCameraOffsetX == 0f) 1.0f else 0.0f
+            val heightScreen = height!!.second/4f
+            Log.e("heightScreen","$heightScreen")
+            val targetOffsetX = if (it.currentCameraOffsetX == 0f) heightScreen else 0.0f
             it.startCameraOffsetTransition(targetOffsetX)
         }
     }
+
 
 }

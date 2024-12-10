@@ -6,5 +6,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         PlanetDataProvider.loadPlanets(this)
+        PlanetDataProvider.loadPlanetsStructure(this)
     }
 }
