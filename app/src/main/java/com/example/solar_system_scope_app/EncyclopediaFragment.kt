@@ -33,12 +33,7 @@ class EncyclopediaFragment : Fragment() {
 
         return view
     }
-    fun updateData(newPlanetName: String?) {
-        planetId = newPlanetName
-        // Cập nhật dữ liệu hiển thị
-        planetDB = PlanetDataProvider.getPlanetById(planetId ?: "")
-        displayPlanetData(requireView())
-    }
+
     private fun displayPlanetData(view : View){
         planetDB?.let {
             view.findViewById<TextView>(R.id.subtitle).text = it.description

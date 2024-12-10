@@ -7,6 +7,7 @@ import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
         showPlanetNames()
-
+        filamentView.height = getScreenDimensions(this)
         textYear = findViewById(R.id.text_year)
         textMonthDay = findViewById(R.id.text_month_day)
         textHourMinus = findViewById(R.id.text_hour_minus)
@@ -379,6 +380,21 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         }
 
     }
+    fun getScreenDimensions(activity: MainActivity): Pair<Float, Float> {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        val height = displayMetrics.heightPixels
+        val xdpi = displayMetrics.xdpi
+        val ydpi = displayMetrics.ydpi
+
+        // Chuyển đổi từ pixel sang cm
+        val widthCm = (width/ xdpi) * 2.54f
+        val heightCm = (height / ydpi) * 2.54f
+
+        return Pair(widthCm, heightCm)
+    }
+
 
     private fun mapValue(progress: Int): Float{
         return when {
@@ -402,4 +418,5 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
         FilamentManager.destroy()
     }
+
 }

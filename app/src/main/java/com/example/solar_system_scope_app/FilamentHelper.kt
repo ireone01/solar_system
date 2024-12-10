@@ -575,9 +575,6 @@ class FilamentHelper(private val context: Context,
                     0.0  // Hướng lên trên
                 )
 
-        if (!isCameraOffsetTransitioning) {
-            resize(width1, height1)
-        }
 
             }
 
