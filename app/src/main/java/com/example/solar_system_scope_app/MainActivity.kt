@@ -1,6 +1,7 @@
 package com.example.solar_system_scope_app
 
 
+import android.content.SharedPreferences
 import android.graphics.Canvas
 import android.graphics.Color
 import android.media.Image
@@ -35,8 +36,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
     lateinit var planetNameTextView: TextView
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
-    private lateinit var toggleOrbitsButton: ImageButton
-
 
     private lateinit var speedSeekBar: SeekBar
     private lateinit var speedTextView: TextView
@@ -339,9 +338,18 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             filamentView.filament!!.startCameraOffsetTransition(0f)
 
     }
-    val planetTextViews  = mutableListOf<TextView>()
 
+
+
+    val planetTextViews  = mutableListOf<TextView>()
     val usedYPositions = mutableListOf<Int>()
+
+    fun togglePlanetNamesVisibility(visible: Boolean) {
+        val visibility = if (visible) View.VISIBLE else View.GONE
+        for (textView in planetTextViews) {
+            textView.visibility = visibility
+        }
+    }
 
     fun showPlanetNames() {
 
@@ -357,7 +365,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                         textView.text = planet.name
                         textView.tag = planet.name
                         textView.setTextColor(Color.WHITE)
-                        textView.setTextSize(16f)
+                        textView.setTextSize(12f)
                         textView.setTypeface(null, android.graphics.Typeface.BOLD)
 
                         val layoutParams = RelativeLayout.LayoutParams(

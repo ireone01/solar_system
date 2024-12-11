@@ -94,7 +94,8 @@ class FilamentHelper(private val context: Context,
     interface PlanetNameListener {
         fun onPlanetNameUpdated(planetName: String)
     }
-
+    private val lightEntities = mutableListOf<Pair<Int,Float>>()
+    private val lightEntitiesSky = mutableListOf<Pair<Int,Float>>()
     init {
         swapChain = engine.createSwapChain(surface)
         cameraEntity = entityManager.create()
@@ -142,8 +143,8 @@ class FilamentHelper(private val context: Context,
             .position(0.0f, 2f, 0.0f)
             .falloff(2000000.0f)
             .build(engine, sunLightEntity)
-
         scene.addEntity(sunLightEntity)
+        lightEntities.add(Pair(sunLightEntity,1000000f))
 
         val skyLightEntity = EntityManager.get().create()
         LightManager.Builder(LightManager.Type.DIRECTIONAL)
@@ -151,6 +152,7 @@ class FilamentHelper(private val context: Context,
             .intensity(10000f)
             .build(engine,skyLightEntity)
         scene.addEntity(skyLightEntity)
+        lightEntitiesSky.add(Pair(skyLightEntity,10000f))
 
         val positions = mutableListOf(
             Triple(1.8f, 1.8f, 1.8f),
@@ -175,18 +177,34 @@ class FilamentHelper(private val context: Context,
                 .falloff(50000.0f) // Giảm falloff để ánh sáng không quá xa
                 .build(engine, lightEntity)
             scene.addEntity(lightEntity)
-
+            lightEntities.add(Pair(lightEntity,12000000f))
 
         }
-
-
         backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
-
-
         updateCameraTransform()
 
     }
 
+    fun setLightIntensity(factor: Float){
+        val lightManager = engine.lightManager
+        for((entity,baseLight) in lightEntities){
+            val instance = lightManager.getInstance(entity)
+            if(instance != 0 ){
+                val newIntensity = baseLight * factor
+                lightManager.setIntensity(instance,newIntensity)
+            }
+        }
+    }
+    fun setLightSkyIntensity(factor: Float){
+        val lightManager = engine.lightManager
+        for((entity,baseLight) in lightEntitiesSky){
+            val instance = lightManager.getInstance(entity)
+            if(instance != 0 ){
+                val newIntensity = baseLight * factor
+                lightManager.setIntensity(instance,newIntensity)
+            }
+        }
+    }
 
 //
 //    private var orbitVisible: Boolean = true

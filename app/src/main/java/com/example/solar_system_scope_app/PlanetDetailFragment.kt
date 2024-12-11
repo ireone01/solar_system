@@ -1,5 +1,6 @@
 package com.example.solar_system_scope_app
 
+import android.annotation.SuppressLint
 import android.nfc.Tag
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,11 +21,13 @@ class PlanetDetailFragment : Fragment() {
     private var planetId: String? = null
     private var planetName1: String? = null
     private var currentFragment: Fragment? = null
+    private lateinit var btn_cancel : ImageButton
 
 
     private lateinit var filamentHelper: FilamentHelper
     private lateinit var effectmanager: Effectmanager
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,11 +38,19 @@ class PlanetDetailFragment : Fragment() {
         exploreButton = view.findViewById(R.id.exploreButton)
         encycloediaButton = view.findViewById(R.id.encyclopediaButton)
         structureButton = view.findViewById(R.id.structureButton)
+        btn_cancel = view.findViewById(R.id.btn_cancel_detail)
 
         val filamentView = activity?.findViewById<FilamentView>(R.id.solarSystemView)
             ?: throw IllegalStateException("FIlamentview not found")
         filamentHelper = filamentView.getFilamentHelper()
             ?: throw  IllegalStateException("filament helper not found")
+
+
+        btn_cancel.setOnClickListener {
+            view.findViewById<View>(R.id.fragment_container).visibility = View.GONE
+            (activity as? MainActivity)?.viewVisible()
+            filamentView.switchProjection()
+        }
 
         exploreButton.setOnClickListener{
             if(filamentView.filament!!.currentCameraOffsetX != 0.0f) {
