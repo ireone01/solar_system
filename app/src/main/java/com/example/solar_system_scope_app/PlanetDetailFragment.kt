@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 
@@ -46,7 +48,10 @@ class PlanetDetailFragment : Fragment() {
             filamentHelper.targetPlanet = filamentHelper.planets.find { it.name == planetName1 }
             effectmanager.activateEffect()
             replaceFragment(ExploreFragment() , "Thăm Quan")
-        }
+
+            // nen doi cai nay sang su dung voi viewmodel tranh lien ket truc tiep
+            (activity as? MainActivity)?.viewVisible()
+         }
         encycloediaButton.setOnClickListener{
             val fragment = EncyclopediaFragment()
             val args = Bundle()

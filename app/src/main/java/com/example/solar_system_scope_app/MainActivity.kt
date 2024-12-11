@@ -19,6 +19,7 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 
 import com.google.android.filament.utils.Utils
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
@@ -39,9 +40,10 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
     private lateinit var speedSeekBar: SeekBar
     private lateinit var speedTextView: TextView
-
+    private lateinit var barzoomBar : VerticalSeekBarWrapper
     private lateinit var zoomBar : VerticalSeekBar
 
+    private lateinit var realTimeTV : ConstraintLayout
     private lateinit var textYear: TextView
     private lateinit var textMonthDay: TextView
     private lateinit var textHourMinus: TextView
@@ -80,6 +82,8 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         miniPlanetView = findViewById(R.id.miniPlanetView)
         showPlanetNames()
         filamentView.height = getScreenDimensions(this)
+
+        realTimeTV = findViewById(R.id.realTimeTextView)
         textYear = findViewById(R.id.text_year)
         textMonthDay = findViewById(R.id.text_month_day)
         textHourMinus = findViewById(R.id.text_hour_minus)
@@ -116,6 +120,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
             }
         })
+        barzoomBar = findViewById(R.id.vertical_seekbar)
         zoomBar = findViewById(R.id.vertical)
         zoomBar.progress = 50
         zoomBar.max = 100
@@ -200,9 +205,11 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                                 filamentView.switchProjection()
                             }
                             replaceFragmentWithPlanetDetail(clickedPlanetName)
+
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp ${clickedPlanetName}")
 
                         } else {
+
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp không khớp với hành tinh hiển thị")
                         }
                 }
@@ -278,16 +285,32 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         replaceFragmentWithPlanetDetail(planetName)
     }
 
+    fun viewGone(){
+        realTimeTV.visibility = View.GONE
+        barzoomBar.visibility = View.GONE
+        speedSeekBar.visibility = View.GONE
+        speedTextView.visibility = View.GONE
+        btn_TgT.visibility = View.GONE
+        btn_Setting.visibility = View.GONE
+    }
+    fun viewVisible(){
+        realTimeTV.visibility = View.VISIBLE
+        barzoomBar.visibility = View.VISIBLE
+        speedSeekBar.visibility = View.VISIBLE
+        speedTextView.visibility = View.VISIBLE
+        btn_TgT.visibility = View.VISIBLE
+        btn_Setting.visibility = View.VISIBLE
+    }
    private fun replaceFragmentWithPlanetDetail(planetName: String) {
         val fragmentManager = supportFragmentManager
         val fragmentContainer: View = findViewById(R.id.fragment_container)
 
         if (planetName.isNotEmpty()) {
-            // Hiển thị fragment_container nếu nó đang ẩn
             if (fragmentContainer.visibility != View.VISIBLE) {
                 fragmentContainer.visibility = View.VISIBLE
-            }
 
+            }
+            viewGone()
             val detailFragment = PlanetDetailFragment()
             val bundle = Bundle()
             bundle.putString("PLANET_NAME", planetName)
@@ -300,6 +323,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
             // Xóa fragment khi không có hành tinh nào được chọn
             removePlanetDetailFragment()
             fragmentContainer.visibility = View.GONE
+            viewVisible()
         }
         // Cập nhật tên hành tinh trong MainActivity
         planetNameTextView.text = planetName
