@@ -2,6 +2,7 @@ package com.example.solar_system_scope_app.model
 
 import com.google.android.filament.gltfio.FilamentAsset
 import com.google.gson.annotations.SerializedName
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -71,6 +72,25 @@ data class Planet(
     }
 
 }
+
+// can xem xet lai
+data class PlanetInfo(
+    val fileName: String,
+    val name: String,
+    val orbitRadiusA: Float,
+    val eccentricity: Float,
+    val orbitSpeed: Float,
+    val scale: Float,
+    val inclination: Float,
+    val axisTilt: Float,
+    val rotation: Float,
+    val rotationSpeed: Float,
+    val parentName: PlanetInfo? = null,
+    val buffer: ByteBuffer
+)
+
+
+
 data class PlanetDescription(
     val name: String,
     val id: String,

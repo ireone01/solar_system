@@ -1,10 +1,6 @@
 package com.example.solar_system_scope_app
 
-import android.util.Log
 import android.view.MotionEvent
-import android.view.SurfaceView.GONE
-import android.view.View
-import com.example.solar_system_scope_app.UI.activity.MainActivity
 import com.example.solar_system_scope_app.model.Planet
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -77,6 +73,8 @@ class GestureHandler(private val filament: FilamentHelper?,
 
         onNoPlanetSelected()
     }
+
+
 
 
     private fun calculateDistance(event: MotionEvent): Float {

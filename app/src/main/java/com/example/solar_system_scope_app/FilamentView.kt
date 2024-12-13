@@ -41,15 +41,9 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val choreographer = Choreographer.getInstance()
 
 
-    private  var count =0
-
     private var infoPanel: View? = null
     private var planetNameTextView : TextView? = null
-    private val planetLights = mutableMapOf<Planet, Int>()
 
-
-//    private val engine = FilamentManager.engine
-//    private val scene = engine!!.createScene()
     private lateinit var gestureDetector: GestureDetector
     private lateinit var gestureHandler: GestureHandler
     private var planetSelectionListener: PlanetSelectionListener? = null
@@ -124,15 +118,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
         this.planetNameTextView = planetNameTextView
     }
 
-    fun postplanetName(ttext : String) {
-        planetNameTextView?.text = ttext
-    }
-
-
-    fun getplanetName(): TextView? {
-        return planetNameTextView
-    }
-    
     private val job = Job()
     private val scope = CoroutineScope((Dispatchers.Main + job))
 
@@ -370,20 +355,24 @@ class FilamentView @JvmOverloads constructor(context: Context,
         job.cancel()
     }
 
-
+    // xư ly sự kiện chạm trong surfaceview
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
         return gestureDetector.onTouchEvent(event) || gestureHandler.handleTouch(event)
     }
 
+    //2 ham duoi chiu trach nghiem quan ly vong doi
     private fun startRendering(){
         choreographer.postFrameCallback(frameCallback)
     }
     private fun stopRendering(){
         choreographer.removeFrameCallback(frameCallback)
     }
-    var height : Pair<Float,Float>? = null
 
+
+
+    // quan ly su kien dich chuyen tam diem nhin sang phai
+    var height : Pair<Float,Float>? = null
     fun switchProjection() {
         filament?.let {
             val heightScreen = height!!.second/4f
