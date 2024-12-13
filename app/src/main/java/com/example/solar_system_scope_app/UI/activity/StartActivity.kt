@@ -1,4 +1,4 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.activity
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.solar_system_scope_app.R
 
 class StartActivity : AppCompatActivity(){
     private lateinit var videoView: VideoView

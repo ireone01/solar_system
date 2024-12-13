@@ -1,14 +1,15 @@
-    package com.example.solar_system_scope_app
+    package com.example.solar_system_scope_app.UI.fragment
 
     import android.os.Bundle
     import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
-    import android.widget.ImageView
     import android.widget.TextView
     import androidx.appcompat.widget.AppCompatImageButton
     import androidx.fragment.app.Fragment
-    import org.w3c.dom.Text
+    import com.example.solar_system_scope_app.R
+    import com.example.solar_system_scope_app.model.CelestialBodies
+    import com.example.solar_system_scope_app.model.PlanetDataProvider
 
     class StructureFragment: Fragment() {
         private lateinit var buttonBack: AppCompatImageButton

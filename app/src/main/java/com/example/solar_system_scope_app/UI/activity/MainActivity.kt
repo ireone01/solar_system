@@ -1,10 +1,7 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.activity
 
 
-import android.content.SharedPreferences
-import android.graphics.Canvas
 import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,6 +18,13 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.solar_system_scope_app.FilamentManager
+import com.example.solar_system_scope_app.FilamentView
+import com.example.solar_system_scope_app.UI.fragment.FragmentSetting
+import com.example.solar_system_scope_app.MiniFilamentHelper
+import com.example.solar_system_scope_app.UI.fragment.PlanetDetailFragment
+import com.example.solar_system_scope_app.PlanetSelectionListener
+import com.example.solar_system_scope_app.R
 
 import com.google.android.filament.utils.Utils
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
@@ -29,7 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() , PlanetSelectionListener{
+class MainActivity : AppCompatActivity() , PlanetSelectionListener {
 
     private lateinit var filamentView: FilamentView
     private lateinit var infoPanel: View
@@ -320,24 +324,25 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .commit()
         } else {
             // Xóa fragment khi không có hành tinh nào được chọn
-            removePlanetDetailFragment()
+            filamentView.filament!!.startCameraOffsetTransition(0f)
+            filamentView.filament!!.targetCameraOffsetX =0f
             fragmentContainer.visibility = View.GONE
             viewVisible()
         }
         // Cập nhật tên hành tinh trong MainActivity
         planetNameTextView.text = planetName
     }
-    fun removePlanetDetailFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
-        if (fragment != null) {
-            fragmentManager.beginTransaction()
-                .remove(fragment)
-                .commit()
-        }
-            filamentView.filament!!.startCameraOffsetTransition(0f)
-
-    }
+//    fun removePlanetDetailFragment() {
+//        val fragmentManager = supportFragmentManager
+//        val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
+//        if (fragment != null) {
+//            fragmentManager.beginTransaction()
+//                .remove(fragment)
+//                .commit()
+//        }
+//
+//
+//    }
 
 
 

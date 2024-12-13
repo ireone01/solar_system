@@ -1,4 +1,4 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.model
 
 import com.google.android.filament.gltfio.FilamentAsset
 import com.google.gson.annotations.SerializedName
@@ -100,11 +100,11 @@ data class CelestialBodies(
 )
 
 data class Layers(
-    @SerializedName("mô_tả_cơ_bản")  val mo_ta : String ,
+    @SerializedName("mô_tả_cơ_bản")  val mo_ta : String,
     @SerializedName("hình_ảnh_mặt_cắt")  val core_img : String,
     @SerializedName("vỏ") val crust : Crust,
     @SerializedName("manti") val mantle : Mantle,
-    @SerializedName("lõi") val core : Core ,
+    @SerializedName("lõi") val core : Core,
     @SerializedName("lớp_silic_nước") val silicate_water_layer : Silicate?
 )
 data class Crust(

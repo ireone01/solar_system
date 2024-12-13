@@ -7,12 +7,10 @@ import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
+import com.example.solar_system_scope_app.UI.activity.MainActivity
+import com.example.solar_system_scope_app.model.Planet
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
-import com.google.android.filament.utils.Mat4
-import com.google.android.filament.utils.angle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -40,8 +38,7 @@ class FilamentHelper(private val context: Context,
     // Biến để điều chỉnh camera trên trục X
      var currentCameraOffsetX: Float = 0f
     private var previousCameraOffsetX: Float = 0f
-    private var targetCameraOffsetX: Float = 0f
-
+     var targetCameraOffsetX: Float = 0f
     // Biến để quản lý chuyển tiếp cameraOffsetX
     private var isCameraOffsetTransitioning: Boolean = false
 
@@ -754,7 +751,7 @@ class FilamentHelper(private val context: Context,
             }
         }
     }
-    fun scalePlanet(planet: Planet,  scale: Float){
+    fun scalePlanet(planet: Planet, scale: Float){
             val transformManager = engine.transformManager
             val instance = transformManager.getInstance(planet.entity)
         if (instance != 0) {

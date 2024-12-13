@@ -1,4 +1,4 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,6 +12,10 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
 import androidx.fragment.app.Fragment
+import com.example.solar_system_scope_app.FilamentHelper
+import com.example.solar_system_scope_app.FilamentManager
+import com.example.solar_system_scope_app.R
+import com.example.solar_system_scope_app.UI.activity.MainActivity
 
 class FragmentSetting : Fragment(){
     private lateinit var btn_cancel :ImageButton
@@ -29,7 +33,6 @@ class FragmentSetting : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         sharedPreferences = requireContext().getSharedPreferences("switch_check", Context.MODE_PRIVATE)
-        sharedPreferences.edit().clear().apply()
         filamentHelper = FilamentManager.filamentHelper!!
         val view = inflater.inflate(R.layout.fragment_setting,container,false )
         btn_cancel = view.findViewById(R.id.btn_cancel)

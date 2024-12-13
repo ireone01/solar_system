@@ -5,19 +5,16 @@ import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
 import android.view.MotionEvent
-import android.view.Surface
 import android.view.SurfaceView
-import android.view.View.OnClickListener
+import com.example.solar_system_scope_app.model.DataManager
+import com.example.solar_system_scope_app.model.Planet
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
-import com.google.android.filament.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
 
 class MiniFilamentHelper(private val context: Context, private val surfaceView: SurfaceView,
                         ) {
