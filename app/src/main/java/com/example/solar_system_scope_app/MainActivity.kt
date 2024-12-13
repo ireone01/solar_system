@@ -21,7 +21,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 import com.google.android.filament.utils.Utils
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+
+
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
