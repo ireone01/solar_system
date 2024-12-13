@@ -1,9 +1,14 @@
 package com.example.solar_system_scope_app
 
 import android.view.MotionEvent
+import com.example.solar_system_scope_app.model.Planet
+import kotlin.math.pow
 import kotlin.math.sqrt
 
-class GestureHandler(private val filament: FilamentHelper?) {
+class GestureHandler(private val filament: FilamentHelper?,
+    private val onPlanetSelected :(Planet) -> Unit ,
+    private val onNoPlanetSelected: () -> Unit
+) {
     private var lastX = 0f
     private var lastY = 0f
     private var lastDistance = 0f
@@ -45,6 +50,32 @@ class GestureHandler(private val filament: FilamentHelper?) {
         }
         return true
     }
+    fun handleSingleTap(x: Float, y: Float, planets : List<Planet>) {
+        val clickedPlanet = planets.minByOrNull { planet ->
+            val planetScreenPos = filament?.getScreenPosition(planet) ?: return@minByOrNull Float.MAX_VALUE
+            val dx = planetScreenPos.x - x
+            val dy = planetScreenPos.y - y
+            sqrt(dx * dx + dy * dy)
+        }
+        clickedPlanet?.let { planet ->
+            val planetScreenPos = filament?.getScreenPosition(planet)
+            if (planetScreenPos != null) {
+                val distance = sqrt((planetScreenPos.x - x).pow(2) + (planetScreenPos.y - y).pow(2))
+                val touchThreshold = 120f
+
+                if (distance < touchThreshold) {
+
+                    onPlanetSelected(planet)
+                    return
+                }
+            }
+        }
+
+        onNoPlanetSelected()
+    }
+
+
+
 
     private fun calculateDistance(event: MotionEvent): Float {
         val dx = event.getX(1) - event.getX(0)

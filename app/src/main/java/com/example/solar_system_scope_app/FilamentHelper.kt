@@ -7,12 +7,10 @@ import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
 import android.view.Surface
+import com.example.solar_system_scope_app.UI.activity.MainActivity
+import com.example.solar_system_scope_app.model.Planet
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
-import com.google.android.filament.utils.Mat4
-import com.google.android.filament.utils.angle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -40,8 +38,7 @@ class FilamentHelper(private val context: Context,
     // Biến để điều chỉnh camera trên trục X
      var currentCameraOffsetX: Float = 0f
     private var previousCameraOffsetX: Float = 0f
-    private var targetCameraOffsetX: Float = 0f
-
+     var targetCameraOffsetX: Float = 0f
     // Biến để quản lý chuyển tiếp cameraOffsetX
     private var isCameraOffsetTransitioning: Boolean = false
 
@@ -94,7 +91,8 @@ class FilamentHelper(private val context: Context,
     interface PlanetNameListener {
         fun onPlanetNameUpdated(planetName: String)
     }
-
+    private val lightEntities = mutableListOf<Pair<Int,Float>>()
+    private val lightEntitiesSky = mutableListOf<Pair<Int,Float>>()
     init {
         swapChain = engine.createSwapChain(surface)
         cameraEntity = entityManager.create()
@@ -142,8 +140,8 @@ class FilamentHelper(private val context: Context,
             .position(0.0f, 2f, 0.0f)
             .falloff(2000000.0f)
             .build(engine, sunLightEntity)
-
         scene.addEntity(sunLightEntity)
+        lightEntities.add(Pair(sunLightEntity,1000000f))
 
         val skyLightEntity = EntityManager.get().create()
         LightManager.Builder(LightManager.Type.DIRECTIONAL)
@@ -151,6 +149,7 @@ class FilamentHelper(private val context: Context,
             .intensity(10000f)
             .build(engine,skyLightEntity)
         scene.addEntity(skyLightEntity)
+        lightEntitiesSky.add(Pair(skyLightEntity,10000f))
 
         val positions = mutableListOf(
             Triple(1.8f, 1.8f, 1.8f),
@@ -175,18 +174,34 @@ class FilamentHelper(private val context: Context,
                 .falloff(50000.0f) // Giảm falloff để ánh sáng không quá xa
                 .build(engine, lightEntity)
             scene.addEntity(lightEntity)
-
+            lightEntities.add(Pair(lightEntity,12000000f))
 
         }
-
-
         backgroundLoader = BackgroundLoader(context, engine, scene, assetLoader, resourceLoader)
-
-
         updateCameraTransform()
 
     }
 
+    fun setLightIntensity(factor: Float){
+        val lightManager = engine.lightManager
+        for((entity,baseLight) in lightEntities){
+            val instance = lightManager.getInstance(entity)
+            if(instance != 0 ){
+                val newIntensity = baseLight * factor
+                lightManager.setIntensity(instance,newIntensity)
+            }
+        }
+    }
+    fun setLightSkyIntensity(factor: Float){
+        val lightManager = engine.lightManager
+        for((entity,baseLight) in lightEntitiesSky){
+            val instance = lightManager.getInstance(entity)
+            if(instance != 0 ){
+                val newIntensity = baseLight * factor
+                lightManager.setIntensity(instance,newIntensity)
+            }
+        }
+    }
 
 //
 //    private var orbitVisible: Boolean = true
@@ -575,9 +590,6 @@ class FilamentHelper(private val context: Context,
                     0.0  // Hướng lên trên
                 )
 
-        if (!isCameraOffsetTransitioning) {
-            resize(width1, height1)
-        }
 
             }
 
@@ -739,7 +751,7 @@ class FilamentHelper(private val context: Context,
             }
         }
     }
-    fun scalePlanet(planet: Planet,  scale: Float){
+    fun scalePlanet(planet: Planet, scale: Float){
             val transformManager = engine.transformManager
             val instance = transformManager.getInstance(planet.entity)
         if (instance != 0) {

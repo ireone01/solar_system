@@ -1,6 +1,8 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.model
 
 import com.google.android.filament.gltfio.FilamentAsset
+import com.google.gson.annotations.SerializedName
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -70,6 +72,25 @@ data class Planet(
     }
 
 }
+
+// can xem xet lai
+data class PlanetInfo(
+    val fileName: String,
+    val name: String,
+    val orbitRadiusA: Float,
+    val eccentricity: Float,
+    val orbitSpeed: Float,
+    val scale: Float,
+    val inclination: Float,
+    val axisTilt: Float,
+    val rotation: Float,
+    val rotationSpeed: Float,
+    val parentName: PlanetInfo? = null,
+    val buffer: ByteBuffer
+)
+
+
+
 data class PlanetDescription(
     val name: String,
     val id: String,
@@ -91,4 +112,43 @@ data class Encyclopedia(
     val temperature: String
 )
 
+data class CelestialBodies(
+    val id : String,
+    val name : String,
+    val layers : Layers
 
+)
+
+data class Layers(
+    @SerializedName("mô_tả_cơ_bản")  val mo_ta : String,
+    @SerializedName("hình_ảnh_mặt_cắt")  val core_img : String,
+    @SerializedName("vỏ") val crust : Crust,
+    @SerializedName("manti") val mantle : Mantle,
+    @SerializedName("lõi") val core : Core,
+    @SerializedName("lớp_silic_nước") val silicate_water_layer : Silicate?
+)
+data class Crust(
+    @SerializedName("id") val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+
+data class Mantle(
+    @SerializedName("id")  val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+data class Core(
+    @SerializedName("id")  val id : String,
+    @SerializedName("vị_trí_và_độ_dày") val posotion : String,
+    @SerializedName("thành_phần") val composition : String,
+    @SerializedName("đặc_điểm") val characteristics : String
+)
+data class Silicate(
+    @SerializedName("id") var id : String ,
+    @SerializedName("vị_trí_và_độ_dày") var posotion : String,
+    @SerializedName("thành_phần") var composition : String,
+    @SerializedName("đặc_điểm") var characteristics : String
+)

@@ -1,13 +1,15 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
+import com.example.solar_system_scope_app.R
+import com.example.solar_system_scope_app.model.PlanetDataProvider
+import com.example.solar_system_scope_app.model.PlanetDescription
 
 class EncyclopediaFragment : Fragment() {
     private lateinit var buttonBack :AppCompatImageButton
@@ -33,12 +35,7 @@ class EncyclopediaFragment : Fragment() {
 
         return view
     }
-    fun updateData(newPlanetName: String?) {
-        planetId = newPlanetName
-        // Cập nhật dữ liệu hiển thị
-        planetDB = PlanetDataProvider.getPlanetById(planetId ?: "")
-        displayPlanetData(requireView())
-    }
+
     private fun displayPlanetData(view : View){
         planetDB?.let {
             view.findViewById<TextView>(R.id.subtitle).text = it.description

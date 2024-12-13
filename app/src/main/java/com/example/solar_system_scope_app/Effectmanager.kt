@@ -1,7 +1,7 @@
 package com.example.solar_system_scope_app
 
 import android.util.Log
-import androidx.compose.ui.unit.fontscaling.MathUtils.lerp
+import com.example.solar_system_scope_app.model.Planet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class Effectmanager(private val filamentHelper: FilamentHelper) {
     private var originalCameraRotationX: Float = 0f
     private var originalCameraRotationY: Float = 0f
-    private var originalScales: Map<Planet , Float> = emptyMap()
+    private var originalScales: Map<Planet, Float> = emptyMap()
     private var originalCameraDistance :  Float = 0f
 
     private val job = Job()

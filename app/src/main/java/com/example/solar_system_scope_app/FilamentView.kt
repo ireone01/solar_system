@@ -2,7 +2,6 @@ package com.example.solar_system_scope_app
 
 
 import android.content.Context
-import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Choreographer
@@ -14,21 +13,14 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
 import android.widget.TextView
-import com.google.android.filament.Engine
-import com.google.android.filament.EntityManager
-import com.google.android.filament.LightManager
-import com.google.android.filament.Scene
+import com.example.solar_system_scope_app.UI.activity.MainActivity
+import com.example.solar_system_scope_app.model.DataManager
+import com.example.solar_system_scope_app.model.Planet
 import com.google.android.filament.utils.Utils
-import com.google.android.filament.utils.angle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.w3c.dom.Text
-import java.nio.Buffer
-import java.nio.ByteBuffer
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -49,15 +41,9 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val choreographer = Choreographer.getInstance()
 
 
-    private  var count =0
-
     private var infoPanel: View? = null
     private var planetNameTextView : TextView? = null
-    private val planetLights = mutableMapOf<Planet, Int>()
 
-
-//    private val engine = FilamentManager.engine
-//    private val scene = engine!!.createScene()
     private lateinit var gestureDetector: GestureDetector
     private lateinit var gestureHandler: GestureHandler
     private var planetSelectionListener: PlanetSelectionListener? = null
@@ -74,6 +60,9 @@ class FilamentView @JvmOverloads constructor(context: Context,
     lateinit var uranus812 : Planet
     lateinit var neptune812 : Planet
     lateinit var venus812 : Planet
+
+
+
     fun setPlanetSelectionListener(listener: PlanetSelectionListener){
         this.planetSelectionListener = listener
     }
@@ -108,10 +97,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
 
     inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
             e?.let {
                 val x = it.x
                 val y = it.y
-                handleSingleTap(x, y)
+                gestureHandler.handleSingleTap(x,y,planets)
             }
             return super.onSingleTapConfirmed(e)
         }
@@ -128,12 +118,11 @@ class FilamentView @JvmOverloads constructor(context: Context,
         this.planetNameTextView = planetNameTextView
     }
 
-    
     private val job = Job()
     private val scope = CoroutineScope((Dispatchers.Main + job))
 
 
-
+// cần được tách
     private fun initializePlanets() {
         scope.launch{
             try {
@@ -315,65 +304,36 @@ class FilamentView @JvmOverloads constructor(context: Context,
     }
 
 
-
-    private fun handleSingleTap(x: Float, y: Float) {
-        val planets = listOf(sun812, earth812, moon812, mecury812, saturn812, mars812, jupiter812, uranus812, neptune812, venus812)
-        val fragmentContainer : View = (context as MainActivity).findViewById(R.id.fragment_container)
-
-        val clickedPlanet = planets.minByOrNull { planet ->
-            val planetScreenPos = filament?.getScreenPosition(planet) ?: return@minByOrNull Float.MAX_VALUE
-            val dx = planetScreenPos.x - x
-            val dy = planetScreenPos.y - y
-            sqrt(dx * dx + dy * dy)
-        }
-        clickedPlanet?.let { planet ->
-            val planetScreenPos = filament?.getScreenPosition(planet)
-            if (planetScreenPos != null) {
-                val distance = sqrt((planetScreenPos.x - x).pow(2) + (planetScreenPos.y - y).pow(2))
-                val touchThreshold = 120f
-
-                if (distance < touchThreshold) {
-                    filament?.targetPlanet = planet
-
-                    count++
-                    post {
-                        planetNameTextView?.text = planet.name
-                        infoPanel?.visibility = View.VISIBLE
-                        miniFilamentHelper?.loadPlanetModel(planet)
-                    }
-                    return
-                }
-            }
-        }
-
-        filament?.targetPlanet = sun812
-        planetSelectionListener?.onPlanetSelected("")
-
-
-        count =0
-        post{
-            if(access) {
-                effectmanager = Effectmanager(filament!!)
-                effectmanager.deactivateEffect()
-                access = false
-                Log.d("access!!!!!" , "${access} thay doi ")
-            }
-            miniFilamentHelper?.clearPlanetModel()
-            infoPanel?.visibility = View.GONE
-            planetNameTextView?.text = ""
-            fragmentContainer.visibility = GONE
-
-
-        }
-    }
-
     override fun surfaceCreated(holder: SurfaceHolder){
         FilamentManager.initialize(context , holder.surface)
         filament = FilamentManager.filamentHelper
-
-        gestureHandler = GestureHandler(filament)
+        val fragmentContainer : View = (context as MainActivity).findViewById(R.id.fragment_container)
         initializePlanets()
         startRendering()
+        gestureHandler = GestureHandler(
+            filament,
+            onPlanetSelected = { planet ->
+                filament?.targetPlanet = planet
+                planetNameTextView?.text = planet.name
+                infoPanel?.visibility = View.VISIBLE
+                miniFilamentHelper?.loadPlanetModel(planet)
+            },
+            onNoPlanetSelected = {
+                filament?.targetPlanet = sun812
+                planetSelectionListener?.onPlanetSelected("")
+                if(access) {
+                    effectmanager = Effectmanager(filament!!)
+                    effectmanager.deactivateEffect()
+                    access = false
+                    Log.d("access!!!!!" , "${access} thay doi ")
+                }
+
+                planetNameTextView?.text = ""
+                infoPanel?.visibility = View.GONE
+                miniFilamentHelper?.clearPlanetModel()
+                fragmentContainer.visibility = GONE
+            })
+
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -395,23 +355,32 @@ class FilamentView @JvmOverloads constructor(context: Context,
         job.cancel()
     }
 
-
+    // xư ly sự kiện chạm trong surfaceview
     override fun onTouchEvent(event: MotionEvent): Boolean {
 
         return gestureDetector.onTouchEvent(event) || gestureHandler.handleTouch(event)
     }
 
+    //2 ham duoi chiu trach nghiem quan ly vong doi
     private fun startRendering(){
         choreographer.postFrameCallback(frameCallback)
     }
     private fun stopRendering(){
         choreographer.removeFrameCallback(frameCallback)
     }
+
+
+
+    // quan ly su kien dich chuyen tam diem nhin sang phai
+    var height : Pair<Float,Float>? = null
     fun switchProjection() {
         filament?.let {
-            val targetOffsetX = if (it.currentCameraOffsetX == 0f) 1.0f else 0.0f
+            val heightScreen = height!!.second/4f
+            Log.e("heightScreen","$heightScreen")
+            val targetOffsetX = if (it.currentCameraOffsetX == 0f) heightScreen else 0.0f
             it.startCameraOffsetTransition(targetOffsetX)
         }
     }
+
 
 }

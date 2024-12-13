@@ -1,12 +1,11 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.activity
 
 
-import android.graphics.Canvas
 import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -18,6 +17,14 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.solar_system_scope_app.FilamentManager
+import com.example.solar_system_scope_app.FilamentView
+import com.example.solar_system_scope_app.UI.fragment.FragmentSetting
+import com.example.solar_system_scope_app.MiniFilamentHelper
+import com.example.solar_system_scope_app.UI.fragment.PlanetDetailFragment
+import com.example.solar_system_scope_app.PlanetSelectionListener
+import com.example.solar_system_scope_app.R
 
 import com.google.android.filament.utils.Utils
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
@@ -27,21 +34,20 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() , PlanetSelectionListener{
+class MainActivity : AppCompatActivity() , PlanetSelectionListener {
 
     private lateinit var filamentView: FilamentView
     private lateinit var infoPanel: View
     lateinit var planetNameTextView: TextView
     private lateinit var miniPlanetView: SurfaceView
     private lateinit var miniFilamentHelper: MiniFilamentHelper
-    private lateinit var toggleOrbitsButton: ImageButton
-
 
     private lateinit var speedSeekBar: SeekBar
     private lateinit var speedTextView: TextView
-
+    private lateinit var barzoomBar : VerticalSeekBarWrapper
     private lateinit var zoomBar : VerticalSeekBar
 
+    private lateinit var realTimeTV : ConstraintLayout
     private lateinit var textYear: TextView
     private lateinit var textMonthDay: TextView
     private lateinit var textHourMinus: TextView
@@ -79,7 +85,9 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         planetNameTextView = findViewById(R.id.planetName)
         miniPlanetView = findViewById(R.id.miniPlanetView)
         showPlanetNames()
+        filamentView.height = getScreenDimensions(this)
 
+        realTimeTV = findViewById(R.id.realTimeTextView)
         textYear = findViewById(R.id.text_year)
         textMonthDay = findViewById(R.id.text_month_day)
         textHourMinus = findViewById(R.id.text_hour_minus)
@@ -116,6 +124,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
             }
         })
+        barzoomBar = findViewById(R.id.vertical_seekbar)
         zoomBar = findViewById(R.id.vertical)
         zoomBar.progress = 50
         zoomBar.max = 100
@@ -200,9 +209,11 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                                 filamentView.switchProjection()
                             }
                             replaceFragmentWithPlanetDetail(clickedPlanetName)
+
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp ${clickedPlanetName}")
 
                         } else {
+
                             Log.d("MainActivityzzzzz", "Hành tinh nhấp không khớp với hành tinh hiển thị")
                         }
                 }
@@ -278,16 +289,32 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         replaceFragmentWithPlanetDetail(planetName)
     }
 
+    fun viewGone(){
+        realTimeTV.visibility = View.GONE
+        barzoomBar.visibility = View.GONE
+        speedSeekBar.visibility = View.GONE
+        speedTextView.visibility = View.GONE
+        btn_TgT.visibility = View.GONE
+        btn_Setting.visibility = View.GONE
+    }
+    fun viewVisible(){
+        realTimeTV.visibility = View.VISIBLE
+        barzoomBar.visibility = View.VISIBLE
+        speedSeekBar.visibility = View.VISIBLE
+        speedTextView.visibility = View.VISIBLE
+        btn_TgT.visibility = View.VISIBLE
+        btn_Setting.visibility = View.VISIBLE
+    }
    private fun replaceFragmentWithPlanetDetail(planetName: String) {
         val fragmentManager = supportFragmentManager
         val fragmentContainer: View = findViewById(R.id.fragment_container)
 
         if (planetName.isNotEmpty()) {
-            // Hiển thị fragment_container nếu nó đang ẩn
             if (fragmentContainer.visibility != View.VISIBLE) {
                 fragmentContainer.visibility = View.VISIBLE
-            }
 
+            }
+            viewGone()
             val detailFragment = PlanetDetailFragment()
             val bundle = Bundle()
             bundle.putString("PLANET_NAME", planetName)
@@ -298,26 +325,37 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                 .commit()
         } else {
             // Xóa fragment khi không có hành tinh nào được chọn
-            removePlanetDetailFragment()
+            filamentView.filament!!.startCameraOffsetTransition(0f)
+            filamentView.filament!!.targetCameraOffsetX =0f
             fragmentContainer.visibility = View.GONE
+            viewVisible()
         }
         // Cập nhật tên hành tinh trong MainActivity
         planetNameTextView.text = planetName
     }
-    fun removePlanetDetailFragment() {
-        val fragmentManager = supportFragmentManager
-        val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
-        if (fragment != null) {
-            fragmentManager.beginTransaction()
-                .remove(fragment)
-                .commit()
-        }
-            filamentView.filament!!.startCameraOffsetTransition(0f)
+//    fun removePlanetDetailFragment() {
+//        val fragmentManager = supportFragmentManager
+//        val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
+//        if (fragment != null) {
+//            fragmentManager.beginTransaction()
+//                .remove(fragment)
+//                .commit()
+//        }
+//
+//
+//    }
 
-    }
+
+
     val planetTextViews  = mutableListOf<TextView>()
-
     val usedYPositions = mutableListOf<Int>()
+
+    fun togglePlanetNamesVisibility(visible: Boolean) {
+        val visibility = if (visible) View.VISIBLE else View.GONE
+        for (textView in planetTextViews) {
+            textView.visibility = visibility
+        }
+    }
 
     fun showPlanetNames() {
 
@@ -333,7 +371,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
                         textView.text = planet.name
                         textView.tag = planet.name
                         textView.setTextColor(Color.WHITE)
-                        textView.setTextSize(16f)
+                        textView.setTextSize(12f)
                         textView.setTypeface(null, android.graphics.Typeface.BOLD)
 
                         val layoutParams = RelativeLayout.LayoutParams(
@@ -380,6 +418,21 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
         }
 
     }
+    fun getScreenDimensions(activity: MainActivity): Pair<Float, Float> {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+        val height = displayMetrics.heightPixels
+        val xdpi = displayMetrics.xdpi
+        val ydpi = displayMetrics.ydpi
+
+        // Chuyển đổi từ pixel sang cm
+        val widthCm = (width/ xdpi) * 2.54f
+        val heightCm = (height / ydpi) * 2.54f
+
+        return Pair(widthCm, heightCm)
+    }
+
 
     private fun mapValue(progress: Int): Float{
         return when {
@@ -403,4 +456,5 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener{
 
         FilamentManager.destroy()
     }
+
 }

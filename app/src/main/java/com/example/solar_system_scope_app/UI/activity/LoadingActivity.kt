@@ -1,20 +1,19 @@
-package com.example.solar_system_scope_app
+package com.example.solar_system_scope_app.UI.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.view.View
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.solar_system_scope_app.model.DataManager
+import com.example.solar_system_scope_app.FilamentManager
+import com.example.solar_system_scope_app.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.atomic.AtomicBoolean
@@ -60,7 +59,7 @@ class LoadingActivity : AppCompatActivity() {
                 loadingTextView.text = "Đang tải dữ liệu..."
 
                 withContext(Dispatchers.IO){
-                   DataManager.loadAllPlanets(this@LoadingActivity)
+                    DataManager.loadAllPlanets(this@LoadingActivity)
                 }
                 val requiredFiles = listOf(
                     "Sun.glb",
@@ -75,7 +74,7 @@ class LoadingActivity : AppCompatActivity() {
                     "Neptune.glb"
                 )
                 val allLoaded = requiredFiles.all { file ->
-                    DataManager.getPlanetBuffer(file)!=null
+                    DataManager.getPlanetBuffer(file) !=null
                 }
                 if(allLoaded) {
                    navigateToStartActivity()

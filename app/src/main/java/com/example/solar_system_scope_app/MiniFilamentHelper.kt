@@ -5,19 +5,16 @@ import android.opengl.Matrix
 import android.util.Log
 import android.view.Choreographer
 import android.view.MotionEvent
-import android.view.Surface
 import android.view.SurfaceView
-import android.view.View.OnClickListener
+import com.example.solar_system_scope_app.model.DataManager
+import com.example.solar_system_scope_app.model.Planet
 import com.google.android.filament.*
 import com.google.android.filament.gltfio.*
-import com.google.android.filament.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
 
 class MiniFilamentHelper(private val context: Context, private val surfaceView: SurfaceView,
                         ) {
@@ -115,6 +112,8 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         choreographer.postFrameCallback(frameCallback)
     }
 
+    val LIGHT_DIRECTIONAL = 250000.0f
+    // them anh sang vao minifilament
     private fun setupLighting() {
         if(lightEntity !=0){
             return
@@ -123,7 +122,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
         LightManager.Builder(LightManager.Type.SUN)
             .color(1.0f, 1.0f, 1.0f)  // Màu trắng cho ánh sáng
-            .intensity(250000.0f)    // Tăng độ sáng để chiếu sáng tốt hơn
+            .intensity(LIGHT_DIRECTIONAL)    // Tăng độ sáng để chiếu sáng tốt hơn
             .direction(-0.5f, -1.0f, -0.5f)  // Điều chỉnh hướng của ánh sáng để chiếu sáng mô hình tốt hơn
             .castShadows(true)        // Cho phép đổ bóng nếu cần
             .build(engine, directionalLight)
@@ -147,6 +146,8 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
         setupLighting()
 
+
+        //can xem lai doan nay xem da su dung buffer luu tru chua
         scope.launch {
             // Tải mô hình của hành tinh
             val buffer = withContext(Dispatchers.IO) {
@@ -265,7 +266,11 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
             assetLoader?.destroyAsset(currentAsset)
             asset = null
         }
+
+        // can xem lai cai nay
         surfaceView.setOnTouchListener(null)
+
+
         materialProvider?.destroyMaterials()
         materialProvider = null
         assetLoader?.destroy()
