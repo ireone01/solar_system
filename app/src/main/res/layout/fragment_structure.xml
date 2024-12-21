@@ -62,6 +62,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
 
                 />
+
+            <ImageButton
+                android:id="@+id/btn_speech"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/volume_up"
+                android:contentDescription="volume_up"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@drawable/button_backgound"
+                />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -89,7 +101,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:text="Cấu Trúc Của Hành Tinh"
+                android:text="@string/structure_frag_encyclopedia_title"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -115,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="22sp"
-                    android:text="Cấu Trúc"
+                    android:text="@string/structure_frag_CT"
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     app:layout_constraintTop_toTopOf="parent"
@@ -151,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:text="VỎ"
+                android:text="@string/structure_frag_VO"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
 
@@ -181,7 +193,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="MANTI"
+                android:text="@string/structure_frag_MANTI"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -212,7 +224,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="LÕI"
+                android:text="@string/structure_frag_LOI"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -242,7 +254,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="LỚP SILIC NƯỚC"
+                android:text="@string/structure_frag_SILIC"
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"

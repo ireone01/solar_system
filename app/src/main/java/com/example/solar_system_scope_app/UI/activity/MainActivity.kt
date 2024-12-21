@@ -2,6 +2,7 @@ package com.example.solar_system_scope_app.UI.activity
 
 
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -25,6 +26,8 @@ import com.example.solar_system_scope_app.MiniFilamentHelper
 import com.example.solar_system_scope_app.UI.fragment.PlanetDetailFragment
 import com.example.solar_system_scope_app.PlanetSelectionListener
 import com.example.solar_system_scope_app.R
+import com.example.solar_system_scope_app.UI.fragment.EncyclopediaFragment
+import com.example.solar_system_scope_app.model.AudioManager
 
 import com.google.android.filament.utils.Utils
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
@@ -73,6 +76,9 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener {
     private val secondsInMonth = 2592000
     private val secondsInYear = (365.25 * 86400).toInt()
 
+
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -87,6 +93,8 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener {
         showPlanetNames()
         filamentView.height = getScreenDimensions(this)
 
+
+
         realTimeTV = findViewById(R.id.realTimeTextView)
         textYear = findViewById(R.id.text_year)
         textMonthDay = findViewById(R.id.text_month_day)
@@ -94,6 +102,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener {
         updateRealTime()
         handler.post(updateTimeRunnable)
 
+        AudioManager.start(this)
 
         btn_Setting = findViewById(R.id.btn_setting)
         btn_Setting.setOnClickListener {
@@ -308,7 +317,6 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener {
    private fun replaceFragmentWithPlanetDetail(planetName: String) {
         val fragmentManager = supportFragmentManager
         val fragmentContainer: View = findViewById(R.id.fragment_container)
-
         if (planetName.isNotEmpty()) {
             if (fragmentContainer.visibility != View.VISIBLE) {
                 fragmentContainer.visibility = View.VISIBLE
