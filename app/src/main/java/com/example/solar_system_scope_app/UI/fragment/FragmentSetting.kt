@@ -16,11 +16,13 @@ import com.example.solar_system_scope_app.FilamentHelper
 import com.example.solar_system_scope_app.FilamentManager
 import com.example.solar_system_scope_app.R
 import com.example.solar_system_scope_app.UI.activity.MainActivity
+import com.example.solar_system_scope_app.model.PlanetDataProvider
 
 class FragmentSetting : Fragment(){
     private lateinit var btn_cancel :ImageButton
     private lateinit var switch_QD : Switch
     private lateinit var switch_DS: Switch
+    private lateinit var switch_TR: Switch
     private lateinit var seekBar1 : SeekBar
     private lateinit var seekBar2 : SeekBar
 
@@ -65,6 +67,17 @@ class FragmentSetting : Fragment(){
             (activity as? MainActivity)?.togglePlanetNamesVisibility(ischecked)
         }
 
+        switch_TR = view.findViewById(R.id.switch3)
+        val isSwitchTR = sharedPreferences.getBoolean("SWITCH_TR",false)
+        switch_TR.isChecked = isSwitchTR
+        switch_TR.setOnCheckedChangeListener{ _ , ischecked ->
+            sharedPreferences.edit().putBoolean("SWITCH_TR",ischecked).apply()
+            if(ischecked==true){
+                PlanetDataProvider.setLanguage(requireContext(), "en")
+            }else{
+                PlanetDataProvider.setLanguage(requireContext(), "vn")
+            }
+        }
         seekBar1 = view.findViewById(R.id.seekBar1)
         seekBar2 = view.findViewById(R.id.seekBar2)
 

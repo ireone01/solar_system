@@ -7,21 +7,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thuy.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Lớp ngoài cùng, mỏng nhất. Độ dày khoảng 35 km.",
-          "thành_phần": "Đá silicat giàu magiê và sắt.",
-          "đặc_điểm": "Vỏ mỏng giúp lõi chiếm tỷ lệ lớn so với tổng thể hành tinh, tạo nên mật độ cao nhất trong hệ Mặt Trời."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, mỏng nhất. Độ dày khoảng 35 km.",
+          "thành_phần": "Thành phần: Đá silicat giàu magiê và sắt.",
+          "đặc_điểm": "Đặc điểm: Vỏ mỏng giúp lõi chiếm tỷ lệ lớn so với tổng thể hành tinh, tạo nên mật độ cao nhất trong hệ Mặt Trời."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Nằm ngay dưới vỏ, dày khoảng 400 km.",
-          "thành_phần": "Đá silicat, chủ yếu là olivin và pyroxen.",
-          "đặc_điểm": "Manti của Mercury có tính chất rắn cứng nhưng có thể có sự biến dạng do nhiệt độ và áp suất."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm ngay dưới vỏ, dày khoảng 400 km.",
+          "thành_phần": "Thành phần: Đá silicat, chủ yếu là olivin và pyroxen.",
+          "đặc_điểm": "Đặc điểm: Manti của Mercury có tính chất rắn cứng nhưng có thể có sự biến dạng do nhiệt độ và áp suất."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Bắt đầu từ độ sâu khoảng 435 km đến tâm hành tinh (khoảng 2.440 km).",
-          "thành_phần": "Chủ yếu gồm sắt (Fe) và niken (Ni), có thể chứa các nguyên tố nhẹ như lưu huỳnh và oxy.",
-          "đặc_điểm": "Lõi chiếm khoảng 70% đường kính của Mercury, tạo nên mật độ cao và khả năng hút lực mạnh."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 435 km đến tâm hành tinh (khoảng 2.440 km).",
+          "thành_phần": "Thành phần: Chủ yếu gồm sắt (Fe) và niken (Ni), có thể chứa các nguyên tố nhẹ như lưu huỳnh và oxy.",
+          "đặc_điểm": "Đặc điểm: Lõi chiếm khoảng 70% đường kính của Mercury, tạo nên mật độ cao và khả năng hút lực mạnh."
         }
       }
     },
@@ -33,21 +33,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_kim.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Lớp ngoài cùng, dày khoảng 500 km.",
-          "thành_phần": "Đá silicat, bao gồm granit và bazan.",
-          "đặc_điểm": "Vỏ dày giúp hành tinh có bề mặt ổn định với ít hoạt động kiến tạo mảng so với Earth."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, dày khoảng 500 km.",
+          "thành_phần": "Thành phần: Đá silicat, bao gồm granit và bazan.",
+          "đặc_điểm": "Đặc điểm: Vỏ dày giúp hành tinh có bề mặt ổn định với ít hoạt động kiến tạo mảng so với Earth."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Nằm dưới vỏ, dày khoảng 2.900 km.",
-          "thành_phần": "Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Manti có khả năng chảy chậm, tạo điều kiện cho sự vận động của các lớp trên."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 2.900 km.",
+          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
+          "đặc_điểm": "Đặc điểm: Manti có khả năng chảy chậm, tạo điều kiện cho sự vận động của các lớp trên."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Bắt đầu từ độ sâu khoảng 3.400 km đến tâm hành tinh (khoảng 6.050 km).",
-          "thành_phần": "Sắt và niken, có thể chứa các hợp chất nhẹ.",
-          "đặc_điểm": "Lõi kim loại tạo nên từ trường mạnh, mặc dù từ trường hiện tại của Venus rất yếu."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 3.400 km đến tâm hành tinh (khoảng 6.050 km).",
+          "thành_phần": "Thành phần: Sắt và niken, có thể chứa các hợp chất nhẹ.",
+          "đặc_điểm": "Đặc điểm: Lõi kim loại tạo nên từ trường mạnh, mặc dù từ trường hiện tại của Venus rất yếu."
         }
       }
     },
@@ -59,21 +59,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_trai_dat.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Lớp ngoài cùng, mỏng nhất. Độ dày trung bình khoảng 5–10 km dưới đại dương và 30–70 km dưới lục địa.",
-          "thành_phần": "Granit (vỏ lục địa) và bazan (vỏ đại dương).",
-          "đặc_điểm": "Phân mảnh thành các mảng kiến tạo, di chuyển chậm trên bề mặt manti."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, mỏng nhất. Độ dày trung bình khoảng 5–10 km dưới đại dương và 30–70 km dưới lục địa.",
+          "thành_phần": "Thành phần: Granit (vỏ lục địa) và bazan (vỏ đại dương).",
+          "đặc_điểm": "Đặc điểm: Phân mảnh thành các mảng kiến tạo, di chuyển chậm trên bề mặt manti."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Nằm dưới vỏ, dày khoảng 2.900 km.",
-          "thành_phần": "Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 2.900 km.",
+          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
+          "đặc_điểm": "Đặc điểm: Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Bắt đầu từ độ sâu khoảng 2.900 km đến tâm Earth (khoảng 6.371 km).",
-          "thành_phần": "Chủ yếu gồm sắt (Fe) và niken (Ni), cùng một số nguyên tố nhẹ hơn với hàm lượng nhỏ.",
-          "đặc_điểm": "Lõi bao gồm lõi ngoài lỏng và lõi trong rắn, tạo ra từ trường Earth."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 2.900 km đến tâm Earth (khoảng 6.371 km).",
+          "thành_phần": "Thành phần: Chủ yếu gồm sắt (Fe) và niken (Ni), cùng một số nguyên tố nhẹ hơn với hàm lượng nhỏ.",
+          "đặc_điểm": "Đặc điểm: Lõi bao gồm lõi ngoài lỏng và lõi trong rắn, tạo ra từ trường Earth."
         }
       }
     },
@@ -85,21 +85,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hoa.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Lớp ngoài cùng, dày khoảng 50–100 km.",
-          "thành_phần": "Đá silicat và lạc mãnh.",
-          "đặc_điểm": "Vỏ chứa nhiều vùng núi lửa lớn và thung lũng sâu, cho thấy hoạt động địa chất trong quá khứ."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, dày khoảng 50–100 km.",
+          "thành_phần": "Thành phần: Đá silicat và lạc mãnh.",
+          "đặc_điểm": "Đặc điểm: Vỏ chứa nhiều vùng núi lửa lớn và thung lũng sâu, cho thấy hoạt động địa chất trong quá khứ."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Nằm dưới vỏ, dày khoảng 1.800 km.",
-          "thành_phần": "Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 1.800 km.",
+          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
+          "đặc_điểm": "Đặc điểm: Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Bắt đầu từ độ sâu khoảng 1.800 km đến tâm hành tinh (khoảng 3.390 km).",
-          "thành_phần": "Sắt, niken và các nguyên tố nhẹ khác.",
-          "đặc_điểm": "Có thể có lõi lỏng, nhưng chưa được xác định rõ ràng do thiếu dữ liệu."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 1.800 km đến tâm hành tinh (khoảng 3.390 km).",
+          "thành_phần": "Thành phần: Sắt, niken và các nguyên tố nhẹ khác.",
+          "đặc_điểm": "Đặc điểm: Có thể có lõi lỏng, nhưng chưa được xác định rõ ràng do thiếu dữ liệu."
         }
       }
     },
@@ -111,27 +111,27 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_moc.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Lớp ngoài cùng, không có bề mặt rắn.",
-          "thành_phần": "Chủ yếu là hydro và heli, kèm hợp chất khí.",
-          "đặc_điểm": "Không có bề mặt rắn rõ ràng, chủ yếu là khí."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, không có bề mặt rắn.",
+          "thành_phần": "Thành phần: Chủ yếu là hydro và heli, kèm hợp chất khí.",
+          "đặc_điểm": "Đặc điểm: Không có bề mặt rắn rõ ràng, chủ yếu là khí."
         },
         "lớp_silic_nước": {
           "id": "lớp_silic_nước",
-          "vị_trí_và_độ_dày": "Khoảng 100–200 km dưới vỏ khí.",
-          "thành_phần": "Pha trộn giữa nước và silicat.",
-          "đặc_điểm": "Nơi có sự kết hợp khí-lỏng quan trọng cho cấu trúc bên trong."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 100–200 km dưới vỏ khí.",
+          "thành_phần": "Thành phần: Pha trộn giữa nước và silicat.",
+          "đặc_điểm": "Đặc điểm: Nơi có sự kết hợp khí-lỏng quan trọng cho cấu trúc bên trong."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Dày khoảng 4.700 km.",
-          "thành_phần": "Hydro kim loại.",
-          "đặc_điểm": "Tạo ra từ trường mạnh."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Dày khoảng 4.700 km.",
+          "thành_phần": "Thành phần: Hydro kim loại.",
+          "đặc_điểm": "Đặc điểm: Tạo ra từ trường mạnh."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Khoảng 20–30 km ở trung tâm.",
-          "thành_phần": "Hỗn hợp kim loại và đá silicat.",
-          "đặc_điểm": "Lõi tập trung vật chất nặng."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 20–30 km ở trung tâm.",
+          "thành_phần": "Thành phần: Hỗn hợp kim loại và đá silicat.",
+          "đặc_điểm": "Đặc điểm: Lõi tập trung vật chất nặng."
         }
       }
     },
@@ -143,27 +143,27 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_tho.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Chủ yếu khí hydro và heli.",
-          "thành_phần": "96% hydro, 3% heli và hợp chất khí.",
-          "đặc_điểm": "Chủ yếu là khí."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Chủ yếu khí hydro và heli.",
+          "thành_phần": "Thành phần: 96% hydro, 3% heli và hợp chất khí.",
+          "đặc_điểm": "Đặc điểm: Chủ yếu là khí."
         },
         "lớp_silic_nước": {
           "id": "lớp_silic_nước",
-          "vị_trí_và_độ_dày": "Khoảng 100–200 km dưới vỏ khí.",
-          "thành_phần": "Nước, amoniac và hợp chất khác.",
-          "đặc_điểm": "Chất lỏng và pha rắn, duy trì cấu trúc bên trong."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 100–200 km dưới vỏ khí.",
+          "thành_phần": "Thành phần: Nước, amoniac và hợp chất khác.",
+          "đặc_điểm": "Đặc điểm: Chất lỏng và pha rắn, duy trì cấu trúc bên trong."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Dày khoảng 10.500 km.",
-          "thành_phần": "Hydro kim loại.",
-          "đặc_điểm": "Tạo ra từ trường mạnh."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Dày khoảng 10.500 km.",
+          "thành_phần": "Thành phần: Hydro kim loại.",
+          "đặc_điểm": "Đặc điểm: Tạo ra từ trường mạnh."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "20–30 km ở trung tâm.",
-          "thành_phần": "Hỗn hợp kim loại và đá silicat.",
-          "đặc_điểm": "Tập trung vật chất nặng."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:20–30 km ở trung tâm.",
+          "thành_phần": "Thành phần: Hỗn hợp kim loại và đá silicat.",
+          "đặc_điểm": "Đặc điểm: Tập trung vật chất nặng."
         }
       }
     },
@@ -175,21 +175,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thien_vuong.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Chủ yếu khí hydro, heli, metan.",
-          "thành_phần": "83% hydro, 15% helium, 2% metan.",
-          "đặc_điểm": "Màu xanh đặc trưng do metan."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Chủ yếu khí hydro, heli, metan.",
+          "thành_phần": "Thành phần: 83% hydro, 15% helium, 2% metan.",
+          "đặc_điểm": "Đặc điểm: Màu xanh đặc trưng do metan."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Khoảng 7.700 km dưới vỏ khí.",
-          "thành_phần": "Nước, amoniac, metan lỏng/băng.",
-          "đặc_điểm": "Hỗn hợp đá-băng-lỏng, không hoàn toàn rắn."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 7.700 km dưới vỏ khí.",
+          "thành_phần": "Thành phần: Nước, amoniac, metan lỏng/băng.",
+          "đặc_điểm": "Đặc điểm: Hỗn hợp đá-băng-lỏng, không hoàn toàn rắn."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Khoảng 2.500 km ở trung tâm.",
-          "thành_phần": "Sắt, niken, đá silicat.",
-          "đặc_điểm": "Nóng chảy, áp suất cao."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 2.500 km ở trung tâm.",
+          "thành_phần": "Thành phần: Sắt, niken, đá silicat.",
+          "đặc_điểm": "Đặc điểm: Nóng chảy, áp suất cao."
         }
       }
     },
@@ -201,21 +201,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hai_vuong.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Khí hydro, heli, metan.",
-          "thành_phần": "Tương tự Uranus, màu xanh đậm.",
-          "đặc_điểm": "Metan tạo màu xanh đậm."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khí hydro, heli, metan.",
+          "thành_phần": "Thành phần: Tương tự Uranus, màu xanh đậm.",
+          "đặc_điểm": "Đặc điểm: Metan tạo màu xanh đậm."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Khoảng 7.700 km.",
-          "thành_phần": "Nước, amoniac, metan ở dạng lỏng/băng.",
-          "đặc_điểm": "Phần lớn thể tích, đá-băng hỗn hợp."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 7.700 km.",
+          "thành_phần": "Thành phần: Nước, amoniac, metan ở dạng lỏng/băng.",
+          "đặc_điểm": "Đặc điểm: Phần lớn thể tích, đá-băng hỗn hợp."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "2.500 km ở trung tâm.",
-          "thành_phần": "Sắt, niken, đá silicat.",
-          "đặc_điểm": "Kim loại đóng góp khối lượng và nhiệt."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:2.500 km ở trung tâm.",
+          "thành_phần": "Thành phần: Sắt, niken, đá silicat.",
+          "đặc_điểm": "Đặc điểm: Kim loại đóng góp khối lượng và nhiệt."
         }
       }
     },
@@ -227,21 +227,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_sao_diem_vuong.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "30–50 km.",
-          "thành_phần": "Đá silicat, băng nước, methane, amoniac.",
-          "đặc_điểm": "Bề mặt không ổn định."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:30–50 km.",
+          "thành_phần": "Thành phần: Đá silicat, băng nước, methane, amoniac.",
+          "đặc_điểm": "Đặc điểm: Bề mặt không ổn định."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Khoảng 700 km.",
-          "thành_phần": "Băng nước và các hợp chất băng.",
-          "đặc_điểm": "Dẻo, thay đổi hình dạng."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 700 km.",
+          "thành_phần": "Thành phần: Băng nước và các hợp chất băng.",
+          "đặc_điểm": "Đặc điểm: Dẻo, thay đổi hình dạng."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Khoảng 1.800 km đến tâm.",
-          "thành_phần": "Đá silicat, kim loại.",
-          "đặc_điểm": "Nhỏ, góp phần vào khối lượng."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 1.800 km đến tâm.",
+          "thành_phần": "Thành phần: Đá silicat, kim loại.",
+          "đặc_điểm": "Đặc điểm: Nhỏ, góp phần vào khối lượng."
         }
       }
     },
@@ -253,21 +253,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_mat_trang.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "50–60 km.",
-          "thành_phần": "Đá silicat, bazan, anorthosit.",
-          "đặc_điểm": "Có nhiều vùng maria và cao nguyên."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:50–60 km.",
+          "thành_phần": "Thành phần: Đá silicat, bazan, anorthosit.",
+          "đặc_điểm": "Đặc điểm: Có nhiều vùng maria và cao nguyên."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Khoảng 1.000 km.",
-          "thành_phần": "Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Ít hoạt động địa chất hiện tại."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 1.000 km.",
+          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
+          "đặc_điểm": "Đặc điểm: Ít hoạt động địa chất hiện tại."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Khoảng 350 km.",
-          "thành_phần": "Sắt, niken, nguyên tố nhẹ.",
-          "đặc_điểm": "Lõi nhỏ, ảnh hưởng đến mật độ."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 350 km.",
+          "thành_phần": "Thành phần: Sắt, niken, nguyên tố nhẹ.",
+          "đặc_điểm": "Đặc điểm: Lõi nhỏ, ảnh hưởng đến mật độ."
         }
       }
     },
@@ -279,21 +279,21 @@
         "hình_ảnh_mặt_cắt": "images/mat_cat_mat_troi.png",
         "vỏ": {
           "id": "vỏ",
-          "vị_trí_và_độ_dày": "Quang quyển - lớp ngoài quan sát được.",
-          "thành_phần": "Chủ yếu hydro, heli.",
-          "đặc_điểm": "Phát ra ánh sáng và nhiệt."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Quang quyển - lớp ngoài quan sát được.",
+          "thành_phần": "Thành phần: Chủ yếu hydro, heli.",
+          "đặc_điểm": "Đặc điểm: Phát ra ánh sáng và nhiệt."
         },
         "manti": {
           "id": "manti",
-          "vị_trí_và_độ_dày": "Vùng bức xạ và đối lưu dưới quang quyển.",
-          "thành_phần": "Plasma hydro, heli siêu nóng.",
-          "đặc_điểm": "Đối lưu, bức xạ năng lượng ra ngoài."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Vùng bức xạ và đối lưu dưới quang quyển.",
+          "thành_phần": "Thành phần: Plasma hydro, heli siêu nóng.",
+          "đặc_điểm": "Đặc điểm: Đối lưu, bức xạ năng lượng ra ngoài."
         },
         "lõi": {
           "id": "lõi",
-          "vị_trí_và_độ_dày": "Trung tâm, áp suất-nhiệt cực cao.",
-          "thành_phần": "Hydro, heli, nguyên tố nhẹ.",
-          "đặc_điểm": "Phản ứng nhiệt hạch sinh năng lượng."
+          "vị_trí_và_độ_dày": "Vị trí và độ dày:Trung tâm, áp suất-nhiệt cực cao.",
+          "thành_phần": "Thành phần: Hydro, heli, nguyên tố nhẹ.",
+          "đặc_điểm": "Đặc điểm: Phản ứng nhiệt hạch sinh năng lượng."
         }
       }
     }

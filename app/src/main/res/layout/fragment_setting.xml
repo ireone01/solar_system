@@ -16,13 +16,13 @@
        android:id="@+id/text_switch1"
        android:layout_width="50dp"
        android:layout_height="50dp"
-        android:text="Vòng Quỹ Đạo"
+        android:text="@string/setting_frag_TSWITCH1"
        android:textColor="@color/white"
        android:textStyle="bold"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        android:layout_marginStart="20dp"
-       android:layout_marginTop="16dp"
+       android:layout_marginTop="44dp"
        />
     <Switch
         android:id="@+id/switch1"
@@ -33,20 +33,20 @@
         android:thumb="@drawable/planet"
         />
 
+
     <TextView
         android:id="@+id/text_switch2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:text="Tên Hành Tinh"
+        android:text="@string/setting_frag_TSWITCH2"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_switch1"
         app:layout_constraintStart_toEndOf="@id/switch1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/text_switch3"
         android:layout_marginEnd="50dp"
-        android:layout_marginTop="16dp"
-        />
 
+        />
     <Switch
         android:id="@+id/switch2"
         android:layout_width="50dp"
@@ -55,13 +55,48 @@
         app:layout_constraintTop_toTopOf="@id/text_switch2"
         android:thumb="@drawable/planet"/>
 
+
+    <TextView
+        android:id="@+id/text_switch3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="VN"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/text_switch1"
+        app:layout_constraintStart_toEndOf="@id/switch2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="50dp"
+
+        />
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/text_switch3"
+        app:layout_constraintTop_toTopOf="@id/text_switch3"
+        android:thumb="@drawable/planet"/>
+    <TextView
+        android:id="@+id/text_switch4"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:text="EN"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/text_switch1"
+        app:layout_constraintBottom_toBottomOf="@id/text_switch1"
+        app:layout_constraintStart_toEndOf="@id/switch3"
+
+        />
     <!-- Hàng thứ 2: SeekBar đầu tiên -->
 
     <TextView
         android:id="@+id/text_seek1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tăng Giảm Độ Sáng Mặt Trời"
+        android:text="@string/setting_frag_TSEEK1"
         android:textSize="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -86,7 +121,7 @@
         android:id="@+id/text_seek2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tăng Giảm Độ Sáng Cảnh"
+        android:text="@string/setting_frag_TSEEK2"
         android:textSize="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -106,6 +141,7 @@
         android:thumb="@drawable/planet"
       />
 
+    <!-- Nút cancel -->
     <ImageButton
         android:id="@+id/btn_cancel"
         android:layout_width="50dp"
