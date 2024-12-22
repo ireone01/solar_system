@@ -1,0 +1,32 @@
+<resources>
+    <string name="btn_TgT">REAL TIME</string>
+    <string name="ency_frag_TC1">Equatorial Diameter</string>
+    <string name="ency_frag_TC2">Mass</string>
+    <string name="ency_frag_TC3">Distance to Galactic Center</string>
+    <string name="ency_frag_TC4">Rotation Period</string>
+    <string name="ency_frag_TC5">Orbit Period</string>
+    <string name="ency_frag_TC6">Surface Gravity</string>
+    <string name="ency_frag_TC7">Surface Temperature</string>
+    <string name="ency_frag_TL1">INTRODUCTION</string>
+    <string name="ency_frag_TL2">STRUCTURE</string>
+    <string name="ency_frag_TL3">DISTANCE</string>
+    <string name="ency_frag_TL4">IN THE MILKY WAY</string>
+
+    <string name="planet_detail_frag_exploreButton">Explore</string>
+    <string name="planet_detail_frag_encyclopediaButton">Encyclopedia</string>
+    <string name="planet_detail_frag_structureButton">Structure</string>
+
+    <string name="setting_frag_TSWITCH1">Orbit Ring</string>
+    <string name="setting_frag_TSWITCH2">Planet Name</string>
+    <string name="setting_frag_TSEEK1">Increase/Decrease Sun Brightness</string>
+    <string name="setting_frag_TSEEK2">Increase/Decrease Background Brightness</string>
+
+
+    <string name="structure_frag_HT">Planet</string>
+    <string name="structure_frag_CT">Structure</string>
+    <string name="structure_frag_VO">CRUST</string>
+    <string name="structure_frag_MANTI">MANTLE</string>
+    <string name="structure_frag_LOI">CORE</string>
+    <string name="structure_frag_SILIC">SILICATE WATER LAYER</string>
+    <string name="structure_frag_encyclopedia_title">Planet Structure</string>
+</resources>

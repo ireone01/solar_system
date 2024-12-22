@@ -1,6 +1,7 @@
 package com.example.solar_system_scope_app.UI.fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -11,6 +12,7 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import com.example.solar_system_scope_app.model.AudioManager
 import com.example.solar_system_scope_app.model.PlanetDataProvider
+import com.example.solar_system_scope_app.utils.updateLocale
 import java.util.Locale
 
 abstract class BaseFragment : Fragment(), TextToSpeech.OnInitListener{
@@ -27,25 +29,27 @@ abstract class BaseFragment : Fragment(), TextToSpeech.OnInitListener{
         if(status == TextToSpeech.SUCCESS){
             if(PlanetDataProvider.getLanguage(requireContext())=="vn"){
             val langResult = tts.setLanguage(Locale("vi", "VN" ))
-            if(langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED){
-                showLanguageDialog()
-            }else{
-                Log.d("TextToSpeech", "Tiếng Việt được hỗ trợ")
-            }
+//            if(langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED){
+//                showLanguageDialog()
+//            }else{
+//                Log.d("TextToSpeech", "Tiếng Việt được hỗ trợ")
+//            }
             }else{
                 val langResult = tts.setLanguage(Locale.ENGLISH)
-                if(langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED){
-                    showLanguageDialogEnglish()
-                }else{
-                    Log.d("TextToSpeech", "English is supported")
-                }
+//                if(langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED){
+//                    showLanguageDialogEnglish()
+//                }else{
+//                    Log.d("TextToSpeech", "English is supported")
+//                }
             }
         }else{
             Log.e("TextToSpeech", "TextToSpeech không khởi tạo thành công")
         }
     }
 
-
+    override fun onAttach(context: Context) {
+        super.onAttach(context.updateLocale(PlanetDataProvider.getLanguage(context)))
+    }
 
     protected fun readText(textToRead: String){
         if(::tts.isInitialized){

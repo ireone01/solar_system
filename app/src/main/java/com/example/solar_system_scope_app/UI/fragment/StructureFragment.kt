@@ -65,22 +65,22 @@
             planetDB?.let {
                 suB=""
                 view.findViewById<TextView>(R.id.title).text = it.name.uppercase()
-                view.findViewById<TextView>(R.id.subtitle).text = "Hành tinh"
+                view.findViewById<TextView>(R.id.subtitle).text = "${getString(R.string.structure_frag_HT)}"
                 view.findViewById<TextView>(R.id.text_cau_truc).text = it.layers.mo_ta
                 var descrip =  it.layers.crust.posotion + "\n"+
                         it.layers.crust.composition + "\n" +
                        it.layers.crust.characteristics
-                suB +="Phần Vỏ : " + descrip +"\n"
+                suB +="${getString(R.string.structure_frag_VO)} : " + descrip +"\n"
                 view.findViewById<TextView>(R.id.description).text = descrip
                 descrip = it.layers.mantle.posotion + "\n"+
                        it.layers.mantle.composition + "\n" +
                         it.layers.mantle.characteristics
-                suB += "Lớp Manti : "+ descrip +"\n"
+                suB += "${getString(R.string.structure_frag_MANTI)} : "+ descrip +"\n"
                 view.findViewById<TextView>(R.id.structure).text = descrip
                 descrip =  it.layers.core.posotion + "\n"+
                         it.layers.core.composition + "\n" +
                        it.layers.core.characteristics
-                suB +=" Phần Lõi :" + descrip +"\n"
+                suB +=" ${getString(R.string.structure_frag_LOI)} :" + descrip +"\n"
                 view.findViewById<TextView>(R.id.distance).text = descrip
                 if(planetName == "Jupiter" || planetName == "Saturn" ){
                     view.findViewById<TextView>(R.id.title4).visibility = View.VISIBLE
@@ -89,7 +89,7 @@
                             it.layers.silicate_water_layer?.composition + "\n" +
                            it.layers.silicate_water_layer?.characteristics
                     view.findViewById<TextView>(R.id.in_milky_way).text = descrip
-                    suB +="LỚP SILIC NƯỚC : " + descrip +"\n"
+                    suB +="${getString(R.string.structure_frag_SILIC)} : " + descrip +"\n"
 
                 }else{
                     view.findViewById<TextView>(R.id.title4).visibility = View.GONE

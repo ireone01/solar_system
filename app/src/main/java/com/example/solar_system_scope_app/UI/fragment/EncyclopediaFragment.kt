@@ -24,6 +24,17 @@ class EncyclopediaFragment :BaseFragment() {
     private lateinit var buttonBack :AppCompatImageButton
     private var planetId: String? = null
     private var planetDB: PlanetDescription? = null
+    private lateinit var tcl1 : TextView
+    private lateinit var tcl2 : TextView
+    private lateinit var tcl3 : TextView
+    private lateinit var tcl4 : TextView
+    private lateinit var tcl5 : TextView
+    private lateinit var tcl6 : TextView
+    private lateinit var tcl7 : TextView
+    private lateinit var ttl1 : TextView
+    private lateinit var ttl2 : TextView
+    private lateinit var ttl3 : TextView
+    private lateinit var ttl4 : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +44,29 @@ class EncyclopediaFragment :BaseFragment() {
        val view = inflater.inflate(R.layout.encyclopedia_fragment,container , false)
         buttonBack = view.findViewById(R.id.btn_back)
         btnRead = view.findViewById(R.id.btn_speech)
+        tcl1  = view.findViewById(R.id.TextColumn1)
+        tcl2  = view.findViewById(R.id.TextColumn2)
+        tcl3  = view.findViewById(R.id.TextColumn3)
+        tcl4  = view.findViewById(R.id.TextColumn4)
+        tcl5  = view.findViewById(R.id.TextColumn5)
+        tcl6  = view.findViewById(R.id.TextColumn6)
+        tcl7  = view.findViewById(R.id.TextColumn7)
+        ttl1 = view.findViewById(R.id.title1)
+        ttl2 = view.findViewById(R.id.title2)
+        ttl3 = view.findViewById(R.id.title3)
+        ttl4 = view.findViewById(R.id.title4)
+
+        tcl1.text = getString(R.string.ency_frag_TC1)
+        tcl2.text = getString(R.string.ency_frag_TC2)
+        tcl3.text = getString(R.string.ency_frag_TC3)
+        tcl4.text = getString(R.string.ency_frag_TC4)
+        tcl5.text = getString(R.string.ency_frag_TC5)
+        tcl6.text = getString(R.string.ency_frag_TC6)
+        tcl7.text = getString(R.string.ency_frag_TC7)
+        ttl1.text = getString(R.string.ency_frag_TL1)
+        ttl2.text = getString(R.string.ency_frag_TL2)
+        ttl3.text = getString(R.string.ency_frag_TL3)
+        ttl4.text = getString(R.string.ency_frag_TL4)
 
 
         buttonBack.setOnClickListener{
@@ -60,27 +94,27 @@ class EncyclopediaFragment :BaseFragment() {
                         append("\n")
                         append(planet.description)
                         append("\n")
-                        append("Đường kính xích đạo : ${planet.encyclopedia.equatorial_diameter}")
+                        append("${getString(R.string.ency_frag_TC1)} : ${planet.encyclopedia.equatorial_diameter}")
                         append("\n")
-                        append("Khối lượng: ${planet.encyclopedia.mass}")
+                        append("${getString(R.string.ency_frag_TC2)}: ${planet.encyclopedia.mass}")
                         append("\n")
-                        append("Khoảng cách tới trung tâm thiên hà: ${planet.encyclopedia.distance_to_center}")
+                        append("${getString(R.string.ency_frag_TC3)}: ${planet.encyclopedia.distance_to_center}")
                         append("\n")
-                        append("Chu kỳ tự quay: ${planet.encyclopedia.rotation_period}")
+                        append("${getString(R.string.ency_frag_TC4)}: ${planet.encyclopedia.rotation_period}")
                         append("\n")
-                        append("Chu kỳ quỹ đạo quanh thiên hà: ${planet.encyclopedia.orbit}")
+                        append("${getString(R.string.ency_frag_TC5)}: ${planet.encyclopedia.orbit}")
                         append("\n")
-                        append("Trọng lực bề mặt: ${planet.encyclopedia.gravity}")
+                        append("${getString(R.string.ency_frag_TC6)}: ${planet.encyclopedia.gravity}")
                         append("\n")
-                        append("Nhiệt độ bề mặt: ${planet.encyclopedia.temperature}")
+                        append("${getString(R.string.ency_frag_TC7)}: ${planet.encyclopedia.temperature}")
                         append("\n")
-                        append("GIỚI THIỆU: ${planet.additional_info}")
+                        append("${getString(R.string.ency_frag_TL1)}: ${planet.additional_info}")
                         append("\n")
-                        append("CẤU TẠO: ${planet.structure}")
+                        append("${getString(R.string.ency_frag_TL2)}: ${planet.structure}")
                         append("\n")
-                        append("KHOẢNG CÁCH: ${planet.distance}")
+                        append("${getString(R.string.ency_frag_TL3)}: ${planet.distance}")
                         append("\n")
-                        append("TRONG DẢI NGÂN HÀ: ${planet.in_milky_way}")
+                        append("${getString(R.string.ency_frag_TL4)}: ${planet.in_milky_way}")
                     }
                     AudioManager.pause()
                      readText(textToRead)

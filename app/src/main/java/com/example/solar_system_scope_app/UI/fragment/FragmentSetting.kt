@@ -41,6 +41,7 @@ class FragmentSetting : Fragment(){
         btn_cancel.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
         switch_QD = view.findViewById(R.id.switch1)
         val isSwitch = sharedPreferences.getBoolean("SWITCH_QD",true)
         switch_QD.isChecked = isSwitch

@@ -10,7 +10,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher_new"
-        android:label="@string/app_name"
+        android:label="Solar System"
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/Theme.Solar_system_scope_app"
@@ -36,7 +36,7 @@
         <activity
             android:name=".UI.activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="Solar System"
             android:theme="@style/Theme.Solar_system_scope_app"
             android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize">
