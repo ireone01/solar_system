@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tracker Water</string>
+    <string name="home">Home</string>
+    <string name="te">Keep hydrated for headthy life</string>
 </resources>
