@@ -1,17 +1,15 @@
-package com.wavez.trackerwater.fragment
+package com.wavez.trackerwater.ui.fragment
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseFragment
-import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
-import com.wavez.trackerwater.ui.DrinkActivity
+import com.wavez.trackerwater.ui.drink.DrinkActivity
 
 class TodayFragment :BaseFragment<FragmentTodayBinding>() {
 

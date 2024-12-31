@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.fragment
+package com.wavez.trackerwater.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

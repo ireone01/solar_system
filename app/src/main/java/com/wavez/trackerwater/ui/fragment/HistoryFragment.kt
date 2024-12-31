@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.fragment
+package com.wavez.trackerwater.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentHistoryBinding
-import com.wavez.trackerwater.fragment.adapter.HistoryViewPagerAdapter
+import com.wavez.trackerwater.ui.fragment.adapter.HistoryViewPagerAdapter
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     private lateinit var adapter: HistoryViewPagerAdapter

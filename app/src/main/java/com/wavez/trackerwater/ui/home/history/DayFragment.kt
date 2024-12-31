@@ -1,8 +1,7 @@
-package com.wavez.trackerwater.fragment
+package com.wavez.trackerwater.ui.home.history
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentDayBinding
 

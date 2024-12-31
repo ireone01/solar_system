@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.ui
+package com.wavez.trackerwater.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityMainBinding
-import com.wavez.trackerwater.fragment.adapter.MainViewPagerAdapter
+import com.wavez.trackerwater.ui.home.adapter.MainViewPagerAdapter
 
 class MainActivity: BaseActivity<ActivityMainBinding>() {
     private lateinit var adapter: MainViewPagerAdapter

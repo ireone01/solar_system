@@ -1,12 +1,12 @@
-package com.wavez.trackerwater.fragment.adapter
+package com.wavez.trackerwater.ui.home.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.wavez.trackerwater.fragment.HistoryFragment
-import com.wavez.trackerwater.fragment.InsightsFragment
-import com.wavez.trackerwater.fragment.MeFragment
-import com.wavez.trackerwater.fragment.TodayFragment
+import com.wavez.trackerwater.ui.fragment.HistoryFragment
+import com.wavez.trackerwater.ui.fragment.InsightsFragment
+import com.wavez.trackerwater.ui.fragment.MeFragment
+import com.wavez.trackerwater.ui.fragment.TodayFragment
 
 class MainViewPagerAdapter(fragment: FragmentActivity) : FragmentStateAdapter(fragment) {
 

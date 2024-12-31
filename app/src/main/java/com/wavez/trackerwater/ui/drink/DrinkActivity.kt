@@ -1,12 +1,7 @@
-package com.wavez.trackerwater.ui
+package com.wavez.trackerwater.ui.drink
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.lingvo.base_common.ui.BaseActivity
-import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityDrinkBinding
 
 class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
