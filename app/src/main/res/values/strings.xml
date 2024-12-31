@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Tracker Water</string>
+    <string name="inights">Inights</string>
+    <string name="history">History</string>
+    <string name="today">Today</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drink">DRINK</string>
+    <string name="hydrated_text">
+            drink <font color="#0000FF">0.2-0.3L of water</font> each time to stay well_hydrated
+    </string>
+    <string name="records">Records</string>
+
 </resources>
