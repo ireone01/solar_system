@@ -61,6 +61,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
         dialogBinding.rcvHistory.adapter = adapter
         dialogBinding.rcvHistory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+
     }
 
     private fun onSelect(history: HistoryModel) {
