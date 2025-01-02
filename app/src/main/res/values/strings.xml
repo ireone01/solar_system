@@ -1,5 +1,30 @@
 <resources>
     <string name="app_name">Tracker Water</string>
-    <string name="home">Home</string>
-    <string name="te">Keep hydrated for headthy life</string>
+    <string name="country_hint">Viet Nam</string>
+    <string name="language_text">Language\n</string>
+    <string name="hello">Wellcome to your smart water reminder</string>
+    <string name="hello1">Here comes a few simple questions before we can personalize your daily goal and schedule</string>
+    <string name="age_text">Choose your age</string>
+    <string name="age_text2">The daily water intake needs of people of different ages vary</string>
+    <string name="ta">abcabc</string>
+    <string name="gender_text">Your gender will help us recommend amore accurate daily water intake goal for you</string>
+    <string name="next">Next</string>
+    <string name="home">Home\n</string>
+    <string name="chose_gender">Choose your gender</string>
+    <string name="how_weigh">How much do you weigh?</string>
+    <string name="text_weight">THe daily water intake for people of different weights varies greatly</string>
+    <string name="exercise_text">How much exercise do you do each week</string>
+    <string name="exercise_text2">The daily water intake needs of people with different exercise amount vary</string>
+    <string name="RarelyExercise">Rarely exercise</string>
+    <string name="SometimesExercise">Sometimes exercise</string>
+    <string name="RegularlyExercise">Regularly Exercise</string>
+    <string name="OftenExercise">Often exercise</string>
+    <string name="Hot">Hot</string>
+    <string name="Temperate">temperate</string>
+    <string name="cold">Cold\n</string>
+    <string name="wake_up">When do you usually wake up?</string>
+    <string name="hydrared">Getting hydrated right after waking up will give you energy in the morning!</string>
+    <string name="meal">What\'s your usual meal time?</string>
+    <string name="mealsFor">We\'ll remind you to drink 1 hour before and 1 hour after meals for better digestion and weight loss</string>
+    <string name="dont_eat">I don\'t eat lunch</string>
 </resources>

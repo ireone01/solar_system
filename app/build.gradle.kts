@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation ("com.github.jarrodholliday:waveloadingview:0.2.0")
+    implementation("com.cheonjaeung.powerwheelpicker.android:powerwheelpicker:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -11,9 +11,9 @@ import com.wavez.trackerwater.MainActivity
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityMainBinding
 import com.wavez.trackerwater.databinding.ActivitySplashBinding
+import com.wavez.trackerwater.onboarding.OnboardingActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import me.itangqi.waveloadingview.WaveLoadingView
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         super.initConfig(savedInstanceState)
         lifecycleScope.launch {
             delay(3000)
-            startActivity(MainActivity.newIntent(this@SplashActivity))
+            startActivity(OnboardingActivity.newIntent(this@SplashActivity))
 
         }
     }
@@ -37,5 +37,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initListener() {
         super.initListener()
+
     }
 }
