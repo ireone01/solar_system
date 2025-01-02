@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_end"
-    tools:context=".ui.home.history.DayFragment">
+    tools:context=".ui.home.fragmentHistory.DayFragment">
 
     <ImageView
         android:id="@+id/ivPre"

@@ -2,9 +2,9 @@ package com.wavez.trackerwater.ui.fragment.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.wavez.trackerwater.ui.home.history.DayFragment
-import com.wavez.trackerwater.ui.home.history.MonthFragment
-import com.wavez.trackerwater.ui.home.history.WeekFragment
+import com.wavez.trackerwater.ui.home.fragmentHistory.DayFragment
+import com.wavez.trackerwater.ui.home.fragmentHistory.MonthFragment
+import com.wavez.trackerwater.ui.home.fragmentHistory.WeekFragment
 
 class HistoryViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private val fragments = listOf(

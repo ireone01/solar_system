@@ -12,7 +12,9 @@ import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentHistoryBinding
 import com.wavez.trackerwater.ui.fragment.adapter.HistoryViewPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     private lateinit var adapter: HistoryViewPagerAdapter
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHistoryBinding

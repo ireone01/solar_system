@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentMeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MeFragment: BaseFragment<FragmentMeBinding>() {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMeBinding

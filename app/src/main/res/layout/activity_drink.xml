@@ -48,12 +48,17 @@
         app:layout_constraintEnd_toEndOf="@id/btnDrink"
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
         android:layout_marginBottom="32dp">
+
         <EditText
+            android:id="@+id/edtAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="0.1"
-            android:textSize="56sp"
-            android:textColor="@color/black"/>
+            android:inputType="numberDecimal
+"
+            android:textColor="@color/black"
+            android:textSize="56sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

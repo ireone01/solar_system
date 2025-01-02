@@ -7,7 +7,9 @@ import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityMainBinding
 import com.wavez.trackerwater.ui.home.adapter.MainViewPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity: BaseActivity<ActivityMainBinding>() {
     private lateinit var adapter: MainViewPagerAdapter
     override fun createBinding(): ActivityMainBinding {

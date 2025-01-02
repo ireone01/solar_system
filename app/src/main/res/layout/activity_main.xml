@@ -6,34 +6,6 @@
     android:layout_height="match_parent"
     android:background="#00FFFFFF">
 
-    <TextView
-        android:id="@+id/tv100"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="100%"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:id="@+id/tv50"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="50%"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv100"
-        app:layout_constraintBottom_toTopOf="@id/tv0"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-        android:id="@+id/tv0"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="0%"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

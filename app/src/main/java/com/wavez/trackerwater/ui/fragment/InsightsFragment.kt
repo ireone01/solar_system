@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentInsightsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InsightsFragment : BaseFragment<FragmentInsightsBinding>() {
 
 
