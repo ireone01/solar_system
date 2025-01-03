@@ -4,200 +4,190 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF">
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/view_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="@color/blue_end"
+    tools:context=".ui.fragment.HistoryFragment">
 
     <LinearLayout
-        android:id="@+id/view_bottom"
+        android:id="@+id/viewTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:outlineProvider="bounds"
-        android:weightSum="4"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnToday"
+            android:id="@+id/btnDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/ivToday"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
+            <View
+                android:id="@+id/vDayTrue"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="12.5dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_main_today_true"
-                app:layout_constraintBottom_toTopOf="@id/tvToday"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDay"
+                tools:ignore="ContentDescription" />
+            <View
+                android:id="@+id/vDayFalse"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="12.5dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/_7F666666"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDay"
                 tools:ignore="ContentDescription" />
 
 
             <TextView
-                android:id="@+id/tvToday"
+                android:id="@+id/tvDay"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="16.5dp"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="@string/today"
+                android:text="DAY"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/vDayTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivToday" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnHistory"
+            android:id="@+id/btnWeek"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/ivHistory"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
+            <View
+                android:id="@+id/vWeekTrue"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="12.5dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_main_history_false"
-                app:layout_constraintBottom_toTopOf="@id/tvHistory"
+                android:background="@color/white"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvWeek"
+                tools:ignore="ContentDescription" />
+            <View
+                android:id="@+id/vWeekFalse"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="12.5dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/_7F666666"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvWeek"
                 tools:ignore="ContentDescription" />
 
 
             <TextView
-                android:id="@+id/tvHistory"
+                android:id="@+id/tvWeek"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="16.5dp"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="@string/history"
-                android:textColor="#4B5563"
+                android:text="Week"
+                android:textAllCaps="true"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/vWeekTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivHistory" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnInsights"
+            android:id="@+id/btnMonth"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/ivInsights"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
+            <View
+                android:id="@+id/vMonthTrue"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="12.5dp"
                 android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_main_insights_false"
-                app:layout_constraintBottom_toTopOf="@id/tvInsights"
+                android:background="@color/white"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMonth"
+                tools:ignore="ContentDescription" />
+            <View
+                android:id="@+id/vMonthFalse"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="12.5dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/_7F666666"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMonth"
                 tools:ignore="ContentDescription" />
 
 
             <TextView
-                android:id="@+id/tvInsights"
+                android:id="@+id/tvMonth"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="16.5dp"
                 android:ellipsize="marquee"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="@string/inights"
-                android:textColor="#4B5563"
+                android:text="Month"
+                android:textAllCaps="true"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/vMonthTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivInsights" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnMe"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/ivMe"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="12.5dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_main_me_false"
-                app:layout_constraintBottom_toTopOf="@id/tvMe"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-
-            <TextView
-                android:id="@+id/tvMe"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="16.5dp"
-                android:ellipsize="marquee"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="Me"
-                android:textColor="#4B5563"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivMe" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewTop"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
