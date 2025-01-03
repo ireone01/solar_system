@@ -1,15 +1,9 @@
 package com.wavez.trackerwater.splash
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import androidx.lifecycle.lifecycleScope
 import com.lingvo.base_common.ui.BaseActivity
-import com.wavez.trackerwater.MainActivity
-import com.wavez.trackerwater.R
-import com.wavez.trackerwater.databinding.ActivityMainBinding
 import com.wavez.trackerwater.databinding.ActivitySplashBinding
 import com.wavez.trackerwater.onboarding.OnboardingActivity
 import kotlinx.coroutines.delay

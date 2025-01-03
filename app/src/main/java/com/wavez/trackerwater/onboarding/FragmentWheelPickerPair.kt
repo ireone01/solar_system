@@ -59,14 +59,17 @@ class FragmentWheelPickerPair: BaseFragment<WheelPickerPair2Binding>() {
             MealType.LUNCH -> textEat.text = getString(R.string.dont_eat_lunch)
             MealType.DINNER -> textEat.text = getString(R.string.dont_eat_dinner)
         }
+        initPickers()
+        initListener()
         btnEat.setOnCheckedChangeListener {_ ,isChecked ->
             dontEat = isChecked
             pickerHour.isEnabled = !isChecked
             pickerMinute.isEnabled = !isChecked
             pickerAmPm.isEnabled = !isChecked
+            if(dontEat){
+                timeSelectedListener?.onTimeSelected(position,"")
+            }
         }
-        initPickers()
-        initListener()
     }
 
     private fun initPickers() {

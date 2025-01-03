@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="xam_nhat">#EAECEC</color>
+    <color name="button_ripple_color">#5450CC</color>
 </resources>

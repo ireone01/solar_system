@@ -39,7 +39,6 @@ class FragmentOnboarding5 : BaseFragment<FragmentOnboading5Binding>() {
          currentWeight = displayedArray[newVal].toInt()
         }
 
-        // 2) Lắng nghe khi user đổi đơn vị (Kg <-> Lb)
         binding.wheelPickerWeigh2.setOnValueChangedListener { _, _, newVal ->
             if (newVal == 0) {
                if (!isKg) {

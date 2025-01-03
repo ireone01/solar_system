@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.lingvo.base_common.ui.BaseActivity
+import com.wavez.trackerwater.ActivityMe
+import com.wavez.trackerwater.databinding.ActivityMeBinding
 import com.wavez.trackerwater.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
@@ -46,6 +48,10 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
             val currentItem = binding.viewPager.currentItem
             if (currentItem < fragmentList.size - 1) {
                 binding.viewPager.currentItem = currentItem + 1
+            }
+            if(currentItem == fragmentList.size -1){
+                val intent = Intent(this , ActivityMe::class.java )
+                startActivity(intent)
             }
         }
 

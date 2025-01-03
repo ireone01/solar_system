@@ -29,5 +29,24 @@
     <string name="dont_eat_lunch">I don\'t eat lunch</string>
     <string name="dont_eat_breakfast">I don\'t eat breakfast</string>
     <string name="dont_eat_dinner">I don\'t eat dinner</string>
+    <string name="wakeup_drink">Drinking water 1 hour before sleep will keep you hydrated during your sweet dream</string>
+    <string name="synData">Synchronize Data ></string>
+    <string name="total_dirk">Total Drinking</string>
+    <string name="reminder">Reminders</string>
+    <string name="total_achieved">Total Achieved</string>
+    <string name="version">Version 1.3.3 A</string>
+    <string name="daily_goal">Daily Goal</string>
+    <string name="sound_vibration"><![CDATA[Sounds & Vibration]]></string>
+    <string name="units">Units</string>
+    <string name="genders_weight"><![CDATA[Gender & Weight]]></string>
+    <string name="language_options">Language Options</string>
+    <string name="english">English</string>
+    <string name="first_dayOweek">First Day Of Week</string>
+    <string name="Day_StartAt">A Day Starts At</string>
+    <string name="time_format">Time Format</string>
+    <string name="RemoveAds">Remove ads</string>
+    <string name="feed_back">Feedback</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
 </resources>
