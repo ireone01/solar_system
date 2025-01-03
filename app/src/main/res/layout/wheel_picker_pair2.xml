@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <NumberPicker
+        android:id="@+id/wheelPickerWeigh"
+        android:layout_width="50dp"
+        android:layout_height="300dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <NumberPicker
+        android:id="@+id/wheelPickerWeigh2"
+        android:layout_width="50dp"
+        android:layout_height="300dp"
+        app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <NumberPicker
+        android:id="@+id/wheelPickerWeigh3"
+        android:layout_width="50dp"
+        android:layout_height="300dp"
+        app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <RadioButton
+        android:id="@+id/btnEat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/wheelPickerWeigh2"
+        app:layout_constraintStart_toStartOf="@id/wheelPickerWeigh"
+        app:layout_constraintEnd_toEndOf="@id/wheelPickerWeigh2"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:id="@+id/textEat"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/btnEat"
+        app:layout_constraintTop_toTopOf="@id/btnEat"
+        app:layout_constraintBottom_toBottomOf="@id/btnEat"
+        android:text="@string/dont_eat"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
