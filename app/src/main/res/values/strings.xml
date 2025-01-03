@@ -6,7 +6,7 @@
     <string name="hello1">Here comes a few simple questions before we can personalize your daily goal and schedule</string>
     <string name="age_text">Choose your age</string>
     <string name="age_text2">The daily water intake needs of people of different ages vary</string>
-    <string name="ta">abcabc</string>
+    <string name="ta">Keep hydradted for healthy life</string>
     <string name="gender_text">Your gender will help us recommend amore accurate daily water intake goal for you</string>
     <string name="next">Next</string>
     <string name="home">Home\n</string>
@@ -26,5 +26,8 @@
     <string name="hydrared">Getting hydrated right after waking up will give you energy in the morning!</string>
     <string name="meal">What\'s your usual meal time?</string>
     <string name="mealsFor">We\'ll remind you to drink 1 hour before and 1 hour after meals for better digestion and weight loss</string>
-    <string name="dont_eat">I don\'t eat lunch</string>
+    <string name="dont_eat_lunch">I don\'t eat lunch</string>
+    <string name="dont_eat_breakfast">I don\'t eat breakfast</string>
+    <string name="dont_eat_dinner">I don\'t eat dinner</string>
+
 </resources>

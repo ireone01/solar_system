@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/btnEat"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -49,7 +49,7 @@
         app:layout_constraintStart_toEndOf="@id/btnEat"
         app:layout_constraintTop_toTopOf="@id/btnEat"
         app:layout_constraintBottom_toBottomOf="@id/btnEat"
-        android:text="@string/dont_eat"
+        android:text="@string/dont_eat_breakfast"
         />
 
 
