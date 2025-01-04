@@ -27,7 +27,7 @@ abstract class BaseFragment : Fragment(), TextToSpeech.OnInitListener{
 
     override fun onInit(status: Int) {
         if(status == TextToSpeech.SUCCESS){
-            if(PlanetDataProvider.getLanguage(requireContext())=="vn"){
+            if(PlanetDataProvider.getLanguage(requireContext())=="vi"){
             val langResult = tts.setLanguage(Locale("vi", "VN" ))
 //            if(langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED){
 //                showLanguageDialog()

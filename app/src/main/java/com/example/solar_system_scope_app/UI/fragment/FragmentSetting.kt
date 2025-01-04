@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,11 @@ import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Switch
+
 import androidx.fragment.app.Fragment
 import com.example.solar_system_scope_app.FilamentHelper
 import com.example.solar_system_scope_app.FilamentManager
+import com.example.solar_system_scope_app.LocaleHelper
 import com.example.solar_system_scope_app.R
 import com.example.solar_system_scope_app.UI.activity.MainActivity
 import com.example.solar_system_scope_app.model.PlanetDataProvider
@@ -28,19 +32,38 @@ class FragmentSetting : Fragment(){
 
     private lateinit var filamentHelper: FilamentHelper
     private lateinit var sharedPreferences: SharedPreferences
+
+    private var wrappedContext: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // Lấy ngôn ngữ đã lưu
+        val language = PlanetDataProvider.getLanguage(context)
+        // Thiết lập locale mới
+        val localeContext = LocaleHelper.setLocale(context, language)
+        // Bọc context với theme hiện tại của activity
+        wrappedContext = ContextThemeWrapper(localeContext, requireActivity().theme)
+        Log.d("FragmentSetting", "WrappedContext Locale: ${wrappedContext?.resources?.configuration?.locales?.get(0)}")
+    }
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val view = inflater.inflate(R.layout.fragment_setting, container, false)
+
         sharedPreferences = requireContext().getSharedPreferences("switch_check", Context.MODE_PRIVATE)
         filamentHelper = FilamentManager.filamentHelper!!
-        val view = inflater.inflate(R.layout.fragment_setting,container,false )
+
         btn_cancel = view.findViewById(R.id.btn_cancel)
         btn_cancel.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
 
         switch_QD = view.findViewById(R.id.switch1)
         val isSwitch = sharedPreferences.getBoolean("SWITCH_QD",true)
@@ -73,11 +96,8 @@ class FragmentSetting : Fragment(){
         switch_TR.isChecked = isSwitchTR
         switch_TR.setOnCheckedChangeListener{ _ , ischecked ->
             sharedPreferences.edit().putBoolean("SWITCH_TR",ischecked).apply()
-            if(ischecked==true){
-                PlanetDataProvider.setLanguage(requireContext(), "en")
-            }else{
-                PlanetDataProvider.setLanguage(requireContext(), "vn")
-            }
+            val selectedLanguage = if(ischecked) "en" else "vi"
+            PlanetDataProvider.setLanguage(requireContext(),selectedLanguage)
         }
         seekBar1 = view.findViewById(R.id.seekBar1)
         seekBar2 = view.findViewById(R.id.seekBar2)
@@ -118,4 +138,5 @@ class FragmentSetting : Fragment(){
 
 
     }
+
 }

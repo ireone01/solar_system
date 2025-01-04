@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_TgT">THỜI GIAN THỰC</string>
+    <string name="ency_frag_TC1">Đường kính xích đạo</string>
+    <string name="ency_frag_TC2">Khối lượng</string>
+    <string name="ency_frag_TC3">Khoảng cách tới trung tâm thiên hà</string>
+    <string name="ency_frag_TC4">Chu kỳ tự quay</string>
+    <string name="ency_frag_TC5">Chu kỳ quỹ đạo</string>
+    <string name="ency_frag_TC6">Trọng lực bề mặt</string>
+    <string name="ency_frag_TC7">Nhiệt độ bề mặt</string>
+    <string name="ency_frag_TL1">GIỚI THIỆU</string>
+    <string name="ency_frag_TL2">CẤU TẠO</string>
+    <string name="ency_frag_TL3">KHOẢNG CÁCH</string>
+    <string name="ency_frag_TL4">TRONG DẢI NGÂN HÀ</string>
+
+    <string name="planet_detail_frag_exploreButton" >Thăm Quan</string>
+    <string name="planet_detail_frag_encyclopediaButton" >Bách Khoa Toàn Thư</string>
+    <string name="planet_detail_frag_structureButton" >Cấu Trúc</string>
+
+    <string name="setting_frag_TSWITCH1">Vòng Quỹ Đạo</string>
+    <string name="setting_frag_TSWITCH2">Tên Hành Tinh</string>
+    <string name="setting_frag_TSEEK1">Tăng Giảm Độ Sáng Mặt Trời</string>
+    <string name="setting_frag_TSEEK2">Tăng Giảm Độ Sáng Cảnh</string>
+
+    <string name="structure_frag_HT">Hành tinh</string>
+    <string name="structure_frag_CT">Cấu Trúc</string>
+    <string name="structure_frag_VO">VỎ</string>
+    <string name="structure_frag_MANTI">MANTI</string>
+    <string name="structure_frag_LOI">LÕI</string>
+    <string name="structure_frag_SILIC">LỚP SILIC NƯỚC</string>
+    <string name="structure_frag_encyclopedia_title">Cấu Trúc Của Hành Tinh</string>
+
+</resources>
