@@ -7,18 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.databinding.FragmentMeBinding
 
-class HalfFragment : DialogFragment() {
+class FragmentDialogDailyGoal : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_me_half,container,false)
+        return inflater.inflate(R.layout.fragment_me_daily_goal,container,false)
     }
 
 
@@ -26,10 +24,10 @@ class HalfFragment : DialogFragment() {
         super.onStart()
         dialog?.window?.let { window ->
             window.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
+                (resources.displayMetrics.widthPixels * 0.8).toInt(),
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            window.setGravity(Gravity.BOTTOM)
+            window.setGravity(Gravity.CENTER)
             window.setBackgroundDrawableResource(android.R.color.transparent)
         }
     }

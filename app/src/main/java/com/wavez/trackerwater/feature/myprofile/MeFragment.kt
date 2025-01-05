@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentMeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class MeFragment: BaseFragment<FragmentMeBinding>() {
         super.initListener()
 
         binding.llayout4.setOnClickListener {
-            val dialog = HalfFragment()
+            val dialog = FragmentDialogDailyGoal()
             dialog.show(parentFragmentManager,"UnitOn")
         }
 

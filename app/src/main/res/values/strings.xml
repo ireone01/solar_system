@@ -59,5 +59,8 @@
     <string name="feed_back">Feedback</string>
     <string name="rate_us">Rate Us</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="oz">Oz</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
 </resources>
