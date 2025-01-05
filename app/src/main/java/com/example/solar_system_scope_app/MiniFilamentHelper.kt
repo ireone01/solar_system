@@ -44,10 +44,15 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
     private var assetLoader: AssetLoader? = null
     private var asset: FilamentAsset? = null
     private var materialProvider: MaterialProvider? = null
-
+    private var isPlanetLoaded: Boolean = false
     init {
         surfaceView.setOnTouchListener { _, motionEvent ->
             if(motionEvent.action == MotionEvent.ACTION_DOWN){
+                Log.d("MiniFilamentHelper", "onTouchListener: planetName=$planetName, isPlanetLoaded=$isPlanetLoaded")
+                if (!isPlanetLoaded) {
+                    Log.d("MiniFilamentHelper", "Model not yet loaded, ignoring click.")
+                    return@setOnTouchListener false
+                }
                 planetName?.let { name ->
                     onClickListener?.invoke(name)
                 }
@@ -136,6 +141,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 
     fun loadPlanetModel(planet: Planet) {
         clearPlanetModel()
+        Log.d("MiniFilamentHelper", "=== Bắt đầu load model: ${planet.name} ===")
         planetName = planet.name
 //        val entities = scene.entities
 //        scene.removeEntities(entities)
@@ -143,7 +149,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
 //            engine.destroyEntity(entity)
 //        }
 
-
+        isPlanetLoaded = false
         setupLighting()
 
 
@@ -157,7 +163,8 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
                 return@launch
             }
             withContext(Dispatchers.Main){
-             materialProvider = UbershaderProvider(engine)
+                Log.d("MiniFilamentHelper", "=== Model buffer load xong: ${planet.name} ===")
+                materialProvider = UbershaderProvider(engine)
                  // Tạo và tải asset
                  assetLoader = AssetLoader(engine, materialProvider!!, EntityManager.get())
              asset = assetLoader!!.createAsset(buffer!!)
@@ -182,6 +189,8 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
                 modelEntity = asset!!.root
                 // Đặt camera nhìn vào mô hình
                 frameModel(asset!!)
+                Log.d("MiniFilamentHelper", "=== Thêm model vào scene xong: ${planet.name} ===")
+                isPlanetLoaded = true
             }
         }
     }

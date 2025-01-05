@@ -122,7 +122,6 @@ class FilamentView @JvmOverloads constructor(context: Context,
     private val scope = CoroutineScope((Dispatchers.Main + job))
 
 
-// cần được tách
     private fun initializePlanets() {
         scope.launch{
             try {

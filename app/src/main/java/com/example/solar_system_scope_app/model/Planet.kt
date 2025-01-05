@@ -73,22 +73,6 @@ data class Planet(
 
 }
 
-// can xem xet lai
-data class PlanetInfo(
-    val fileName: String,
-    val name: String,
-    val orbitRadiusA: Float,
-    val eccentricity: Float,
-    val orbitSpeed: Float,
-    val scale: Float,
-    val inclination: Float,
-    val axisTilt: Float,
-    val rotation: Float,
-    val rotationSpeed: Float,
-    val parentName: PlanetInfo? = null,
-    val buffer: ByteBuffer
-)
-
 
 
 data class PlanetDescription(

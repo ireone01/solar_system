@@ -162,7 +162,7 @@
         android:background="@drawable/button_backgound"
         android:padding="8dp"
         android:elevation="4dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
