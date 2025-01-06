@@ -54,34 +54,34 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
                 binding.tvDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 binding.vDayTrue.visibility = View.VISIBLE
                 binding.vDayFalse.visibility = View.INVISIBLE
-                binding.tvWeek.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvWeek.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vWeekTrue.visibility = View.INVISIBLE
                 binding.vWeekFalse.visibility = View.VISIBLE
-                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vMonthTrue.visibility = View.INVISIBLE
                 binding.vMonthFalse.visibility = View.VISIBLE
             }
 
             1 -> {
-                binding.tvDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vDayTrue.visibility = View.INVISIBLE
                 binding.vDayFalse.visibility = View.VISIBLE
                 binding.tvWeek.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 binding.vWeekTrue.visibility = View.VISIBLE
                 binding.vWeekFalse.visibility = View.INVISIBLE
-                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vMonthTrue.visibility = View.INVISIBLE
                 binding.vMonthFalse.visibility = View.VISIBLE
             }
 
             2 -> {
-                binding.tvDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vDayTrue.visibility = View.INVISIBLE
                 binding.vDayFalse.visibility = View.VISIBLE
-                binding.tvWeek.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                binding.tvWeek.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vWeekTrue.visibility = View.INVISIBLE
                 binding.vWeekFalse.visibility = View.VISIBLE
-                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.tvMonth.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_56))
                 binding.vMonthTrue.visibility = View.VISIBLE
                 binding.vMonthFalse.visibility = View.INVISIBLE
             }

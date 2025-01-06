@@ -11,68 +11,99 @@
         android:id="@+id/ivClose"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_margin="4dp"
+        android:padding="12dp"
         android:src="@drawable/ic_close"
-        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="56dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/bg_blue_12dp"
+        android:layout_marginTop="10dp"
         android:padding="8dp"
-        android:background="@drawable/bg_blue_16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivClose">
+
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="4dp"
-            android:src="@drawable/ic_guide"/>
+            android:src="@drawable/ic_guide" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hydrated_text"
-            android:layout_gravity="center"/>
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/work_sans_700"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:textColor="@color/_0A0C11"
+            android:text="@string/hydrated_text" />
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/btnDrink"
-        app:layout_constraintEnd_toEndOf="@id/btnDrink"
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
-        android:layout_marginBottom="32dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/edtAmount"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="0.1"
-            android:inputType="numberDecimal
-"
-            android:textColor="@color/black"
-            android:textSize="56sp" />
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/work_sans_400"
+                android:hint="100"
+                android:inputType="number"
+                android:textColor="@color/_0A0C11"
+                android:textSize="64sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="3dp"
+                android:background="#B2C5F4"
+                app:layout_constraintEnd_toEndOf="@id/edtAmount"
+                app:layout_constraintStart_toStartOf="@id/edtAmount"
+                app:layout_constraintTop_toBottomOf="@id/edtAmount" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="L"
-            android:textSize="32dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="4dp"
             android:layout_marginBottom="8dp"
-            android:layout_gravity="bottom"/>
+            android:text="ml"
+            android:textSize="26dp" />
+
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_edit"
-            android:padding="12dp"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
-            android:layout_gravity="bottom"/>
+            android:padding="12dp"
+            android:src="@drawable/ic_edit" />
     </LinearLayout>
 
     <ImageView
@@ -92,11 +123,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_blue_32dp"
+        android:background="@drawable/bg_blue_28dp"
         android:gravity="center"
+        android:paddingHorizontal="12sp"
+        android:paddingVertical="4dp"
         android:orientation="horizontal"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -104,15 +135,18 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_add" />
+            android:padding="12dp"
+            android:src="@drawable/ic_add_record" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drink"
+            android:textAllCaps="true"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/work_sans_700"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <ImageView

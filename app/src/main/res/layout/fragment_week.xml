@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_end"
-    tools:context=".feature.home.fragmentHistory.DayFragment">
+    android:background="@color/_0247C8"
+    tools:context=".feature.fragment.fragmentHistory.DayFragment">
 
     <ImageView
         android:id="@+id/ivPre"
@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/bg_blue_24dp"
+                android:background="@drawable/bg_white16_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

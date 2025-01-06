@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_end"
-    tools:context=".feature.home.fragmentHistory.DayFragment">
+    android:background="@color/_0247C8"
+    tools:context=".feature.fragment.fragmentHistory.DayFragment">
 
     <ImageView
         android:id="@+id/ivPre"
@@ -25,13 +25,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:fontFamily="@font/work_sans_700"
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
         android:maxLines="1"
         android:text="@string/today"
         android:textColor="@color/white"
-        android:textSize="21sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/ivPre"
         app:layout_constraintEnd_toStartOf="@id/ivNext"
         app:layout_constraintStart_toEndOf="@id/ivPre"
@@ -65,8 +66,8 @@
                 android:id="@+id/ctInfo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_white16_16dp"
                 android:padding="8dp"
-                android:background="@drawable/bg_blue_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -77,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Total"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/total"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,11 +89,13 @@
                     android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_700"
                     android:text="2.5 L"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@id/total"
-                    app:layout_constraintTop_toBottomOf="@id/total" />
+                    app:layout_constraintTop_toBottomOf="@id/total"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/goal"
@@ -99,7 +103,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Goal"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/goal"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -109,9 +114,10 @@
                     android:id="@+id/tvGoal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_700"
                     android:text="5.0 L"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@id/goal"
                     app:layout_constraintTop_toBottomOf="@id/goal" />
 
@@ -120,8 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvTotal" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,32 +135,36 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/work_sans_700"
                 android:text="@string/records"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ivAdd"
-                app:layout_constraintBottom_toBottomOf="@id/ivAdd"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivAdd"
                 app:layout_constraintEnd_toStartOf="@id/ivAdd"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivAdd" />
 
             <ImageView
                 android:id="@+id/ivAdd"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_add"
+                android:layout_marginEnd="16dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_add_record"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ctInfo"
-                android:layout_marginEnd="16dp"/>
+                app:layout_constraintTop_toBottomOf="@id/ctInfo" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvHistory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_history"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivAdd"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                tools:listitem="@layout/item_history" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

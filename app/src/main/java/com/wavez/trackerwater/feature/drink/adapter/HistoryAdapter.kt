@@ -1,21 +1,23 @@
-package com.wavez.trackerwater.feature.fragment.adapter
+package com.wavez.trackerwater.feature.drink.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
 
 class HistoryAdapter(
-    private val items: MutableList<HistoryModel>,
-    private val onSelect: (HistoryModel) -> Unit
+    private val drinkModels: MutableList<DrinkModel>,
+    private val onSelect: (DrinkModel) -> Unit
 ): RecyclerView.Adapter<HistoryAdapter.HistoryHolder>() {
     class HistoryHolder(private val binding: ItemGlassWaterBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(history: HistoryModel, onSelect: (HistoryModel) -> Unit) {
-            binding.itemText.text = history.amountHistory.toString()
+        fun bind(history: DrinkModel, onSelect: (DrinkModel) -> Unit) {
+            binding.itemText.text = history.amountDrink.toString()
             binding.root.setOnClickListener { onSelect(history) }
+            binding.tvCount.visibility = View.GONE
         }
     }
 
@@ -24,9 +26,15 @@ class HistoryAdapter(
         return HistoryHolder(binding)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = drinkModels.size
 
     override fun onBindViewHolder(holder: HistoryHolder, position: Int) {
-        holder.bind(items[position], onSelect)
+        holder.bind(drinkModels[position], onSelect)
+    }
+
+    fun updateData(newData: List<DrinkModel>) {
+        drinkModels.clear()
+        drinkModels.addAll(newData)
+        notifyDataSetChanged() // Thông báo RecyclerView rằng dữ liệu đã thay đổi
     }
 }

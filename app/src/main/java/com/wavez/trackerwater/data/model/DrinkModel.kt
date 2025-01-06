@@ -13,9 +13,9 @@ data class DrinkModel (
     @ColumnInfo("id")
     var id: Long = 0,
     @ColumnInfo("amountDrink")
-    val amountDrink: Float = 0f,
+    var amountDrink: Int = 0,
     @ColumnInfo("countDrink")
     var countDrink: Int = 0,
     @ColumnInfo("dateDrink")
-    val dateDrink: Long = System.currentTimeMillis()
+    var dateDrink: Long = System.currentTimeMillis()
 ) : Parcelable

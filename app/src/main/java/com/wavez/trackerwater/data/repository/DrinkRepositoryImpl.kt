@@ -20,6 +20,10 @@ class DrinkRepositoryImpl @Inject constructor(
         drinkDAO.update(drinkModel)
     }
 
+    override suspend fun getDrinkByAmount(amount: Int): DrinkModel? {
+        return drinkDAO.getDrinkByAmount(amount)
+    }
+
     override suspend fun insert(drinkModel: DrinkModel) {
         drinkDAO.insert(drinkModel)
     }

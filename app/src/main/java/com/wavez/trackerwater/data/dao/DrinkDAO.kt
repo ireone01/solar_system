@@ -22,4 +22,8 @@ interface DrinkDAO {
 
     @Query("SELECT * FROM drink_table")
     suspend fun getAll(): List<DrinkModel>
+
+    @Query("SELECT * FROM drink_table WHERE amountDrink = :amount LIMIT 1")
+    suspend fun getDrinkByAmount(amount: Int): DrinkModel?
+
 }

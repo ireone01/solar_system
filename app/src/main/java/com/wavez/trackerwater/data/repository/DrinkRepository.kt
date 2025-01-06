@@ -7,5 +7,6 @@ interface DrinkRepository {
     suspend fun insert(drinkModel: DrinkModel)
     suspend fun delete(drinkModel: DrinkModel)
     suspend fun update(drinkModel: DrinkModel)
+    suspend fun getDrinkByAmount(amount: Int): DrinkModel?
 
 }

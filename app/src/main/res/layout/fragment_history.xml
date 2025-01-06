@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_end"
+    android:background="@color/_0247C8"
     tools:context=".feature.fragment.HistoryFragment">
 
     <LinearLayout
@@ -55,7 +55,7 @@
 
             <TextView
                 android:id="@+id/tvDay"
-                android:layout_width="64dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:ellipsize="marquee"
@@ -64,8 +64,11 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="DAY"
-                android:textSize="12sp"
+                android:text="@string/day"
+                android:fontFamily="@font/work_sans_700"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/vDayTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +111,7 @@
 
             <TextView
                 android:id="@+id/tvWeek"
-                android:layout_width="64dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:ellipsize="marquee"
@@ -117,9 +120,11 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:text="Week"
+                android:text="@string/week"
+                android:fontFamily="@font/work_sans_700"
+                android:textColor="@color/white_56"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/vWeekTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +167,7 @@
 
             <TextView
                 android:id="@+id/tvMonth"
-                android:layout_width="64dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:ellipsize="marquee"
@@ -172,8 +177,10 @@
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="Month"
+                android:fontFamily="@font/work_sans_700"
+                android:textColor="@color/white_56"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@id/vMonthTrue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

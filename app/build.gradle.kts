@@ -67,7 +67,7 @@ dependencies {
     implementation(libs.hilt.android.v253)
     implementation(libs.androidx.activity.ktx)
     ksp(libs.androidx.hilt.compiler)
-
+//    implementation (libs.sonic.water.wave.animation)
     //google
 //    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 //    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")

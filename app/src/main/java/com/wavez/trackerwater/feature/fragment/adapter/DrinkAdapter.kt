@@ -9,13 +9,14 @@ import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
 
 class DrinkAdapter(
     private val items: MutableList<DrinkModel>,
-    private val onDelete: (DrinkModel) -> Unit
+    private val onClick: (DrinkModel) -> Unit
 ) : RecyclerView.Adapter<DrinkAdapter.DrinkHolder>() {
 
     class DrinkHolder(private val binding: ItemGlassWaterBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(drink: DrinkModel, onDelete: (DrinkModel) -> Unit) {
-            binding.itemText.text = drink.amountDrink.toString()
+            binding.itemText.text = "+"+drink.amountDrink.toString()+" ml"
+            binding.tvCount.text = drink.countDrink.toString()
             binding.root.setOnClickListener { onDelete(drink) }
         }
     }
@@ -28,7 +29,7 @@ class DrinkAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: DrinkHolder, position: Int) {
-        holder.bind(items[position], onDelete)
+        holder.bind(items[position], onClick)
     }
 
     fun updateList(newItems: List<DrinkModel>) {
