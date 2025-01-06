@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2A51C2"
+    android:background="#0247C8"
     android:padding="5dp"
     tools:ignore="MissingClass">
 
@@ -17,8 +17,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/CL_avt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="178dp"
+            android:layout_height="100dp"
             android:background="@drawable/custom_btn_background"
             android:clickable="true"
             android:focusable="true"
@@ -28,8 +28,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_avt"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/ic_gender_weight"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +40,7 @@
                 android:layout_height="30dp"
                 android:text="@string/synData"
                 android:textColor="@color/white"
+                android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_avt" />

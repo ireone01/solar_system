@@ -14,4 +14,5 @@
     <color name="blue_end">#3785FB</color>
     <color name="xam_nhat">#EAECEC</color>
     <color name="button_ripple_color">#5450CC</color>
+    <color name="text_color">#0A0C11</color>
 </resources>
