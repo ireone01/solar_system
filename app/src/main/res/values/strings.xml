@@ -65,5 +65,18 @@
     <string name="week">Week</string>
     <string name="goal">Goal</string>
     <string name="total">Total</string>
+    <string name="oz">Oz</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="Day_StartAt0">A day starts at 00:00</string>
+    <string name="aday_start_at2">Records before 00:00 willbe included in the count for the previous day.</string>
+    <string name="water_drop1">Water drop 1</string>
+    <string name="water_drop2">Water drop 2</string>
+    <string name="water_flowing1">Wate flowing 1</string>
+    <string name="water_flowing2">Water flowing 2</string>
+    <string name="water_flowing3">Water flowing 3</string>
+    <string name="sound_effect">Sound effect</string>
+    <string name="vibration">Vibration</string>
+    <string name="done">Done</string>
 
 </resources>
