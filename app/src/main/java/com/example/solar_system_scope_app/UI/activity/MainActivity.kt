@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() , PlanetSelectionListener {
         val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
         val year = yearFormat.format(currentTime.time)
 
-        val monthDayFormat = SimpleDateFormat("dd 'th.' MMM", Locale.getDefault())
+        val monthDayFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
         val monthDay = monthDayFormat.format(currentTime.time)
 
         val hourFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())

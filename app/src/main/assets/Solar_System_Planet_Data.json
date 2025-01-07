@@ -12,10 +12,10 @@
       "gravity": "274 m/s²",
       "temperature": "5 778 K (5 505°C)"
     },
-    "additional_info": "Mặt trời, còn được gọi là 'Anh Hoàng', là ngôi sao trung tâm của Hệ mặt trời. Khối lượng của Mặt trời chiếm khoảng 99,86% tổng khối lượng của Hệ Mặt trời.",
-    "structure": "Khoảng ba phần tư khối lượng Mặt trời là hydro, phần còn lại chủ yếu là heli. Chỉ có 1,69% khối lượng Mặt trời (vẫn gấp 5 630 lần khối lượng Trái đất) được tạo thành từ các nguyên tố nặng hơn như carbon, sắt, neon và oxy.",
-    "distance": "Khoảng cách trung bình từ trái đất đến mặt trời là khoảng 149,6 triệu km (1 đơn vị thiên văn). Trung bình, ánh sáng từ mặt trời cần khoảng 8 phút và 19 giây để đến Trái đất.",
-    "in_milky_way": "Từng được cho là một ngôi sao tương đối không đáng kể, Mặt trời hiện được coi là sáng hơn khoảng 85% số sao trong thiên hà Milky Way. Địa chỉ thường trú của mặt trời nằm ở khoảng hai phần ba tính từ trung tâm Dải Ngân hà."
+    "additional_info": "Mặt trời, còn được gọi là “Ông Hoàng” của Hệ mặt trời, chiếm tới hơn 99% khối lượng tổng. Các luồng gió Mặt trời tỏa ra liên tục ảnh hưởng lớn đến các tiểu hành tinh và từ quyển của các hành tinh trong Hệ mặt trời. Mặt trời đang ở khoảng giữa 'vòng đời' và sẽ tiếp tục cháy thêm hơn 5 tỷ năm nữa trước khi tiến hóa thành sao khổng lồ đỏ.",
+    "structure": "Khoảng ba phần tư khối lượng Mặt trời là hydro, phần còn lại chủ yếu là heli. Bên cạnh đó, một lượng nhỏ (khoảng 1,69%) gồm các nguyên tố nặng hơn như carbon, neon, sắt và oxy. Mặt trời được phân chia thành các lớp: lõi, vùng bức xạ, vùng đối lưu và quang quyển (lớp ánh sáng chúng ta nhìn thấy).",
+    "distance": "Khoảng cách trung bình từ Trái Đất đến Mặt trời khoảng 149,6 triệu km (1 đơn vị thiên văn). Ánh sáng Mặt trời chỉ cần khoảng 8 phút 19 giây để đến được Trái Đất, cung cấp nguồn năng lượng thiết yếu cho sự sống.",
+    "in_milky_way": "Mặt trời nằm ở rìa trong cánh tay Orion của Dải Ngân hà, cách trung tâm thiên hà khoảng 26.000 năm ánh sáng. Mặc dù không quá lớn so với nhiều sao khác, nhưng Mặt trời vẫn sáng hơn khoảng 85% số sao trong Milky Way."
   },
   {
     "name": "Earth",
@@ -30,15 +30,15 @@
       "gravity": "9.8 m/s²",
       "temperature": "15°C trung bình"
     },
-    "additional_info": "Trái đất là hành tinh duy nhất biết đến có sự sống trong Hệ mặt trời.",
-    "structure": "Khí quyển của Trái đất bao gồm chủ yếu là nitơ và oxy, cùng với một lượng nhỏ các khí khác như argon và carbon dioxide. Khoảng 71% bề mặt của Trái đất được bao phủ bởi nước, và đại dương chứa 97.5% lượng nước của hành tinh.",
-    "distance": "Khoảng cách trung bình từ Trái đất đến Mặt trời là khoảng 149,6 triệu km (1 đơn vị thiên văn).",
-    "in_milky_way": "Trái đất nằm trong Dải Ngân hà, ở vị trí cánh tay Orion, cách trung tâm thiên hà khoảng 26,000 năm ánh sáng."
+    "additional_info": "Trái Đất là hành tinh duy nhất trong Hệ mặt trời hiện được xác nhận có sự sống. Chưa kể, Trái Đất còn có một từ quyển mạnh mẽ, giúp bảo vệ sinh quyển khỏi bức xạ Mặt trời và các tia vũ trụ độc hại.",
+    "structure": "Khí quyển của Trái Đất chủ yếu là nitơ (khoảng 78%) và oxy (khoảng 21%), cùng một lượng nhỏ argon, carbon dioxide và các khí khác. Khoảng 71% bề mặt Trái Đất là nước, trong đó 97.5% là nước mặn ở đại dương. Bên cạnh đó, sự tồn tại của mảng kiến tạo trên Trái Đất khiến lục địa di chuyển, hình thành núi và gây động đất.",
+    "distance": "Khoảng cách trung bình từ Trái Đất đến Mặt trời là 149,6 triệu km, được gọi là 1 đơn vị thiên văn (AU). Trái Đất cũng quay quanh Mặt trời với vận tốc trung bình khoảng 30 km/s.",
+    "in_milky_way": "Hành tinh của chúng ta nằm trong Dải Ngân hà tại cánh tay Orion, cách tâm thiên hà khoảng 26.000 năm ánh sáng. Chúng ta xoay quanh trung tâm Milky Way với chu kỳ xấp xỉ 225-250 triệu năm (một 'năm vũ trụ')."
   },
   {
     "name": "Moon",
     "id": "moon812",
-    "description": "Vệ tinh của Trái đất",
+    "description": "Vệ tinh của Trái Đất",
     "encyclopedia": {
       "equatorial_diameter": "3,474 km",
       "mass": "7.35 x 10^22 kg",
@@ -48,10 +48,10 @@
       "gravity": "1.62 m/s²",
       "temperature": "-20°C trung bình"
     },
-    "additional_info": "Mặt trăng là vệ tinh tự nhiên duy nhất của Trái đất và là vệ tinh lớn thứ năm trong Hệ mặt trời.",
-    "structure": "Bề mặt của Mặt trăng được bao phủ bởi hàng ngàn miệng hố va chạm từ các thiên thạch.",
-    "distance": "Khoảng cách trung bình từ Trái đất đến Mặt trăng là khoảng 384,400 km.",
-    "in_milky_way": "Mặt trăng, cùng với Trái đất, nằm trong Dải Ngân hà ở cánh tay Orion."
+    "additional_info": "Mặt trăng là vệ tinh tự nhiên duy nhất của Trái Đất. Sự hiện diện của Mặt trăng giúp cân bằng chuyển động quay của Trái Đất, duy trì độ nghiêng trục ổn định và ảnh hưởng mạnh đến thủy triều.",
+    "structure": "Bề mặt Mặt trăng chi chít hàng nghìn miệng hố thiên thạch lớn nhỏ. 'Biển mặt trăng' (maria) thực chất là những khu vực dung nham cổ đã nguội, khiến nơi đây trở thành mảng tối hơn so với vùng cao nguyên xung quanh.",
+    "distance": "Khoảng cách trung bình từ Trái Đất đến Mặt trăng là khoảng 384,400 km. Vì Mặt trăng quay quanh Trái Đất và tự quay với chu kỳ gần như bằng nhau, nên chúng ta luôn chỉ thấy một mặt của Mặt trăng từ Trái Đất.",
+    "in_milky_way": "Mặt trăng, cùng với Trái Đất, nằm trong cánh tay Orion của Dải Ngân hà. Nhờ vị trí an toàn và ổn định này, sự sống trên Trái Đất có điều kiện phát triển thuận lợi."
   },
   {
     "name": "Mercury",
@@ -66,10 +66,10 @@
       "gravity": "3.7 m/s²",
       "temperature": "167°C trung bình"
     },
-    "additional_info": "Sao Thủy là hành tinh nhỏ nhất trong Hệ mặt trời và gần Mặt trời nhất.",
-    "structure": "Bề mặt của Sao Thủy chứa rất nhiều hố va chạm và có những khu vực bằng phẳng rộng lớn.",
-    "distance": "Khoảng cách trung bình từ Sao Thủy đến Mặt trời là khoảng 57.9 triệu km.",
-    "in_milky_way": "Sao Thủy nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Thủy là hành tinh nhỏ nhất trong Hệ mặt trời, bề mặt bị 'nướng' nóng vào ban ngày và lạnh cực độ vào ban đêm, do không có bầu khí quyển dày bảo vệ.",
+    "structure": "Bề mặt Sao Thủy có vô số hố va chạm lớn, một số hố trải dài hàng trăm km như lưu dấu tích của các vụ va chạm khổng lồ. Lõi kim loại của Sao Thủy chiếm tỷ lệ lớn nhất so với kích thước hành tinh, khiến nó có mật độ cao thứ hai trong Hệ mặt trời sau Trái Đất.",
+    "distance": "Khoảng cách trung bình từ Sao Thủy đến Mặt trời là 57.9 triệu km. Với quỹ đạo ngắn nhất (88 ngày), Sao Thủy chuyển động nhanh nhất quanh 'Ông Hoàng'.",
+    "in_milky_way": "Sao Thủy nằm trong Hệ mặt trời, tại cánh tay Orion của Dải Ngân hà, chỉ cách Mặt trời chưa đầy 1/3 khoảng cách Trái Đất đến Mặt trời."
   },
   {
     "name": "Saturn",
@@ -84,10 +84,10 @@
       "gravity": "10.44 m/s²",
       "temperature": "-139°C trung bình"
     },
-    "additional_info": "Sao Thổ nổi bật với hệ thống vành đai rộng lớn, bao gồm băng và đá.",
-    "structure": "Vành đai của Sao Thổ được cấu thành từ các mảnh băng và đá nhỏ, trải dài hàng ngàn km.",
-    "distance": "Khoảng cách trung bình từ Sao Thổ đến Mặt trời là khoảng 1.4 tỷ km.",
-    "in_milky_way": "Sao Thổ nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Thổ có mật độ thấp nhất trong Hệ mặt trời – thậm chí nếu có một bể nước đủ lớn, Sao Thổ có thể nổi! Hệ thống vành đai của hành tinh này được chia thành nhiều vòng, chủ yếu là băng nước và đá nhỏ.",
+    "structure": "Vành đai rộng lớn của Sao Thổ được cấu thành từ hàng tỉ khối băng và bụi đá, có kích cỡ từ hạt cát đến vài mét. Bên dưới bầu khí quyển khổng lồ là lớp hydro kim loại lỏng, nơi sinh ra từ trường của hành tinh.",
+    "distance": "Khoảng cách trung bình từ Sao Thổ đến Mặt trời là khoảng 1.4 tỷ km. Ánh sáng Mặt trời mất hơn một giờ để tới được Sao Thổ, so với chỉ 8 phút để đến Trái Đất.",
+    "in_milky_way": "Sao Thổ, như các hành tinh khác trong Hệ mặt trời, cũng quay quanh trung tâm Dải Ngân hà cùng với Mặt trời, ở cánh tay Orion và thực hiện một vòng quay thiên hà khoảng 225-250 triệu năm."
   },
   {
     "name": "Mars",
@@ -102,10 +102,10 @@
       "gravity": "3.71 m/s²",
       "temperature": "-63°C trung bình"
     },
-    "additional_info": "Sao Hỏa có bề mặt phủ đầy bụi đỏ do sắt oxit, và đã từng có nước lỏng trong quá khứ.",
-    "structure": "Khí quyển của Sao Hỏa rất mỏng và chủ yếu là carbon dioxide, cùng với các dấu vết của argon và nitơ.",
-    "distance": "Khoảng cách trung bình từ Sao Hỏa đến Mặt trời là khoảng 227.9 triệu km.",
-    "in_milky_way": "Sao Hỏa nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Hỏa có bề mặt phủ bụi đỏ do sắt oxit. Núi lửa Olympus Mons trên Sao Hỏa là núi lửa lớn nhất Hệ mặt trời, cao khoảng 21,9 km, gấp gần ba lần đỉnh Everest.",
+    "structure": "Khí quyển của Sao Hỏa mỏng và giàu carbon dioxide, nhưng tồn tại những đám mây mỏng. Ngoài ra, 'khe nứt' Valles Marineris trên Sao Hỏa trải dài hơn 4.000 km, được xem là hệ thống hẻm vực lớn nhất Hệ mặt trời.",
+    "distance": "Khoảng cách trung bình từ Sao Hỏa đến Mặt trời là 227.9 triệu km. Trong những kỳ “xung đối”, khoảng cách giữa Sao Hỏa và Trái Đất giảm xuống còn khoảng 55 triệu km.",
+    "in_milky_way": "Sao Hỏa nằm trong Hệ mặt trời tại cánh tay Orion. Nghiên cứu về Sao Hỏa không ngừng gia tăng với tham vọng đưa con người đặt chân lên hành tinh Đỏ trong tương lai."
   },
   {
     "name": "Jupiter",
@@ -120,10 +120,10 @@
       "gravity": "24.79 m/s²",
       "temperature": "-108°C trung bình"
     },
-    "additional_info": "Sao Mộc là hành tinh lớn nhất trong Hệ mặt trời, có cơn bão 'Đại Hồng Bão' tồn tại hàng trăm năm.",
-    "structure": "Cơn bão 'Đại Hồng Bão' của Sao Mộc là một cơn bão lớn gấp ba lần Trái Đất và đã tồn tại hàng trăm năm.",
-    "distance": "Khoảng cách trung bình từ Sao Mộc đến Mặt trời là khoảng 778.5 triệu km.",
-    "in_milky_way": "Sao Mộc nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Mộc là hành tinh lớn nhất Hệ mặt trời với khối lượng gấp 2.5 lần tổng khối lượng của các hành tinh khác cộng lại. 'Đại Hồng Bão' là cơn bão khổng lồ hoạt động liên tục ít nhất từ thế kỷ 17.",
+    "structure": "Bầu khí quyển của Sao Mộc chủ yếu là hydro và heli, có thêm methane, amoniac và nước ở tỷ lệ nhỏ. Mây và bão đa tầng tạo ra những dải màu sáng – tối chạy song song với đường xích đạo, sinh ra bởi các dòng khí lưu mạnh.",
+    "distance": "Khoảng cách trung bình từ Sao Mộc đến Mặt trời khoảng 778.5 triệu km. Khi ở vị trí gần Trái Đất nhất (khoảng 588 triệu km), chúng ta có thể quan sát Sao Mộc rất rõ bằng kính thiên văn nhỏ.",
+    "in_milky_way": "Sao Mộc cũng nằm trong cánh tay Orion của Dải Ngân hà, cùng Mặt trời chuyển động quanh tâm Ngân hà. Sức hút khổng lồ của Sao Mộc giúp 'bắt giữ' nhiều thiên thạch, góp phần bảo vệ Trái Đất khỏi va chạm."
   },
   {
     "name": "Uranus",
@@ -138,10 +138,10 @@
       "gravity": "8.69 m/s²",
       "temperature": "-195°C trung bình"
     },
-    "additional_info": "Sao Thiên Vương có trục quay nghiêng gần như nằm ngang so với mặt phẳng quỹ đạo của nó.",
-    "structure": "Trục quay của Sao Thiên Vương nghiêng khoảng 98 độ, khiến nó gần như quay ngang.",
-    "distance": "Khoảng cách trung bình từ Sao Thiên Vương đến Mặt trời là khoảng 2.9 tỷ km.",
-    "in_milky_way": "Sao Thiên Vương nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Thiên Vương có trục nghiêng khoảng 98°, gần như nằm ngang, khiến cực hành tinh hướng về Mặt trời một thời gian dài trong chu kỳ quỹ đạo, gây ra các mùa cực kỳ kéo dài và khắc nghiệt.",
+    "structure": "Lớp khí quyển chủ yếu là hydro, heli và methane, tạo màu xanh nhạt đặc trưng. Bên dưới là 'mantle' băng-lỏng khổng lồ chứa nước, amoniac, methane ở dạng siêu áp suất, và lõi rắn nhỏ trung tâm.",
+    "distance": "Khoảng cách trung bình từ Sao Thiên Vương đến Mặt trời là khoảng 2.9 tỷ km. Thời gian ánh sáng Mặt trời đến Sao Thiên Vương lên tới hơn 2,5 tiếng.",
+    "in_milky_way": "Sao Thiên Vương thuộc Hệ mặt trời, đang cùng Mặt trời di chuyển quanh trung tâm Dải Ngân hà. Nhờ quỹ đạo rất xa, nơi đây chịu nhiệt độ cực lạnh, khiến nó được xếp vào nhóm 'hành tinh băng khổng lồ'."
   },
   {
     "name": "Neptune",
@@ -156,10 +156,10 @@
       "gravity": "11.15 m/s²",
       "temperature": "-200°C trung bình"
     },
-    "additional_info": "Sao Hải Vương có gió mạnh nhất trong Hệ mặt trời, có thể đạt tới 2,100 km/h.",
-    "structure": "Sao Hải Vương có các cơn gió mạnh nhất trong Hệ mặt trời, có tốc độ lên tới 2,100 km/h.",
-    "distance": "Khoảng cách trung bình từ Sao Hải Vương đến Mặt trời là khoảng 4.5 tỷ km.",
-    "in_milky_way": "Sao Hải Vương nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Hải Vương có gió mạnh nhất trong Hệ mặt trời, với tốc độ có thể lên tới 2.100 km/h. Nó được phát hiện năm 1846 nhờ các tính toán lý thuyết từ sai số quỹ đạo của Sao Thiên Vương.",
+    "structure": "Khí quyển của Sao Hải Vương chứa hydro, heli và methane, tạo nên màu xanh đậm. Lớp 'mantle' gồm nước, amoniac và methane ở điều kiện áp suất khắc nghiệt, nơi có thể xuất hiện 'mưa kim cương'.",
+    "distance": "Khoảng cách trung bình từ Sao Hải Vương đến Mặt trời khoảng 4.5 tỷ km. Một năm của Sao Hải Vương (một chu kỳ quỹ đạo) kéo dài 164,8 năm Trái Đất.",
+    "in_milky_way": "Sao Hải Vương là hành tinh nằm xa nhất trong Hệ mặt trời (nếu không tính Sao Diêm Vương lùn). Hành tinh này cũng cùng 'địa chỉ' cánh tay Orion trong Dải Ngân hà, di chuyển theo quỹ đạo quanh trung tâm thiên hà."
   },
   {
     "name": "Venus",
@@ -174,9 +174,9 @@
       "gravity": "8.87 m/s²",
       "temperature": "462°C trung bình"
     },
-    "additional_info": "Sao Kim là hành tinh nóng nhất trong Hệ mặt trời do hiệu ứng nhà kính mạnh mẽ.",
-    "structure": "Khí quyển của Sao Kim rất dày và chủ yếu là carbon dioxide, tạo nên một hiệu ứng nhà kính cực mạnh. Bề mặt của Sao Kim được phủ bởi hàng ngàn núi lửa và có những đợt hoạt động địa chất mãnh liệt.",
-    "distance": "Khoảng cách trung bình từ Sao Kim đến Mặt trời là khoảng 108 triệu km.",
-    "in_milky_way": "Sao Kim nằm trong Hệ mặt trời, thuộc cánh tay Orion của Dải Ngân hà."
+    "additional_info": "Sao Kim là hành tinh nóng nhất trong Hệ mặt trời, với áp suất khí quyển gấp 92 lần Trái Đất. Đôi khi, Sao Kim còn được gọi là 'hành tinh sinh đôi' của Trái Đất do kích thước tương đương.",
+    "structure": "Khí quyển Sao Kim chủ yếu là carbon dioxide (khoảng 96,5%) và nitrogen (3,5%), với mây dày axit sulfuric. Bề mặt Sao Kim rất khó quan sát trực tiếp do lớp mây đặc quánh, nhưng dưới đó ẩn chứa hàng ngàn núi lửa và đồi núi lởm chởm.",
+    "distance": "Khoảng cách trung bình từ Sao Kim đến Mặt trời khoảng 108 triệu km. Sao Kim chuyển động ngược chiều với hầu hết các hành tinh khác, nghĩa là Mặt trời mọc ở hướng tây và lặn ở hướng đông.",
+    "in_milky_way": "Sao Kim cũng nằm trong cánh tay Orion của Dải Ngân hà. Vị trí quỹ đạo của Sao Kim đôi lúc đến rất gần Trái Đất, biến nó thành 'ngôi sao mai/ngôi sao hôm' sáng nhất trên bầu trời đêm."
   }
 ]

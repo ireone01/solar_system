@@ -97,7 +97,7 @@
         android:id="@+id/encyclopedia_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Bách Khoa Toàn Thư"
+        android:text="@string/bach_khoa_toan_thu"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"

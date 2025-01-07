@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_TgT">THỜI GIAN THỰC</string>
+    <string name="btn_TgT">REAL TIME</string>
     <string name="ency_frag_TC1">Đường kính xích đạo</string>
     <string name="ency_frag_TC2">Khối lượng</string>
     <string name="ency_frag_TC3">Khoảng cách tới trung tâm thiên hà</string>
@@ -29,5 +29,6 @@
     <string name="structure_frag_LOI">LÕI</string>
     <string name="structure_frag_SILIC">LỚP SILIC NƯỚC</string>
     <string name="structure_frag_encyclopedia_title">Cấu Trúc Của Hành Tinh</string>
+    <string name="bach_khoa_toan_thu">Bách Khoa Toàn Thư</string>
 
 </resources>

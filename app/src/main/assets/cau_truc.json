@@ -1,300 +1,300 @@
- [
-    {
-      "id": "sao_thuy",
-      "name": "Mercury",
-      "layers": {
-        "mô_tả_cơ_bản": "Mercury có 3 lớp chính: vỏ, manti và lõi. Bán kính khoảng 2.440 km với vỏ mỏng, manti dày khoảng 400 km và lõi chiếm tỷ lệ lớn nhất.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thuy.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, mỏng nhất. Độ dày khoảng 35 km.",
-          "thành_phần": "Thành phần: Đá silicat giàu magiê và sắt.",
-          "đặc_điểm": "Đặc điểm: Vỏ mỏng giúp lõi chiếm tỷ lệ lớn so với tổng thể hành tinh, tạo nên mật độ cao nhất trong hệ Mặt Trời."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm ngay dưới vỏ, dày khoảng 400 km.",
-          "thành_phần": "Thành phần: Đá silicat, chủ yếu là olivin và pyroxen.",
-          "đặc_điểm": "Đặc điểm: Manti của Mercury có tính chất rắn cứng nhưng có thể có sự biến dạng do nhiệt độ và áp suất."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 435 km đến tâm hành tinh (khoảng 2.440 km).",
-          "thành_phần": "Thành phần: Chủ yếu gồm sắt (Fe) và niken (Ni), có thể chứa các nguyên tố nhẹ như lưu huỳnh và oxy.",
-          "đặc_điểm": "Đặc điểm: Lõi chiếm khoảng 70% đường kính của Mercury, tạo nên mật độ cao và khả năng hút lực mạnh."
-        }
-      }
-    },
-    {
-      "id": "sao_kim",
-      "name": "Venus",
-      "layers": {
-        "mô_tả_cơ_bản": "Venus có 3 lớp chính: vỏ dày, manti dày khoảng 2.900 km và lõi sâu tới 3.400 km. Bán kính trung bình khoảng 6.051,8 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_kim.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, dày khoảng 500 km.",
-          "thành_phần": "Thành phần: Đá silicat, bao gồm granit và bazan.",
-          "đặc_điểm": "Đặc điểm: Vỏ dày giúp hành tinh có bề mặt ổn định với ít hoạt động kiến tạo mảng so với Earth."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 2.900 km.",
-          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Đặc điểm: Manti có khả năng chảy chậm, tạo điều kiện cho sự vận động của các lớp trên."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 3.400 km đến tâm hành tinh (khoảng 6.050 km).",
-          "thành_phần": "Thành phần: Sắt và niken, có thể chứa các hợp chất nhẹ.",
-          "đặc_điểm": "Đặc điểm: Lõi kim loại tạo nên từ trường mạnh, mặc dù từ trường hiện tại của Venus rất yếu."
-        }
-      }
-    },
-    {
-      "id": "trái_đất",
-      "name": "Earth",
-      "layers": {
-        "mô_tả_cơ_bản": "Earth có 3 lớp chính: vỏ mỏng, manti dày khoảng 2.900 km, và lõi (cả lõi trong và lõi ngoài). Bán kính khoảng 6.371 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_trai_dat.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, mỏng nhất. Độ dày trung bình khoảng 5–10 km dưới đại dương và 30–70 km dưới lục địa.",
-          "thành_phần": "Thành phần: Granit (vỏ lục địa) và bazan (vỏ đại dương).",
-          "đặc_điểm": "Đặc điểm: Phân mảnh thành các mảng kiến tạo, di chuyển chậm trên bề mặt manti."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 2.900 km.",
-          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Đặc điểm: Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 2.900 km đến tâm Earth (khoảng 6.371 km).",
-          "thành_phần": "Thành phần: Chủ yếu gồm sắt (Fe) và niken (Ni), cùng một số nguyên tố nhẹ hơn với hàm lượng nhỏ.",
-          "đặc_điểm": "Đặc điểm: Lõi bao gồm lõi ngoài lỏng và lõi trong rắn, tạo ra từ trường Earth."
-        }
-      }
-    },
-    {
-      "id": "sao_hỏa",
-      "name": "Mars",
-      "layers": {
-        "mô_tả_cơ_bản": "Mars có 3 lớp: vỏ dày khoảng 50–100 km, manti khoảng 1.800 km và lõi cỡ 1.800 km. Bán kính trung bình khoảng 3.390 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hoa.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, dày khoảng 50–100 km.",
-          "thành_phần": "Thành phần: Đá silicat và lạc mãnh.",
-          "đặc_điểm": "Đặc điểm: Vỏ chứa nhiều vùng núi lửa lớn và thung lũng sâu, cho thấy hoạt động địa chất trong quá khứ."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Nằm dưới vỏ, dày khoảng 1.800 km.",
-          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Đặc điểm: Manti rắn với khả năng biến dạng chậm, ít hoạt động đối lưu so với Earth."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Bắt đầu từ độ sâu khoảng 1.800 km đến tâm hành tinh (khoảng 3.390 km).",
-          "thành_phần": "Thành phần: Sắt, niken và các nguyên tố nhẹ khác.",
-          "đặc_điểm": "Đặc điểm: Có thể có lõi lỏng, nhưng chưa được xác định rõ ràng do thiếu dữ liệu."
-        }
-      }
-    },
-    {
-      "id": "sao_mộc",
-      "name": "Jupiter",
-      "layers": {
-        "mô_tả_cơ_bản": "Jupiter có cấu trúc phức tạp hơn: lớp khí ngoài, lớp silic-nước, manti hydro kim loại và lõi nhỏ. Bán kính khoảng 69.911 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_moc.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Lớp ngoài cùng, không có bề mặt rắn.",
-          "thành_phần": "Thành phần: Chủ yếu là hydro và heli, kèm hợp chất khí.",
-          "đặc_điểm": "Đặc điểm: Không có bề mặt rắn rõ ràng, chủ yếu là khí."
-        },
-        "lớp_silic_nước": {
-          "id": "lớp_silic_nước",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 100–200 km dưới vỏ khí.",
-          "thành_phần": "Thành phần: Pha trộn giữa nước và silicat.",
-          "đặc_điểm": "Đặc điểm: Nơi có sự kết hợp khí-lỏng quan trọng cho cấu trúc bên trong."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Dày khoảng 4.700 km.",
-          "thành_phần": "Thành phần: Hydro kim loại.",
-          "đặc_điểm": "Đặc điểm: Tạo ra từ trường mạnh."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 20–30 km ở trung tâm.",
-          "thành_phần": "Thành phần: Hỗn hợp kim loại và đá silicat.",
-          "đặc_điểm": "Đặc điểm: Lõi tập trung vật chất nặng."
-        }
-      }
-    },
-    {
-      "id": "sao_thổ",
-      "name": "Saturn",
-      "layers": {
-        "mô_tả_cơ_bản": "Saturn cũng có cấu trúc tương tự Jupiter, với lớp khí ngoài, lớp silic-nước, manti hydro kim loại và lõi nhỏ. Bán kính khoảng 58.232 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_tho.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Chủ yếu khí hydro và heli.",
-          "thành_phần": "Thành phần: 96% hydro, 3% heli và hợp chất khí.",
-          "đặc_điểm": "Đặc điểm: Chủ yếu là khí."
-        },
-        "lớp_silic_nước": {
-          "id": "lớp_silic_nước",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 100–200 km dưới vỏ khí.",
-          "thành_phần": "Thành phần: Nước, amoniac và hợp chất khác.",
-          "đặc_điểm": "Đặc điểm: Chất lỏng và pha rắn, duy trì cấu trúc bên trong."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Dày khoảng 10.500 km.",
-          "thành_phần": "Thành phần: Hydro kim loại.",
-          "đặc_điểm": "Đặc điểm: Tạo ra từ trường mạnh."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:20–30 km ở trung tâm.",
-          "thành_phần": "Thành phần: Hỗn hợp kim loại và đá silicat.",
-          "đặc_điểm": "Đặc điểm: Tập trung vật chất nặng."
-        }
-      }
-    },
-    {
-      "id": "sao_thiên_vương",
-      "name": "Uranus",
-      "layers": {
-        "mô_tả_cơ_bản": "Uranus có lớp khí ngoài, manti băng-lỏng và lõi kim loại đá. Bán kính khoảng 25.362 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thien_vuong.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Chủ yếu khí hydro, heli, metan.",
-          "thành_phần": "Thành phần: 83% hydro, 15% helium, 2% metan.",
-          "đặc_điểm": "Đặc điểm: Màu xanh đặc trưng do metan."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 7.700 km dưới vỏ khí.",
-          "thành_phần": "Thành phần: Nước, amoniac, metan lỏng/băng.",
-          "đặc_điểm": "Đặc điểm: Hỗn hợp đá-băng-lỏng, không hoàn toàn rắn."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 2.500 km ở trung tâm.",
-          "thành_phần": "Thành phần: Sắt, niken, đá silicat.",
-          "đặc_điểm": "Đặc điểm: Nóng chảy, áp suất cao."
-        }
-      }
-    },
-    {
-      "id": "sao_hải_vương",
-      "name": "Neptune",
-      "layers": {
-        "mô_tả_cơ_bản": "Neptune tương tự Uranus: lớp khí ngoài, manti băng-lỏng, lõi đá-kim loại. Bán kính khoảng 24.622 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hai_vuong.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khí hydro, heli, metan.",
-          "thành_phần": "Thành phần: Tương tự Uranus, màu xanh đậm.",
-          "đặc_điểm": "Đặc điểm: Metan tạo màu xanh đậm."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 7.700 km.",
-          "thành_phần": "Thành phần: Nước, amoniac, metan ở dạng lỏng/băng.",
-          "đặc_điểm": "Đặc điểm: Phần lớn thể tích, đá-băng hỗn hợp."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:2.500 km ở trung tâm.",
-          "thành_phần": "Thành phần: Sắt, niken, đá silicat.",
-          "đặc_điểm": "Đặc điểm: Kim loại đóng góp khối lượng và nhiệt."
-        }
-      }
-    },
-    {
-      "id": "sao_diêm_vương",
-      "name": "Pluto",
-      "layers": {
-        "mô_tả_cơ_bản": "Pluto có vỏ băng, manti băng nước và lõi đá, bán kính khoảng 1.188 km. Lõi nhỏ so với tổng thể.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_sao_diem_vuong.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:30–50 km.",
-          "thành_phần": "Thành phần: Đá silicat, băng nước, methane, amoniac.",
-          "đặc_điểm": "Đặc điểm: Bề mặt không ổn định."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 700 km.",
-          "thành_phần": "Thành phần: Băng nước và các hợp chất băng.",
-          "đặc_điểm": "Đặc điểm: Dẻo, thay đổi hình dạng."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 1.800 km đến tâm.",
-          "thành_phần": "Thành phần: Đá silicat, kim loại.",
-          "đặc_điểm": "Đặc điểm: Nhỏ, góp phần vào khối lượng."
-        }
-      }
-    },
-    {
-      "id": "mặt_trăng",
-      "name": "Moon",
-      "layers": {
-        "mô_tả_cơ_bản": "Moon có vỏ dày 50–60 km, manti khoảng 1.000 km, lõi nhỏ ~350 km. Bán kính khoảng 1.737 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_mat_trang.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:50–60 km.",
-          "thành_phần": "Thành phần: Đá silicat, bazan, anorthosit.",
-          "đặc_điểm": "Đặc điểm: Có nhiều vùng maria và cao nguyên."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 1.000 km.",
-          "thành_phần": "Thành phần: Đá silicat giàu sắt và magie.",
-          "đặc_điểm": "Đặc điểm: Ít hoạt động địa chất hiện tại."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Khoảng 350 km.",
-          "thành_phần": "Thành phần: Sắt, niken, nguyên tố nhẹ.",
-          "đặc_điểm": "Đặc điểm: Lõi nhỏ, ảnh hưởng đến mật độ."
-        }
-      }
-    },
-    {
-      "id": "mat_troi",
-      "name": "Sun",
-      "layers": {
-        "mô_tả_cơ_bản": "Sun không phải hành tinh, mà là sao. Có quang quyển, vùng bức xạ, đối lưu và lõi nhiệt hạch. Bán kính khoảng 695.700 km.",
-        "hình_ảnh_mặt_cắt": "images/mat_cat_mat_troi.png",
-        "vỏ": {
-          "id": "vỏ",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Quang quyển - lớp ngoài quan sát được.",
-          "thành_phần": "Thành phần: Chủ yếu hydro, heli.",
-          "đặc_điểm": "Đặc điểm: Phát ra ánh sáng và nhiệt."
-        },
-        "manti": {
-          "id": "manti",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Vùng bức xạ và đối lưu dưới quang quyển.",
-          "thành_phần": "Thành phần: Plasma hydro, heli siêu nóng.",
-          "đặc_điểm": "Đặc điểm: Đối lưu, bức xạ năng lượng ra ngoài."
-        },
-        "lõi": {
-          "id": "lõi",
-          "vị_trí_và_độ_dày": "Vị trí và độ dày:Trung tâm, áp suất-nhiệt cực cao.",
-          "thành_phần": "Thành phần: Hydro, heli, nguyên tố nhẹ.",
-          "đặc_điểm": "Đặc điểm: Phản ứng nhiệt hạch sinh năng lượng."
-        }
+[
+  {
+    "id": "sao_thuy",
+    "name": "Mercury",
+    "layers": {
+      "mô_tả_cơ_bản": "Mercury – kẻ du hành tĩnh lặng trong Hệ Mặt Trời! Dù bề ngoài khô khốc, lõi sắt khổng lồ của hành tinh này chiếm gần hết khối lượng. Bán kính xấp xỉ 2.440 km nhưng sức nặng không hề nhỏ!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thuy.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Nằm ngoài cùng, mỏng tầm 35 km – hệt như chiếc áo giáp nhỏ che phủ Thủy Tinh.",
+        "thành_phần": "Chứa silicat giàu sắt và magie, nóng bỏng như bị nung chảy trên bề mặt.",
+        "đặc_điểm": "Dù mảnh mai nhưng lại là mấu chốt khiến tỉ lệ lõi của Mercury lớn nhất so với tổng thể."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Ngay bên dưới vỏ, dày khoảng 400 km, như lớp cơ bắp rắn chắc nâng đỡ toàn hành tinh.",
+        "thành_phần": "Giàu olivin và pyroxen, chịu đựng mức nhiệt khủng khiếp.",
+        "đặc_điểm": "Rắn nhưng vẫn bị biến dạng nhẹ trước áp suất và nhiệt độ cao."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Chiếm khoảng 70% đường kính – từ độ sâu 435 km đến tâm.",
+        "thành_phần": "Chủ yếu là sắt (Fe) và niken (Ni), có thể lẫn lưu huỳnh, oxy.",
+        "đặc_điểm": "Khổng lồ và bí ẩn, tạo cho Mercury mật độ cao nhất trong Hệ Mặt Trời."
       }
     }
-  ]
+  },
+  {
+    "id": "sao_kim",
+    "name": "Venus",
+    "layers": {
+      "mô_tả_cơ_bản": "Venus – “nữ hoàng” nóng bỏng với các tầng mây axit và nền nhiệt đáng sợ. Kích thước xấp xỉ Trái Đất (đường kính 6.051,8 km), nhưng sức nóng thì không ai sánh kịp!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_kim.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Dày đến 500 km, khó bị bào mòn do bầu khí quyển luôn rực lửa.",
+        "thành_phần": "Chủ yếu silicat, gồm granit và bazan – như một chiếc “lò nung” khổng lồ.",
+        "đặc_điểm": "Chịu đựng áp suất khí quyển khắc nghiệt, ít vận động mảng kiến tạo so với Trái Đất."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Nằm bên dưới lớp vỏ, dày khoảng 2.900 km, là khung xương chính của hành tinh.",
+        "thành_phần": "Silicat giàu sắt và magie, gánh mọi áp lực khổng lồ từ lõi.",
+        "đặc_điểm": "Dù chảy rất chậm, manti này vẫn tạo nhiệt và năng lượng cho các hoạt động núi lửa."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Từ 3.400 km sâu đến gần tâm (khoảng 6.050 km).",
+        "thành_phần": "Sắt, niken và các chất nhẹ khác.",
+        "đặc_điểm": "Dù tiềm năng tạo từ trường lớn, nhưng thực tế, từ trường của Venus lại rất yếu."
+      }
+    }
+  },
+  {
+    "id": "trái_đất",
+    "name": "Earth",
+    "layers": {
+      "mô_tả_cơ_bản": "Hành tinh xanh – nơi duy nhất mà con người biết có sự sống. Bán kính 6.371 km, gồm ba lớp rõ rệt: vỏ mỏng, manti rắn dẻo, và lõi kim loại nóng chảy.",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_trai_dat.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Dày 5–10 km dưới đáy đại dương, 30–70 km dưới lục địa. Có nơi rất mỏng, có chỗ lại dày dặn.",
+        "thành_phần": "Chủ yếu bazan (vỏ đại dương) và granit (vỏ lục địa).",
+        "đặc_điểm": "Được chia thành nhiều mảng kiến tạo chuyển động liên tục, gây động đất và núi lửa."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Kéo dài đến tận độ sâu 2.900 km, như một “nồi áp suất” cho mọi hoạt động địa chất.",
+        "thành_phần": "Silicat giàu sắt và magie, nâng đỡ lớp vỏ Trái Đất.",
+        "đặc_điểm": "Rắn nhưng dẻo, có dòng đối lưu chậm giúp duy trì chuyển động của các mảng."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Từ 2.900 km xuống 6.371 km, trung tâm là khối kim loại nóng đỏ.",
+        "thành_phần": "Chủ yếu sắt, niken, có lẫn một số nguyên tố nhẹ.",
+        "đặc_điểm": "Gồm lõi ngoài lỏng quay mạnh sinh ra từ trường, bao quanh lõi trong rắn siêu nóng."
+      }
+    }
+  },
+  {
+    "id": "sao_hỏa",
+    "name": "Mars",
+    "layers": {
+      "mô_tả_cơ_bản": "Mars – hành tinh đỏ với bề mặt hoang mạc và cao nguyên núi lửa. Bán kính tầm 3.390 km, đang là mục tiêu chinh phục của con người trong tương lai!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hoa.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Khoảng 50–100 km, vừa đủ để chứa những vùng núi lửa khổng lồ như Tharsis.",
+        "thành_phần": "Đá silicat, khoáng chất giàu oxit sắt tạo màu đỏ đặc trưng.",
+        "đặc_điểm": "Lưu giữ vết tích địa chất cổ đại, từ sông băng đến dòng nước từng tồn tại hàng tỷ năm trước."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Dưới bề mặt khoảng 1.800 km, tương đối ít chuyển động so với Trái Đất.",
+        "thành_phần": "Silicat, sắt, magie – hỗn hợp “nấu chảy” dưới áp suất cao.",
+        "đặc_điểm": "Ít đối lưu nên núi lửa có thể phát triển cực đại, điển hình là Olympus Mons."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Từ 1.800 km sâu tới tâm (3.390 km).",
+        "thành_phần": "Sắt, niken và một chút lưu huỳnh. Trạng thái lỏng hay rắn vẫn là bí ẩn.",
+        "đặc_điểm": "Từ trường rất yếu, không đủ để bảo vệ khí quyển khỏi gió Mặt Trời."
+      }
+    }
+  },
+  {
+    "id": "sao_mộc",
+    "name": "Jupiter",
+    "layers": {
+      "mô_tả_cơ_bản": "Jupiter – “anh cả” trong Hệ Mặt Trời, đường kính hơn 139.820 km. Thân hình khổng lồ nhưng hầu hết là khí, điểm nhấn là Vết Đỏ Lớn – cơn bão xoáy triền miên hàng thế kỷ!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_moc.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Không có mặt rắn rõ rệt, chỉ có tầng khí quyển khổng lồ xoay chuyển liên tục.",
+        "thành_phần": "Khí hydro và heli chủ đạo, kèm một ít amoniac, methane.",
+        "đặc_điểm": "Bề mặt “giả” vì bất cứ thiết bị nào cũng có thể chìm mãi vào biển mây."
+      },
+      "lớp_silic_nước": {
+        "id": "lớp_silic_nước",
+        "vị_trí_và_độ_dày": "Khoảng 100–200 km bên dưới lớp khí, nơi nhiệt độ và áp suất tăng vọt.",
+        "thành_phần": "Hỗn hợp chứa nước, silicat và các hợp chất phức tạp.",
+        "đặc_điểm": "Vùng chuyển tiếp giữa khí quyển rộng lớn và “manti” hydro kim loại."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Dày khoảng 4.700 km, cấu tạo bởi hydro kim loại siêu kỳ ảo.",
+        "thành_phần": "Hydro kim loại, chất hiếm có trên Trái Đất do điều kiện khắc nghiệt.",
+        "đặc_điểm": "Tạo ra từ trường mạnh mẽ, giúp Jupiter nổi bật giữa không gian."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Chỉ khoảng 20–30 km ở trung tâm – rất bé so với kích thước khổng lồ bên ngoài.",
+        "thành_phần": "Hợp chất kim loại, silicat và nhiều nguyên tố nặng.",
+        "đặc_điểm": "Tựa “trái tim” nhỏ gọn, tập trung những vật chất đặc nhất của Jupiter."
+      }
+    }
+  },
+  {
+    "id": "sao_thổ",
+    "name": "Saturn",
+    "layers": {
+      "mô_tả_cơ_bản": "Saturn – “vương miện” thanh tao của Hệ Mặt Trời, nổi bật với những vành đai rực rỡ. Bán kính ~58.232 km, cấu tạo tương tự Jupiter, nhưng khối lượng riêng còn thấp hơn nước!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_tho.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Hầu hết là khí hydro và heli, dày nhưng cực kỳ nhẹ.",
+        "thành_phần": "Khoảng 96% hydro, 3% heli, phần nhỏ còn lại là ammonia, methane.",
+        "đặc_điểm": "Mật độ trung bình thấp đến mức, nếu có thể, Saturn sẽ nổi trên nước!"
+      },
+      "lớp_silic_nước": {
+        "id": "lớp_silic_nước",
+        "vị_trí_và_độ_dày": "Ẩn sâu chừng 100–200 km dưới tầng khí, nơi áp suất rất cao.",
+        "thành_phần": "Nước, amoniac, băng ở nhiều dạng trạng thái khác nhau.",
+        "đặc_điểm": "Là nền tảng cho lớp manti hydro kim loại, ảnh hưởng đến cấu trúc tổng thể."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Khoảng 10.500 km, hydro kim loại chiếm ưu thế, tựa “biển” kim loại lỏng.",
+        "thành_phần": "Hydro kim loại, nguồn cung cấp từ trường cho Saturn.",
+        "đặc_điểm": "Góp phần định hình các vành đai tuyệt đẹp xoay quanh hành tinh."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "20–30 km ở trung tâm – khá nhỏ bé giữa biển khí khổng lồ.",
+        "thành_phần": "Kim loại và silicat, dồn nén dưới nhiệt độ, áp suất cực cao.",
+        "đặc_điểm": "Tuy Saturn có thể “nhẹ nhàng” nổi, nhưng lõi lại nặng và rắn chắc."
+      }
+    }
+  },
+  {
+    "id": "sao_thiên_vương",
+    "name": "Uranus",
+    "layers": {
+      "mô_tả_cơ_bản": "Uranus – hành tinh “nghiêng ngang”, độ nghiêng trục gần 98 độ! Bán kính xấp xỉ 25.362 km, mang sắc xanh nhẹ do metan, nhưng bên trong là “đại dương” băng-lỏng huyền bí.",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thien_vuong.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Lớp khí ngoài với hydro, heli và metan chiếm ưu thế.",
+        "thành_phần": "Khoảng 83% hydro, 15% heli, 2% metan – đủ tạo sắc xanh dịu.",
+        "đặc_điểm": "Chính metan khiến Uranus sở hữu tông màu “mát mắt” đặc trưng."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Cỡ 7.700 km bên dưới lớp khí, là hỗn hợp amoniac, nước, metan ở dạng bán rắn bán lỏng.",
+        "thành_phần": "Thường gọi là “băng” do nhiệt độ thấp, nhưng thực tế là dạng lỏng/băng trộn lẫn.",
+        "đặc_điểm": "Chiếm phần lớn khối lượng hành tinh, tạo nên vẻ băng giá đặc trưng."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Khoảng 2.500 km từ lớp manti đến tâm, nhiệt độ và áp suất cực lớn.",
+        "thành_phần": "Sắt, niken và silicat bị “nấu chảy” trong điều kiện khắc nghiệt.",
+        "đặc_điểm": "Nhỏ gọn nhưng mạnh, giữ hành tinh “liên kết” với lớp băng-lỏng xung quanh."
+      }
+    }
+  },
+  {
+    "id": "sao_hải_vương",
+    "name": "Neptune",
+    "layers": {
+      "mô_tả_cơ_bản": "Neptune – hành tinh “em út” với màu xanh đậm lôi cuốn và những cơn bão nhanh kỷ lục, lên đến 2.000 km/h! Bán kính ~24.622 km, ẩn chứa sức mạnh của gió dữ dội.",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hai_vuong.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Tương tự Uranus, chủ yếu khí quyển hydro, heli, metan đậm đặc.",
+        "thành_phần": "Hydro, heli, metan – “tác giả” của màu xanh navy tuyệt đẹp.",
+        "đặc_điểm": "Nổi tiếng với các cơn bão khủng khiếp, quét qua bầu trời Neptune."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Dày khoảng 7.700 km, chứa hỗn hợp băng-lỏng chiếm phần lớn thể tích hành tinh.",
+        "thành_phần": "Nước, metan, amoniac ở dạng lỏng/rắn pha trộn, đôi khi gọi là “ice giant”.",
+        "đặc_điểm": "Phần “nội thất” chủ đạo của Neptune, có thể xảy ra hiện tượng mưa kim cương (theo giả thuyết)."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Sâu khoảng 2.500 km dưới manti, hứng chịu áp suất khổng lồ.",
+        "thành_phần": "Sắt, niken và đá silicat, vô cùng đặc và nóng.",
+        "đặc_điểm": "Là trung tâm rực nóng, duy trì sự ổn định của toàn bộ hành tinh."
+      }
+    }
+  },
+  {
+    "id": "sao_diêm_vương",
+    "name": "Pluto",
+    "layers": {
+      "mô_tả_cơ_bản": "Pluto – hành tinh lùn từng được coi là “thành viên” chính thức của Hệ Mặt Trời. Bán kính tầm 1.188 km, bề mặt lạnh giá đan xen nhiều bí ẩn về lõi rắn bên trong.",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_sao_diem_vuong.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Dày khoảng 30–50 km, gồm đủ loại băng, silicat, methane,…",
+        "thành_phần": "Băng nước, methane, amoniac, đôi khi có nitơ đóng băng phủ lên bề mặt.",
+        "đặc_điểm": "Bề mặt không ngừng thay đổi do chu kỳ tan và đông của băng, hình thành nhiều dạng địa hình lạ."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Khoảng 700 km, băng nước và các chất đóng rắn như trong “tủ đông vô tận.”",
+        "thành_phần": "Các lớp băng hòa với chất bay hơi, thi thoảng chịu tác động nhiệt bên trong.",
+        "đặc_điểm": "Có độ linh hoạt nhất định, dần biến dạng theo thời gian, tạo nên địa hình phong phú."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Nằm ở trung tâm, khoảng 1.800 km tính từ bề mặt vào.",
+        "thành_phần": "Đá silicat, kim loại, bị ép chặt dưới lớp băng băng giá.",
+        "đặc_điểm": "Nhỏ và không quá nóng, nhưng đủ chắc để giữ cho Pluto có cấu trúc ổn định."
+      }
+    }
+  },
+  {
+    "id": "mặt_trăng",
+    "name": "Moon",
+    "layers": {
+      "mô_tả_cơ_bản": "Vệ tinh tự nhiên duy nhất của Trái Đất, bán kính khoảng 1.737 km. Đã từng đón dấu chân con người, tỏa sáng mỗi đêm và chi phối hiện tượng thủy triều!",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_mat_trang.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Dày 50–60 km, sở hữu vô vàn miệng hố thiên thạch.",
+        "thành_phần": "Bazan, anorthosit và đá silicat – những chứng tích của dung nham cổ.",
+        "đặc_điểm": "Vùng tối (maria) mịn hơn, phần cao nguyên đầy “sẹo” hố va chạm."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Dày khoảng 1.000 km, hầu như rắn đặc, ít hoạt động địa chất.",
+        "thành_phần": "Đá silicat giàu sắt, magie, ngày càng “đông cứng” theo thời gian.",
+        "đặc_điểm": "Rất yên ắng, nhiệt năng còn lại không đủ để gây ra hoạt động núi lửa đáng kể."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Độ sâu khoảng 350 km, một vùng nhỏ ẩn dưới lớp manti dày.",
+        "thành_phần": "Sắt, niken và ít thành phần nhẹ, có phần có thể vẫn ở trạng thái bán lỏng.",
+        "đặc_điểm": "Vì lõi khá nhỏ, từ trường Mặt Trăng rất yếu, chỉ còn dấu hiệu mờ nhạt."
+      }
+    }
+  },
+  {
+    "id": "mat_troi",
+    "name": "Sun",
+    "layers": {
+      "mô_tả_cơ_bản": "“Ngôi sao” trung tâm của Hệ Mặt Trời, bán kính ~695.700 km. Cỗ lò nhiệt hạch đồ sộ, cung cấp nguồn năng lượng sống còn cho các hành tinh.",
+      "hình_ảnh_mặt_cắt": "images/mat_cat_mat_troi.png",
+      "vỏ": {
+        "id": "vỏ",
+        "vị_trí_và_độ_dày": "Quang quyển – lớp sáng mà ta nhìn thấy được, cấu thành bởi plasma siêu nóng.",
+        "thành_phần": "Hầu hết hydro, heli, liên tục diễn ra phản ứng nhiệt hạch ở quy mô khổng lồ.",
+        "đặc_điểm": "Nơi tỏa ra ánh sáng và nhiệt, nuôi dưỡng sự sống trên Trái Đất mỗi ngày."
+      },
+      "manti": {
+        "id": "manti",
+        "vị_trí_và_độ_dày": "Gồm hai vùng chính: bức xạ và đối lưu, nằm bên dưới quang quyển.",
+        "thành_phần": "Plasma hydro và heli, nhiệt độ từ vài triệu đến hàng chục triệu độ K.",
+        "đặc_điểm": "Nơi năng lượng được luân chuyển, tạo nên vết đen và các đợt bùng nổ mạnh mẽ (solar flare)."
+      },
+      "lõi": {
+        "id": "lõi",
+        "vị_trí_và_độ_dày": "Tâm Mặt Trời, nơi phản ứng nhiệt hạch hợp nhất hydro thành heli.",
+        "thành_phần": "Hydro, heli cùng ít nguyên tố cực nhẹ, dưới áp suất và nhiệt độ hàng triệu độ.",
+        "đặc_điểm": "Lò phản ứng hạt nhân tự nhiên khổng lồ, cung cấp ánh sáng và năng lượng cho toàn Hệ Mặt Trời."
+      }
+    }
+  }
+]

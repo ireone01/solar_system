@@ -24,7 +24,8 @@ object LocaleHelper {
 
     fun getLanguage(context: Context): String {
         val prefs = context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        return prefs.getString("app_language", Locale.getDefault().language) ?: Locale.getDefault().language
+        return prefs.getString("app_language", Locale.getDefault().language)
+            ?: Locale.getDefault().language
     }
 
     fun saveLanguage(context: Context, language: String) {

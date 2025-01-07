@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="btn_TgT">THỜI GIAN THỰC</string>
+    <string name="btn_TgT">REAL TIME</string>
     <string name="ency_frag_TC1">Đường kính xích đạo</string>
     <string name="ency_frag_TC2">Khối lượng</string>
     <string name="ency_frag_TC3">Khoảng cách tới trung tâm thiên hà</string>

@@ -4,23 +4,40 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.Locale
 
 object PlanetDataProvider {
     private var planets: List<PlanetDescription> = emptyList()
-    private var planetsS : List<CelestialBodies> = emptyList()
+    private var planetsS: List<CelestialBodies> = emptyList()
     private var currentLanguage: String = "vi"
 
-    fun setLanguage(context: Context,languageCode: String){
-        val sharedPreferences = context.getSharedPreferences("app_preferences",Context.MODE_PRIVATE)
-        sharedPreferences.edit().putString("language",languageCode).apply()
+    fun setLanguage(context: Context, languageCode: String) {
+        val sharedPreferences =
+            context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putString("language", languageCode).apply()
         currentLanguage = languageCode
+
+
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+        val config = resources.configuration
+
+        @Suppress("DEPRECATION")
+        config.setLocale(locale)
+
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
+
         loadPlanets(context)
         loadPlanetsStructure(context)
     }
 
-    fun getLanguage(context:Context): String {
-        val sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("language","vi") ?: "vi"
+    fun getLanguage(context: Context): String {
+        val sharedPreferences =
+            context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("language", "vi") ?: "vi"
     }
 
     fun loadPlanets(context: Context) {
@@ -33,24 +50,27 @@ object PlanetDataProvider {
                 .use { it.readText() }
             val planetListType = object : TypeToken<List<PlanetDescription>>() {}.type
             planets = Gson().fromJson(jsonString, planetListType)
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Log.e("Solar_System_Planet_Data", "khong the open")
             e.printStackTrace()
         }
     }
-    fun loadPlanetsStructure(context: Context){
-        try{
-        val jsonString = context.assets.open(
-            if(getLanguage(context) == "vi"){ "cau_truc.json"}else{
-                "cau_truc_en.json"
-            }
-        )
-            .bufferedReader()
-            .use { it.readText() }
-        val planetListType = object : TypeToken<List<CelestialBodies>>() {}.type
-        planetsS = Gson().fromJson(jsonString, planetListType)
 
-        }catch (e: Exception){
+    fun loadPlanetsStructure(context: Context) {
+        try {
+            val jsonString = context.assets.open(
+                if (getLanguage(context) == "vi") {
+                    "cau_truc.json"
+                } else {
+                    "cau_truc_en.json"
+                }
+            )
+                .bufferedReader()
+                .use { it.readText() }
+            val planetListType = object : TypeToken<List<CelestialBodies>>() {}.type
+            planetsS = Gson().fromJson(jsonString, planetListType)
+
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -59,6 +79,7 @@ object PlanetDataProvider {
     fun getPlanetById(name: String): PlanetDescription? {
         return planets.find { it.name == name }
     }
+
     fun getPlanetByNameStruct(name: String): CelestialBodies? {
         return planetsS.find { it.name == name }
     }

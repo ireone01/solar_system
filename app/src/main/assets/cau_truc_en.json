@@ -3,25 +3,25 @@
     "id": "sao_thuy",
     "name": "Mercury",
     "layers": {
-      "mô_tả_cơ_bản": "Mercury has 3 main layers: crust, mantle, and core. Its radius is about 2,440 km, with a thin crust, a mantle around 400 km thick, and a core making up the largest part.",
+      "mô_tả_cơ_bản": "Mercury – the silent traveler of the Solar System! Even though its surface looks barren, this planet’s enormous iron core occupies most of its mass. With a radius of around 2,440 km, Mercury carries more weight than one might expect!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thuy.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :The outermost layer, the thinnest. Its thickness is about 35 km.",
-        "thành_phần": "Composition :Magnesium- and iron-rich silicate rocks.",
-        "đặc_điểm": "Characteristics : The thin crust allows the core to take up a large proportion of the planet, giving it the highest density in the Solar System."
+        "vị_trí_và_độ_dày": "Located on the outermost layer, only about 35 km thick – like a thin layer of armor for Mercury.",
+        "thành_phần": "Consisting of iron- and magnesium-rich silicate, scorching hot as if molten on the surface.",
+        "đặc_điểm": "Despite its thinness, it’s key to making Mercury’s core the largest in proportion to its overall size."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :Located just beneath the crust, with a thickness of about 400 km.",
-        "thành_phần": "Composition :Silicate rocks, primarily olivine and pyroxene.",
-        "đặc_điểm": "Characteristics : The mantle of Mercury is solid but may undergo deformation due to temperature and pressure."
+        "vị_trí_và_độ_dày": "Just beneath the crust, around 400 km thick, like solid muscle supporting the whole planet.",
+        "thành_phần": "Rich in olivine and pyroxene, enduring extreme heat conditions.",
+        "đặc_điểm": "Though solid, it can still deform slightly under intense pressure and temperature."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :Starts at about 435 km deep and extends to the planet's center (around 2,440 km).",
-        "thành_phần": "Composition :Mostly iron (Fe) and nickel (Ni), possibly containing lighter elements like sulfur and oxygen.",
-        "đặc_điểm": "Characteristics : The core occupies about 70% of Mercury's diameter, contributing to its high density and strong gravitational pull."
+        "vị_trí_và_độ_dày": "Occupies about 70% of the diameter – from 435 km below the surface down to the core.",
+        "thành_phần": "Mainly iron (Fe) and nickel (Ni), possibly mixed with sulfur and oxygen.",
+        "đặc_điểm": "Huge and mysterious, granting Mercury the highest density in the Solar System!"
       }
     }
   },
@@ -29,25 +29,25 @@
     "id": "sao_kim",
     "name": "Venus",
     "layers": {
-      "mô_tả_cơ_bản": "Venus has 3 main layers: a thick crust, a mantle around 2,900 km thick, and a core reaching 3,400 km deep. Its average radius is about 6,051.8 km.",
+      "mô_tả_cơ_bản": "Venus – the “fiery queen” with layers of acidic clouds and terrifying heat. Its size is close to Earth (about 6,051.8 km in diameter), yet its scorching temperature is unmatched!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_kim.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :The outermost layer, about 500 km thick.",
-        "thành_phần": "Composition :Silicate rocks, including granite and basalt.",
-        "đặc_điểm": "Characteristics : The thick crust provides Venus with a stable surface and fewer tectonic activities compared to Earth."
+        "vị_trí_và_độ_dày": "Up to 500 km thick, difficult to erode due to the constantly blazing atmosphere.",
+        "thành_phần": "Primarily silicates, including granite and basalt – resembling a giant “furnace.”",
+        "đặc_điểm": "Capable of withstanding huge atmospheric pressure; fewer tectonic plate movements compared to Earth."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :Located beneath the crust, about 2,900 km thick.",
-        "thành_phần": "Composition :Silicate rocks rich in iron and magnesium.",
-        "đặc_điểm": "Characteristics : The mantle is capable of slow flow, allowing the movement of the upper layers."
+        "vị_trí_và_độ_dày": "Beneath the crust, approximately 2,900 km thick, forming the planet’s main structural support.",
+        "thành_phần": "Silicates rich in iron and magnesium, bearing intense pressure from the core.",
+        "đặc_điểm": "Though it flows slowly, this mantle still generates heat and energy for volcanic activities."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :Starts at about 3,400 km deep and extends to the planet's center (around 6,050 km).",
-        "thành_phần": "Composition :Iron and nickel, possibly containing light compounds.",
-        "đặc_điểm": "Characteristics : The metallic core generates a magnetic field, although Venus' current magnetic field is weak."
+        "vị_trí_và_độ_dày": "From around 3,400 km deep to near the center (about 6,050 km).",
+        "thành_phần": "Iron, nickel, and lighter materials.",
+        "đặc_điểm": "Despite the core’s potential to create a strong magnetic field, Venus’s actual field is surprisingly weak."
       }
     }
   },
@@ -55,25 +55,25 @@
     "id": "trái_đất",
     "name": "Earth",
     "layers": {
-      "mô_tả_cơ_bản": "Earth has 3 main layers: a thin crust, a mantle about 2,900 km thick, and a core (both inner and outer). Its radius is about 6,371 km.",
+      "mô_tả_cơ_bản": "The Blue Planet – the only one we know of that supports life. With a radius of 6,371 km, it has three distinct layers: a thin crust, a solid yet ductile mantle, and a molten metal core.",
       "hình_ảnh_mặt_cắt": "images/mat_cat_trai_dat.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :The outermost layer, the thinnest. Its average thickness is 5–10 km under oceans and 30–70 km under continents.",
-        "thành_phần": "Composition :Granite (continental crust) and basalt (oceanic crust).",
-        "đặc_điểm": "Characteristics : Divided into tectonic plates that slowly move on the mantle."
+        "vị_trí_và_độ_dày": "Between 5–10 km under the oceans and 30–70 km under the continents. Some areas are extremely thin, others quite thick.",
+        "thành_phần": "Mainly basalt (oceanic crust) and granite (continental crust).",
+        "đặc_điểm": "Divided into multiple tectonic plates in constant motion, triggering earthquakes and volcanic eruptions."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :Located beneath the crust, about 2,900 km thick.",
-        "thành_phần": "Composition :Silicate rocks rich in iron and magnesium.",
-        "đặc_điểm": "Characteristics : The mantle is solid with slow deformation and less convection activity compared to Earth."
+        "vị_trí_và_độ_dày": "Reaches as far as about 2,900 km deep, acting as a “pressure cooker” for all geological activities.",
+        "thành_phần": "Silicates abundant in iron and magnesium, supporting the Earth’s crust.",
+        "đặc_điểm": "Solid but ductile, featuring slow convection currents that keep our planet’s plates moving."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :Starts at about 2,900 km deep and extends to Earth's center (about 6,371 km).",
-        "thành_phần": "Composition :Mostly iron (Fe) and nickel (Ni), along with small amounts of lighter elements.",
-        "đặc_điểm": "Characteristics : The core includes a liquid outer core and a solid inner core, generating Earth's magnetic field."
+        "vị_trí_và_độ_dày": "From 2,900 km down to 6,371 km, at the center lies a mass of blazing metal.",
+        "thành_phần": "Primarily iron and nickel, plus some lighter elements.",
+        "đặc_điểm": "Includes a liquid outer core spinning to create Earth’s magnetic field, encasing a super-heated solid inner core."
       }
     }
   },
@@ -81,25 +81,25 @@
     "id": "sao_hỏa",
     "name": "Mars",
     "layers": {
-      "mô_tả_cơ_bản": "Mars has 3 layers: a crust about 50–100 km thick, a mantle around 1,800 km thick, and a core about 1,800 km thick. Its average radius is about 3,390 km.",
+      "mô_tả_cơ_bản": "Mars – the red planet with desert landscapes and volcanic highlands. Its radius is about 3,390 km and is a key target for future human colonization!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hoa.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :The outermost layer, about 50–100 km thick.",
-        "thành_phần": "Composition :Silicate rocks and basalt.",
-        "đặc_điểm": "Characteristics : The crust contains large volcanic regions and deep valleys, suggesting past geological activity."
+        "vị_trí_và_độ_dày": "Around 50–100 km thick, just enough to host giant volcanic regions like Tharsis.",
+        "thành_phần": "Silicate rocks, with abundant iron oxide giving the planet its signature red hue.",
+        "đặc_điểm": "Preserves ancient geological traces, from glaciers to dried water streams dating back billions of years."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :Located beneath the crust, about 1,800 km thick.",
-        "thành_phần": "Composition :Silicate rocks rich in iron and magnesium.",
-        "đặc_điểm": "Characteristics : The mantle is solid with slow deformation, with little convection compared to Earth."
+        "vị_trí_và_độ_dày": "About 1,800 km below the surface, showing less activity compared to Earth.",
+        "thành_phần": "Silicates, iron, and magnesium – a molten blend under high pressure.",
+        "đặc_điểm": "Minimal convection results in huge volcanoes once they form, like Olympus Mons."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :Starts at about 1,800 km deep and extends to the planet's center (around 3,390 km).",
-        "thành_phần": "Composition :Iron, nickel, and other lighter elements.",
-        "đặc_điểm": "Characteristics : The core may be liquid, but it has not been definitively confirmed due to a lack of data."
+        "vị_trí_và_độ_dày": "From 1,800 km down to the center (3,390 km).",
+        "thành_phần": "Iron, nickel, with a bit of sulfur. Its exact state (liquid or solid) remains a mystery.",
+        "đặc_điểm": "Has a very weak magnetic field, insufficient to shield its atmosphere from solar winds."
       }
     }
   },
@@ -107,31 +107,31 @@
     "id": "sao_mộc",
     "name": "Jupiter",
     "layers": {
-      "mô_tả_cơ_bản": "Jupiter has a more complex structure: outer gas layer, silicate-water layer, metallic hydrogen mantle, and a small core. The radius is approximately 69,911 km.",
+      "mô_tả_cơ_bản": "Jupiter – the 'big brother' of the Solar System, with a diameter over 139,820 km. It’s mostly gas, highlighted by the Great Red Spot – a swirling storm persisting for centuries!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_moc.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :The outermost layer, with no solid surface.",
-        "thành_phần": "Composition :Mainly hydrogen and helium, with some gaseous compounds.",
-        "đặc_điểm": "Characteristics : No clear solid surface, mostly gas."
+        "vị_trí_và_độ_dày": "No definitive solid surface; rather, a huge atmospheric layer in constant motion.",
+        "thành_phần": "Primarily hydrogen and helium, with traces of ammonia and methane.",
+        "đặc_điểm": "A 'virtual surface', since any probe can sink endlessly into its thick cloud layers."
       },
       "lớp_silic_nước": {
         "id": "lớp_silic_nước",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 100–200 km beneath the gas layer.",
-        "thành_phần": "Composition :A mixture of water and silicates.",
-        "đặc_điểm": "Characteristics : An important gas-liquid combination for the internal structure."
+        "vị_trí_và_độ_dày": "About 100–200 km beneath the cloud layer, where temperature and pressure skyrocket.",
+        "thành_phần": "A mix of water, silicates, and various complex compounds.",
+        "đặc_điểm": "A transitional zone between the vast outer atmosphere and the metallic hydrogen 'mantle'."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 4,700 km thick.",
-        "thành_phần": "Composition :Metallic hydrogen.",
-        "đặc_điểm": "Characteristics : Generates a strong magnetic field."
+        "vị_trí_và_độ_dày": "Roughly 4,700 km thick, composed of 'metallic hydrogen', which sounds almost magical.",
+        "thành_phần": "Metallic hydrogen, a substance difficult to produce under Earth-like conditions.",
+        "đặc_điểm": "Generates a powerful magnetic field, making Jupiter a striking presence in space."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 20–30 km at the center.",
-        "thành_phần": "Composition :A mixture of metals and silicate rock.",
-        "đặc_điểm": "Characteristics : The core concentrates dense material."
+        "vị_trí_và_độ_dày": "Only about 20–30 km at the center – quite tiny compared to the planet’s colossal size.",
+        "thành_phần": "Metallic compounds, silicates, and other heavy elements.",
+        "đặc_điểm": "A compact 'heart' concentrating the densest materials within Jupiter."
       }
     }
   },
@@ -139,31 +139,31 @@
     "id": "sao_thổ",
     "name": "Saturn",
     "layers": {
-      "mô_tả_cơ_bản": "Saturn also has a similar structure to Jupiter, with an outer gas layer, silicate-water layer, metallic hydrogen mantle, and a small core. The radius is approximately 58,232 km.",
+      "mô_tả_cơ_bản": "Saturn – the Solar System’s 'graceful crown', famous for its glorious rings. Radius ~58,232 km, similar to Jupiter’s structure, but its overall density is even lower than water!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_tho.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :Mainly hydrogen and helium gas.",
-        "thành_phần": "Composition :96% hydrogen, 3% helium, and gaseous compounds.",
-        "đặc_điểm": "Characteristics : Mostly gas."
+        "vị_trí_và_độ_dày": "Mostly hydrogen and helium, thick yet incredibly light.",
+        "thành_phần": "Around 96% hydrogen, 3% helium, and a small remainder of ammonia, methane.",
+        "đặc_điểm": "Has an extremely low average density, making Saturn theoretically able to float on water!"
       },
       "lớp_silic_nước": {
         "id": "lớp_silic_nước",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 100–200 km beneath the gas layer.",
-        "thành_phần": "Composition :Water, ammonia, and other compounds.",
-        "đặc_điểm": "Characteristics : Liquid and solid phases, maintaining the internal structure."
+        "vị_trí_và_độ_dày": "Located about 100–200 km beneath the gaseous layer, where pressure becomes immense.",
+        "thành_phần": "Water, ammonia, various ice forms in different states.",
+        "đặc_điểm": "Serves as the foundation for the metallic hydrogen mantle below, vital to Saturn’s internal structure."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 10,500 km thick.",
-        "thành_phần": "Composition :Metallic hydrogen.",
-        "đặc_điểm": "Characteristics : Generates a strong magnetic field."
+        "vị_trí_và_độ_dày": "Approx. 10,500 km thick, mainly metallic hydrogen, like a 'sea' of liquid metal.",
+        "thành_phần": "Metallic hydrogen, which generates Saturn’s magnetic field.",
+        "đặc_điểm": "Helps shape the stunning ring system that surrounds the planet."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :20–30 km at the center.",
-        "thành_phần": "Composition :A mixture of metals and silicate rock.",
-        "đặc_điểm": "Characteristics : Concentrates dense material."
+        "vị_trí_và_độ_dày": "20–30 km at the very center – tiny compared to the gigantic gaseous envelope.",
+        "thành_phần": "Metal and silicates, tightly compressed under extreme temperature and pressure.",
+        "đặc_điểm": "Though Saturn might 'float', its core is dense and solid."
       }
     }
   },
@@ -171,25 +171,25 @@
     "id": "sao_thiên_vương",
     "name": "Uranus",
     "layers": {
-      "mô_tả_cơ_bản": "Uranus has an outer gas layer, ice-liquid mantle, and a rocky metallic core. The radius is approximately 25,362 km.",
+      "mô_tả_cơ_bản": "Uranus – the 'sideways' planet with an axial tilt near 98°. Its radius is about 25,362 km, exhibiting a pale cyan hue due to methane, while hiding a mysterious ocean of icy fluid within.",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_thien_vuong.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :Mainly hydrogen, helium, and methane gas.",
-        "thành_phần": "Composition :83% hydrogen, 15% helium, 2% methane.",
-        "đặc_điểm": "Characteristics : Distinct blue color due to methane."
+        "vị_trí_và_độ_dày": "The outer layer mostly comprises hydrogen, helium, and methane.",
+        "thành_phần": "About 83% hydrogen, 15% helium, 2% methane – enough to form its tranquil blue-green color.",
+        "đặc_điểm": "Methane is precisely what lends Uranus its cool, mild hue."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 7,700 km beneath the gas layer.",
-        "thành_phần": "Composition :Water, ammonia, liquid/methane ice.",
-        "đặc_điểm": "Characteristics : A mix of rock-ice-liquid, not completely solid."
+        "vị_trí_và_độ_dày": "About 7,700 km beneath the gas layer, resembling a semi-solid ocean of ammonia, water, and methane.",
+        "thành_phần": "Commonly referred to as 'ice', though actually a mixture of liquid and solid states under extremely cold temperatures.",
+        "đặc_điểm": "Makes up the bulk of the planet’s mass, giving Uranus its characteristic 'icy giant' features."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 2,500 km at the center.",
-        "thành_phần": "Composition :Iron, nickel, silicate rock.",
-        "đặc_điểm": "Characteristics : Molten, with high pressure."
+        "vị_trí_và_độ_dày": "Around 2,500 km from the mantle to the center, under colossal heat and pressure.",
+        "thành_phần": "Iron, nickel, and silicates, melted under harsh conditions.",
+        "đặc_điểm": "Compact yet potent, anchoring the planet’s structure amid the surrounding ice-fluid layers."
       }
     }
   },
@@ -197,25 +197,25 @@
     "id": "sao_hải_vương",
     "name": "Neptune",
     "layers": {
-      "mô_tả_cơ_bản": "Neptune is similar to Uranus: an outer gas layer, ice-liquid mantle, and a rocky-metallic core. The radius is approximately 24,622 km.",
+      "mô_tả_cơ_bản": "Neptune – the 'youngest sibling,' flaunting a deep blue color and record-breaking storms, at speeds up to 2,000 km/h! With a radius ~24,622 km, its ferocious winds are legendary.",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_hai_vuong.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :Hydrogen, helium, methane gas.",
-        "thành_phần": "Composition :Similar to Uranus, with a deep blue color.",
-        "đặc_điểm": "Characteristics : Methane gives the planet its deep blue color."
+        "vị_trí_và_độ_dày": "Similar to Uranus: a dense atmosphere of hydrogen, helium, and methane.",
+        "thành_phần": "Hydrogen, helium, and methane – the 'artists' behind the captivating navy blue.",
+        "đặc_điểm": "Famous for its fierce storms, sweeping across Neptune’s skies."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 7,700 km.",
-        "thành_phần": "Composition :Water, ammonia, methane in liquid/ice form.",
-        "đặc_điểm": "Characteristics : The majority of the volume is a rock-ice mixture."
+        "vị_trí_và_độ_dày": "About 7,700 km thick, an icy-liquid mixture forming most of the planet’s volume.",
+        "thành_phần": "Water, methane, ammonia in a mixed liquid/solid state, often called an 'ice giant'.",
+        "đặc_điểm": "This is Neptune’s main 'interior,' potentially featuring diamond rain under extreme pressures (according to certain theories)."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :2,500 km at the center.",
-        "thành_phần": "Composition :Iron, nickel, silicate rock.",
-        "đặc_điểm": "Characteristics : The metal core contributes to mass and heat."
+        "vị_trí_và_độ_dày": "Buried about 2,500 km below the mantle, enduring immense pressure.",
+        "thành_phần": "Iron, nickel, and silicate rock, extremely dense and hot.",
+        "đặc_điểm": "Serves as the blazing core, preserving the planet’s structural integrity."
       }
     }
   },
@@ -223,25 +223,25 @@
     "id": "sao_diêm_vương",
     "name": "Pluto",
     "layers": {
-      "mô_tả_cơ_bản": "Pluto has an icy crust, water ice mantle, and a rocky core, with a radius of about 1,188 km. The core is small compared to the overall size.",
+      "mô_tả_cơ_bản": "Pluto – the dwarf planet that was once a 'full-fledged' member of the Solar System. With a radius of about 1,188 km, its icy surface conceals intriguing mysteries in its rocky core.",
       "hình_ảnh_mặt_cắt": "images/mat_cat_sao_diem_vuong.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :30–50 km.",
-        "thành_phần": "Composition :Silicate rock, water ice, methane, ammonia.",
-        "đặc_điểm": "Characteristics : The surface is unstable."
+        "vị_trí_và_độ_dày": "About 30–50 km thick, consisting of various forms of ice, silicates, methane, and more.",
+        "thành_phần": "Water ice, methane, ammonia, sometimes layered with frozen nitrogen on the surface.",
+        "đặc_điểm": "The surface keeps changing due to melting and refreezing cycles of ice, creating peculiar landforms."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 700 km.",
-        "thành_phần": "Composition :Water ice and ice compounds.",
-        "đặc_điểm": "Characteristics : Flexible, changes shape."
+        "vị_trí_và_độ_dày": "Around 700 km, a 'freezer-like' mix of water ice and other solidified substances.",
+        "thành_phần": "Icy layers fused with volatile compounds, occasionally affected by internal heat.",
+        "đặc_điểm": "Has a certain plasticity, slowly deforming over time to form distinctive terrains."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 1,800 km to the center.",
-        "thành_phần": "Composition :Silicate rock, metal.",
-        "đặc_điểm": "Characteristics : Small, contributing to the mass."
+        "vị_trí_và_độ_dày": "At the center, extending around 1,800 km from the surface inward.",
+        "thành_phần": "Silicate rock and metals, compressed beneath the icy exterior.",
+        "đặc_điểm": "Small and not extremely hot, but solid enough to keep Pluto structurally stable."
       }
     }
   },
@@ -249,25 +249,25 @@
     "id": "mặt_trăng",
     "name": "Moon",
     "layers": {
-      "mô_tả_cơ_bản": "The Moon has a crust 50–60 km thick, a mantle about 1,000 km thick, and a small core around 350 km. The radius is approximately 1,737 km.",
+      "mô_tả_cơ_bản": "The only natural satellite of Earth, with a radius of about 1,737 km. It once hosted human footsteps, shines at night, and strongly influences tides!",
       "hình_ảnh_mặt_cắt": "images/mat_cat_mat_trang.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :50–60 km.",
-        "thành_phần": "Composition :Silicate rock, basalt, anorthosite.",
-        "đặc_điểm": "Characteristics : Has many maria and highlands."
+        "vị_trí_và_độ_dày": "About 50–60 km thick, covered with countless impact craters.",
+        "thành_phần": "Basalt, anorthosite, and silicate rocks – remnants of ancient lava flows.",
+        "đặc_điểm": "The darker 'maria' are relatively smooth, while the highlands are riddled with crater scars."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 1,000 km.",
-        "thành_phần": "Composition :Iron and magnesium-rich silicate rock.",
-        "đặc_điểm": "Characteristics : Currently low geological activity."
+        "vị_trí_và_độ_dày": "Around 1,000 km thick, mostly solid, with minimal geological activity.",
+        "thành_phần": "Silicate rocks rich in iron and magnesium, becoming increasingly rigid over time.",
+        "đặc_điểm": "Very quiet, with insufficient remaining heat to drive significant volcanic processes."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :About 350 km.",
-        "thành_phần": "Composition :Iron, nickel, light elements.",
-        "đặc_điểm": "Characteristics : The small core affects density."
+        "vị_trí_và_độ_dày": "Roughly 350 km deep, a small region concealed beneath the thick mantle.",
+        "thành_phần": "Iron, nickel, and small amounts of lighter components, partly semi-molten.",
+        "đặc_điểm": "Because the core is quite small, the Moon’s magnetic field is also weak, just faintly present."
       }
     }
   },
@@ -275,25 +275,25 @@
     "id": "mat_troi",
     "name": "Sun",
     "layers": {
-      "mô_tả_cơ_bản": "The Sun is not a planet but a star. It has the photosphere, radiative zone, convective zone, and a core where nuclear fusion occurs. The radius is approximately 695,700 km.",
+      "mô_tả_cơ_bản": "The central 'star' of the Solar System, with a radius of about 695,700 km. A gigantic nuclear fusion reactor, supplying essential energy to the planets.",
       "hình_ảnh_mặt_cắt": "images/mat_cat_mat_troi.png",
       "vỏ": {
         "id": "vỏ",
-        "vị_trí_và_độ_dày": "Position and Thickness :Photosphere - the outermost visible layer.",
-        "thành_phần": "Composition :Mainly hydrogen, helium.",
-        "đặc_điểm": "Characteristics : Emits light and heat."
+        "vị_trí_và_độ_dày": "The photosphere – the bright layer we see, made of extremely hot plasma.",
+        "thành_phần": "Mostly hydrogen and helium, undergoing massive nuclear fusion reactions.",
+        "đặc_điểm": "This layer emits the light and heat that sustains life on Earth every day."
       },
       "manti": {
         "id": "manti",
-        "vị_trí_và_độ_dày": "Position and Thickness :Radiative and convective zones beneath the photosphere.",
-        "thành_phần": "Composition :Superheated plasma of hydrogen and helium.",
-        "đặc_điểm": "Characteristics : Convection and radiation of energy outward."
+        "vị_trí_và_độ_dày": "Consisting of the radiative and convective zones beneath the photosphere.",
+        "thành_phần": "Extremely hot hydrogen and helium plasma, ranging from millions to tens of millions of Kelvin.",
+        "đặc_điểm": "Energy is constantly transported through radiation and convection, creating sunspots and solar flares."
       },
       "lõi": {
         "id": "lõi",
-        "vị_trí_và_độ_dày": "Position and Thickness :At the center, with extreme pressure and temperature.",
-        "thành_phần": "Composition :Hydrogen, helium, light elements.",
-        "đặc_điểm": "Characteristics : Nuclear fusion reactions generate energy."
+        "vị_trí_và_độ_dày": "The Sun’s center, where nuclear fusion converts hydrogen into helium.",
+        "thành_phần": "Hydrogen, helium, and a few very light elements under tremendous pressure at millions of degrees.",
+        "đặc_điểm": "A colossal natural fusion reactor powering the entire Solar System."
       }
     }
   }

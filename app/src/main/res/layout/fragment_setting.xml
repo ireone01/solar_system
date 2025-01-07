@@ -76,7 +76,8 @@
         android:layout_height="50dp"
         app:layout_constraintStart_toEndOf="@id/text_switch3"
         app:layout_constraintTop_toTopOf="@id/text_switch3"
-        android:thumb="@drawable/planet"/>
+        android:thumb="@drawable/planet"
+        android:checked="false"/>
     <TextView
         android:id="@+id/text_switch4"
         android:layout_width="50dp"

@@ -29,4 +29,6 @@
     <string name="structure_frag_LOI">CORE</string>
     <string name="structure_frag_SILIC">SILICATE WATER LAYER</string>
     <string name="structure_frag_encyclopedia_title">Planet Structure</string>
+    <string name="bach_khoa_toan_thu">Encyclopedia</string>
+
 </resources>

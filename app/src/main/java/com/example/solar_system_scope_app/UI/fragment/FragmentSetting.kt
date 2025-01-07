@@ -22,13 +22,13 @@ import com.example.solar_system_scope_app.R
 import com.example.solar_system_scope_app.UI.activity.MainActivity
 import com.example.solar_system_scope_app.model.PlanetDataProvider
 
-class FragmentSetting : Fragment(){
-    private lateinit var btn_cancel :ImageButton
-    private lateinit var switch_QD : Switch
+class FragmentSetting : Fragment() {
+    private lateinit var btn_cancel: ImageButton
+    private lateinit var switch_QD: Switch
     private lateinit var switch_DS: Switch
     private lateinit var switch_TR: Switch
-    private lateinit var seekBar1 : SeekBar
-    private lateinit var seekBar2 : SeekBar
+    private lateinit var seekBar1: SeekBar
+    private lateinit var seekBar2: SeekBar
 
     private lateinit var filamentHelper: FilamentHelper
     private lateinit var sharedPreferences: SharedPreferences
@@ -43,20 +43,27 @@ class FragmentSetting : Fragment(){
         val localeContext = LocaleHelper.setLocale(context, language)
         // Bọc context với theme hiện tại của activity
         wrappedContext = ContextThemeWrapper(localeContext, requireActivity().theme)
-        Log.d("FragmentSetting", "WrappedContext Locale: ${wrappedContext?.resources?.configuration?.locales?.get(0)}")
+        Log.d(
+            "FragmentSetting",
+            "WrappedContext Locale: ${wrappedContext?.resources?.configuration?.locales?.get(0)}"
+        )
     }
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "DetachAndAttachSameFragment")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_setting, container, false)
+        val contextToUse = wrappedContext ?: requireContext()
+        val localInflater = inflater.cloneInContext(contextToUse)
 
-        sharedPreferences = requireContext().getSharedPreferences("switch_check", Context.MODE_PRIVATE)
+        val view = localInflater.inflate(R.layout.fragment_setting, container, false)
+
+        sharedPreferences =
+            requireContext().getSharedPreferences("switch_check", Context.MODE_PRIVATE)
         filamentHelper = FilamentManager.filamentHelper!!
 
         btn_cancel = view.findViewById(R.id.btn_cancel)
@@ -66,16 +73,16 @@ class FragmentSetting : Fragment(){
 
 
         switch_QD = view.findViewById(R.id.switch1)
-        val isSwitch = sharedPreferences.getBoolean("SWITCH_QD",true)
+        val isSwitch = sharedPreferences.getBoolean("SWITCH_QD", true)
         switch_QD.isChecked = isSwitch
         switch_QD.setOnCheckedChangeListener { _, ischecked ->
-            sharedPreferences.edit().putBoolean("SWITCH_QD",ischecked).apply()
-            if(ischecked){
+            sharedPreferences.edit().putBoolean("SWITCH_QD", ischecked).apply()
+            if (ischecked) {
                 filamentHelper.let { filamentHelper ->
                     filamentHelper.setOrbitsVisible(true)
                 }
 
-            }else{
+            } else {
                 filamentHelper.let { filamentHelper ->
                     filamentHelper.setOrbitsVisible(false)
                 }
@@ -86,30 +93,46 @@ class FragmentSetting : Fragment(){
         switch_DS = view.findViewById(R.id.switch2)
         val isSwitchDS = sharedPreferences.getBoolean("SWITCH_DS", true)
         switch_DS.isChecked = isSwitchDS
-        switch_DS.setOnCheckedChangeListener{ _ , ischecked ->
+        switch_DS.setOnCheckedChangeListener { _, ischecked ->
             sharedPreferences.edit().putBoolean("SWITCH_DS", ischecked).apply()
             (activity as? MainActivity)?.togglePlanetNamesVisibility(ischecked)
         }
 
         switch_TR = view.findViewById(R.id.switch3)
-        val isSwitchTR = sharedPreferences.getBoolean("SWITCH_TR",false)
+        val isSwitchTR = sharedPreferences.getBoolean("SWITCH_TR1", false)
         switch_TR.isChecked = isSwitchTR
-        switch_TR.setOnCheckedChangeListener{ _ , ischecked ->
-            sharedPreferences.edit().putBoolean("SWITCH_TR",ischecked).apply()
-            val selectedLanguage = if(ischecked) "en" else "vi"
-            PlanetDataProvider.setLanguage(requireContext(),selectedLanguage)
+        switch_TR.setOnCheckedChangeListener { _, ischecked ->
+            sharedPreferences.edit().putBoolean("SWITCH_TR1", ischecked).apply()
+            val selectedLanguage = if (ischecked) "en" else "vi"
+            PlanetDataProvider.setLanguage(requireContext(), selectedLanguage)
+
+            val fm = requireActivity().supportFragmentManager
+            // Lấy containerId (chỗ mà FragmentSetting đang được add vào)
+            val containerId = (view?.parent as? ViewGroup)?.id
+                ?: R.id.fragment_container // fallback nếu bạn biết chắc container id
+
+            // Gỡ bỏ FragmentSetting “cũ” ngay lập tức
+            fm.beginTransaction()
+                .remove(this)
+                .commit()
+
+            // Tạo lại fragmentSetting “mới”
+            fm.beginTransaction()
+                .add(containerId, FragmentSetting(), "FragmentSetting")
+                .addToBackStack(null)
+                .commit()
         }
         seekBar1 = view.findViewById(R.id.seekBar1)
         seekBar2 = view.findViewById(R.id.seekBar2)
 
 
         seekBar1.max = 100
-        val isSeekBar1 = sharedPreferences.getInt("Seek_Bar11",0)
+        val isSeekBar1 = sharedPreferences.getInt("Seek_Bar111", 0)
         seekBar1.progress = isSeekBar1
-        seekBar1.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+        seekBar1.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val factor = seekBar1.progress/10f + 1f
-                sharedPreferences.edit().putInt("Seek_Bar11",seekBar1.progress).apply()
+                val factor = seekBar1.progress / 10f + 1f
+                sharedPreferences.edit().putInt("Seek_Bar111", seekBar1.progress).apply()
                 filamentHelper.setLightIntensity(factor)
             }
 
@@ -117,15 +140,15 @@ class FragmentSetting : Fragment(){
 
             override fun onStopTrackingTouch(p0: SeekBar?) {}
 
-        } )
+        })
 
         seekBar2.max = 100
-        val isSeekBar2 = sharedPreferences.getInt("Seek_Bar22",0)
+        val isSeekBar2 = sharedPreferences.getInt("Seek_Bar222", 0)
         seekBar2.progress = isSeekBar2
-        seekBar2.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+        seekBar2.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val factor = seekBar2.progress/10f + 1f
-                sharedPreferences.edit().putInt("Seek_Bar22",seekBar2.progress).apply()
+                val factor = seekBar2.progress / 10f + 1f
+                sharedPreferences.edit().putInt("Seek_Bar222", seekBar2.progress).apply()
                 filamentHelper.setLightSkyIntensity(factor)
             }
 
@@ -133,7 +156,7 @@ class FragmentSetting : Fragment(){
 
             override fun onStopTrackingTouch(p0: SeekBar?) {}
 
-        } )
+        })
         return view
 
 

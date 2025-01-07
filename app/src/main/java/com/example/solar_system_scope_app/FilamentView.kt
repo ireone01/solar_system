@@ -151,149 +151,148 @@ class FilamentView @JvmOverloads constructor(context: Context,
                     filamentInstance.loadBackground("sky_background.glb")
 
                     // Thêm các hành tinh
-                    sun812 = filamentInstance.addPlanet(
-                        fileName = "Sun.glb",
-                        name = "Sun",
-                        orbitRadiusA = 2f*0f,
-                        eccentricity = 0f,
-                        orbitSpeed = .1f*0f,
-                        scale = 1.5f*0.1f,
-                        inclination = 0f,
-                        axisTilt = 0.0f,
-                        rotation = 0.0f,
-                        rotationSpeed = (1/86400f)*0.4f,
-                        buffer = sunBuffer,
-                    )
 
-                    mecury812 = filamentInstance.addPlanet(
-                        fileName = "Mercury.glb",
-                        name = "Mercury",
-                        orbitRadiusA = 2f*2.0f,
-                        eccentricity = 0.2056f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.5f,
-                        scale = 1.2f*0.05f,
+                sun812 = filamentInstance.addPlanet(
+                    fileName = "Sun.glb",
+                    name = "Sun",
+                    orbitRadiusA = 2f*0f,
+                    eccentricity = 0f,
+                    orbitSpeed = (1/86400f)*0f, // = 0
+                    scale = 1.5f*0.1f,
+                    inclination = 0f,
+                    axisTilt = 0.0f,
+                    rotation = 0.0f,
+                    rotationSpeed = (1/86400f)*0.4f,
+                    buffer = sunBuffer,
+                )
 
-                        inclination = 7.0f,
-                        axisTilt = 0.0f,
-                        rotation = 0.0f,
-                        rotationSpeed = (1/86400f)*.1f*1.0f,
-                        buffer = mercuryBuffer
-                    )
+                mecury812 = filamentInstance.addPlanet(
+                    fileName = "Mercury.glb",
+                    name = "Mercury",
+                    orbitRadiusA = 2f*2.0f,
+                    eccentricity = 0.2056f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 1.25f,
+                    scale = 1.2f*0.05f,
+                    inclination = 7.0f,
+                    axisTilt = 0.0f,
+                    rotation = 0.0f,
+                    rotationSpeed = (1/86400f)*0.1f*1.0f,
+                    buffer = mercuryBuffer
+                )
 
+                venus812 = filamentInstance.addPlanet(
+                    fileName = "Venus.glb",
+                    name = "Venus",
+                    orbitRadiusA = 2f*3.7f,
+                    eccentricity = 0.0067f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.49f,
+                    scale = 1.2f*0.005f,
+                    inclination = 3.39f,
+                    axisTilt = 177.4f,
+                    rotation = 177.4f,
+                    rotationSpeed = (1/86400f)*0.1f*(-1.48f),
+                    buffer = venusBuffer
+                )
 
+                earth812 = filamentInstance.addPlanet(
+                    fileName = "Earth.glb",
+                    name = "Earth",
+                    orbitRadiusA = 2f*5.0f,
+                    eccentricity = 0.0167f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.3f,
+                    scale = 1.2f*0.00525f,
+                    inclination = 0.00005f,
+                    axisTilt = 23.44f,
+                    rotation = 23.44f,
+                    rotationSpeed = (1/86400f)*2.8f,
+                    buffer = earthBuffer
+                )
 
-                    venus812 = filamentInstance.addPlanet(
-                        fileName = "Venus.glb",
-                        name = "Venus",
-                        orbitRadiusA = 2f*3.7f,
-                        eccentricity = 0.0067f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.35f,
-                        scale = 1.2f*0.005f,
-                        inclination = 3.39f,
-                        axisTilt = 177.4f,
-                        rotation = 177.4f ,
-                        rotationSpeed = (1/86400f)*.1f*-1.48f,
-                        buffer = venusBuffer
-                    )
+                moon812 = filamentInstance.addPlanet(
+                    fileName = "Moon.glb",
+                    name = "Moon",
+                    orbitRadiusA = 130.9f,
+                    eccentricity = 0.0549f,
+                    orbitSpeed = (1/86400f)*0.5f*2.5f,
+                    scale = 1.2f*12f,
+                    inclination = 5.14f,
+                    axisTilt = 6.68f,
+                    rotation = 6.68f,
+                    rotationSpeed = (1/86400f)*0.6f*13.36f,
+                    parent = earth812,
+                    buffer = moonBuffer
+                )
 
-                    earth812 = filamentInstance.addPlanet(
-                        fileName = "Earth.glb",
-                        name = "Earth",
-                        orbitRadiusA = 2f*5.0f,
-                        eccentricity = 0.0167f,
-                        orbitSpeed =(1/86400f)*100f*(1/365.25f)*.1f*0.3f,
-                        scale = 1.2f*0.00525f,
-                        inclination = 0.00005f,
-                        axisTilt = 23.44f,
-                        rotation = 23.44f,
-                        rotationSpeed = (1/86400f)*2.8f,
-                        buffer = earthBuffer
-                    )
+                mars812 = filamentInstance.addPlanet(
+                    fileName = "Mars.glb",
+                    name = "Mars",
+                    orbitRadiusA = 2f*7.6f,
+                    eccentricity = 0.0934f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.16f,
+                    scale = 1.2f*0.371f,
+                    inclination = 1.85f,
+                    axisTilt = 25.19f,
+                    rotation = 25.19f,
+                    rotationSpeed = (1/86400f)*0.1f*1.02f,
+                    buffer = marsBuffer
+                )
 
-                    moon812 = filamentInstance.addPlanet(
-                        fileName = "Moon.glb",
-                        name = "Moon",
-                        orbitRadiusA = 130.9f, // khong duoc thay doi neu doi phai doi cung voi scale trai dat
-                        eccentricity = 0.0549f,
-                        orbitSpeed = (1/86400f)*.5f*2.5f,
-                        scale = 1.2f*12f,// khong duoc thay doi
-                        inclination = 5.14f,
-                        axisTilt = 6.68f,
-                        rotation = 6.68f,
-                        rotationSpeed = (1/86400f)*.6f*13.36f,
-                        parent = earth812,
-                        buffer = moonBuffer
-                    )
+                jupiter812 = filamentInstance.addPlanet(
+                    fileName = "Jupiter.glb",
+                    name = "Jupiter",
+                    orbitRadiusA = 2f*11f,
+                    eccentricity = 0.049f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.025f,
+                    scale = 1.2f*0.1f,
+                    inclination = 1.31f,
+                    axisTilt = -7.13f,
+                    rotation = 13.13f,
+                    rotationSpeed = (1/86400f)*0.1f*1.41f,
+                    buffer = jupiterBuffer
+                )
 
-                    mars812 = filamentInstance.addPlanet(
-                        fileName = "Mars.glb",
-                        name = "Mars",
-                        orbitRadiusA = 2f*7.6f,
-                        eccentricity = 0.0934f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*0.33f,
-                        scale = 1.2f*0.371f,
-                        inclination = 1.85f,
-                        axisTilt = 25.19f,
-                        rotation = 25.19f,
-                        rotationSpeed = (1/86400f)*.1f*1.02f,
-                        buffer = marsBuffer
-                    )
+                saturn812 = filamentInstance.addPlanet(
+                    fileName = "Saturn.glb",
+                    name = "Saturn",
+                    orbitRadiusA = 2f*16f,
+                    eccentricity = 0.056f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.01f,
+                    scale = 1.2f*3f,
+                    inclination = 2.49f,
+                    axisTilt = 23.73f,  // ...
+                    rotation = 23.73f,
+                    rotationSpeed = (1/86400f)*0.001f*0.1f*0.1f*2.24f,
+                    buffer = saturnBuffer
+                )
 
-                    jupiter812 = filamentInstance.addPlanet(
-                        fileName = "Jupiter.glb",
-                        name = "Jupiter",
-                        orbitRadiusA = 2f*11f,
-                        eccentricity = 0.049f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.084f,
-                        scale = 1.2f*0.1f,
-                        inclination = 1.31f,
-                        axisTilt = -7.13f,
-                        rotation = 13.13f,
-                        rotationSpeed = (1/86400f)*.1f*1.41f,
-                        buffer = jupiterBuffer
-                    )
+                uranus812 = filamentInstance.addPlanet(
+                    fileName = "Uranus.glb",
+                    name = "Uranus",
+                    orbitRadiusA = 2f*19.22f,
+                    eccentricity = 0.046f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.0036f,
+                    scale = 1.2f*0.001f,
+                    inclination = 0.77f,
+                    axisTilt = 17.77f, // ...
+                    rotation = 17.77f,
+                    rotationSpeed = (1/86400f)*0.001f*0.1f*0.41f,
+                    buffer = uranusBuffer
+                )
 
-                    saturn812 = filamentInstance.addPlanet(
-                        fileName = "Saturn.glb",
-                        name = "Saturn",
-                        orbitRadiusA = 2f*16f,
-                        eccentricity = 0.056f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.01f*2.5f * 0.034f,
-                        scale = 1.2f*3f,
-                        inclination = 2.49f,
-                        axisTilt = 0.0f*23.73f,
-                        rotation = 23.73f,
-                        rotationSpeed = (1/86400f)*0.001f*.1f*0.1f*2.24f,
-                        buffer = saturnBuffer
-                    )
+                neptune812 = filamentInstance.addPlanet(
+                    fileName = "Neptune.glb",
+                    name = "Neptune",
+                    orbitRadiusA = 2f*22f,
+                    eccentricity = 0.010f,
+                    orbitSpeed = (1/86400f)*100f*(1/365.25f)*0.1f * 0.0018f,
+                    scale = 1.2f*0.007f,
+                    inclination = 1.77f,
+                    axisTilt = 28.32f, // ...
+                    rotation = 28.32f,
+                    rotationSpeed = (1/86400f)*0.001f*0.1f*0.48f,
+                    buffer = neptuneBuffer
+                )
 
-                    uranus812 = filamentInstance.addPlanet(
-                        fileName = "Uranus.glb",
-                        name = "Uranus",
-                        orbitRadiusA = 2f*19.22f,
-                        eccentricity = 0.046f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.012f,
-                        scale = 1.2f*0.001f,
-                        inclination = 0.77f,
-                        axisTilt = 0.0f*17.77f,
-                        rotation = 17.77f,
-                        rotationSpeed = (1/86400f)*0.001f*.1f*0.41f,
-                        buffer = uranusBuffer
-                    )
-
-                    neptune812 = filamentInstance.addPlanet(
-                        fileName = "Neptune.glb",
-                        name = "Neptune",
-                        orbitRadiusA = 2f*22f,
-                        eccentricity = 0.010f,
-                        orbitSpeed = (1/86400f)* 100f*(1/365.25f)*.1f*2.5f * 0.006f,
-                        scale = 1.2f*0.007f,
-                        inclination = 1.77f,
-                        axisTilt = 0.0f*28.32f,
-                        rotation = 0.0f*28.32f,
-                        rotationSpeed = (1/86400f)*0.001f*.1f*0.48f,
-                        buffer = neptuneBuffer
-                    )
 
             }catch (e : Exception){
                 Log.e("initializePlanets", "Error initializing planets: ${e.message}", e)

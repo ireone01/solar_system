@@ -108,7 +108,7 @@ class MiniFilamentHelper(private val context: Context, private val surfaceView: 
         this.width = width
         this.height = height
         view.viewport = Viewport(0, 0, width, height)
-        camera.setProjection(45.0, width.toDouble() / height, 0.1, 1000.0, Camera.Fov.VERTICAL)
+        camera.setProjection(45.0, width.toDouble() / height, 0.1, 5000.0, Camera.Fov.VERTICAL)
 
         // Thêm ánh sáng vào scene
         setupLighting()
