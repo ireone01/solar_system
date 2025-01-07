@@ -38,8 +38,15 @@ class DayViewModel @Inject constructor(
     val totalAmount = MutableLiveData<Int>()
     fun getTotal() {
         viewModelScope.launch(Dispatchers.IO) {
-            val total = drinkRepository.getAll().sumOf { it.amountDrink*it.countDrink }
+            val total = drinkRepository.getAll().sumOf { it.amountDrink }
             totalAmount.postValue(total)
         }
     }
+
+    fun insertDrink(drinkModel: DrinkModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            drinkRepository.insert(drinkModel)
+        }
+    }
+
 }

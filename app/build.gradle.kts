@@ -75,4 +75,7 @@ dependencies {
 //    kapt ("com.google.dagger:hilt-compiler:2.48.1")
     implementation(libs.androidx.fragment.ktx)
 
+    implementation ("io.github.ShawnLin013:number-picker:2.4.13")
+
+
 }

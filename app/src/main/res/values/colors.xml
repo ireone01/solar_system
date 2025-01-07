@@ -6,7 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="black_2">#404040</color>
+    <color name="trans">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_48">#7AFFFFFF</color>
     <color name="white_56">#8FFFFFFF</color>
@@ -21,6 +21,7 @@
     <color name="_5B616D">#5B616D</color>
     <color name="_0247C8">#0247C8</color>
     <color name="_3E6DE4">#3E6DE4</color>
+    <color name="_F4F4F6">#F4F4F6</color>
     <color name="blue_start">#004DFF</color>
     <color name="guide">#897BA1FF</color>
     <color name="blue_end">#3785FB</color>

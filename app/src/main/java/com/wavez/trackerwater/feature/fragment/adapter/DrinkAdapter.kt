@@ -16,7 +16,6 @@ class DrinkAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(drink: DrinkModel, onDelete: (DrinkModel) -> Unit) {
             binding.itemText.text = "+"+drink.amountDrink.toString()+" ml"
-            binding.tvCount.text = drink.countDrink.toString()
             binding.root.setOnClickListener { onDelete(drink) }
         }
     }

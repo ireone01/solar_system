@@ -1,6 +1,5 @@
-package com.wavez.trackerwater.feature.drink
+package com.wavez.trackerwater.feature.drink.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,19 +28,12 @@ class DrinkViewModel @Inject constructor(
 
     fun insertDrink(amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val existingDrink = drinkRepository.getDrinkByAmount(amount)
-            if (existingDrink != null) {
-                val updatedDrink = existingDrink.copy(countDrink = existingDrink.countDrink + 1)
-                drinkRepository.update(updatedDrink)
-            } else {
                 val newDrink = DrinkModel(
                     amountDrink = amount,
-                    countDrink = 1,
                     dateDrink = System.currentTimeMillis()
                 )
                 drinkRepository.insert(newDrink)
             }
         }
-    }
 
 }

@@ -10,6 +10,7 @@ import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.ActivityDrinkBinding
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.feature.drink.adapter.HistoryAdapter
+import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

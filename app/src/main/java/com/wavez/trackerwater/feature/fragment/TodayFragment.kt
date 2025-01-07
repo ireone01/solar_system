@@ -2,24 +2,21 @@ package com.wavez.trackerwater.feature.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.feature.drink.DrinkActivity
-import com.wavez.trackerwater.feature.drink.DrinkViewModel
 import com.wavez.trackerwater.feature.fragment.adapter.DrinkAdapter
 import com.wavez.trackerwater.feature.fragment.viewModel.TodayViewModel
+import com.wavez.trackerwater.feature.reminder.ReminderActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,6 +58,8 @@ class TodayFragment :BaseFragment<FragmentTodayBinding>() {
     override fun initListener() {
         super.initListener()
         binding.btnDrink.setOnClickListener { drinkActivityLauncher.launch(Intent(context, DrinkActivity::class.java)) }
+        binding.ivEditReminder.setOnClickListener { startActivity(Intent(requireContext(), ReminderActivity::class.java)) }
+
     }
     private val drinkActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {

@@ -83,7 +83,7 @@ public class WaterWaveView extends View {
 
         /*Set xml parameters*/
         mFrontWaveColor = attributes.getColor(R.styleable.CircularWaterWaveView_frontColor, DEFAULT_FRONT_WAVE_COLOR);
-        mBehindWaveColor = attributes.getColor(R.styleable.CircularWaterWaveView_behideColor, DEFAULT_BEHIND_WAVE_COLOR);
+        mBehindWaveColor = attributes.getColor(R.styleable.CircularWaterWaveView_behindColor, DEFAULT_BEHIND_WAVE_COLOR);
         mBorderColor = attributes.getColor(R.styleable.CircularWaterWaveView_borderColor, DEFAULT_BORDER_COLOR);
         mTextColor = attributes.getColor(R.styleable.CircularWaterWaveView_textColor, DEFAULT_TEXT_COLOR);
         mProgress = attributes.getInt(R.styleable.CircularWaterWaveView_progress, DEFAULT_PROGRESS);

@@ -1,5 +1,6 @@
 package com.wavez.trackerwater.feature.myprofile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentMeBinding
 import com.wavez.trackerwater.feature.myprofile.adapter.FragmentDialogSoundVibration
+import com.wavez.trackerwater.feature.reminder.ReminderActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +27,10 @@ class MeFragment: BaseFragment<FragmentMeBinding>() {
 
     override fun initListener() {
         super.initListener()
+
+        binding.btnReminder.setOnClickListener {
+            startActivity(Intent(context, ReminderActivity::class.java))
+        }
 
         binding.llayout2.setOnClickListener {
             val dialog = FragmentDialogDailyGoal()

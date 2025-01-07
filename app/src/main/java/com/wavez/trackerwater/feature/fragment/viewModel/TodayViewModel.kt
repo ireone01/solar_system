@@ -28,14 +28,14 @@ class TodayViewModel @Inject constructor(
     }
 
     init {
-        _progress.value = 0  // Giá trị mặc định
+        _progress.value = 0
     }
 
     val totalAmount = MutableLiveData<Int>()
 
     fun getTotal() {
         viewModelScope.launch(Dispatchers.IO) {
-            val total = drinkRepository.getAll().sumOf { it.amountDrink*it.countDrink }
+            val total = drinkRepository.getAll().sumOf { it.amountDrink }
             totalAmount.postValue(total)
         }
     }

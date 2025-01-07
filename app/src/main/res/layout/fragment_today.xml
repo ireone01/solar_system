@@ -12,7 +12,7 @@
         app:animatorEnable="true"
         app:textHidden="true"
         app:frontColor="#008FFF"
-        app:behideColor="#90cbf9"
+        app:behindColor="#90cbf9"
         app:max="100"
         app:strong="100"
         app:layout_constraintStart_toStartOf="parent"

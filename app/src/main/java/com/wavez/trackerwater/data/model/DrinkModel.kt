@@ -14,8 +14,6 @@ data class DrinkModel (
     var id: Long = 0,
     @ColumnInfo("amountDrink")
     var amountDrink: Int = 0,
-    @ColumnInfo("countDrink")
-    var countDrink: Int = 0,
     @ColumnInfo("dateDrink")
     var dateDrink: Long = System.currentTimeMillis()
 ) : Parcelable

@@ -1,53 +1,75 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
+import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.ItemHistoryBinding
-import com.wavez.trackerwater.feature.fragment.adapter.DrinkAdapter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HistoryAdapter (
-    internal val historyList: MutableList<DrinkModel>,
-    private val onDelete: (DrinkModel) -> Unit,
-    private val onUpdate: (DrinkModel) -> Unit
-): RecyclerView.Adapter<HistoryAdapter.HistoryHolder>(){
+class HistoryAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
 
-    class HistoryHolder(private val binding: ItemHistoryBinding): RecyclerView.ViewHolder(binding.root){
+    companion object {
+
+        private const val TYPE_ITEM = 1
+
+        private const val TYPE_ADS = 2
+
+    }
+
+    var onSelected: ((DrinkModel) -> Unit)? = null
+
+    var onUpdate: ((DrinkModel) -> Unit)? = null
+
+    var onDelete: ((DrinkModel) -> Unit)? = null
+
+
+    override fun bindViewHolder(
+        holder: RecyclerView.ViewHolder, item: DrinkModel, position: Int
+    ) {
+        if (holder is HistoryHolder) {
+            holder.bind(item)
+        } else {
+            throw IllegalArgumentException("Invalid view holder type")
+        }
+    }
+
+    override fun getItemLayout(viewType: Int): Int {
+        if (viewType == TYPE_ITEM) {
+            return R.layout.item_history
+        } else {
+            throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
+    override fun createViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == TYPE_ITEM) {
+            val binding = ItemHistoryBinding.bind(view)
+            return HistoryHolder(binding)
+        } else {
+            throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
+    override fun getItemType(item: DrinkModel): Int {
+        return TYPE_ITEM
+    }
+
+    inner class HistoryHolder(private val binding: ItemHistoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            drinkModel: DrinkModel,
-            onDelete: (DrinkModel) -> Unit,
-            onUpdate: (DrinkModel) -> Unit){
+            drinkModel: DrinkModel
+        ) {
             val amount = drinkModel.amountDrink * 0.001
             binding.tvAmount.text = String.format("%.3f l", amount)
             val date = Date(drinkModel.dateDrink)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             binding.tvTime.text = dateFormat.format(date)
-            binding.ivEdit.setOnClickListener { onUpdate(drinkModel) }
-            binding.ivDelete.setOnClickListener { onDelete(drinkModel) }
-
+            binding.ivEdit.setOnClickListener { onUpdate?.invoke(drinkModel) }
+            binding.ivDelete.setOnClickListener { onDelete?.invoke(drinkModel) }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryHolder {
-        val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return HistoryHolder(binding)
-    }
-
-    override fun getItemCount(): Int {
-        return historyList.size
-    }
-
-    override fun onBindViewHolder(holder: HistoryHolder, position: Int) {
-        holder.bind(historyList[position], onDelete, onUpdate)
-    }
-
-    fun updateList(newItems: List<DrinkModel>) {
-        historyList.clear()
-        historyList.addAll(newItems)
-        notifyDataSetChanged()
-    }
 }

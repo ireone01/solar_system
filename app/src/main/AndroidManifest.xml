@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -10,13 +18,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyApplication"
         android:theme="@style/Theme.TrackerWater"
         tools:targetApi="31">
         <activity
+            android:name=".feature.reminder.ReminderActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.drink.DrinkActivity"
             android:exported="true" />
-
         <activity
             android:name=".feature.home.MainActivity"
             android:exported="true" >
@@ -26,19 +35,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".feature.onboarding.OnboardingActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".feature.myprofile.ActivityMe"
-            android:exported="true" />
-
+            android:exported="true"/>
+<!--        <activity-->
+<!--            android:name=".feature.myprofile.ActivityMe"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".feature.splash.SplashActivity"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <service
+            android:name=".feature.reminder.WaterReminderService"
+            android:foregroundServiceType="location"
+            tools:ignore="ForegroundServicePermission" />
+
+        <receiver android:name=".feature.reminder.WaterReminderReceiver"
+
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.wavez.trackerwater.WATER_REMINDER"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
