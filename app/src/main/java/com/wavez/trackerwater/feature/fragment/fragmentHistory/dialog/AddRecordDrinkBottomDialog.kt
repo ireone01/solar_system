@@ -15,6 +15,7 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
     companion object {
         fun newInstance() = AddRecordDrinkBottomDialog()
     }
+
     override fun initializeBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -22,7 +23,7 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
         return DialogAddRecordBinding.inflate(layoutInflater)
     }
 
-    private var listener: AddRecordListener? =null
+    private var listener: AddRecordListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,7 +33,8 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
         } catch (e: Exception) {
             try {
                 listener = parentFragment as AddRecordListener
-            } catch (e: Exception) {}
+            } catch (e: Exception) {
+            }
 
         }
 
@@ -41,23 +43,36 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
         binding.npMin.apply {
-            minValue = 1
+            minValue = 0
             wrapSelectorWheel = false
-            maxValue = 60
+            maxValue = 59
+            value = 0
+
         }
 
         binding.npHour.apply {
-            minValue = 1
+            minValue = 0
             wrapSelectorWheel = false
-            maxValue = 24
+            maxValue = 11
+            value = 0
+
+        }
+
+        val pickerVals = arrayOf("AM", "PM")
+        binding.npType.apply {
+            minValue = 0
+            wrapSelectorWheel = false
+            maxValue = 1
+            value = 0
+            displayedValues = pickerVals
         }
 
         val calendar = Calendar.getInstance()
         val currentDate = calendar.timeInMillis
-        val dateFormat = java.text.SimpleDateFormat("dd/MM", java.util.Locale.getDefault())
+        val dateFormat = java.text.SimpleDateFormat("MMM d", java.util.Locale.ENGLISH)
 
-        val dates = (0 until 30).map { offset ->
-            calendar.timeInMillis = currentDate + (offset - 15) * 24 * 60 * 60 * 1000L
+        val dates = (0..6).map { offset ->
+            calendar.timeInMillis = currentDate - offset * 24 * 60 * 60 * 1000L
             dateFormat.format(calendar.time)
         }.toTypedArray()
 
@@ -66,36 +81,28 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
             maxValue = dates.size - 1
             wrapSelectorWheel = false
             displayedValues = dates
-            value = 15
+            value = 0
         }
-
-        val pickerVals = arrayOf("AM", "PM")
-        binding.npType.apply {
-            minValue = 0
-            wrapSelectorWheel = false
-            maxValue = 1
-            displayedValues = pickerVals
-        }
-
     }
 
-    private fun covertTimeTiLOngStamp(): Long {
-        // Lấy giá trị từ giao diện
+    private fun covertTimeToLongStamp(): Long {
         val dateIndex = binding.npDate.value
         val hour = binding.npHour.value
         val minute = binding.npMin.value
         val isAM = binding.npType.value == 0
 
-        // Lấy ngày hiện tại và thêm ngày được chọn
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, dateIndex - 15)
+        val currentDate = calendar.timeInMillis
 
-        // Thiết lập giờ và phút
+        calendar.timeInMillis = currentDate - dateIndex * 24 * 60 * 60 * 1000L
+
         var adjustedHour = hour
-        if (!isAM) {
-            if (hour < 12) adjustedHour += 12 // Chuyển PM thành giờ 24h
-        } else if (hour == 12) {
-            adjustedHour = 0 // Xử lý đặc biệt cho 12 AM
+        if (hour == 12) {
+            adjustedHour = if (isAM) 0 else 12
+        } else {
+            if (!isAM && hour < 12) {
+                adjustedHour += 12
+            }
         }
 
         calendar.set(Calendar.HOUR_OF_DAY, adjustedHour)
@@ -103,10 +110,8 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
-        // Trả về timestamp
         return calendar.timeInMillis
     }
-
 
     override fun initObserver() {
         super.initObserver()
@@ -123,32 +128,12 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
             if (amount < 0) {
                 Toast.makeText(requireContext(), "Invalid input", Toast.LENGTH_SHORT).show()
             } else {
-                listener?.onSaveRecord(amount, covertTimeTiLOngStamp())
+                listener?.onSaveRecord(amount, covertTimeToLongStamp())
             }
             dismiss()
-
         }
 
-        binding.npType.setOnValueChangedListener { _, _, newVal ->
-            if (newVal == 0) {
-                binding.npHour.apply {
-                    minValue = 1
-                    wrapSelectorWheel = false
-                    maxValue = 24
-                }
-            } else {
-                binding.npHour.apply {
-                    minValue = 1
-                    wrapSelectorWheel = false
-                    maxValue = 12
-                }
-            }
-        }
-        
     }
-
-
-
 
     interface AddRecordListener {
         fun onSaveRecord(amount: Int, timeAdded: Long)

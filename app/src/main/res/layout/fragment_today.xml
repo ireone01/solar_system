@@ -13,8 +13,7 @@
         app:textHidden="true"
         app:frontColor="#008FFF"
         app:behindColor="#90cbf9"
-        app:max="100"
-        app:strong="100"
+        app:strong="50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -142,6 +141,50 @@
         app:layout_constraintTop_toBottomOf="@id/layout_remider"
         tools:ignore="HardcodedText" />
 
+    <LinearLayout
+        android:id="@+id/option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/rcvGlassWater">
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_delete"/>
+        <LinearLayout
+            android:id="@+id/btnDrink2"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_green_12dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_add_record"
+                android:padding="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drink"
+                android:layout_marginStart="-4dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/work_sans_700"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_drink_right"
+                android:padding="12dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvGlassWater"
         android:layout_width="0dp"
@@ -153,8 +196,7 @@
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_glass_water" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/btnDrink"

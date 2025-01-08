@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
@@ -16,10 +17,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
+    open val hasEvenBus = false
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout using ViewBinding
         _binding = bindingInflater(inflater, container, false)
@@ -29,6 +30,8 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Initialize UI components, observers, and listeners
+        if (hasEvenBus) EventBus.getDefault().register(this)
+
         initConfig(view, savedInstanceState)
         initView(view, savedInstanceState)
         initObserver()
@@ -65,6 +68,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         // Clean up binding to prevent memory leaks
+        if (hasEvenBus) EventBus.getDefault().unregister(this)
         _binding = null
         // Perform cleanup actions defined in the clearResources method
         release()

@@ -12,6 +12,7 @@ import com.wavez.trackerwater.databinding.ActivityMainBinding
 import com.wavez.trackerwater.feature.home.adapter.MainViewPagerAdapter
 import com.wavez.trackerwater.feature.reminder.WaterReminderService
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {

@@ -1,22 +1,27 @@
 package com.wavez.trackerwater.feature.drink.adapter
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
+import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter
+import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter.Companion
+import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter.DrinkHolder
 
-class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
+class IntakeAdapter : BaseRecyclerViewAdapter<IntakeModel>() {
 
     companion object {
         private const val TYPE_ITEM = 1
     }
 
-    var onSelect: ((HistoryModel) -> Unit)? = null
+    var onSelect: ((IntakeModel) -> Unit)? = null
 
-    override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: HistoryModel, position: Int) {
+    override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: IntakeModel, position: Int) {
         if (holder is HistoryHolder) {
             holder.bind(item)
         } else {
@@ -41,16 +46,16 @@ class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
         }
     }
 
-    override fun getItemType(item: HistoryModel): Int {
+    override fun getItemType(item: IntakeModel): Int {
         return TYPE_ITEM
     }
 
     inner class HistoryHolder(private val binding: ItemGlassWaterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(history: HistoryModel) {
-            binding.itemText.text = history.amountHistory.toString()
-            binding.root.setOnClickListener { onSelect?.invoke(history) }
+        fun bind(intake: IntakeModel) {
+            binding.itemText.text = intake.amountIntake.toString()
+            binding.root.setOnClickListener { onSelect?.invoke(intake) }
             binding.tvCount.visibility = View.GONE
         }
     }

@@ -1,25 +1,25 @@
 package com.wavez.trackerwater.feature.fragment.adapter
 
 import android.annotation.SuppressLint
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.DrinkModel
+import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryModelWithCount
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 
-class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
+class HistoryAdapter() : BaseRecyclerViewAdapter<HistoryModelWithCount>() {
 
     companion object {
         private const val TYPE_ITEM = 1
     }
 
-    var onSelect: ((DrinkModel) -> Unit)? = null
+    var onSelect: ((HistoryModelWithCount) -> Unit)? = null
 
-    override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: DrinkModel, position: Int) {
+    override fun bindViewHolder(
+        holder: RecyclerView.ViewHolder, item: HistoryModelWithCount, position: Int
+    ) {
         if (holder is DrinkHolder) {
             holder.bind(item)
         } else {
@@ -44,15 +44,16 @@ class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
         }
     }
 
-    override fun getItemType(item: DrinkModel): Int {
+    override fun getItemType(item: HistoryModelWithCount): Int {
         return TYPE_ITEM
     }
 
     inner class DrinkHolder(private val binding: ItemGlassWaterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(drink: DrinkModel) {
-            binding.itemText.text = "+" + drink.amountDrink.toString() + " ml"
+        fun bind(drink: HistoryModelWithCount) {
+            binding.itemText.text = "+" + drink.amountHistory.toString() + " ml"
+            binding.tvCount.text = drink.count.toString()
             binding.root.setOnClickListener { onSelect?.invoke(drink) }
         }
     }

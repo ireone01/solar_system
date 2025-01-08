@@ -3,13 +3,13 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.DrinkModel
+import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.databinding.ItemHistoryBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HistoryAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
+class HistoryAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
 
     companion object {
 
@@ -19,15 +19,15 @@ class HistoryAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
 
     }
 
-    var onSelected: ((DrinkModel) -> Unit)? = null
+    var onSelected: ((HistoryModel) -> Unit)? = null
 
-    var onUpdate: ((DrinkModel) -> Unit)? = null
+    var onUpdate: ((HistoryModel) -> Unit)? = null
 
-    var onDelete: ((DrinkModel) -> Unit)? = null
+    var onDelete: ((HistoryModel) -> Unit)? = null
 
 
     override fun bindViewHolder(
-        holder: RecyclerView.ViewHolder, item: DrinkModel, position: Int
+        holder: RecyclerView.ViewHolder, item: HistoryModel, position: Int
     ) {
         if (holder is HistoryHolder) {
             holder.bind(item)
@@ -53,22 +53,22 @@ class HistoryAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
         }
     }
 
-    override fun getItemType(item: DrinkModel): Int {
+    override fun getItemType(item: HistoryModel): Int {
         return TYPE_ITEM
     }
 
     inner class HistoryHolder(private val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            drinkModel: DrinkModel
+            historyModel: HistoryModel
         ) {
-            val amount = drinkModel.amountDrink * 0.001
+            val amount = historyModel.amountHistory * 0.001
             binding.tvAmount.text = String.format("%.3f l", amount)
-            val date = Date(drinkModel.dateDrink)
+            val date = Date(historyModel.dateHistory)
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             binding.tvTime.text = dateFormat.format(date)
-            binding.ivEdit.setOnClickListener { onUpdate?.invoke(drinkModel) }
-            binding.ivDelete.setOnClickListener { onDelete?.invoke(drinkModel) }
+            binding.ivEdit.setOnClickListener { onUpdate?.invoke(historyModel) }
+            binding.ivDelete.setOnClickListener { onDelete?.invoke(historyModel) }
         }
     }
 

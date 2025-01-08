@@ -4,16 +4,13 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
-import java.util.*
+
 @kotlinx.parcelize.Parcelize
-@Entity(tableName = "drink_table")
-data class DrinkModel (
+@Entity(tableName = "intake_table")
+data class IntakeModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
     var id: Long = 0,
-    @ColumnInfo("amountDrink")
-    var amountDrink: Int = 0,
-    @ColumnInfo("dateDrink")
-    var dateDrink: Long = System.currentTimeMillis()
+    @ColumnInfo("amountIntake")
+    var amountIntake: Int = 0
 ) : Parcelable

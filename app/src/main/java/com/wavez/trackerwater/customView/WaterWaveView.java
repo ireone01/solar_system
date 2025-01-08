@@ -111,7 +111,7 @@ public class WaterWaveView extends View {
         /*Turn on animation thread*/
         thread.start();
         animHandler = new Handler(thread.getLooper());
-        uiHandler = new UIHandler(new WeakReference<View>(this));
+        uiHandler = new UIHandler(new WeakReference<>(this));
 
         // Đảm bảo animation bắt đầu khi khởi tạo
         screenSize = new Point(getWidth(), getHeight());
@@ -280,10 +280,6 @@ public class WaterWaveView extends View {
         message.sendToTarget();
     }
 
-    /**
-     * Set the displacement of the water wave before and after
-     * 1-100
-     */
     public void setWaveOffset(int offset) {
         this.waveOffset = offset;
         createShader();
@@ -291,10 +287,6 @@ public class WaterWaveView extends View {
         message.sendToTarget();
     }
 
-    /**
-     * Set crest
-     * 0-100
-     */
     public void setWaveStrong(int strong) {
         this.mStrong = strong;
         createShader();
@@ -312,34 +304,25 @@ public class WaterWaveView extends View {
         }
     }
 
-    /**
-     * Create a fill shader
-     * y = Asin(ωx+φ)+h Waveform formula (sinusoidal function) y = waveLevel * Math.sin(w * x1 + shiftX) + level
-     * φ (initial phase x): the offset of the X-axis of the waveform $shiftX
-     *ω (angular frequency): minimum positive period T=2π/|ω| $w
-     * A (wave amplitude): the size of the hump $waveLevel
-     * h (initial phase y): Y-axis offset of the waveform $level
-     * <p>
-     * Bézier curve
-     * B(t) = X(1-t)^2 + 2t(1-t)Y + Zt^2 , 0 <= t <= n
-     */
+
     private void createShader() {
         if (screenSize.x <= 0 || screenSize.y <= 0) {
             return;
         }
-        int viewSize = Math.min(screenSize.x, screenSize.y);
-        double w = (2.0f * Math.PI) / viewSize;
+        int viewWidth = screenSize.x;
+        int viewHeight = screenSize.y;
+        double w = (2.0f * Math.PI) / viewWidth;
 
         /*Build the canvas*/
-        Bitmap bitmap = Bitmap.createBitmap(viewSize, viewSize, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 
-        float level = ((((float) (mMax - mProgress)) / (float) mMax) * viewSize) + ((screenSize.y / 2) - (viewSize / 2)); //Height of water level
-        int x2 = viewSize + 1;//width
-        int y2 = viewSize + 1;//height
-        float zzz = (((float) viewSize * ((waveOffset - 50) / 100f)) / ((float) viewSize / 6.25f));
+        float level = ((((float) (mMax - mProgress)) / (float) mMax) * viewHeight); //Height of water level
+        int x2 = viewWidth + 1;//width
+        int y2 = viewHeight + 1;//height
+        float zzz = (((float) viewWidth * ((waveOffset - 50) / 100f)) / ((float) viewWidth / 6.25f));
         float shiftX2 = shiftX1 + zzz; //The difference between the front and rear waves
-        int waveLevel = mStrong * (viewSize / 20) / 100;  // viewSize / 20
+        int waveLevel = mStrong * (viewHeight / 20) / 100;  // viewHeight / 20
 
         for (int x1 = 0; x1 < x2; x1++) {
             /*Post wave (Overwrite)*/
@@ -383,21 +366,26 @@ public class WaterWaveView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawRect(0, 0, screenSize.x, screenSize.y, mViewPaint);
 
-        /*Draw sidelines*/
+        /* Draw sidelines */
         if (mBorderWidth > 0) {
             canvas.drawRect(0, 0, screenSize.x, screenSize.y, mBorderPaint);
         }
 
         if (!isHideText) {
-            /*Create percentage text*/
+            /* Create percentage text */
             float percent = (mProgress * 100) / (float) mMax;
             String text = String.format(Locale.TAIWAN, "%.1f", percent) + "%";
             TextPaint textPaint = new TextPaint();
             textPaint.setColor(mTextColor);
-            textPaint.setTextSize(Math.min(screenSize.x, screenSize.y) / 2f);
+            textPaint.setTextSize(Math.min(screenSize.x, screenSize.y) / 10f); // Adjust text size if necessary
             textPaint.setAntiAlias(true);
             float textHeight = textPaint.descent() + textPaint.ascent();
-            canvas.drawText(text, (screenSize.x - textPaint.measureText(text)) / 2.0f, (screenSize.y - textHeight) / 2.0f, textPaint);
+
+            // Draw text on the top left above the waves
+            canvas.drawText(text,
+                    mBorderWidth, // x position (left margin)
+                    mBorderWidth - textHeight, // y position (top margin above the waves)
+                    textPaint);
         }
     }
 

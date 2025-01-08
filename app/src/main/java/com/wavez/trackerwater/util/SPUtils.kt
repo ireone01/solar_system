@@ -1,54 +1,63 @@
-package com.wavez.trackerwater.util;
+package com.wavez.trackerwater.util
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context
+import android.content.SharedPreferences
 
-public class SPUtils {
-    public static final String PREFERENCE = "PREFERENCE";
-    public static final String SHARED_PREFS_NAME = "SHARED_PREFS_NAME";
+object SPUtils {
 
+    private const val PREFERENCE = "PREFERENCE"
+    private const val SHARED_PREFS_NAME = "SHARED_PREFS_NAME"
+    public const val REMINDER = "REMINDER"
 
-    public static SharedPreferences getPref(Context context) {
-        return context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+    private fun getPreferences(context: Context): SharedPreferences {
+        return context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE)
     }
 
-    public static void setString(Context context, String str, String str2) {
-        SharedPreferences.Editor edit = context.getSharedPreferences(PREFERENCE, 0).edit();
-        edit.putString(str, str2);
-        edit.apply();
+    fun getPref(context: Context): SharedPreferences {
+        return context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    public static String getString(Context context, String str, String str2) {
-        return context.getSharedPreferences(PREFERENCE, 0).getString(str, str2);
+    fun setString(context: Context, key: String, value: String) {
+        getPreferences(context).edit().apply {
+            putString(key, value)
+            apply()
+        }
     }
 
-    public static void setLong(Context context, String str, long i) {
-        SharedPreferences.Editor edit = context.getSharedPreferences(PREFERENCE, 0).edit();
-        edit.putLong(str, i);
-        edit.apply();
+    fun getString(context: Context, key: String, defaultValue: String): String {
+        return getPreferences(context).getString(key, defaultValue) ?: defaultValue
     }
 
-    public static long getLong(Context context, String str, long i) {
-        return context.getSharedPreferences(PREFERENCE, 0).getLong(str, i);
+    fun setLong(context: Context, key: String, value: Long) {
+        getPreferences(context).edit().apply {
+            putLong(key, value)
+            apply()
+        }
     }
 
-    public static void setInt(Context context, String str, int i) {
-        SharedPreferences.Editor edit = context.getSharedPreferences(PREFERENCE, 0).edit();
-        edit.putInt(str, i);
-        edit.apply();
+    fun getLong(context: Context, key: String, defaultValue: Long): Long {
+        return getPreferences(context).getLong(key, defaultValue)
     }
 
-    public static int getInt(Context context, String str, int i) {
-        return context.getSharedPreferences(PREFERENCE, 0).getInt(str, i);
+    fun setInt(context: Context, key: String, value: Int) {
+        getPreferences(context).edit().apply {
+            putInt(key, value)
+            apply()
+        }
     }
 
-    public static void setBoolean(Context context, String str, boolean b) {
-        SharedPreferences.Editor edit = context.getSharedPreferences(PREFERENCE, 0).edit();
-        edit.putBoolean(str, b);
-        edit.apply();
+    fun getInt(context: Context, key: String, defaultValue: Int): Int {
+        return getPreferences(context).getInt(key, defaultValue)
     }
 
-    public static boolean getBoolean(Context context, String str, boolean b) {
-        return context.getSharedPreferences(PREFERENCE, 0).getBoolean(str, b);
+    fun setBoolean(context: Context, key: String, value: Boolean) {
+        getPreferences(context).edit().apply {
+            putBoolean(key, value)
+            apply()
+        }
+    }
+
+    fun getBoolean(context: Context, key: String, defaultValue: Boolean): Boolean {
+        return getPreferences(context).getBoolean(key, defaultValue)
     }
 }

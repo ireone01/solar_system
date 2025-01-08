@@ -2,6 +2,7 @@
 agp = "8.7.3"
 #agp = "8.5.0"
 androidxHiltCompiler = "1.2.0"
+eventbus = "3.3.1"
 fragmentKtx = "1.8.5"
 googleHiltAndroid = "1.1.1"
 hiltAndroid = "2.53"
@@ -21,6 +22,7 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
 mpandroidchart = "v3.1.0"
+numberPicker = "2.4.13"
 roomRuntime = "2.6.1"
 sonicWaterWaveAnimation = "2.0.1"
 
@@ -35,6 +37,7 @@ androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-view
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
 hilt-android-v253 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -45,6 +48,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+number-picker = { module = "io.github.ShawnLin013:number-picker", version.ref = "numberPicker" }
 sonic-water-wave-animation = { module = "com.github.orbitalsonic:Sonic-Water-Wave-Animation", version.ref = "sonicWaterWaveAnimation" }
 
 [plugins]

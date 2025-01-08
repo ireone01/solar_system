@@ -1,10 +1,13 @@
 package com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wavez.trackerwater.data.model.DrinkModel
-import com.wavez.trackerwater.data.repository.DrinkRepository
+import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.repository.history.HistoryRepository
+import com.wavez.trackerwater.data.repository.intake.IntakeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,41 +15,57 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DayViewModel @Inject constructor(
-    val drinkRepository: DrinkRepository
+    val historyRepository: HistoryRepository,
+    val intakeRepository: IntakeRepository
 ): ViewModel(){
-    val historyList = MutableLiveData<List<DrinkModel>>()
+    val historyList = MutableLiveData<List<HistoryModel>>()
 
     fun getAllData(){
         viewModelScope.launch(Dispatchers.IO) {
-            historyList.postValue(drinkRepository.getAll())
+            historyList.postValue(historyRepository.getAll())
         }
     }
 
-    fun delete(drinkModel: DrinkModel){
+    fun delete(historyModel: HistoryModel){
         viewModelScope.launch(Dispatchers.IO) {
-            drinkRepository.delete(drinkModel)
-            historyList.postValue(drinkRepository.getAll())
+            historyRepository.delete(historyModel)
+            historyList.postValue(historyRepository.getAll())
         }
     }
 
-    fun edit(drinkModel: DrinkModel){
+    fun edit(historyModel: HistoryModel){
         viewModelScope.launch(Dispatchers.IO) {
-            drinkRepository.update(drinkModel)
+            historyRepository.update(historyModel)
         }
     }
 
     val totalAmount = MutableLiveData<Int>()
     fun getTotal() {
         viewModelScope.launch(Dispatchers.IO) {
-            val total = drinkRepository.getAll().sumOf { it.amountDrink }
+            val total = historyRepository.getAll().sumOf { it.amountHistory }
             totalAmount.postValue(total)
         }
     }
 
-    fun insertDrink(drinkModel: DrinkModel) {
+    fun insertHistory(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            drinkRepository.insert(drinkModel)
+            historyRepository.insert(historyModel)
         }
     }
+
+    fun insertIntake(amount: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val existingIntake = intakeRepository.getIntakeByAmount(amount)
+            if (existingIntake != null) {
+                Log.d("IntakeCheck", "Amount $amount đã tồn tại!")
+            } else {
+                val intakeModel = IntakeModel(
+                    amountIntake = amount,
+                )
+                intakeRepository.insert(intakeModel)
+            }
+        }
+    }
+
 
 }

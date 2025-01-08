@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityReminderBinding
+import com.wavez.trackerwater.util.SPUtils
 import java.util.Calendar
 
 class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
@@ -18,8 +19,19 @@ class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
     }
 
     private var isReminder = false
+
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
+
+        isReminder = SPUtils.getBoolean(this, SPUtils.REMINDER, false)
+
+        if (isReminder) {
+            SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
+            binding.ivSwReminder.setImageResource(R.drawable.ic_sw_reminder_on)
+        } else {
+            SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
+            binding.ivSwReminder.setImageResource(R.drawable.img_sw_reminder_off)
+        }
     }
 
     override fun initObserver() {
@@ -31,10 +43,12 @@ class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
         binding.ivBack.setOnClickListener { finish() }
         binding.ivSwReminder.setOnClickListener {
             isReminder = !isReminder
-            if (isReminder){
+            if (isReminder) {
+                SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
                 binding.ivSwReminder.setImageResource(R.drawable.ic_sw_reminder_on)
-                NotificationScheduler.scheduleNotification(this, 16, 0)
-            }else{
+                NotificationScheduler.scheduleNotification(this, 17, 12)
+            } else {
+                SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
                 binding.ivSwReminder.setImageResource(R.drawable.img_sw_reminder_off)
                 NotificationScheduler.cancelNotification(this)
             }

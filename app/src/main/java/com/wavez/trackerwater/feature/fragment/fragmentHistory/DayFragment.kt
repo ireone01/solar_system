@@ -1,6 +1,5 @@
 package com.wavez.trackerwater.feature.fragment.fragmentHistory
 
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter.HistoryAdapter
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -18,11 +17,16 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.DrinkModel
+import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.databinding.FragmentDayBinding
+import com.wavez.trackerwater.evenbus.DataUpdatedEvent
+import com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter.HistoryAdapter
 import com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog.AddRecordDrinkBottomDialog
 import com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel.DayViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -51,7 +55,6 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             setDrawBorders(false)
             animateY(1000)
         }
-
     }
 
     private fun initAdapter() {
@@ -91,6 +94,16 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     override fun initListener() {
         super.initListener()
         binding.ivAdd.setOnClickListener { openDialogAddRecord() }
+        binding.ivPre.setOnClickListener { prevDay() }
+        binding.ivNext.setOnClickListener { nextDay() }
+    }
+
+    private fun nextDay() {
+
+    }
+
+    private fun prevDay() {
+
     }
 
     private fun openDialogAddRecord() {
@@ -98,44 +111,20 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             .show(childFragmentManager, AddRecordDrinkBottomDialog::class.java.simpleName)
     }
 
-    private fun saveRecord(amount: Int, dateIndex: Int, hour: Int, minute: Int, am: Boolean) {
-        if (amount != null && amount > 0) {
-            binding.root.context.let {
-                Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
-            }
-            return
-        }
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_YEAR, dateIndex)
-        calendar.set(Calendar.HOUR, hour)
-        calendar.set(Calendar.MINUTE, minute)
-        calendar.set(Calendar.AM_PM, if (am) Calendar.AM else Calendar.PM)
-
-        val drinkTime = calendar.timeInMillis
-
-        dayViewModel.insertDrink(
-            DrinkModel(
-                amountDrink = amount, dateDrink = drinkTime
-            )
-        )
-
-        binding.root.context.let {
-            Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun onDelete(drink: DrinkModel) {
+    private fun onDelete(drink: HistoryModel) {
         dayViewModel.delete(drink)
+        val updatedData = "New Data"
+        EventBus.getDefault().post(DataUpdatedEvent(updatedData))
     }
 
-    private fun updateChart(historyList: List<DrinkModel>) {
+    private fun updateChart(historyList: List<HistoryModel>) {
         val lineEntries = mutableListOf<Entry>()
         val calendar = Calendar.getInstance()
 
         historyList.forEach { drink ->
-            calendar.timeInMillis = drink.dateDrink
+            calendar.timeInMillis = drink.dateHistory
             val hour = calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE) / 60f
-            lineEntries.add(Entry(hour, drink.amountDrink.toFloat()))
+            lineEntries.add(Entry(hour, drink.amountHistory.toFloat()))
         }
 
         binding.chart.axisLeft.apply {
@@ -183,20 +172,19 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         }
     }
 
-    private fun onUpdate(drink: DrinkModel) {
+    private fun onUpdate(drink: HistoryModel) {
         showDateTimePicker(drink) { updatedCalendar ->
-            drink.dateDrink = updatedCalendar.timeInMillis
+            drink.dateHistory = updatedCalendar.timeInMillis
             dayViewModel.edit(drink)
             val position = adapter.items.indexOf(drink)
             if (position != -1) {
                 adapter.notifyItemChanged(position)
             }
-
         }
     }
 
-    private fun showDateTimePicker(drink: DrinkModel, onDateTimeUpdated: (Calendar) -> Unit) {
-        val calendar = Calendar.getInstance().apply { timeInMillis = drink.dateDrink }
+    private fun showDateTimePicker(drink: HistoryModel, onDateTimeUpdated: (Calendar) -> Unit) {
+        val calendar = Calendar.getInstance().apply { timeInMillis = drink.dateHistory }
 
         DatePickerDialog(
             binding.root.context,
@@ -219,8 +207,26 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         ).show()
     }
 
+//
+//    override fun onStart() {
+//        super.onStart()
+//        EventBus.getDefault().register(this)
+//
+//    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDataUpdated(event: DataUpdatedEvent) {
+        Log.d("minh", "Data updated: ${event.data}")
+        dayViewModel.getAllData()
+        dayViewModel.getTotal()
+    }
+
     override fun onSaveRecord(amount: Int, timeAdded: Long) {
-        Log.d("hehehehe", "onSaveRecord: " + amount)
         if (amount < 0) {
             binding.root.context.let {
                 Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
@@ -228,16 +234,26 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             return
         }
 
+        dayViewModel.insertIntake(amount)
 
-        dayViewModel.insertDrink(
-            DrinkModel(
-                amountDrink = amount, dateDrink = timeAdded
+        dayViewModel.insertHistory(
+            HistoryModel(
+                amountHistory = amount, dateHistory = timeAdded
             )
         )
-
+        val updatedData = "New Data"
+        EventBus.getDefault().post(DataUpdatedEvent(updatedData))
         binding.root.context.let {
             Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
         }
+//        EventBus.getDefault().post(RecordAddedEvent(HistoryModel(amountHistory = amount, dateHistory = timeAdded)))
+
     }
+
+//    @Subscribe
+//    fun onRecordAdded(event: RecordAddedEvent) {
+//        dayViewModel.insertHistory(event.newRecord)
+//        dayViewModel.getAllData()
+//    }
 
 }

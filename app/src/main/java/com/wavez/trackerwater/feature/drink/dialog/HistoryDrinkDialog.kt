@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
-import com.wavez.trackerwater.data.model.DrinkModel
+import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
+import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
 
 class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
 
@@ -18,7 +20,7 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
         fun newInstance() = HistoryDrinkDialog()
     }
 
-    private lateinit var adapter: HistoryDrinkAdapter
+    private lateinit var adapter: IntakeAdapter
 
     override fun initializeBinding(
         inflater: LayoutInflater, container: ViewGroup?
@@ -43,7 +45,7 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
 
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
-        adapter = HistoryDrinkAdapter()
+        adapter = IntakeAdapter()
         binding.rcvHistory.adapter = adapter
         binding.rcvHistory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -58,7 +60,7 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
         fun onSelectAmount()
     }
 
-    private fun onSelect(history: DrinkModel) {
-        Toast.makeText(context, "" + history.amountDrink, Toast.LENGTH_SHORT).show()
+    private fun onSelect(intake: IntakeModel) {
+        Toast.makeText(context, "" + intake.amountIntake, Toast.LENGTH_SHORT).show()
     }
 }

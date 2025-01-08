@@ -2,10 +2,14 @@ package com.wavez.trackerwater.di
 
 import android.content.Context
 import androidx.room.Room
-import com.wavez.trackerwater.data.dao.DrinkDAO
-import com.wavez.trackerwater.data.database.DrinkDatabase
-import com.wavez.trackerwater.data.repository.DrinkRepository
-import com.wavez.trackerwater.data.repository.DrinkRepositoryImpl
+import com.wavez.trackerwater.data.dao.HistoryDAO
+import com.wavez.trackerwater.data.dao.IntakeDAO
+import com.wavez.trackerwater.data.database.HistoryDatabase
+import com.wavez.trackerwater.data.database.IntakeDatabase
+import com.wavez.trackerwater.data.repository.history.HistoryRepository
+import com.wavez.trackerwater.data.repository.history.HistoryRepositoryImpl
+import com.wavez.trackerwater.data.repository.intake.IntakeRepository
+import com.wavez.trackerwater.data.repository.intake.IntakeRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,28 +23,54 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun providesDatabaseDrink(
+    fun providesDatabaseHistory(
         @ApplicationContext context: Context
-    ): DrinkDatabase {
+    ): HistoryDatabase {
         return Room.databaseBuilder(
             context,
-            DrinkDatabase::class.java,
-            DrinkDatabase.NAME_DB
+            HistoryDatabase::class.java,
+            HistoryDatabase.NAME_DB
         ).build()
     }
 
     @Provides
     @Singleton
-    fun providesDrinkDao(appDatabase: DrinkDatabase): DrinkDAO {
-        return appDatabase.drinkDao()
+    fun providesDatabaseIntake(
+        @ApplicationContext context: Context
+    ): IntakeDatabase {
+        return Room.databaseBuilder(
+            context,
+            IntakeDatabase::class.java,
+            IntakeDatabase.NAME_DB
+        ).build()
     }
 
     @Provides
     @Singleton
-    fun provideDrinkRepository(
-        appDao: DrinkDAO
-    ): DrinkRepository {
-        return DrinkRepositoryImpl(appDao)
+    fun provideshistoryDao(appDatabase: HistoryDatabase): HistoryDAO {
+        return appDatabase.historyDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providesIntakeDao(appDatabase: IntakeDatabase): IntakeDAO {
+        return appDatabase.intakeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHistoryRepository(
+        appDao: HistoryDAO
+    ): HistoryRepository {
+        return HistoryRepositoryImpl(appDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideIntakeRepository(
+        appDao: IntakeDAO
+    ): IntakeRepository {
+        return IntakeRepositoryImpl(appDao)
     }
 
 }
