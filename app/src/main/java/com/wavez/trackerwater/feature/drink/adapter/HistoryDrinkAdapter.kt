@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.fragment.adapter
+package com.wavez.trackerwater.feature.drink.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,9 +9,11 @@ import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
+import com.wavez.trackerwater.feature.fragment.adapter.DrinkAdapter
+import com.wavez.trackerwater.feature.fragment.adapter.DrinkAdapter.Companion
+import com.wavez.trackerwater.feature.fragment.adapter.DrinkAdapter.DrinkHolder
 
-class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
+class HistoryDrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
 
     companion object {
         private const val TYPE_ITEM = 1
@@ -20,7 +22,7 @@ class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
     var onSelect: ((DrinkModel) -> Unit)? = null
 
     override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: DrinkModel, position: Int) {
-        if (holder is DrinkHolder) {
+        if (holder is HistoryHolder) {
             holder.bind(item)
         } else {
             throw IllegalArgumentException("Invalid view holder type")
@@ -38,7 +40,7 @@ class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
     override fun createViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_ITEM) {
             val binding = ItemGlassWaterBinding.bind(view)
-            return DrinkHolder(binding)
+            return HistoryHolder(binding)
         } else {
             throw IllegalArgumentException("Invalid view type")
         }
@@ -48,12 +50,13 @@ class DrinkAdapter : BaseRecyclerViewAdapter<DrinkModel>() {
         return TYPE_ITEM
     }
 
-    inner class DrinkHolder(private val binding: ItemGlassWaterBinding) :
+    inner class HistoryHolder(private val binding: ItemGlassWaterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(drink: DrinkModel) {
-            binding.itemText.text = "+" + drink.amountDrink.toString() + " ml"
-            binding.root.setOnClickListener { onSelect?.invoke(drink) }
+        fun bind(history: DrinkModel) {
+            binding.itemText.text = history.amountDrink.toString()
+            binding.root.setOnClickListener { onSelect?.invoke(history) }
+            binding.tvCount.visibility = View.GONE
         }
     }
 }

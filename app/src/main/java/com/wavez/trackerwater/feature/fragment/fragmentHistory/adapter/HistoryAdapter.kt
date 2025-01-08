@@ -1,4 +1,4 @@
-
+package com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter

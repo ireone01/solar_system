@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
 import com.wavez.trackerwater.databinding.DialogAddRecordBinding
 import java.util.Calendar
@@ -30,7 +31,7 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
 
         } catch (e: Exception) {
             try {
-                ;listener = parentFragment as AddRecordListener
+                listener = parentFragment as AddRecordListener
             } catch (e: Exception) {}
 
         }
@@ -76,16 +77,36 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
             displayedValues = pickerVals
         }
 
-        val amount = binding.edtAmount.text.toString().toIntOrNull() ?: 0
+    }
+
+    private fun covertTimeTiLOngStamp(): Long {
+        // Lấy giá trị từ giao diện
         val dateIndex = binding.npDate.value
         val hour = binding.npHour.value
         val minute = binding.npMin.value
         val isAM = binding.npType.value == 0
 
+        // Lấy ngày hiện tại và thêm ngày được chọn
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, dateIndex - 15)
 
+        // Thiết lập giờ và phút
+        var adjustedHour = hour
+        if (!isAM) {
+            if (hour < 12) adjustedHour += 12 // Chuyển PM thành giờ 24h
+        } else if (hour == 12) {
+            adjustedHour = 0 // Xử lý đặc biệt cho 12 AM
+        }
 
+        calendar.set(Calendar.HOUR_OF_DAY, adjustedHour)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
+        // Trả về timestamp
+        return calendar.timeInMillis
     }
+
 
     override fun initObserver() {
         super.initObserver()
@@ -98,14 +119,12 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
         }
 
         binding.btnSave.setOnClickListener {
-//            val amount = binding.edtAmount.text.toString().toIntOrNull() ?: 0
-//            if (amount > 0) {
-//                Toast.makeText(requireContext(), "Invalid input", Toast.LENGTH_SHORT).show()
-//            } else {
-//                listener?.onSaveRecord(amount, covertTimeTiLOngStamp())
-////                saveRecord(amount, dateIndex, hour, minute, isAM)
-//            }
-            listener?.onSaveRecord(100, covertTimeTiLOngStamp())
+            val amount = binding.edtAmount.text.toString().toIntOrNull() ?: 0
+            if (amount < 0) {
+                Toast.makeText(requireContext(), "Invalid input", Toast.LENGTH_SHORT).show()
+            } else {
+                listener?.onSaveRecord(amount, covertTimeTiLOngStamp())
+            }
             dismiss()
 
         }
@@ -128,9 +147,7 @@ class AddRecordDrinkBottomDialog : BaseBottomSheetFragment<DialogAddRecordBindin
         
     }
 
-    private fun covertTimeTiLOngStamp():Long {
-        return System.currentTimeMillis()
-    }
+
 
 
     interface AddRecordListener {

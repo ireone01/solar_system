@@ -9,7 +9,7 @@ import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.data.model.DrinkModel
 import com.wavez.trackerwater.databinding.ActivityDrinkBinding
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
-import com.wavez.trackerwater.feature.drink.adapter.HistoryAdapter
+import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
     }
 
     private val drinkViewModel by viewModels<DrinkViewModel>()
-    private lateinit var adapter: HistoryAdapter
+    private lateinit var adapter: HistoryDrinkAdapter
 
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
@@ -52,7 +52,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
             if (list.isNullOrEmpty()) {
                 Toast.makeText(this, "No history available", Toast.LENGTH_SHORT).show()
             } else {
-                adapter.updateData(list)
+                adapter.setData(list)
             }
         }
     }
@@ -64,7 +64,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
         val dialog = BottomSheetDialog(this)
         dialog.setContentView(dialogBinding.root)
 
-        adapter = HistoryAdapter(mutableListOf(), this::onSelect)
+        adapter = HistoryDrinkAdapter()
         dialogBinding.rcvHistory.adapter = adapter
         dialogBinding.rcvHistory.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

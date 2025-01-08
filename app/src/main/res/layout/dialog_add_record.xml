@@ -67,28 +67,61 @@
             android:src="@drawable/ic_edit" />
     </LinearLayout>
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:np_width="64dp"
+        app:np_height="180dp"
+        app:np_dividerColor="@color/trans"
+        app:np_max="59"
+        app:np_min="0"
+        app:np_selectedTextColor="@color/black"
+        app:np_selectedTextSize="18sp"
+        app:np_textColor="@color/tv_ns"
+        app:np_textSize="18sp"
+        app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
         app:layout_constraintEnd_toStartOf="@id/npHour"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutInput" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npHour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:np_width="64dp"
+        app:np_height="180dp"
+        app:np_dividerColor="@color/trans"
+        app:np_max="59"
+        app:np_min="0"
+        app:np_selectedTextColor="@color/black"
+        app:np_selectedTextSize="18sp"
+        app:np_textColor="@color/tv_ns"
+        app:np_textSize="18sp"
+        app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
         app:layout_constraintEnd_toStartOf="@id/npMin"
         app:layout_constraintStart_toEndOf="@id/npDate"
         app:layout_constraintTop_toBottomOf="@id/layoutInput" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:np_width="64dp"
+        app:np_height="180dp"
+        app:np_dividerColor="@color/trans"
+        app:np_max="59"
+        app:np_min="0"
+        app:np_selectedTextColor="@color/black"
+        app:np_selectedTextSize="18sp"
+        app:np_textColor="@color/tv_ns"
+        app:np_textSize="18sp"
+        app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
         app:layout_constraintEnd_toStartOf="@id/npType"
         app:layout_constraintStart_toEndOf="@id/npHour"

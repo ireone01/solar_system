@@ -36,17 +36,14 @@ class TodayFragment :BaseFragment<FragmentTodayBinding>() {
 
         todayViewModel.getAllData()
         todayViewModel.getTotal()
-
-        adapter = DrinkAdapter(mutableListOf(), this::onClick)
-        binding.rcvGlassWater.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rcvGlassWater.adapter = adapter
+        initAdapter()
     }
 
     @SuppressLint("SetTextI18n")
     override fun initObserver() {
         super.initObserver()
         todayViewModel.drinkList.observe(viewLifecycleOwner) { drinks ->
-            adapter.updateList(drinks)
+            adapter.setData(drinks)
         }
         todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
             binding.tvTotal.text = total.toString()
@@ -59,8 +56,18 @@ class TodayFragment :BaseFragment<FragmentTodayBinding>() {
         super.initListener()
         binding.btnDrink.setOnClickListener { drinkActivityLauncher.launch(Intent(context, DrinkActivity::class.java)) }
         binding.ivEditReminder.setOnClickListener { startActivity(Intent(requireContext(), ReminderActivity::class.java)) }
-
     }
+
+    private fun initAdapter(){
+        adapter = DrinkAdapter()
+        binding.rcvGlassWater.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rcvGlassWater.adapter = adapter
+
+        adapter.onSelect = {
+
+        }
+    }
+
     private val drinkActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             todayViewModel.getAllData()

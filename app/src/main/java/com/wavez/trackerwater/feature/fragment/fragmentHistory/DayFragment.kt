@@ -1,6 +1,6 @@
 package com.wavez.trackerwater.feature.fragment.fragmentHistory
 
-import HistoryAdapter
+import com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter.HistoryAdapter
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -26,7 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 @AndroidEntryPoint
-class DayFragment : BaseFragment<FragmentDayBinding>(), AddRecordDrinkBottomDialog.AddRecordListener {
+class DayFragment : BaseFragment<FragmentDayBinding>(),
+    AddRecordDrinkBottomDialog.AddRecordListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDayBinding
         get() = FragmentDayBinding::inflate
@@ -219,7 +220,24 @@ class DayFragment : BaseFragment<FragmentDayBinding>(), AddRecordDrinkBottomDial
     }
 
     override fun onSaveRecord(amount: Int, timeAdded: Long) {
-        Log.d("hehehehe", "onSaveRecord: "+amount)
+        Log.d("hehehehe", "onSaveRecord: " + amount)
+        if (amount < 0) {
+            binding.root.context.let {
+                Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
+
+        dayViewModel.insertDrink(
+            DrinkModel(
+                amountDrink = amount, dateDrink = timeAdded
+            )
+        )
+
+        binding.root.context.let {
+            Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
