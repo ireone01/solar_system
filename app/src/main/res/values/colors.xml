@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="trans">#00FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_48">#7AFFFFFF</color>
-    <color name="white_56">#8FFFFFFF</color>
     <color name="white_16">#29FFFFFF</color>
     <color name="tv_ns">#B2C5F4</color>
     <color name="tv_s">#FFFFFF</color>
@@ -48,18 +41,121 @@
     <color name="primary_900">#132144</color>
     <color name="primary_950">#060B17</color>
 
-    <color name="secondary_50">#D2E6FF</color>
-    <color name="secondary_100">#B2C5F4</color>
-    <color name="secondary_200">#8BA7EF</color>
-    <color name="secondary_300">#7B9CEE</color>
-    <color name="secondary_400">#658AE9</color>
-    <color name="secondary_500">#3E6DE4</color>
-    <color name="secondary_600">#0247C8</color>
-    <color name="secondary_700">#2B4CA0</color>
-    <color name="secondary_800">#1F3772</color>
-    <color name="secondary_900">#132144</color>
-    <color name="secondary_950">#060B17</color>
+    <color name="secondary_50">#FFF3FD</color>
+    <color name="secondary_100">#FFE6FD</color>
+    <color name="secondary_200">#FFCCFA</color>
+    <color name="secondary_300">#FFA3F2</color>
+    <color name="secondary_400">#FF6DE9</color>
+    <color name="secondary_500">#FF2EE7</color>
+    <color name="secondary_600">#E316C7</color>
+    <color name="secondary_700">#BD0EA2</color>
+    <color name="secondary_800">#9A0E83</color>
+    <color name="secondary_900">#7E1169</color>
+    <color name="secondary_950">#4B003B</color>
 
+    <color name="gray_50">#F9F9FA</color>
+    <color name="gray_100">#F4F4F6</color>
+    <color name="gray_200">#EBECF0</color>
+    <color name="gray_300">#DDDFE4</color>
+    <color name="gray_400">#C3C6CC</color>
+    <color name="gray_500">#AFB3BB</color>
+    <color name="gray_600">#8C929C</color>
+    <color name="gray_700">#5B616D</color>
+    <color name="gray_800">#414651</color>
+    <color name="gray_900">#222732</color>
+    <color name="gray_950">#0A0C11</color>
+
+
+
+    <color name="dark_50">#F8F8F8</color>
+    <color name="dark_100">#F4F4F4</color>
+    <color name="dark_200">#EEEEEE</color>
+    <color name="dark_300">#E1E1E1</color>
+    <color name="dark_400">#C7C7C7</color>
+    <color name="dark_500">#7D7D7D</color>
+    <color name="dark_600">#2C2C2C</color>
+    <color name="dark_700">#202020</color>
+    <color name="dark_800">#141414</color>
+    <color name="dark_900">#111111</color>
+    <color name="dark_950">#070707</color>
+
+
+    <color name="white_4">#0AFFFFFF</color>
+    <color name="white_7">#12FFFFFF</color>
+    <color name="white_12">#1FFFFFFF</color>
+    <color name="white_24">#3DFFFFFF</color>
+    <color name="white_32">#52FFFFFF</color>
+    <color name="white_48">#7AFFFFFF</color>
+    <color name="white_56">#8FFFFFFF</color>
+    <color name="white_64">#A3FFFFFF</color>
+    <color name="white_72">#B8FFFFFF</color>
+    <color name="white_88">#E0FFFFFF</color>
+    <color name="white_100">#FFFFFF</color>
+
+    <color name="black_16_2">#29FFFFFF</color>
+    <color name="black_56">#8F000000</color>
+    <color name="black_32">#52000000</color>
+    <color name="black_48">#7A000000</color>
+    <color name="black_24">#3D000000</color>
+    <color name="black_16">#29000000</color>
+    <color name="black_12">#1F000000</color>
+    <color name="black_7">#12000000</color>
+    <color name="black_4">#0A000000</color>
+    <color name="black_64">#A3000000</color>
+    <color name="black_72">#B8000000</color>
+    <color name="black_88">#E0000000</color>
+    <color name="black_100">#000000</color>
+
+    <color name="info_50">#F1F8FE</color>
+    <color name="info_100">#DEEFFD</color>
+    <color name="info_200">#BCDFFA</color>
+    <color name="info_300">#92CBF7</color>
+    <color name="info_400">#59B0F3</color>
+    <color name="info_500">#118BE8</color>
+    <color name="info_600">#1080D6</color>
+    <color name="info_700">#0E6FB9</color>
+    <color name="info_800">#0B5B98</color>
+    <color name="info_900">#08416D</color>
+    <color name="info_950">#001D38</color>
+
+    Huy Huy, [09/01/2025 15:23]
+    <color name="success_50">#E8FBE5</color>
+    <color name="success_100">#D4F7CF</color>
+    <color name="success_200">#A9EF9F</color>
+    <color name="success_300">#7FE76F</color>
+    <color name="success_400">#50DF3A</color>
+    <color name="success_500">#35C220</color>
+    <color name="success_600">#2A9919</color>
+    <color name="success_700">#217613</color>
+    <color name="success_800">#164F0D</color>
+    <color name="success_900">#0D3107</color>
+    <color name="success_950">#082005</color>
+
+
+    <color name="warning_50">#FFF8E6</color>
+    <color name="warning_100">#FEF2CD</color>
+    <color name="warning_200">#FEE59A</color>
+    <color name="warning_300">#FDD868</color>
+    <color name="warning_400">#FDCB35</color>
+    <color name="warning_500">#FCBF04</color>
+    <color name="warning_600">#CF8700</color>
+    <color name="warning_700">#976802</color>
+    <color name="warning_800">#654201</color>
+    <color name="warning_900">#4A3902</color>
+    <color name="warning_950">#2D2000</color>
+
+
+    <color name="danger_50">#FEECEC</color>
+    <color name="danger_100">#FCD9D9</color>
+    <color name="danger_200">#F9B3B3</color>
+    <color name="danger_300">#F68989</color>
+    <color name="danger_400">#F36363</color>
+    <color name="danger_500">#F03D3D</color>
+    <color name="danger_600">#E92020</color>
+    <color name="danger_700">#A60D0D</color>
+    <color name="danger_800">#720909</color>
+    <color name="danger_900">#4A0606</color>
+    <color name="danger_950">#240000</color>
 
     <color name="low_em">#8C929C</color>
     <color name="med_em">#5B616D</color>
