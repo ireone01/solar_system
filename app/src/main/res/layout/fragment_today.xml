@@ -2,13 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/_D2E6FF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.wavez.trackerwater.customView.WaterWaveView
+        android:id="@+id/waterWaveView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:animatorEnable="true"
+        app:behindColor="#90cbf9"
+        app:frontColor="#008FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:strong="50"
+        app:textHidden="true" />
+
     <TextView
         android:id="@+id/tv100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="100%"
+        android:text="- 100%"
+        android:fontFamily="@font/work_sans_500"
+        android:layout_marginTop="29dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/_5B616D"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -16,7 +39,11 @@
         android:id="@+id/tv50"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="50%"
+        android:text="- 50%"
+        android:fontFamily="@font/work_sans_500"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/_5B616D"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv100"
         app:layout_constraintBottom_toTopOf="@id/tv0"
@@ -26,6 +53,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="0%"
+        android:fontFamily="@font/work_sans_500"
+        android:layout_marginBottom="29dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/_5B616D"
+        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,17 +77,21 @@
             android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1.38"
-            android:textSize="42sp" />
+            android:text="10"
+            android:textColor="@color/_0A0C11"
+            android:fontFamily="@font/work_sans_500"
+            android:textSize="88sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="L"
-            android:textSize="16dp" />
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/_0A0C11"
+            android:fontFamily="@font/work_sans_400"
+            android:text="ml"
+            android:textSize="32dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,20 +109,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reminder: "
-            android:textSize="16sp" />
+            android:fontFamily="@font/work_sans_500"
+            android:textColor="@color/_0A0C11"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvStatusReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Off"
-            android:textSize="16dp" />
+            android:fontFamily="@font/work_sans_500"
+            android:textColor="@color/_0A0C11"
+            android:textSize="18sp"/>
 
         <ImageView
             android:id="@+id/ivEditReminder"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="12dp"
+            android:padding="8dp"
             android:src="@drawable/ic_edit" />
     </LinearLayout>
 
@@ -96,10 +136,57 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="(1 h 9 min left)"
+        android:fontFamily="@font/work_sans_500"
+        android:textColor="@color/_5B616D"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_remider"
         tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/rcvGlassWater">
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_delete"/>
+        <LinearLayout
+            android:id="@+id/btnDrink2"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_green_12dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_add_record"
+                android:padding="12dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drink"
+                android:layout_marginStart="-4dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/work_sans_700"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_drink_right"
+                android:padding="12dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvGlassWater"
@@ -107,13 +194,22 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="32dp"
+        android:layout_marginBottom="40dp"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_glass_water" />
-
+        app:layout_constraintStart_toStartOf="parent" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/_0A0C11"
+        app:layout_constraintStart_toStartOf="@id/rcvGlassWater"
+        app:layout_constraintEnd_toEndOf="@id/rcvGlassWater"
+        app:layout_constraintTop_toTopOf="@id/rcvGlassWater"
+        app:layout_constraintBottom_toBottomOf="@id/rcvGlassWater"/>
     <LinearLayout
         android:id="@+id/btnDrink"
         android:layout_width="wrap_content"
@@ -123,8 +219,7 @@
         android:background="@drawable/bg_white_32dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="8dp"
+        android:paddingVertical="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -132,14 +227,18 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="8dp"
+            android:padding="12dp"
+            android:layout_marginStart="12dp"
             android:src="@drawable/ic_add" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drink"
-            android:textSize="16sp" />
+            android:textColor="@color/_0247C8"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/work_sans_700"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

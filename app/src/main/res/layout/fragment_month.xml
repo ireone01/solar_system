@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_end"
-    tools:context=".feature.home.fragmentHistory.DayFragment">
+    tools:context=".feature.fragment.fragmentHistory.DayFragment">
 
     <ImageView
         android:id="@+id/ivPre"
@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/bg_blue_24dp"
+                android:background="@drawable/bg_white16_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -115,7 +115,7 @@
                     app:layout_constraintEnd_toEndOf="@id/avg"
                     app:layout_constraintTop_toBottomOf="@id/avg" />
 
-                <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"

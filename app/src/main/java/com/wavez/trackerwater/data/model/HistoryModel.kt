@@ -7,10 +7,12 @@ import androidx.room.PrimaryKey
 
 @kotlinx.parcelize.Parcelize
 @Entity(tableName = "history_table")
-data class HistoryModel(
+data class HistoryModel (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
     var id: Long = 0,
     @ColumnInfo("amountHistory")
-    val amountHistory: Float = 0f
+    var amountHistory: Int = 0,
+    @ColumnInfo("dateHistory")
+    var dateHistory: Long = System.currentTimeMillis()
 ) : Parcelable

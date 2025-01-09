@@ -67,12 +67,9 @@ dependencies {
     implementation(libs.androidx.activity.ktx)
     ksp(libs.androidx.hilt.compiler)
 
-    //google
-//    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-//    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-//    implementation ("com.google.dagger:hilt-android:2.48.1")
-//    implementation ("androidx.lifecycle:lifecycle-process:2.7.0")
-//    kapt ("com.google.dagger:hilt-compiler:2.48.1")
     implementation(libs.androidx.fragment.ktx)
+    implementation (libs.eventbus)
+    implementation (libs.number.picker)
+
 
 }

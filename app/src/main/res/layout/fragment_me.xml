@@ -164,7 +164,7 @@
             app:layout_constraintTop_toBottomOf="@id/Cl_total_drink">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/llayout1"
+                android:id="@+id/btn_reminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_btn_background"
@@ -216,7 +216,6 @@
                 android:background="@drawable/custom_btn_background"
                 android:clickable="true"
                 android:focusable="true"
-
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
                 android:paddingStart="20dp"
@@ -224,7 +223,7 @@
                 android:paddingBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llayout1">
+                app:layout_constraintTop_toBottomOf="@id/btn_reminder">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_v2"

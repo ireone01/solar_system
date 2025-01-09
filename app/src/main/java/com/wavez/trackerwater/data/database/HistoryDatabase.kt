@@ -10,8 +10,6 @@ abstract class HistoryDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDAO
 
     companion object {
-
         val NAME_DB = "history_database"
-
     }
 }
