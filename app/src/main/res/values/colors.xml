@@ -12,7 +12,43 @@
     <color name="blue_start">#004DFF</color>
     <color name="guide">#897BA1FF</color>
     <color name="blue_end">#3785FB</color>
-    <color name="xam_nhat">#EAECEC</color>
     <color name="button_ripple_color">#5450CC</color>
     <color name="text_color">#0A0C11</color>
+
+    <color name="surface_2">#F4F4F6</color>
+
+    <color name="primary_high_em">#3E6DE4</color>
+    <color name="primary_med_em">#B2C5F4</color>
+    <color name="primary_low_em">#8BA7EF</color>
+    <color name="primary_base_em">#D2E6FF</color>
+
+    <color name="primary_50">#D2E6FF</color>
+    <color name="primary_100">#B2C5F4</color>
+    <color name="primary_200">#8BA7EF</color>
+    <color name="primary_300">#7B9CEE</color>
+    <color name="primary_400">#658AE9</color>
+    <color name="primary_500">#3E6DE4</color>
+    <color name="primary_600">#0247C8</color>
+    <color name="primary_700">#2B4CA0</color>
+    <color name="primary_800">#1F3772</color>
+    <color name="primary_900">#132144</color>
+    <color name="primary_950">#060B17</color>
+
+    <color name="secondary_50">#D2E6FF</color>
+    <color name="secondary_100">#B2C5F4</color>
+    <color name="secondary_200">#8BA7EF</color>
+    <color name="secondary_300">#7B9CEE</color>
+    <color name="secondary_400">#658AE9</color>
+    <color name="secondary_500">#3E6DE4</color>
+    <color name="secondary_600">#0247C8</color>
+    <color name="secondary_700">#2B4CA0</color>
+    <color name="secondary_800">#1F3772</color>
+    <color name="secondary_900">#132144</color>
+    <color name="secondary_950">#060B17</color>
+
+
+    <color name="low_em">#8C929C</color>
+    <color name="med_em">#5B616D</color>
+    <color name="high_em">#0A0C11</color>
+
 </resources>

@@ -29,11 +29,18 @@ class FragmentOnboarding9 : BaseFragment<FragmentOnboading9Binding>() , OnTimeSe
     }
      override fun onTimeSelected(position: Int, timeString: String){
          val tab = binding.tabLayout.getTabAt(position) ?: return
-
-         when (position) {
-             0 ->  tab.text = "Breakfast\n$timeString"
-             1 -> tab.text = "Lunch\n$timeString"
-             2 -> tab.text = "Dinner\n$timeString"
+         if(timeString !="") {
+             when (position) {
+                 0 -> tab.text = "Breakfast\n$timeString"
+                 1 -> tab.text = "Lunch\n$timeString"
+                 2 -> tab.text = "Dinner\n$timeString"
+             }
+         }else{
+             when (position) {
+                 0 -> tab.text = "Breakfast"
+                 1 -> tab.text = "Lunch"
+                 else -> tab.text = "Dinner"
+             }
          }
     }
 

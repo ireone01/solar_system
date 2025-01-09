@@ -2,15 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="@string/wake_up"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="25dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         />
     <LinearLayout
@@ -23,21 +25,21 @@
         android:layout_marginTop="20dp"
 
         android:padding="10dp"
-        android:background="@drawable/linear_border"
+        android:background="@drawable/bg_corner_12"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_usually_wake_up"
             android:layout_gravity="center"
             />
         <TextView
             android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hydrared"
-            android:textSize="17sp"
+            android:text="@string/hydrating_right_after_waking_up_boosts_your_energy_in_the_morning"
+            android:textSize="16sp"
             android:layout_gravity="center"
             />
     </LinearLayout>

@@ -3,76 +3,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp">
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
-        android:text="@string/chose_gender"
-        android:textSize="25dp"
+        android:text="@string/what_s_your_gender"
+        android:textColor="@color/high_em"
+        android:textSize="24sp"
         android:textStyle="bold"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/LLayout"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/linear_border"
+        android:background="@drawable/bg_corner_12"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_start">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_gender_wt" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:text="@string/gender_text" />
+            android:textSize="16sp"
+            android:text="@string/your_gender_helps_us_suggest"
+            android:textColor="@color/primary_900" />
     </LinearLayout>
 
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_marginTop="20dp"
-        android:id="@+id/img_btn"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivMale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toStartOf="@id/img_btn1"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ac_male"
+        app:layout_constraintEnd_toStartOf="@id/ivFemale"
         app:layout_constraintStart_toStartOf="@id/LLayout"
         app:layout_constraintTop_toBottomOf="@id/LLayout" />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/img_btn1"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toEndOf="@id/LLayout"
-        app:layout_constraintStart_toEndOf="@id/img_btn"
-        app:layout_constraintTop_toTopOf="@id/img_btn" />
+        android:text="@string/male"
+        android:textSize="20sp"
+        android:textColor="@drawable/text_color_selector"
+        app:layout_constraintTop_toBottomOf="@id/ivMale"
+        app:layout_constraintStart_toStartOf="@id/ivMale"
+        app:layout_constraintEnd_toEndOf="@id/ivMale"
+        />
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/img_btn3"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivFemale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_border"
-        android:text="Other"
-        android:textSize="17dp"
+        android:src="@drawable/ac_female"
+        app:layout_constraintEnd_toEndOf="@id/LLayout"
+        app:layout_constraintStart_toEndOf="@id/ivMale"
+        app:layout_constraintTop_toTopOf="@id/ivMale" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/female"
+        android:textSize="20sp"
+        android:textColor="@drawable/text_color_selector"
+        app:layout_constraintTop_toBottomOf="@id/ivFemale"
+        app:layout_constraintStart_toStartOf="@id/ivFemale"
+        app:layout_constraintEnd_toEndOf="@id/ivFemale"
+        />
+
+    <LinearLayout
+        android:id="@+id/LL_layout_female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/ivMale"
+        app:layout_constraintTop_toBottomOf="@id/tv_male">
+
+
+        <TextView
+            android:id="@+id/tv_pregnant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/i_m_pregnant"
+            android:drawableStart="@drawable/ac_female_type"
+            android:textColor="@drawable/text_color_selector"
+            />
+
+        <TextView
+            android:id="@+id/tv_breastfeeding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:textColor="@drawable/text_color_selector"
+            android:text="@string/i_m_breastfeeding"
+            android:drawableStart="@drawable/ac_female_type"/>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ac_other_gender"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="12dp"
+        android:text="@string/other"
+        android:textColor="@drawable/text_color_btn_other"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_btn" />
+        app:layout_constraintTop_toBottomOf="@id/LL_layout_female" />
 </androidx.constraintlayout.widget.ConstraintLayout>

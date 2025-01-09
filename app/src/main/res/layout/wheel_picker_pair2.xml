@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh2"
-        app:layout_constraintBottom_toBottomOf="parent"
+         
         />
     <NumberPicker
         android:id="@+id/wheelPickerWeigh2"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh3"
-        app:layout_constraintBottom_toBottomOf="parent"
+         
         />
     <NumberPicker
         android:id="@+id/wheelPickerWeigh3"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+         
         />
 
     <CheckBox

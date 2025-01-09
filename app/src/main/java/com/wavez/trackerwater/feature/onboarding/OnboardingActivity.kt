@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.databinding.ActivityOnboardingBinding
@@ -21,6 +22,7 @@ import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding9
 
 class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
     companion object {
+
         fun newIntent(context: Context) = Intent(context, OnboardingActivity::class.java)
     }
 
@@ -43,6 +45,8 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
 
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
+        binding.progressBar.max = fragmentList.size * 10
+        initAdapter()
 
 
     }
@@ -53,13 +57,13 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
 
     override fun initListener() {
         super.initListener()
-        initAdapter()
+
         binding.btnNext.setOnClickListener {
             val currentItem = binding.viewPager.currentItem
             if (currentItem < fragmentList.size - 1) {
                 binding.viewPager.currentItem = currentItem + 1
             }
-            if(currentItem == fragmentList.size -1){
+            if (currentItem == fragmentList.size - 1) {
                 startActivity(MainActivity.newIntent(this))
             }
         }
@@ -72,21 +76,23 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
         }
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Log.d("ViewPager2", "Page selected: $position")
-            }
-        })
-        val totalPages = fragmentList.size
-        binding.progressBar.max = totalPages * 10
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
+                position: Int, positionOffset: Float, positionOffsetPixels: Int
             ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                val progress = ((position + positionOffset)/(totalPages -1)) * (binding.progressBar.max)
+                when (position) {
+                    0 -> {
+                        binding.btnBack.visibility = View.INVISIBLE
+                        binding.progressBar.visibility = View.INVISIBLE
+                    }
+
+                    else -> {
+                        binding.btnBack.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+                val progress =
+                    ((position + positionOffset) / (fragmentList.size - 1)) * (binding.progressBar.max)
                 binding.progressBar.progress = progress.toInt()
             }
         })
