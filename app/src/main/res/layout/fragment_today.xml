@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/_D2E6FF"
+    android:background="@color/primary_50"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,12 +15,32 @@
         app:frontColor="#008FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:strong="50"
+        app:strong="100"
         app:textHidden="true" />
+
+<!--    <com.wavez.trackerwater.customView.b.WaveLoadingView-->
+<!--        android:id="@+id/waterWaveView"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:wlv_borderColor="@color/blue_end"-->
+<!--        app:wlv_borderWidth="3dp"-->
+<!--        app:wlv_progressValue="40"-->
+<!--        app:wlv_shapeType="circle"-->
+<!--        app:wlv_round_rectangle="true"-->
+<!--        app:wlv_triangle_direction="north"-->
+<!--        app:wlv_titleCenterStrokeColor="@android:color/holo_blue_dark"-->
+<!--        app:wlv_titleCenterStrokeWidth="3dp"-->
+<!--        app:wlv_titleCenter="Center Title"-->
+<!--        app:wlv_titleCenterColor="@android:color/white"-->
+<!--        app:wlv_titleCenterSize="24sp"-->
+<!--        app:wlv_waveAmplitude="70"-->
+<!--        app:wlv_waveColor="@color/blue_end"/>-->
 
     <TextView
         android:id="@+id/tv100"
@@ -30,7 +50,7 @@
         android:fontFamily="@font/work_sans_500"
         android:layout_marginTop="29dp"
         android:layout_marginStart="16dp"
-        android:textColor="@color/_5B616D"
+        android:textColor="@color/gray_700"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +62,7 @@
         android:text="- 50%"
         android:fontFamily="@font/work_sans_500"
         android:layout_marginStart="16dp"
-        android:textColor="@color/_5B616D"
+        android:textColor="@color/gray_700"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv100"
@@ -56,7 +76,7 @@
         android:fontFamily="@font/work_sans_500"
         android:layout_marginBottom="29dp"
         android:layout_marginStart="16dp"
-        android:textColor="@color/_5B616D"
+        android:textColor="@color/gray_700"
         android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"
-            android:textColor="@color/_0A0C11"
+            android:textColor="@color/gray_950"
             android:fontFamily="@font/work_sans_500"
             android:textSize="88sp" />
 
@@ -88,7 +108,7 @@
             android:layout_gravity="bottom"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/_0A0C11"
+            android:textColor="@color/gray_950"
             android:fontFamily="@font/work_sans_400"
             android:text="ml"
             android:textSize="32dp" />
@@ -110,7 +130,7 @@
             android:layout_height="wrap_content"
             android:text="Reminder: "
             android:fontFamily="@font/work_sans_500"
-            android:textColor="@color/_0A0C11"
+            android:textColor="@color/gray_950"
             android:textSize="18sp" />
 
         <TextView
@@ -119,7 +139,7 @@
             android:layout_height="wrap_content"
             android:text="Off"
             android:fontFamily="@font/work_sans_500"
-            android:textColor="@color/_0A0C11"
+            android:textColor="@color/gray_950"
             android:textSize="18sp"/>
 
         <ImageView
@@ -137,7 +157,7 @@
         android:gravity="center"
         android:text="(1 h 9 min left)"
         android:fontFamily="@font/work_sans_500"
-        android:textColor="@color/_5B616D"
+        android:textColor="@color/gray_700"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +225,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:indeterminateTint="@color/_0A0C11"
+        android:indeterminateTint="@color/gray_950"
         app:layout_constraintStart_toStartOf="@id/rcvGlassWater"
         app:layout_constraintEnd_toEndOf="@id/rcvGlassWater"
         app:layout_constraintTop_toTopOf="@id/rcvGlassWater"
@@ -235,7 +255,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drink"
-            android:textColor="@color/_0247C8"
+            android:textColor="@color/primary_600"
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/work_sans_700"
             android:textSize="20sp" />

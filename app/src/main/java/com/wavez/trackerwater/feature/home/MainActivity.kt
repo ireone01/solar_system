@@ -57,50 +57,50 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         when (page) {
             0 -> {
                 binding.ivToday.setImageResource(R.drawable.ic_main_today_true)
-                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.tv_s))
+                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.white_100))
                 binding.ivHistory.setImageResource(R.drawable.ic_main_history_false)
-                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivInsights.setImageResource(R.drawable.ic_main_insights_false)
-                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivMe.setImageResource(R.drawable.ic_main_profile_false)
-                binding.viewBottom.setBackgroundResource(R.color.nav_1_2)
-                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.viewBottom.setBackgroundResource(R.color.primary_500)
+                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
             }
 
             1 -> {
                 binding.ivToday.setImageResource(R.drawable.ic_main_today_false)
-                binding.viewBottom.setBackgroundResource(R.color.nav_1_2)
-                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.viewBottom.setBackgroundResource(R.color.primary_500)
+                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivHistory.setImageResource(R.drawable.ic_main_history_true)
-                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.tv_s))
+                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.white_100))
                 binding.ivInsights.setImageResource(R.drawable.ic_main_insights_false)
-                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivMe.setImageResource(R.drawable.ic_main_profile_false)
-                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
             }
 
             2 -> {
                 binding.ivToday.setImageResource(R.drawable.ic_main_today_false)
-                binding.viewBottom.setBackgroundResource(R.color.nav_3_4)
-                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.viewBottom.setBackgroundResource(R.color.primary_600)
+                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivHistory.setImageResource(R.drawable.ic_main_history_false)
-                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivInsights.setImageResource(R.drawable.ic_main_insights_true)
-                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.tv_s))
+                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.white_100))
                 binding.ivMe.setImageResource(R.drawable.ic_main_profile_false)
-                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
             }
 
             3 -> {
                 binding.ivToday.setImageResource(R.drawable.ic_main_today_false)
-                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvToday.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivHistory.setImageResource(R.drawable.ic_main_history_false)
-                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.tvHistory.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivInsights.setImageResource(R.drawable.ic_main_insights_false)
-                binding.viewBottom.setBackgroundResource(R.color.nav_3_4)
-                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.tv_ns))
+                binding.viewBottom.setBackgroundResource(R.color.primary_600)
+                binding.tvInsights.setTextColor(ContextCompat.getColor(this, R.color.primary_100))
                 binding.ivMe.setImageResource(R.drawable.ic_main_profile_true)
-                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.tv_s))
+                binding.tvMe.setTextColor(ContextCompat.getColor(this, R.color.white_100))
             }
 
         }

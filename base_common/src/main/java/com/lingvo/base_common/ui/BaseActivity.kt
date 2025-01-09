@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.viewbinding.ViewBinding
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
@@ -19,13 +20,15 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     // Option to control whether to enable immersive mode or not
     protected open val immersiveModeEnabled: Boolean = false
-
+    open val hasEvenBus = false
     // Abstract method to initialize binding in subclasses
     abstract fun createBinding(): VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize binding and set the content view
+        if (hasEvenBus) EventBus.getDefault().register(this)
+
         _binding = createBinding()
         hideFullNavigation()
         setContentView(binding.root)
@@ -42,8 +45,11 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        if (hasEvenBus) EventBus.getDefault().unregister(this)
         release()
         _binding = null // Release binding reference to prevent memory leaks
+
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -79,6 +85,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
         })
     }
+
     private fun hideFullNavigation() {
         try {
             val flags =
@@ -94,6 +101,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     private fun applyImmersiveMode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val params = window.attributes

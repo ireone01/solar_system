@@ -35,7 +35,7 @@
             android:gravity="center"
             android:fontFamily="@font/work_sans_500"
             android:layout_gravity="center"
-            android:textColor="@color/_0A0C11"
+            android:textColor="@color/gray_950"
             android:text="+20 ml"
             android:textSize="18sp" />
     </LinearLayout>
@@ -47,7 +47,7 @@
         android:gravity="center"
         android:fontFamily="@font/work_sans_700"
         android:layout_gravity="center"
-        android:textColor="@color/_0247C8"
+        android:textColor="@color/primary_600"
         android:text="2"
         app:layout_constraintTop_toTopOf="@id/item"
         app:layout_constraintBottom_toTopOf="@id/item"

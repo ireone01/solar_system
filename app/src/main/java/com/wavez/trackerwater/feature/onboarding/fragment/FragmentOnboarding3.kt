@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentOnboading3Binding
+import com.wavez.trackerwater.extension.gone
 import com.wavez.trackerwater.extension.visible
 
 class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
@@ -19,7 +20,7 @@ class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
         binding.tvMale.isSelected =true
         binding.ivFemale.isSelected = false
         binding.btnOther.isSelected = false
-        binding.LLLayoutFemale.visibility = View.GONE
+        binding.LLLayoutFemale.gone()
     }
 
 
@@ -33,7 +34,7 @@ class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
             binding.ivFemale.isSelected = false
 
             binding.btnOther.isSelected = false
-            binding.LLLayoutFemale.visibility = View.GONE
+            binding.LLLayoutFemale.gone()
         }
 
         binding.ivFemale.setOnClickListener {
@@ -44,7 +45,7 @@ class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
             binding.tvMale.isSelected =false
 
             binding.btnOther.isSelected = false
-            binding.LLLayoutFemale.visibility = View.GONE
+            binding.LLLayoutFemale.gone()
 
         }
 

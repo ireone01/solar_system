@@ -9,6 +9,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.data.sharedPref.SharedPref
 import com.wavez.trackerwater.databinding.ActivityOnboardingBinding
+import com.wavez.trackerwater.extension.invisible
+import com.wavez.trackerwater.extension.visible
 import com.wavez.trackerwater.feature.home.MainActivity
 import com.wavez.trackerwater.feature.onboarding.adapter.ViewPagerAdapter
 import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding10
@@ -91,13 +93,13 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 when (position) {
                     0 -> {
-                        binding.btnBack.visibility = View.INVISIBLE
-                        binding.progressBar.visibility = View.INVISIBLE
+                        binding.btnBack.invisible()
+                        binding.progressBar.invisible()
                     }
 
                     else -> {
-                        binding.btnBack.visibility = View.VISIBLE
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.btnBack.visible()
+                        binding.progressBar.visible()
                     }
                 }
                 val progress =

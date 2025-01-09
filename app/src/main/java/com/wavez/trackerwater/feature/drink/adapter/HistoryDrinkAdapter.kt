@@ -7,6 +7,7 @@ import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
+import com.wavez.trackerwater.extension.gone
 
 class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
 
@@ -51,7 +52,7 @@ class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
         fun bind(history: HistoryModel) {
             binding.itemText.text = history.amountHistory.toString()
             binding.root.setOnClickListener { onSelect?.invoke(history) }
-            binding.tvCount.visibility = View.GONE
+            binding.tvCount.gone()
         }
     }
 }

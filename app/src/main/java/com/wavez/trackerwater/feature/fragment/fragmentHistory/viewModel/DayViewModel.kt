@@ -30,10 +30,13 @@ class DayViewModel @Inject constructor(
 
     init {
 //        getAllData()
+        getAllData()
+    }
+
+    fun getAllData(){
         getTotal()
         getHistoryByDay()
     }
-
 //    fun getAllData() {
 //        viewModelScope.launch {
 //            _isLoading.value = true
@@ -60,7 +63,7 @@ class DayViewModel @Inject constructor(
     fun delete(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.delete(historyModel)
-//            getAllData()
+            getAllData()
         }
     }
 
@@ -81,7 +84,7 @@ class DayViewModel @Inject constructor(
     fun insertHistory(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.insert(historyModel)
-//            getAllData()
+            getAllData()
         }
     }
 

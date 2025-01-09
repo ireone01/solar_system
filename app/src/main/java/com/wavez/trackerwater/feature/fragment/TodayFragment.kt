@@ -13,6 +13,8 @@ import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.data.model.HistoryModelWithCount
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
+import com.wavez.trackerwater.extension.gone
+import com.wavez.trackerwater.extension.visible
 import com.wavez.trackerwater.feature.drink.DrinkActivity
 import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter
 import com.wavez.trackerwater.feature.fragment.viewModel.TodayViewModel
@@ -60,10 +62,10 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         todayViewModel.isLoading.observe(viewLifecycleOwner){isLoading->
                 if(isLoading){
                     Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visible()
                 }else{
                     Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.visibility = View.GONE
+                    binding.progressBar.gone()
                 }
         }
 
@@ -104,14 +106,14 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     }
 
     private fun onSelect(drink: HistoryModelWithCount) {
-        binding.option.visibility = View.VISIBLE
+        binding.option.visible()
         binding.ivDelete.setOnClickListener {
             todayViewModel.delete(drink)
-            binding.option.visibility = View.GONE
+            binding.option.gone()
         }
         binding.btnDrink2.setOnClickListener {
             todayViewModel.insertHistory(drink.amountHistory)
-            binding.option.visibility = View.GONE
+            binding.option.gone()
         }
     }
 
@@ -119,18 +121,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDataUpdated(event: DataUpdatedEvent) {
         Log.d("minh", "Data updated: ${event.data}")
-        todayViewModel.historyList.observe(viewLifecycleOwner) { drinks ->
-            adapter.setData(drinks)
-        }
-        todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
-            binding.tvTotal.text = total.toString()
-            binding.waterWaveView.progress = total.toInt()
-            binding.waterWaveView.max = 2000
-            if (total.toInt() > binding.waterWaveView.max) {
-                binding.waterWaveView.progress = 2000
-                binding.waterWaveView.max = 2000
-            }
-        }
+        todayViewModel.getAllData()
     }
 
 }

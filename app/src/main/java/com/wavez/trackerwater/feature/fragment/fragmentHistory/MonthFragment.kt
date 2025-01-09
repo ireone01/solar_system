@@ -87,7 +87,7 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
         val barDataSet = BarDataSet(barEntries, "").apply {
             valueTextSize = 12f
             valueTextColor = resources.getColor(R.color.black, null)
-            color = resources.getColor(R.color.tv_s, null)
+            color = resources.getColor(R.color.white_100, null)
             setDrawValues(false)
         }
 

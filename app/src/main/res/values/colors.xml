@@ -3,24 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_16">#29FFFFFF</color>
-    <color name="tv_ns">#B2C5F4</color>
-    <color name="tv_s">#FFFFFF</color>
-    <color name="nav_1_2">#3E6DE4</color>
-    <color name="nav_3_4">#0247C8</color>
-    <color name="_D2E6FF">#D2E6FF</color>
-    <color name="_7F666666">#7F666666</color>
-    <color name="_35C220">#35C220</color>
-    <color name="_0A0C11">#0A0C11</color>
-    <color name="_5B616D">#5B616D</color>
-    <color name="_0247C8">#0247C8</color>
-    <color name="_3E6DE4">#3E6DE4</color>
-    <color name="_F4F4F6">#F4F4F6</color>
-    <color name="blue_start">#004DFF</color>
-    <color name="guide">#897BA1FF</color>
     <color name="blue_end">#3785FB</color>
     <color name="button_ripple_color">#5450CC</color>
-    <color name="text_color">#0A0C11</color>
 
     <color name="surface_2">#F4F4F6</color>
 

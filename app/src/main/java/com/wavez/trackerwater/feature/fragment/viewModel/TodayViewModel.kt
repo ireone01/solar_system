@@ -32,10 +32,14 @@ class TodayViewModel @Inject constructor(
     init {
         _progress.value = 0
         getAllData()
-        getTotal()
     }
 
     fun getAllData() {
+        getDataHistory()
+        getTotal()
+    }
+
+    fun getDataHistory() {
         viewModelScope.launch {
             _isLoading.value = true
 

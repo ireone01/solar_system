@@ -8,17 +8,15 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lingvo.base_common.ui.BaseActivity
-import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.databinding.ActivityDrinkBinding
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
 import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
+import com.wavez.trackerwater.util.TextUtils
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 
 @AndroidEntryPoint
 class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
@@ -37,7 +35,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
     override fun initListener() {
         super.initListener()
         binding.ivClose.setOnClickListener {
-//            setResult(RESULT_OK)
             finish()
         }
 
@@ -46,11 +43,9 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
             if (amount != null && amount > 0) {
                 drinkViewModel.insertHistory(amount)
                 drinkViewModel.insertIntake(amount)
-//                setResult(RESULT_OK)
                 Log.d("minh", "Sending event")
                 finish()
-                val updatedData = "New Data"
-                EventBus.getDefault().post(DataUpdatedEvent(updatedData))
+                EventBus.getDefault().post(DataUpdatedEvent(TextUtils.INSERT))
 
             } else {
                 Toast.makeText(this, "Input", Toast.LENGTH_SHORT).show()
@@ -99,14 +94,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
         binding.edtAmount.setText(intake.amountIntake.toString())
 
     }
-//    override fun onStart() {
-//        super.onStart()
-//        EventBus.getDefault().register(this)
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        EventBus.getDefault().unregister(this)
-//    }
+
 
 }

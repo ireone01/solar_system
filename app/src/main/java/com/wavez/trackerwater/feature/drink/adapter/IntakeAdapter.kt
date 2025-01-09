@@ -9,6 +9,7 @@ import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
+import com.wavez.trackerwater.extension.gone
 import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter
 import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter.Companion
 import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter.DrinkHolder
@@ -56,7 +57,7 @@ class IntakeAdapter : BaseRecyclerViewAdapter<IntakeModel>() {
         fun bind(intake: IntakeModel) {
             binding.itemText.text = intake.amountIntake.toString()
             binding.root.setOnClickListener { onSelect?.invoke(intake) }
-            binding.tvCount.visibility = View.GONE
+            binding.tvCount.gone()
         }
     }
 }

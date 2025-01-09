@@ -17,6 +17,8 @@ interface SharedPref {
 
     var isNeedGotoWalkthrough: Boolean
 
+    var isReminder: Boolean
+
 
 
 }

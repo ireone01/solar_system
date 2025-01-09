@@ -24,6 +24,7 @@ import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter.HistoryAdapter
 import com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog.AddRecordDrinkBottomDialog
 import com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel.DayViewModel
+import com.wavez.trackerwater.util.TextUtils
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -137,8 +138,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
 
     private fun onDelete(drink: HistoryModel) {
         dayViewModel.delete(drink)
-        val updatedData = "New Data"
-        EventBus.getDefault().post(DataUpdatedEvent(updatedData))
+        EventBus.getDefault().post(DataUpdatedEvent(TextUtils.DELETE))
     }
 
     private fun updateChart(historyList: List<HistoryModel>) {
@@ -179,7 +179,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         val lineDataSet = LineDataSet(lineEntries, "").apply {
             setDrawValues(false)
             setDrawCircles(true)
-            setCircleColor(resources.getColor(R.color.tv_s, null))
+            setCircleColor(resources.getColor(R.color.white_100, null))
             lineWidth = 4f
         }
 
@@ -234,8 +234,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDataUpdated(event: DataUpdatedEvent) {
         Log.d("minh", "Data updated: ${event.data}")
-        dayViewModel.getTotal()
-        dayViewModel.getHistoryByDay()
+        dayViewModel.getAllData()
     }
 
     override fun onSaveRecord(amount: Int, timeAdded: Long) {
@@ -253,8 +252,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
                 amountHistory = amount, dateHistory = timeAdded
             )
         )
-        val updatedData = "New Data"
-        EventBus.getDefault().post(DataUpdatedEvent(updatedData))
+        EventBus.getDefault().post(DataUpdatedEvent(TextUtils.UPDATE))
         binding.root.context.let {
             Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
         }

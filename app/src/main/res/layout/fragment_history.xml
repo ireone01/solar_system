@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/_0247C8"
+    android:background="@color/primary_600"
     tools:context=".feature.fragment.HistoryFragment">
 
     <LinearLayout
@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
