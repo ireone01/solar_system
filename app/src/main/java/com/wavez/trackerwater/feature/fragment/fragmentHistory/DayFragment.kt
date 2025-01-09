@@ -37,24 +37,14 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         get() = FragmentDayBinding::inflate
 
     private val dayViewModel by viewModels<DayViewModel>()
-
+    override val hasEvenBus: Boolean
+        get() = true
     private lateinit var adapter: HistoryAdapter
 
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
 
-        dayViewModel.getAllData()
-        dayViewModel.getTotal()
         initAdapter()
-
-        binding.chart.apply {
-            setDrawGridBackground(false)
-            isHighlightPerTapEnabled = true
-            setTouchEnabled(true)
-            setPinchZoom(false)
-            setDrawBorders(false)
-            animateY(1000)
-        }
     }
 
     private fun initAdapter() {
@@ -68,7 +58,6 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
 
         adapter.onDelete = { it ->
             onDelete(it)
-
         }
 
         adapter.onUpdate = {
@@ -88,6 +77,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             binding.tvTotal.text = String.format("%.3f l", valTotal)
             binding.tvGoal.text = "5.0 L"
         }
+
+//        dayViewModel.getHistoryByDay(System.currentTimeMillis())
     }
 
 
@@ -129,8 +120,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
 
         binding.chart.axisLeft.apply {
             axisMinimum = 0f
-            axisMaximum = 600.0f
-            granularity = 600.0f / 5
+            axisMaximum = 2000.0f
+            granularity = 2000.0f / 5
             textSize = 12f
             textColor = resources.getColor(R.color.black, null)
         }
@@ -207,22 +198,9 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         ).show()
     }
 
-//
-//    override fun onStart() {
-//        super.onStart()
-//        EventBus.getDefault().register(this)
-//
-//    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDataUpdated(event: DataUpdatedEvent) {
         Log.d("minh", "Data updated: ${event.data}")
-        dayViewModel.getAllData()
         dayViewModel.getTotal()
     }
 
@@ -246,14 +224,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         binding.root.context.let {
             Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
         }
-//        EventBus.getDefault().post(RecordAddedEvent(HistoryModel(amountHistory = amount, dateHistory = timeAdded)))
 
     }
 
-//    @Subscribe
-//    fun onRecordAdded(event: RecordAddedEvent) {
-//        dayViewModel.insertHistory(event.newRecord)
-//        dayViewModel.getAllData()
-//    }
 
 }

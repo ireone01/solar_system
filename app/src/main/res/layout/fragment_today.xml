@@ -5,19 +5,22 @@
     android:background="@color/_D2E6FF"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.wavez.trackerwater.customView.WaterWaveView
         android:id="@+id/waterWaveView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:animatorEnable="true"
-        app:textHidden="true"
-        app:frontColor="#008FFF"
         app:behindColor="#90cbf9"
-        app:strong="50"
-        app:layout_constraintStart_toStartOf="parent"
+        app:frontColor="#008FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintVertical_bias="0.0"
+        app:strong="50"
+        app:textHidden="true" />
 
     <TextView
         android:id="@+id/tv100"
@@ -197,7 +200,16 @@
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/_0A0C11"
+        app:layout_constraintStart_toStartOf="@id/rcvGlassWater"
+        app:layout_constraintEnd_toEndOf="@id/rcvGlassWater"
+        app:layout_constraintTop_toTopOf="@id/rcvGlassWater"
+        app:layout_constraintBottom_toBottomOf="@id/rcvGlassWater"/>
     <LinearLayout
         android:id="@+id/btnDrink"
         android:layout_width="wrap_content"

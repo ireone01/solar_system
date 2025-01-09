@@ -115,7 +115,7 @@
                     app:layout_constraintEnd_toEndOf="@id/avg"
                     app:layout_constraintTop_toBottomOf="@id/avg" />
 
-                <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"

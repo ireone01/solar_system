@@ -10,6 +10,7 @@ import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,6 +24,9 @@ class TodayViewModel @Inject constructor(
     private val _progress = MutableLiveData<Int>()
     val progress: LiveData<Int> get() = _progress
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     val totalAmount = MutableLiveData<Int>()
 
     init {
@@ -32,19 +36,27 @@ class TodayViewModel @Inject constructor(
     }
 
     fun getAllData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
+            _isLoading.value = true
 
-            val historyList = historyRepository.getAll()
-            // Nhóm và đếm số lần xuất hiện của các dung tích trùng lặp
-            val groupedByAmountHistory = historyList.groupingBy { it.amountHistory }.eachCount()
+            withContext(Dispatchers.IO) {
+                try {
+                    val historyList = historyRepository.getAll()
+                    val groupedByAmountHistory =
+                        historyList.groupingBy { it.amountHistory }.eachCount()
+                    val uniqueHistoryList = groupedByAmountHistory.map { (amount, count) ->
+                        HistoryModelWithCount(amountHistory = amount, count = count)
+                    }
 
-            // Tạo một danh sách mới với mỗi dung tích chỉ xuất hiện một lần, kèm theo count
-            val uniqueHistoryList = groupedByAmountHistory.map { (amount, count) ->
-                HistoryModelWithCount(amountHistory = amount, count = count)
+                    _historyList.postValue(uniqueHistoryList)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    _isLoading.postValue(false)
+                }
             }
-
-            _historyList.postValue(uniqueHistoryList)
         }
+
     }
 
     fun getTotal() {
@@ -58,7 +70,6 @@ class TodayViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.deleteHistoryRecently(historyModel.amountHistory)
             getAllData()
-
         }
     }
 
@@ -72,6 +83,7 @@ class TodayViewModel @Inject constructor(
                 amountHistory = amount, dateHistory = System.currentTimeMillis()
             )
             historyRepository.insert(newHistory)
+            getAllData()
         }
     }
 }

@@ -8,4 +8,6 @@ interface HistoryRepository {
     suspend fun delete(historyModel: HistoryModel)
     suspend fun update(historyModel: HistoryModel)
     suspend fun deleteHistoryRecently(amount: Int)
+    suspend fun getHistoryBetweenDates(startDate: Long, endDate: Long): List<HistoryModel>
+
 }

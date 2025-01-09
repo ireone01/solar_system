@@ -27,4 +27,15 @@ interface HistoryDAO {
     """)
     fun deleteLatestHistoryByAmount(amount: Int)
 
+    @Query("SELECT * FROM history_table WHERE dateHistory BETWEEN :startDate AND :endDate ORDER BY dateHistory DESC")
+    fun getHistoryBetweenDates(startDate: Long, endDate: Long): List<HistoryModel>
+
+    @Query("SELECT * FROM history_table WHERE dateHistory >= :startOfDay AND dateHistory < :endOfDay ORDER BY dateHistory DESC")
+    fun getHistoryOfDay(startOfDay: Long, endOfDay: Long): List<HistoryModel>
+
+    @Query("SELECT * FROM history_table WHERE dateHistory >= :startOfWeek AND dateHistory < :endOfWeek ORDER BY dateHistory DESC")
+    fun getHistoryOfWeek(startOfWeek: Long, endOfWeek: Long): List<HistoryModel>
+
+    @Query("SELECT * FROM history_table WHERE dateHistory >= :startOfMonth AND dateHistory < :endOfMonth ORDER BY dateHistory DESC")
+    fun getHistoryOfMonth(startOfMonth: Long, endOfMonth: Long): List<HistoryModel>
 }

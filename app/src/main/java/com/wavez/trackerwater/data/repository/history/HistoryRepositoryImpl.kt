@@ -24,6 +24,13 @@ class HistoryRepositoryImpl @Inject constructor(
         historyDao.deleteLatestHistoryByAmount(amount)
     }
 
+    override suspend fun getHistoryBetweenDates(
+        startDate: Long,
+        endDate: Long
+    ): List<HistoryModel> {
+        return historyDao.getHistoryBetweenDates(startDate, endDate)
+    }
+
     override suspend fun insert(historyModel: HistoryModel) {
         historyDao.insert(historyModel)
     }

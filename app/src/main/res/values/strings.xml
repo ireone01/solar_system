@@ -78,5 +78,6 @@
     <string name="sound_effect">Sound effect</string>
     <string name="vibration">Vibration</string>
     <string name="done">Done</string>
+    <string name="month">Month</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,32 +9,62 @@ import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
+import com.wavez.trackerwater.util.TimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class DayViewModel @Inject constructor(
     val historyRepository: HistoryRepository,
     val intakeRepository: IntakeRepository
-): ViewModel(){
-    val historyList = MutableLiveData<List<HistoryModel>>()
+) : ViewModel() {
 
-    fun getAllData(){
-        viewModelScope.launch(Dispatchers.IO) {
-            historyList.postValue(historyRepository.getAll())
-        }
+    private val _historyList = MutableLiveData<List<HistoryModel>>(emptyList())
+    val historyList: LiveData<List<HistoryModel>> = _historyList
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    init {
+//        getAllData()
+        getTotal()
+        getHistoryByDay(System.currentTimeMillis())
     }
 
-    fun delete(historyModel: HistoryModel){
+//    fun getAllData() {
+//        viewModelScope.launch {
+//            _isLoading.value = true
+//            withContext(Dispatchers.IO) {
+//                try {
+//                    val list = historyRepository.getAll()
+//                    _historyList.postValue(list)
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                } finally {
+//                    _isLoading.postValue(false)
+//                }
+//            }
+//        }
+//
+//    }
+
+//    fun getAllData(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            historyList.postValue(historyRepository.getAll())
+//        }
+//    }
+
+    fun delete(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.delete(historyModel)
-            historyList.postValue(historyRepository.getAll())
+//            getAllData()
         }
     }
 
-    fun edit(historyModel: HistoryModel){
+    fun edit(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.update(historyModel)
         }
@@ -50,6 +81,7 @@ class DayViewModel @Inject constructor(
     fun insertHistory(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.insert(historyModel)
+//            getAllData()
         }
     }
 
@@ -67,5 +99,22 @@ class DayViewModel @Inject constructor(
         }
     }
 
+    fun getHistoryByDay(time: Long) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            withContext(Dispatchers.IO) {
+                try {
+                    val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(time)
+                    val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
+                    _historyList.postValue(data)
+                } catch (e: Exception) {
+
+                } finally {
+                    _isLoading.postValue(false)
+                }
+            }
+
+        }
+    }
 
 }
