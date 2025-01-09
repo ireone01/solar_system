@@ -46,31 +46,47 @@
     </LinearLayout>
 
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npHour"
-        android:layout_width="50dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/npMinute"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/llayout"
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5"/>
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npMinute"
-        android:layout_width="50dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/npAm"
         app:layout_constraintStart_toEndOf="@id/npHour"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/llayout"
+        app:layout_constraintVertical_bias="0.0"
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5" />
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/npAm"
-        android:layout_width="50dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/npMinute"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/llayout"
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

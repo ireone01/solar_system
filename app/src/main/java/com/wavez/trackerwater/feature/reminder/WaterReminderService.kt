@@ -20,17 +20,17 @@ class WaterReminderService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val sharedPreferences = getSharedPreferences("WaterPreferences", Context.MODE_PRIVATE)
-        val waterIntake = sharedPreferences.getInt("WaterIntake", 0)
-
-
-        val notification: Notification = NotificationCompat.Builder(this, "WaterReminderChannel")
-            .setContentTitle("Nhắc nhở uống nước")
-            .setContentText("Bạn đã uống $waterIntake ml nước hôm nay!")
-            .setSmallIcon(R.drawable.ic_reminders)
-            .build()
-
-        startForeground(1, notification)
+//        val sharedPreferences = getSharedPreferences("WaterPreferences", Context.MODE_PRIVATE)
+//        val waterIntake = sharedPreferences.getInt("WaterIntake", 0)
+//
+//
+//        val notification: Notification = NotificationCompat.Builder(this, "WaterReminderChannel")
+//            .setContentTitle("Nhắc nhở uống nước")
+//            .setContentText("Bạn đã uống $waterIntake ml nước hôm nay!")
+//            .setSmallIcon(R.drawable.ic_reminders)
+//            .build()
+//
+//        startForeground(1, notification)
 
         // TODO: Cập nhật thông báo liên tục
         return START_NOT_STICKY

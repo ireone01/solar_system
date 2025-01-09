@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
 import com.lingvo.base_common.ui.BaseFragment
+import com.shawnlin.numberpicker.NumberPicker
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.WheelPickerPair2Binding
 import com.wavez.trackerwater.feature.onboarding.MealType

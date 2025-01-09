@@ -2,6 +2,7 @@ package com.wavez.trackerwater.data.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.wavez.trackerwater.util.ConstantUser
 
 
 class SharedPreferencesApp constructor(private val context: Context) : SharedPref {
@@ -12,6 +13,7 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         private const val IS_NEED_SHOW_LANGUAGE = "is_need_show_language"
         private const val LANGUAGE_CONFIG = "language_config"
         private const val IS_NEED_GOTO_WALKTHROUGH = "is_need_goto_walkthrough"
+        private const val GENDER_USER = "gender_user"
 
     }
 
@@ -45,5 +47,11 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         get() = sharedPref.getBoolean(IS_NEED_GOTO_WALKTHROUGH, true)
         set(value) {
             editor.putBoolean(IS_NEED_GOTO_WALKTHROUGH, value).apply()
+        }
+
+    override var genderUser: Int
+        get() = sharedPref.getInt(GENDER_USER, ConstantUser.GENDER_MALE)
+        set(value) {
+            editor.putInt(GENDER_USER, value).apply()
         }
 }
