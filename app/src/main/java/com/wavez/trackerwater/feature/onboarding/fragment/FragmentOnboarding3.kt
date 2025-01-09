@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentOnboading3Binding
+import com.wavez.trackerwater.extension.visible
 
 class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
 
@@ -39,22 +40,12 @@ class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
             binding.ivFemale.isSelected = true
             binding.tvFemale.isSelected = true
 
-
             binding.ivMale.isSelected = false
             binding.tvMale.isSelected =false
 
-
             binding.btnOther.isSelected = false
+            binding.LLLayoutFemale.visibility = View.GONE
 
-            binding.LLLayoutFemale.visibility = View.VISIBLE
-            binding.tvPregnant.setOnClickListener {
-                binding.tvPregnant.isSelected = true
-                binding.tvBreastfeeding.isSelected = false
-            }
-            binding.tvBreastfeeding.setOnClickListener {
-                binding.tvBreastfeeding.isSelected = true
-                binding.tvPregnant.isSelected = false
-            }
         }
 
         binding.btnOther.setOnClickListener {
@@ -65,8 +56,19 @@ class FragmentOnboarding3 :BaseFragment<FragmentOnboading3Binding>() {
             binding.tvFemale.isSelected =false
 
             binding.btnOther.isSelected = true
+            binding.LLLayoutFemale.visible()
 
-            binding.LLLayoutFemale.visibility = View.GONE
+
+        }
+
+        binding.tvPregnant.setOnClickListener {
+            binding.tvPregnant.isSelected = true
+            binding.tvBreastfeeding.isSelected = false
+        }
+
+        binding.tvBreastfeeding.setOnClickListener {
+            binding.tvBreastfeeding.isSelected = true
+            binding.tvPregnant.isSelected = false
         }
 
     }

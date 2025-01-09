@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.lingvo.base_common.ui.BaseActivity
+import com.wavez.trackerwater.data.sharedPref.SharedPref
 import com.wavez.trackerwater.databinding.ActivityOnboardingBinding
 import com.wavez.trackerwater.feature.home.MainActivity
 import com.wavez.trackerwater.feature.onboarding.adapter.ViewPagerAdapter
@@ -19,7 +20,10 @@ import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding6
 import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding7
 import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding8
 import com.wavez.trackerwater.feature.onboarding.fragment.FragmentOnboarding9
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
     companion object {
 
@@ -43,6 +47,9 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
 
     }
 
+    @Inject
+    lateinit var sharedPref: SharedPref
+
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
         binding.progressBar.max = fragmentList.size * 10
@@ -64,6 +71,8 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>() {
                 binding.viewPager.currentItem = currentItem + 1
             }
             if (currentItem == fragmentList.size - 1) {
+                sharedPref.isNeedGotoWalkthrough = false
+                Log.d("hehehe", "initConfig: "+sharedPref.isNeedShowLanguage + sharedPref.isNeedShowLanguage)
                 startActivity(MainActivity.newIntent(this))
             }
         }

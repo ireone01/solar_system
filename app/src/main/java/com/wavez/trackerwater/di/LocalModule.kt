@@ -10,6 +10,11 @@ import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.history.HistoryRepositoryImpl
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepositoryImpl
+import com.wavez.trackerwater.data.sharedPref.SharedPref
+import com.wavez.trackerwater.data.sharedPref.SharedPreferencesApp
+import com.wavez.trackerwater.feature.language.providers.LanguageProvider
+import com.wavez.trackerwater.feature.language.repository.LanguageRepository
+import com.wavez.trackerwater.feature.language.repository.LanguageRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +52,7 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideshistoryDao(appDatabase: HistoryDatabase): HistoryDAO {
+    fun providesHistoryDao(appDatabase: HistoryDatabase): HistoryDAO {
         return appDatabase.historyDao()
     }
 
@@ -71,6 +76,19 @@ object LocalModule {
         appDao: IntakeDAO
     ): IntakeRepository {
         return IntakeRepositoryImpl(appDao)
+    }
+
+    @Provides
+    @Singleton
+    fun providerSharePref(@ApplicationContext context: Context): SharedPref {
+        return SharedPreferencesApp(context)
+    }
+
+    @Provides
+    fun provideLanguageRepository(
+        sharedPref: SharedPref, providerLanguage: LanguageProvider
+    ): LanguageRepository {
+        return LanguageRepositoryImpl(sharedPref, providerLanguage)
     }
 
 }
