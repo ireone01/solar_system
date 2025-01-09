@@ -8,6 +8,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.net.Uri
 import android.os.Build
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.feature.drink.DrinkActivity
@@ -56,5 +57,23 @@ class WaterReminderReceiver : BroadcastReceiver() {
 
         // Sử dụng notificationId để đảm bảo rằng thông báo là duy nhất
         notificationManager.notify(notificationId, builder.build())
+
+
+//        val remoteViews = RemoteViews(context.packageName, R.layout.view_reminder).apply {
+//            setOnClickPendingIntent(R.id.btnDrink, pendingIntent)
+//        }
+//
+//        val notificationId = System.currentTimeMillis().toInt()
+//
+//        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+//            .setSmallIcon(R.drawable.ic_reminders)
+//            .setCustomContentView(remoteViews) // Set custom view
+//            .setPriority(NotificationCompat.PRIORITY_HIGH)
+//            .setAutoCancel(true)
+//            .setOngoing(true)
+//            .setSound(notificationSound)
+//            .setVibrate(longArrayOf(0, 1000, 500, 1000))
+//
+//        notificationManager.notify(notificationId, builder.build())
     }
 }

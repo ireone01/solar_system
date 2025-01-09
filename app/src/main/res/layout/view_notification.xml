@@ -10,7 +10,7 @@
         android:id="@+id/notification_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lượng nước đã uống trong ngày"
+        android:text="@string/noti_title"
         android:textSize="16sp"
         android:textStyle="bold"
         android:paddingBottom="4dp" />
@@ -19,13 +19,8 @@
         android:id="@+id/notification_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn đã uống được 1.5 lít nước hôm nay."
+        android:text="@string/noti_content"
         android:textSize="14sp"
         android:paddingBottom="8dp" />
 
-    <Button
-        android:id="@+id/notification_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cập nhật mục tiêu" />
 </LinearLayout>

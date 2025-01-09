@@ -25,12 +25,16 @@ class MonthViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun getHistoryByMonth(time: Long) {
+    init {
+        getHistoryByMonth()
+    }
+
+    fun getHistoryByMonth() {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
                 try {
-                    val (startOfMonth, endOfMonth) = TimeUtils.getStartAndEndOfMonth(time)
+                    val (startOfMonth, endOfMonth) = TimeUtils.getStartAndEndOfMonth(System.currentTimeMillis())
                     val data = historyRepository.getHistoryBetweenDates(startOfMonth, endOfMonth)
                     _historyList.postValue(data)
                 } catch (e: Exception) {

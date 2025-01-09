@@ -1,5 +1,6 @@
 package com.wavez.trackerwater.feature.fragment.fragmentHistory
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -27,7 +28,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 @AndroidEntryPoint
 class DayFragment : BaseFragment<FragmentDayBinding>(),
@@ -40,6 +43,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     override val hasEvenBus: Boolean
         get() = true
     private lateinit var adapter: HistoryAdapter
+    private var goal = 5.0
+    private var selectedDate = Calendar.getInstance()
 
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
@@ -65,6 +70,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         }
     }
 
+    @SuppressLint("DefaultLocale", "SetTextI18n")
     override fun initObserver() {
         super.initObserver()
         dayViewModel.historyList.observe(viewLifecycleOwner) { history ->
@@ -75,10 +81,9 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         dayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
             val valTotal = total * 0.001
             binding.tvTotal.text = String.format("%.3f l", valTotal)
-            binding.tvGoal.text = "5.0 L"
+            binding.tvGoal.text = goal.toString() + "l"
         }
 
-//        dayViewModel.getHistoryByDay(System.currentTimeMillis())
     }
 
 
@@ -90,12 +95,40 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     }
 
     private fun nextDay() {
-
+        selectedDate.add(Calendar.DAY_OF_MONTH, 1)
+        updateDateText()
+        updateHistoryByDate()
     }
 
     private fun prevDay() {
-
+        selectedDate.add(Calendar.DAY_OF_MONTH, -1)
+        updateDateText()
+        updateHistoryByDate()
     }
+
+    private fun updateDateText() {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        binding.tvDay.text = dateFormat.format(selectedDate.time)
+    }
+
+    private fun updateHistoryByDate() {
+        val startOfDay = selectedDate.apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+
+        val endOfDay = selectedDate.apply {
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+            set(Calendar.MILLISECOND, 999)
+        }.timeInMillis
+
+        dayViewModel.getHistoryByDayRange(startOfDay, endOfDay)
+    }
+
 
     private fun openDialogAddRecord() {
         AddRecordDrinkBottomDialog.newInstance()
@@ -202,6 +235,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     fun onDataUpdated(event: DataUpdatedEvent) {
         Log.d("minh", "Data updated: ${event.data}")
         dayViewModel.getTotal()
+        dayViewModel.getHistoryByDay()
     }
 
     override fun onSaveRecord(amount: Int, timeAdded: Long) {

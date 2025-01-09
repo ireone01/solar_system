@@ -46,7 +46,7 @@ class ReminderActivity : BaseActivity<ActivityReminderBinding>() {
             if (isReminder) {
                 SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
                 binding.ivSwReminder.setImageResource(R.drawable.ic_sw_reminder_on)
-                NotificationScheduler.scheduleNotification(this, 17, 12)
+                NotificationScheduler.scheduleNotification(this, 16, 2)
             } else {
                 SPUtils.setBoolean(this, SPUtils.REMINDER, isReminder)
                 binding.ivSwReminder.setImageResource(R.drawable.img_sw_reminder_off)

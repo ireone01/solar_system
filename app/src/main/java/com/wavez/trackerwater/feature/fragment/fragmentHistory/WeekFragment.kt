@@ -36,8 +36,6 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
 
     override fun initObserver() {
         super.initObserver()
-
-        weekViewModel.getHistoryByWeek(System.currentTimeMillis())
         weekViewModel.historyList.observe(viewLifecycleOwner) { list ->
             updateChart(list)
         }

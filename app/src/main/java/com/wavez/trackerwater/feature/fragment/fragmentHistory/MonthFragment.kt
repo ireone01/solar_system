@@ -37,8 +37,6 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
 
     override fun initObserver() {
         super.initObserver()
-        monthViewModel.getHistoryByMonth(System.currentTimeMillis())
-
         monthViewModel.historyList.observe(viewLifecycleOwner) { list ->
             updateChart(list)
         }

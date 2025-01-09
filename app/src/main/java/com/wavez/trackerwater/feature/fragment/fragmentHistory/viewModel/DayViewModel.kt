@@ -31,7 +31,7 @@ class DayViewModel @Inject constructor(
     init {
 //        getAllData()
         getTotal()
-        getHistoryByDay(System.currentTimeMillis())
+        getHistoryByDay()
     }
 
 //    fun getAllData() {
@@ -99,12 +99,12 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getHistoryByDay(time: Long) {
+    fun getHistoryByDay() {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
                 try {
-                    val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(time)
+                    val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(System.currentTimeMillis())
                     val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
                     _historyList.postValue(data)
                 } catch (e: Exception) {
@@ -116,5 +116,22 @@ class DayViewModel @Inject constructor(
 
         }
     }
+
+    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            withContext(Dispatchers.IO) {
+                try {
+                    val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
+                    _historyList.postValue(data)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    _isLoading.postValue(false)
+                }
+            }
+        }
+    }
+
 
 }

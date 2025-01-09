@@ -25,12 +25,16 @@ class WeekViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun getHistoryByWeek(time: Long) {
+    init {
+        getHistoryByWeek()
+    }
+
+    fun getHistoryByWeek() {
         viewModelScope.launch {
-            _isLoading.value = true
+            _isLoading.postValue(true)
             withContext(Dispatchers.IO) {
                 try {
-                    val (startOfWeek, endOfWeek) = TimeUtils.getStartAndEndOfWeek(time)
+                    val (startOfWeek, endOfWeek) = TimeUtils.getStartAndEndOfWeek(System.currentTimeMillis())
                     val data = historyRepository.getHistoryBetweenDates(startOfWeek, endOfWeek)
                     _historyList.postValue(data)
                 } catch (e: Exception) {

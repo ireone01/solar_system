@@ -88,5 +88,11 @@
     <string name="the_hotter_the_climate_the_higher_your_daily_water_intake_should_be">The hotter the climate, the higher your daily water intake should be.</string>
     <string name="hydrating_right_after_waking_up_boosts_your_energy_in_the_morning">Hydrating right after waking up boosts your energy in the morning!</string>
     <string name="we_ll_remind_you_to_drink_an_hour_before_and_after_meals_for_optimal_digestion_and_weight_loss">We’ll remind you to drink an hour before and after meals for optimal digestion and weight loss</string>
+    <string name="average">Average</string>
+    <string name="_5_0_l">5.0 L</string>
+    <string name="noti_title">Lượng nước đã uống trong ngày</string>
+    <string name="noti_content">Bạn đã uống được 1.5 lít nước hôm nay.</string>
+    <string name="reminder_title">Reminder</string>
+    <string name="reminder_content">Time to drink</string>
 
 </resources>
