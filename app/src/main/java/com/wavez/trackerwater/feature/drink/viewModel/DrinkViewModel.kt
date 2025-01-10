@@ -1,10 +1,12 @@
 package com.wavez.trackerwater.feature.drink.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryModelWithCount
 import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
@@ -15,17 +17,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DrinkViewModel @Inject constructor(
-    private val historyRepository: HistoryRepository,
-    private val intakeRepository: IntakeRepository
+    private val historyRepository: HistoryRepository, private val intakeRepository: IntakeRepository
 ) : ViewModel() {
-    val historyList = MutableLiveData<List<HistoryModel>>()
-    val intakeList = MutableLiveData<List<IntakeModel>>()
 
-    val TAG = "minh"
+    private val _historyList = MutableLiveData<List<HistoryModel>>()
+    val historyList: LiveData<List<HistoryModel>> get() = _historyList
+
+    private val _intakeList = MutableLiveData<List<IntakeModel>>()
+    val intakeList: LiveData<List<IntakeModel>> get() = _intakeList
+
+    init {
+        getAllData()
+        getAllIntake()
+    }
 
     fun getAllData() {
         viewModelScope.launch(Dispatchers.IO) {
-            historyList.postValue(historyRepository.getAll())
+            _historyList.postValue(historyRepository.getAll())
         }
     }
 
@@ -33,16 +41,15 @@ class DrinkViewModel @Inject constructor(
     fun insertHistory(amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val newHistory = HistoryModel(
-                amountHistory = amount,
-                dateHistory = System.currentTimeMillis()
+                amountHistory = amount, dateHistory = System.currentTimeMillis()
             )
             historyRepository.insert(newHistory)
         }
     }
 
-    fun getAllIntake() {
+    private fun getAllIntake() {
         viewModelScope.launch(Dispatchers.IO) {
-            intakeList.postValue(intakeRepository.getAll())
+            _intakeList.postValue(intakeRepository.getAll())
         }
     }
 
@@ -50,9 +57,7 @@ class DrinkViewModel @Inject constructor(
     fun insertIntake(amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val existingIntake = intakeRepository.getIntakeByAmount(amount)
-            if (existingIntake != null) {
-                Log.d("IntakeCheck", "Amount $amount đã tồn tại!")
-            } else {
+            if (existingIntake == null) {
                 val intakeModel = IntakeModel(
                     amountIntake = amount,
                 )

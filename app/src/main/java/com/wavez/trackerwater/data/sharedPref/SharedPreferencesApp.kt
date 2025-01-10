@@ -12,6 +12,7 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         private const val IS_NEED_SHOW_LANGUAGE = "is_need_show_language"
         private const val LANGUAGE_CONFIG = "language_config"
         private const val IS_NEED_GOTO_WALKTHROUGH = "is_need_goto_walkthrough"
+        private const val IS_TYPE_DRINK_CUP = "is_type_drink_cup"
 
     }
 
@@ -45,5 +46,11 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         get() = sharedPref.getBoolean(IS_NEED_GOTO_WALKTHROUGH, true)
         set(value) {
             editor.putBoolean(IS_NEED_GOTO_WALKTHROUGH, value).apply()
+        }
+
+    override var isTypeDrinkCup: Boolean
+        get() = sharedPref.getBoolean(IS_TYPE_DRINK_CUP, true)
+        set(value) {
+            editor.putBoolean(IS_TYPE_DRINK_CUP, value).apply()
         }
 }

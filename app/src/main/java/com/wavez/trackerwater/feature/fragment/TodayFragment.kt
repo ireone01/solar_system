@@ -13,6 +13,8 @@ import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.data.model.HistoryModelWithCount
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
+import com.wavez.trackerwater.extension.gone
+import com.wavez.trackerwater.extension.visible
 import com.wavez.trackerwater.feature.drink.DrinkActivity
 import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter
 import com.wavez.trackerwater.feature.fragment.viewModel.TodayViewModel
@@ -49,22 +51,18 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         }
         todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
             binding.tvTotal.text = total.toString()
-            binding.waterWaveView.progress = total.toInt()
-            binding.waterWaveView.max = 2000
-            if (total.toInt() > binding.waterWaveView.max) {
-                binding.waterWaveView.progress = 2000
-                binding.waterWaveView.max = 2000
+            binding.waterWaveView.progressValue = ((total.toFloat() / 2000f) * 100f).toInt()
+            if (total.toInt() >= 2000) {
+                binding.waterWaveView.progressValue = 100
             }
         }
 
-        todayViewModel.isLoading.observe(viewLifecycleOwner){isLoading->
-                if(isLoading){
-                    Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.visibility = View.VISIBLE
-                }else{
-                    Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.visibility = View.GONE
-                }
+        todayViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visible()
+            } else {
+                binding.progressBar.gone()
+            }
         }
 
     }
@@ -72,23 +70,11 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     override fun initListener() {
         super.initListener()
         binding.btnDrink.setOnClickListener {
-            startActivity(
-                Intent(
-                    context,
-                    DrinkActivity::class.java
-                )
-            )
-
+            startActivity(Intent(context, DrinkActivity::class.java))
         }
 
         binding.ivEditReminder.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    ReminderActivity::class.java
-                )
-            )
-
+            startActivity(Intent(requireContext(), ReminderActivity::class.java))
         }
 
     }
@@ -119,18 +105,8 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDataUpdated(event: DataUpdatedEvent) {
         Log.d("minh", "Data updated: ${event.data}")
-        todayViewModel.historyList.observe(viewLifecycleOwner) { drinks ->
-            adapter.setData(drinks)
-        }
-        todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
-            binding.tvTotal.text = total.toString()
-            binding.waterWaveView.progress = total.toInt()
-            binding.waterWaveView.max = 2000
-            if (total.toInt() > binding.waterWaveView.max) {
-                binding.waterWaveView.progress = 2000
-                binding.waterWaveView.max = 2000
-            }
-        }
+        todayViewModel.getAllData()
+        todayViewModel.getTotal()
     }
 
 }
