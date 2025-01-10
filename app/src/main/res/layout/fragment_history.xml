@@ -51,7 +51,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvWeek"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvMonth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

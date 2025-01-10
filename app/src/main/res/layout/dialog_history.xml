@@ -11,7 +11,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRecent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnClose"
         tools:listitem="@layout/item_glass_water" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnClose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

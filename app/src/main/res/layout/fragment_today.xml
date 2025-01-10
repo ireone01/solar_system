@@ -20,29 +20,7 @@
         app:strong="100"
         app:textHidden="true" />
 
-<!--    <com.wavez.trackerwater.customView.b.WaveLoadingView-->
-<!--        android:id="@+id/waterWaveView"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:wlv_borderColor="@color/blue_end"-->
-<!--        app:wlv_borderWidth="3dp"-->
-<!--        app:wlv_progressValue="40"-->
-<!--        app:wlv_shapeType="circle"-->
-<!--        app:wlv_round_rectangle="true"-->
-<!--        app:wlv_triangle_direction="north"-->
-<!--        app:wlv_titleCenterStrokeColor="@android:color/holo_blue_dark"-->
-<!--        app:wlv_titleCenterStrokeWidth="3dp"-->
-<!--        app:wlv_titleCenter="Center Title"-->
-<!--        app:wlv_titleCenterColor="@android:color/white"-->
-<!--        app:wlv_titleCenterSize="24sp"-->
-<!--        app:wlv_waveAmplitude="70"-->
-<!--        app:wlv_waveColor="@color/blue_end"/>-->
-
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv100"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv50"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -68,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv100"
         app:layout_constraintBottom_toTopOf="@id/tv0"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv0"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -93,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +80,7 @@
             android:fontFamily="@font/work_sans_500"
             android:textSize="88sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -124,7 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_number">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,7 +111,7 @@
             android:textColor="@color/gray_950"
             android:textSize="18sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStatusReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,7 +128,7 @@
             android:src="@drawable/ic_edit" />
     </LinearLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -190,7 +168,7 @@
                 android:layout_height="48dp"
                 android:src="@drawable/ic_add_record"
                 android:padding="12dp"/>
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/drink"
@@ -251,7 +229,7 @@
             android:layout_marginStart="12dp"
             android:src="@drawable/ic_add" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drink"

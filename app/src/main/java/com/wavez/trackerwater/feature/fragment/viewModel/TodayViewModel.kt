@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.wavez.trackerwater.data.model.HistoryModel
 import com.wavez.trackerwater.data.model.HistoryModelWithCount
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
+import com.wavez.trackerwater.util.TimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,19 +36,19 @@ class TodayViewModel @Inject constructor(
     }
 
     fun getAllData() {
-        getDataHistory()
-        getTotal()
+        getHistoryByDay()
+        getTodayTotalAmount()
     }
 
-    fun getDataHistory() {
+    fun getHistoryByDay() {
         viewModelScope.launch {
             _isLoading.value = true
-
             withContext(Dispatchers.IO) {
                 try {
-                    val historyList = historyRepository.getAll()
-                    val groupedByAmountHistory =
-                        historyList.groupingBy { it.amountHistory }.eachCount()
+                    val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(System.currentTimeMillis())
+                    val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
+
+                    val groupedByAmountHistory = data.groupingBy { it.amountHistory }.eachCount()
                     val uniqueHistoryList = groupedByAmountHistory.map { (amount, count) ->
                         HistoryModelWithCount(amountHistory = amount, count = count)
                     }
@@ -60,15 +61,35 @@ class TodayViewModel @Inject constructor(
                 }
             }
         }
-
     }
 
-    fun getTotal() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val total = historyRepository.getAll().sumOf { it.amountHistory }
-            totalAmount.postValue(total)
+
+    fun getTodayTotalAmount() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            withContext(Dispatchers.IO) {
+                try {
+                    val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(System.currentTimeMillis())
+                    val todayData = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
+
+                    val groupedByAmountHistory = todayData.groupingBy { it.amountHistory }.eachCount()
+                    val uniqueHistoryList = groupedByAmountHistory.map { (amount, count) ->
+                        HistoryModelWithCount(amountHistory = amount, count = count)
+                    }
+
+                    _historyList.postValue(uniqueHistoryList)
+
+                    val total = todayData.sumOf { it.amountHistory }
+                    totalAmount.postValue(total)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    _isLoading.postValue(false)
+                }
+            }
         }
     }
+
 
     fun delete(historyModel: HistoryModelWithCount) {
         viewModelScope.launch(Dispatchers.IO) {

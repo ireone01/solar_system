@@ -34,7 +34,7 @@
             android:padding="4dp"
             android:src="@drawable/ic_guide" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edtAmount" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -133,7 +133,7 @@
             android:padding="12dp"
             android:src="@drawable/ic_add_record" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drink"

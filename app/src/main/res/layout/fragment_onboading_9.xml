@@ -34,7 +34,7 @@
             android:src="@drawable/ic_meal_time"
             android:layout_gravity="center"
             />
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

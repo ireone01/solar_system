@@ -25,7 +25,7 @@
         app:layout_constraintStart_toEndOf="@id/ivBack"
         app:layout_constraintTop_toTopOf="@id/ivBack">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/work_sans_700"
@@ -33,7 +33,7 @@
             android:textColor="@color/gray_950"
             android:textSize="20sp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/work_sans_500"

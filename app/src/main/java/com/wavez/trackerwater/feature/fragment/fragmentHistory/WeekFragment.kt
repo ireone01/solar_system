@@ -32,6 +32,9 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
 
     override fun initListener() {
         super.initListener()
+        binding.ivPre.setOnClickListener { weekViewModel.previousWeek() }
+        binding.ivNext.setOnClickListener { weekViewModel.nextWeek() }
+
     }
 
     override fun initObserver() {
@@ -39,6 +42,19 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
         weekViewModel.historyList.observe(viewLifecycleOwner) { list ->
             updateChart(list)
         }
+
+        weekViewModel.total.observe(viewLifecycleOwner, { total ->
+            binding.tvTotal.text = total.toString()
+        })
+
+        weekViewModel.average.observe(viewLifecycleOwner, { avg ->
+            binding.tvAvg.text = avg.toString()
+        })
+
+        weekViewModel.weekRange.observe(viewLifecycleOwner, { weekRange ->
+            binding.tvDay.text = weekRange
+        })
+
     }
 
     private fun updateChart(historyList: List<HistoryModel>) {
@@ -56,7 +72,7 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
             historyList.forEach { drink ->
                 calendar.timeInMillis = drink.dateHistory
                 val dayOfWeek =
-                    calendar.get(Calendar.DAY_OF_WEEK) -1
+                    calendar.get(Calendar.DAY_OF_WEEK) - 1
 
                 dailyData[dayOfWeek] += drink.amountHistory.toFloat()
             }

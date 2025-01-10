@@ -14,6 +14,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,44 +24,29 @@ class DayViewModel @Inject constructor(
     val historyRepository: HistoryRepository,
     val intakeRepository: IntakeRepository
 ) : ViewModel() {
+    private val selectedDate = Calendar.getInstance()
 
     private val _historyList = MutableLiveData<List<HistoryModel>>(emptyList())
-    val historyList: LiveData<List<HistoryModel>> = _historyList
+    val     historyList: LiveData<List<HistoryModel>> = _historyList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    val _totalAmount = MutableLiveData<Int>()
+    val totalAmount :LiveData<Int> get() = _totalAmount
+
+    private val _currentDateText = MutableLiveData<String>()
+    val currentDateText: LiveData<String> get() = _currentDateText
+
     init {
-//        getAllData()
         getAllData()
     }
 
-    fun getAllData(){
+    fun getAllData() {
         getTotal()
         getHistoryByDay()
     }
-//    fun getAllData() {
-//        viewModelScope.launch {
-//            _isLoading.value = true
-//            withContext(Dispatchers.IO) {
-//                try {
-//                    val list = historyRepository.getAll()
-//                    _historyList.postValue(list)
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                } finally {
-//                    _isLoading.postValue(false)
-//                }
-//            }
-//        }
-//
-//    }
 
-//    fun getAllData(){
-//        viewModelScope.launch(Dispatchers.IO) {
-//            historyList.postValue(historyRepository.getAll())
-//        }
-//    }
 
     fun delete(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -70,14 +58,6 @@ class DayViewModel @Inject constructor(
     fun edit(historyModel: HistoryModel) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.update(historyModel)
-        }
-    }
-
-    val totalAmount = MutableLiveData<Int>()
-    fun getTotal() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val total = historyRepository.getAll().sumOf { it.amountHistory }
-            totalAmount.postValue(total)
         }
     }
 
@@ -102,6 +82,14 @@ class DayViewModel @Inject constructor(
         }
     }
 
+    fun getTotal() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val historyData = _historyList.value ?: emptyList()
+            val total = historyData.sumOf { it.amountHistory }
+            _totalAmount.postValue(total)
+        }
+    }
+
     fun getHistoryByDay() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -110,8 +98,9 @@ class DayViewModel @Inject constructor(
                     val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(System.currentTimeMillis())
                     val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
                     _historyList.postValue(data)
+                    updateTotalAmount(data)
                 } catch (e: Exception) {
-
+                    e.printStackTrace()
                 } finally {
                     _isLoading.postValue(false)
                 }
@@ -120,13 +109,14 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) {
+    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) : List<HistoryModel> {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
                 try {
                     val data = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
                     _historyList.postValue(data)
+                    updateTotalAmount(data)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -134,7 +124,47 @@ class DayViewModel @Inject constructor(
                 }
             }
         }
+        return emptyList()
     }
 
+    private fun updateTotalAmount(data: List<HistoryModel>) {
+        val total = data.sumOf { it.amountHistory }
+        _totalAmount.postValue(total)
+    }
 
+    fun nextDay() {
+        selectedDate.add(Calendar.DAY_OF_MONTH, 1)
+        updateDateText()
+        updateHistoryByDate()
+    }
+
+    fun prevDay() {
+        selectedDate.add(Calendar.DAY_OF_MONTH, -1)
+        updateDateText()
+        updateHistoryByDate()
+    }
+
+     private fun updateDateText() {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        _currentDateText.value = dateFormat.format(selectedDate.time)
+
+    }
+
+    private fun updateHistoryByDate() {
+        val startOfDay = selectedDate.apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis
+
+        val endOfDay = selectedDate.apply {
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+            set(Calendar.MILLISECOND, 999)
+        }.timeInMillis
+
+        _historyList.value = getHistoryByDayRange(startOfDay, endOfDay)
+    }
 }

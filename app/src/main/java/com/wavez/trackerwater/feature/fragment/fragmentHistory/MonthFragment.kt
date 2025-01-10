@@ -33,12 +33,28 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
 
     override fun initListener() {
         super.initListener()
+        binding.ivNext.setOnClickListener {
+            monthViewModel.nextMonth()
+        }
+
+        binding.ivPre.setOnClickListener {
+            monthViewModel.previousMonth()
+        }
     }
 
     override fun initObserver() {
         super.initObserver()
         monthViewModel.historyList.observe(viewLifecycleOwner) { list ->
             updateChart(list)
+        }
+        monthViewModel.monthRange.observe(viewLifecycleOwner) { monthRange ->
+            binding.tvDay.text = monthRange
+        }
+        monthViewModel.total.observe(viewLifecycleOwner) { total ->
+            binding.tvTotal.text = total.toString()
+        }
+        monthViewModel.average.observe(viewLifecycleOwner) { avg ->
+            binding.tvAvg.text = avg.toString()
         }
     }
 

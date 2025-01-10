@@ -25,18 +25,31 @@ class MonthViewModel @Inject constructor(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    private val _total = MutableLiveData<Int>(0)
+    val total: LiveData<Int> get() = _total
+
+    private val _average = MutableLiveData<Int>(0)
+    val average: LiveData<Int> get() = _average
+
+    private val _monthRange = MutableLiveData<String>()
+    val monthRange: LiveData<String> get() = _monthRange
+
+    private var currentMonthMillis: Long = System.currentTimeMillis()
+
+
     init {
-        getHistoryByMonth()
+        getHistoryByMonth(currentMonthMillis)
     }
 
-    fun getHistoryByMonth() {
+    private fun getHistoryByMonth(monthMillis: Long) {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
                 try {
-                    val (startOfMonth, endOfMonth) = TimeUtils.getStartAndEndOfMonth(System.currentTimeMillis())
+                    val (startOfMonth, endOfMonth) = TimeUtils.getStartAndEndOfMonth(monthMillis)
                     val data = historyRepository.getHistoryBetweenDates(startOfMonth, endOfMonth)
                     _historyList.postValue(data)
+                    getText(data, startOfMonth)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -45,5 +58,25 @@ class MonthViewModel @Inject constructor(
             }
 
         }
+    }
+
+    private fun getText(data: List<HistoryModel>, startOfMonth: Long) {
+        val validData = data.filter { it.amountHistory > 0 }
+        val totalAmount = data.sumOf { it.amountHistory }
+        val avgAmount = if (validData.isNotEmpty()) totalAmount / validData.size else 0
+        _total.postValue(totalAmount)
+        _average.postValue(avgAmount)
+
+        _monthRange.postValue("${TimeUtils.formatMonth(startOfMonth)} ")
+    }
+
+    fun nextMonth() {
+        currentMonthMillis = TimeUtils.getNextMonth(currentMonthMillis)
+        getHistoryByMonth(currentMonthMillis)
+    }
+
+    fun previousMonth() {
+        currentMonthMillis = TimeUtils.getPreviousMonth(currentMonthMillis)
+        getHistoryByMonth(currentMonthMillis)
     }
 }

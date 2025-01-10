@@ -13,6 +13,7 @@ import com.wavez.trackerwater.databinding.ActivityDrinkBinding
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
+import com.wavez.trackerwater.feature.drink.dialog.HistoryDrinkDialog
 import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
 import com.wavez.trackerwater.util.TextUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,10 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
             }
 
         }
-        binding.ivHistory.setOnClickListener { openDialogHistory() }
+        binding.ivHistory.setOnClickListener {
+            HistoryDrinkDialog.newInstance()
+                .show(supportFragmentManager, HistoryDrinkDialog::class.java.simpleName)
+        }
     }
 
     override fun initObserver() {
@@ -64,29 +68,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>() {
                 adapter.setData(list)
             }
         }
-    }
-
-
-    fun openDialogHistory() {
-        val dialogBinding = DialogHistoryBinding.inflate(layoutInflater)
-
-        val dialog = BottomSheetDialog(this)
-        dialog.setContentView(dialogBinding.root)
-
-        adapter = IntakeAdapter()
-        adapter.onSelect = {
-            onSelect(it)
-            dialog.dismiss()
-        }
-        dialogBinding.rcvHistory.adapter = adapter
-        dialogBinding.rcvHistory.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        dialogBinding.btnClose.setOnClickListener { dialog.dismiss() }
-        drinkViewModel.getAllIntake()
-
-        dialog.show()
-
     }
 
     @SuppressLint("SetTextI18n")

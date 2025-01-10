@@ -20,18 +20,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/tvWeek"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:fontFamily="@font/work_sans_700"
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
         android:maxLines="1"
         android:text="@string/today"
         android:textColor="@color/white"
-        android:textSize="21sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/ivPre"
         app:layout_constraintEnd_toStartOf="@id/ivNext"
         app:layout_constraintStart_toEndOf="@id/ivPre"
@@ -73,7 +74,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,7 +87,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,7 +99,7 @@
                     app:layout_constraintTop_toBottomOf="@id/total"
                     tools:ignore="HardcodedText" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/avg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,7 +112,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvAvg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

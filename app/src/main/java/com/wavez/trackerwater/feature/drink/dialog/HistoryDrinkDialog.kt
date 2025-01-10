@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
 import com.wavez.trackerwater.data.model.HistoryModel
@@ -13,7 +15,10 @@ import com.wavez.trackerwater.data.model.IntakeModel
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
+import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
 
     companion object {
@@ -21,6 +26,8 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
     }
 
     private lateinit var adapter: IntakeAdapter
+
+    private val activityViewModel by activityViewModels<DrinkViewModel>()
 
     override fun initializeBinding(
         inflater: LayoutInflater, container: ViewGroup?
@@ -49,6 +56,18 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
         binding.rcvHistory.adapter = adapter
         binding.rcvHistory.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+    }
+
+    override fun initObserver() {
+        super.initObserver()
+        activityViewModel.intakeList.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
+    }
+
+    override fun initListener() {
+        super.initListener()
         binding.btnClose.setOnClickListener { dismiss() }
 
         adapter.onSelect = {
