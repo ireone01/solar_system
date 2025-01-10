@@ -21,6 +21,10 @@ interface SharedPref {
 
     var isTypeDrinkCup: Boolean
 
+    var genderUser: Int
+
+    var timeUsuallyWakeUp: Long
+
 
 
 }

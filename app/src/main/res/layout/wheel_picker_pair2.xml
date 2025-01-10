@@ -5,32 +5,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/wheelPickerWeigh"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh2"
-         
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5"
         />
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/wheelPickerWeigh2"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@id/wheelPickerWeigh3"
-         
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5"
         />
-    <NumberPicker
+    <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/wheelPickerWeigh3"
-        android:layout_width="50dp"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         app:layout_constraintStart_toEndOf="@id/wheelPickerWeigh2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-         
+        app:np_divider="@color/gray_500"
+        app:np_selectedTextColor="@color/primary_500"
+        app:np_selectedTextSize="28sp"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="5"
         />
 
     <CheckBox

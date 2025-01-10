@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
+
 import com.lingvo.base_common.ui.BaseFragment
+import com.shawnlin.numberpicker.NumberPicker
 import com.wavez.trackerwater.databinding.FragmentOnboading8Binding
 
 class FragmentOnboarding8 : BaseFragment<FragmentOnboading8Binding>() {

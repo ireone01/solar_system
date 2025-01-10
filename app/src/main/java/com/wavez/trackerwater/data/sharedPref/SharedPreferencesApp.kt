@@ -2,6 +2,7 @@ package com.wavez.trackerwater.data.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.wavez.trackerwater.util.ConstantUser
 
 
 class SharedPreferencesApp constructor(private val context: Context) : SharedPref {
@@ -14,6 +15,8 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         private const val IS_NEED_GOTO_WALKTHROUGH = "is_need_goto_walkthrough"
         private const val IS_REMINDER = "is_reminder"
         private const val IS_TYPE_DRINK_CUP = "is_type_drink_cup"
+        private const val GENDER_USER = "gender_user"
+        private const val TIME_USUALLY_WAKE_UP = "time_usually_wake_up"
 
     }
 
@@ -47,6 +50,18 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         get() = sharedPref.getBoolean(IS_NEED_GOTO_WALKTHROUGH, true)
         set(value) {
             editor.putBoolean(IS_NEED_GOTO_WALKTHROUGH, value).apply()
+        }
+
+    override var genderUser: Int
+        get() = sharedPref.getInt(GENDER_USER, ConstantUser.GENDER_MALE)
+        set(value) {
+            editor.putInt(GENDER_USER, value).apply()
+        }
+
+    override var timeUsuallyWakeUp: Long
+        get() = sharedPref.getLong(TIME_USUALLY_WAKE_UP, 0L)
+        set(value) {
+            editor.putLong(TIME_USUALLY_WAKE_UP, value).apply()
         }
 
     override var isTypeDrinkCup: Boolean

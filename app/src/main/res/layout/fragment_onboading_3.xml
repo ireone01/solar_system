@@ -31,8 +31,8 @@
         app:layout_constraintTop_toBottomOf="@id/text_start">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_gender_wt" />
 
@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:text="@string/your_gender_helps_us_suggest"
             android:textColor="@color/primary_900"
             android:textSize="16sp" />
@@ -60,6 +61,7 @@
         android:id="@+id/tv_male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/male"
         android:textColor="@color/text_color_selector"
         android:textSize="20sp"
@@ -80,6 +82,7 @@
         android:id="@+id/tv_female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/female"
         android:textColor="@color/text_color_selector"
         android:textSize="20sp"
@@ -102,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ac_female_type"
+            android:drawablePadding="8dp"
             android:text="@string/i_m_pregnant"
             android:textColor="@color/text_color_selector" />
 
@@ -111,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:drawableStart="@drawable/ac_female_type"
+            android:drawablePadding="8dp"
             android:text="@string/i_m_breastfeeding"
             android:textColor="@color/text_color_selector" />
 

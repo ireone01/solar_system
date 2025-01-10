@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/llayout"
         android:layout_marginTop="20dp"
         android:padding="7dp"
-        android:background="@drawable/bg_corner_with_stroke_24"
+        android:background="@drawable/ac_other_gender"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -61,13 +61,16 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_exercise_each_week"
             android:layout_gravity="center"
+
             />
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_llayoutBtn1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/RarelyExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -79,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llayoutBtn1"
         android:padding="7dp"
-        android:background="@drawable/bg_corner_with_stroke_24"
+        android:background="@drawable/ac_other_gender"
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:focusable="true"
@@ -88,13 +91,15 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_exercise_each_week"
             android:layout_gravity="center"
             />
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_llayoutBtn2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/SometimesExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -106,7 +111,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llayoutBtn2"
         android:padding="7dp"
-        android:background="@drawable/bg_corner_with_stroke_24"
+        android:background="@drawable/ac_other_gender"
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:focusable="true"
@@ -114,13 +119,15 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_exercise_each_week"
             android:layout_gravity="center"
             />
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_llayoutBtn3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/RegularlyExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -133,7 +140,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llayoutBtn3"
         android:padding="7dp"
-        android:background="@drawable/bg_corner_with_stroke_24"
+        android:background="@drawable/ac_other_gender"
         android:layout_marginTop="10dp"
         android:clickable="true"
         android:focusable="true"
@@ -142,13 +149,15 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_exercise_each_week"
             android:layout_gravity="center"
             />
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_llayoutBtn4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/OftenExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
