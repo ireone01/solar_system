@@ -76,6 +76,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>(), HistoryDrinkDialog.I
                 drinkViewModel.insertHistory(amount)
                 drinkViewModel.insertIntake(amount)
                 EventBus.getDefault().post(DataUpdatedEvent())
+                finish()
             }
 
         }

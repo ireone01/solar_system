@@ -3,11 +3,14 @@ package com.lingvo.base_common.ui
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 
 import androidx.viewbinding.ViewBinding
 import org.greenrobot.eventbus.EventBus
