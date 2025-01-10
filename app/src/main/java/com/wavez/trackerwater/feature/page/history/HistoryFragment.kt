@@ -1,8 +1,6 @@
-package com.wavez.trackerwater.feature.fragment
+package com.wavez.trackerwater.feature.page.history
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,7 @@ import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.FragmentHistoryBinding
 import com.wavez.trackerwater.extension.invisible
 import com.wavez.trackerwater.extension.visible
-import com.wavez.trackerwater.feature.fragment.adapter.HistoryViewPagerAdapter
+import com.wavez.trackerwater.feature.page.history.fragment.adapter.HistoryViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

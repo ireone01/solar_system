@@ -1,13 +1,11 @@
 package com.wavez.trackerwater.feature.drink.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.HistoryModelWithCount
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.HistoryDrink
+import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,11 +18,11 @@ class DrinkViewModel @Inject constructor(
     private val historyRepository: HistoryRepository, private val intakeRepository: IntakeRepository
 ) : ViewModel() {
 
-    private val _historyList = MutableLiveData<List<HistoryModel>>()
-    val historyList: LiveData<List<HistoryModel>> get() = _historyList
+    private val _historyList = MutableLiveData<List<HistoryDrink>>()
+    val historyList: LiveData<List<HistoryDrink>> get() = _historyList
 
-    private val _intakeList = MutableLiveData<List<IntakeModel>>()
-    val intakeList: LiveData<List<IntakeModel>> get() = _intakeList
+    private val _intakeList = MutableLiveData<List<IntakeDrink>>()
+    val intakeList: LiveData<List<IntakeDrink>> get() = _intakeList
 
     init {
         getAllData()
@@ -40,7 +38,7 @@ class DrinkViewModel @Inject constructor(
 
     fun insertHistory(amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val newHistory = HistoryModel(
+            val newHistory = HistoryDrink(
                 amountHistory = amount, dateHistory = System.currentTimeMillis()
             )
             historyRepository.insert(newHistory)
@@ -58,7 +56,7 @@ class DrinkViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val existingIntake = intakeRepository.getIntakeByAmount(amount)
             if (existingIntake == null) {
-                val intakeModel = IntakeModel(
+                val intakeModel = IntakeDrink(
                     amountIntake = amount,
                 )
                 intakeRepository.insert(intakeModel)

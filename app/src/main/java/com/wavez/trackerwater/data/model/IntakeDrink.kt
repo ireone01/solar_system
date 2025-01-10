@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @kotlinx.parcelize.Parcelize
 @Entity(tableName = "intake_table")
-data class IntakeModel(
+data class IntakeDrink(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
     var id: Long = 0,

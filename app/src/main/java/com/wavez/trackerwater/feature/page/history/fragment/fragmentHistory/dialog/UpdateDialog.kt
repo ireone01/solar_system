@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog
 
 import android.content.Context
 import android.os.Bundle
@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.DialogAddRecordBinding
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog.InsertOrUpdateBottomDialog.AddRecordListener
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.InsertOrUpdateBottomDialog.AddRecordListener
 
 class UpdateDialog : BaseBottomSheetFragment<DialogAddRecordBinding>() {
 
     companion object {
-        fun newInstance(historyModel: HistoryModel) = InsertOrUpdateBottomDialog()
+        fun newInstance(historyModel: HistoryDrink) = InsertOrUpdateBottomDialog()
     }
 
     override fun initializeBinding(

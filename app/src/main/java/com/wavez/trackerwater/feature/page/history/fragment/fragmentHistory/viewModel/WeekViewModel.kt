@@ -1,11 +1,11 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.util.TimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +23,8 @@ class WeekViewModel @Inject constructor(
     val historyRepository: HistoryRepository
 ) : ViewModel() {
 
-    private val _historyList = MutableLiveData<List<HistoryModel>>(emptyList())
-    val historyList: LiveData<List<HistoryModel>> = _historyList
+    private val _historyList = MutableLiveData<List<HistoryDrink>>(emptyList())
+    val historyList: LiveData<List<HistoryDrink>> = _historyList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -75,7 +75,7 @@ class WeekViewModel @Inject constructor(
         getHistoryByWeek()
     }
 
-    private fun calculateTotalAndAverage(data: List<HistoryModel>) {
+    private fun calculateTotalAndAverage(data: List<HistoryDrink>) {
         val validData = data.filter { it.amountHistory > 0 }
         val totalAmount = validData.sumOf { it.amountHistory }
         val avgAmount = if (validData.isNotEmpty()) totalAmount / validData.size else 0

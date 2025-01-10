@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +12,11 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.FragmentWeekBinding
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel.WeekViewModel
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel.WeekViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
-import java.util.Locale
 
 @AndroidEntryPoint
 class WeekFragment : BaseFragment<FragmentWeekBinding>() {
@@ -57,7 +56,7 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
 
     }
 
-    private fun updateChart(historyList: List<HistoryModel>) {
+    private fun updateChart(historyList: List<HistoryDrink>) {
         val barEntries = mutableListOf<BarEntry>()
         val dayLabels = mutableListOf<String>()
 

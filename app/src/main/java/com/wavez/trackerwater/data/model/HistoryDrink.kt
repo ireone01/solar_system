@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @kotlinx.parcelize.Parcelize
 @Entity(tableName = "history_table")
-data class HistoryModel (
+data class HistoryDrink (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
     var id: Long = 0,

@@ -1,24 +1,23 @@
-package com.wavez.trackerwater.feature.fragment.adapter
+package com.wavez.trackerwater.feature.page.history.fragment.adapter
 
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.HistoryModelWithCount
+import com.wavez.trackerwater.data.model.RecentDrink
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
 
-class HistoryAdapter() : BaseRecyclerViewAdapter<HistoryModelWithCount>() {
+class RecentDrinkAdapter() : BaseRecyclerViewAdapter<RecentDrink>() {
 
     companion object {
         private const val TYPE_ITEM = 1
     }
 
-    var onSelect: ((HistoryModelWithCount) -> Unit)? = null
+    var onSelect: ((RecentDrink) -> Unit)? = null
 
     override fun bindViewHolder(
-        holder: RecyclerView.ViewHolder, item: HistoryModelWithCount, position: Int
+        holder: RecyclerView.ViewHolder, item: RecentDrink, position: Int
     ) {
         if (holder is DrinkHolder) {
             holder.bind(item)
@@ -44,14 +43,14 @@ class HistoryAdapter() : BaseRecyclerViewAdapter<HistoryModelWithCount>() {
         }
     }
 
-    override fun getItemType(item: HistoryModelWithCount): Int {
+    override fun getItemType(item: RecentDrink): Int {
         return TYPE_ITEM
     }
 
     inner class DrinkHolder(private val binding: ItemGlassWaterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(drink: HistoryModelWithCount) {
+        fun bind(drink: RecentDrink) {
             binding.itemText.text = "+" + drink.amountHistory.toString() + " ml"
             binding.tvCount.text = drink.count.toString()
             binding.root.setOnClickListener { onSelect?.invoke(drink) }

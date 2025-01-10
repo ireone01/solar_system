@@ -5,19 +5,19 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
 import com.wavez.trackerwater.extension.gone
 
-class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
+class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryDrink>() {
 
     companion object {
         private const val TYPE_ITEM = 1
     }
 
-    var onSelect: ((HistoryModel) -> Unit)? = null
+    var onSelect: ((HistoryDrink) -> Unit)? = null
 
-    override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: HistoryModel, position: Int) {
+    override fun bindViewHolder(holder: RecyclerView.ViewHolder, item: HistoryDrink, position: Int) {
         if (holder is HistoryHolder) {
             holder.bind(item)
         } else {
@@ -42,14 +42,14 @@ class HistoryDrinkAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
         }
     }
 
-    override fun getItemType(item: HistoryModel): Int {
+    override fun getItemType(item: HistoryDrink): Int {
         return TYPE_ITEM
     }
 
     inner class HistoryHolder(private val binding: ItemGlassWaterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(history: HistoryModel) {
+        fun bind(history: HistoryDrink) {
             binding.itemText.text = history.amountHistory.toString()
             binding.root.setOnClickListener { onSelect?.invoke(history) }
             binding.tvCount.gone()

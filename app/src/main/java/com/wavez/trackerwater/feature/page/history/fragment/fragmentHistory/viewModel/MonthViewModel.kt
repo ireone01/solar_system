@@ -1,10 +1,10 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.util.TimeUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +19,8 @@ class MonthViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private val _historyList = MutableLiveData<List<HistoryModel>>(emptyList())
-    val historyList: LiveData<List<HistoryModel>> = _historyList
+    private val _historyList = MutableLiveData<List<HistoryDrink>>(emptyList())
+    val historyList: LiveData<List<HistoryDrink>> = _historyList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -60,7 +60,7 @@ class MonthViewModel @Inject constructor(
         }
     }
 
-    private fun getText(data: List<HistoryModel>, startOfMonth: Long) {
+    private fun getText(data: List<HistoryDrink>, startOfMonth: Long) {
         val validData = data.filter { it.amountHistory > 0 }
         val totalAmount = data.sumOf { it.amountHistory }
         val avgAmount = if (validData.isNotEmpty()) totalAmount / validData.size else 0

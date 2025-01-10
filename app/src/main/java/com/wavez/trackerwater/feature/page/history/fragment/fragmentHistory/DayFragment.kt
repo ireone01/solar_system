@@ -1,8 +1,6 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,13 +16,13 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.FragmentDayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter.HistoryAdapter
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog.InsertOrUpdateBottomDialog
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog.UpdateDialog
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel.DayViewModel
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.adapter.HistoryAdapter
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.InsertOrUpdateBottomDialog
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.UpdateDialog
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel.DayViewModel
 import com.wavez.trackerwater.util.TextUtils
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
@@ -102,12 +100,12 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             .show(childFragmentManager, InsertOrUpdateBottomDialog::class.java.simpleName)
     }
 
-    private fun onDelete(drink: HistoryModel) {
+    private fun onDelete(drink: HistoryDrink) {
         dayViewModel.delete(drink)
         EventBus.getDefault().post(DataUpdatedEvent(TextUtils.DELETE))
     }
 
-    private fun onUpdate(drink: HistoryModel) {
+    private fun onUpdate(drink: HistoryDrink) {
 //        InsertOrUpdateBottomDialog.newInstance(drink).show(childFragmentManager, InsertOrUpdateBottomDialog::class.java.simpleName)
         UpdateDialog.newInstance(drink).show(childFragmentManager, UpdateDialog::class.java.simpleName)
     }
@@ -123,7 +121,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         dayViewModel.insertIntake(amount)
 
         dayViewModel.insertHistory(
-            HistoryModel(
+            HistoryDrink(
                 amountHistory = amount, dateHistory = timeAdded
             )
         )
@@ -134,7 +132,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
 
     }
 
-    private fun updateChart(historyList: List<HistoryModel>) {
+    private fun updateChart(historyList: List<HistoryDrink>) {
         val lineEntries = mutableListOf<Entry>()
         val calendar = Calendar.getInstance()
 

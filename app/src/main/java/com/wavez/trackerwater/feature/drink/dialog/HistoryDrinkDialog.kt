@@ -5,14 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
 import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,6 +72,6 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
     }
 
     interface IHistoryDrinkListener {
-        fun onSelectAmount(intake: IntakeModel)
+        fun onSelectAmount(intake: IntakeDrink)
     }
 }

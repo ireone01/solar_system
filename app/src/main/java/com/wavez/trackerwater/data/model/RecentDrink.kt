@@ -1,6 +1,6 @@
 package com.wavez.trackerwater.data.model
 
 
-data class HistoryModelWithCount(
+data class RecentDrink(
     val amountHistory: Int, val count: Int
 )

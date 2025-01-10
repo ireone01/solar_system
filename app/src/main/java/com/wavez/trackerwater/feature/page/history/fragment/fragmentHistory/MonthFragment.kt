@@ -1,12 +1,10 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -14,9 +12,9 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.FragmentMonthBinding
-import com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel.MonthViewModel
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel.MonthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
@@ -58,7 +56,7 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
         }
     }
 
-    private fun updateChart(historyList: List<HistoryModel>) {
+    private fun updateChart(historyList: List<HistoryDrink>) {
         val barEntries = mutableListOf<BarEntry>()
         val dayLabels = mutableListOf<String>()
 

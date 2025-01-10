@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.fragment
+package com.wavez.trackerwater.feature.page.today
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,14 +10,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseFragment
-import com.wavez.trackerwater.data.model.HistoryModelWithCount
+import com.wavez.trackerwater.data.model.RecentDrink
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.extension.gone
 import com.wavez.trackerwater.extension.visible
 import com.wavez.trackerwater.feature.drink.DrinkActivity
-import com.wavez.trackerwater.feature.fragment.adapter.HistoryAdapter
-import com.wavez.trackerwater.feature.fragment.viewModel.TodayViewModel
+import com.wavez.trackerwater.feature.page.history.fragment.adapter.RecentDrinkAdapter
+import com.wavez.trackerwater.feature.page.history.fragment.viewModel.TodayViewModel
 import com.wavez.trackerwater.feature.reminder.ReminderActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.Subscribe
@@ -33,7 +33,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
 
     private val TAG = "minh"
 
-    private lateinit var adapter: HistoryAdapter
+    private lateinit var adapter: RecentDrinkAdapter
 
     override val hasEvenBus: Boolean
         get() = true
@@ -80,7 +80,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     }
 
     private fun initAdapter() {
-        adapter = HistoryAdapter()
+        adapter = RecentDrinkAdapter()
         binding.rcvGlassWater.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rcvGlassWater.adapter = adapter
@@ -89,7 +89,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         }
     }
 
-    private fun onSelect(drink: HistoryModelWithCount) {
+    private fun onSelect(drink: RecentDrink) {
         binding.option.visible()
         binding.ivDelete.setOnClickListener {
             todayViewModel.delete(drink)

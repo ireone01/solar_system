@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.dialog
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog
 
 import android.content.Context
 import android.os.Bundle

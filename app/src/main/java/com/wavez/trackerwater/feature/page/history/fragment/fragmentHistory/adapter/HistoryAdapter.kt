@@ -1,15 +1,15 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.adapter
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
+import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.ItemHistoryBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HistoryAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
+class HistoryAdapter : BaseRecyclerViewAdapter<HistoryDrink>() {
 
     companion object {
 
@@ -19,15 +19,15 @@ class HistoryAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
 
     }
 
-    var onSelected: ((HistoryModel) -> Unit)? = null
+    var onSelected: ((HistoryDrink) -> Unit)? = null
 
-    var onUpdate: ((HistoryModel) -> Unit)? = null
+    var onUpdate: ((HistoryDrink) -> Unit)? = null
 
-    var onDelete: ((HistoryModel) -> Unit)? = null
+    var onDelete: ((HistoryDrink) -> Unit)? = null
 
 
     override fun bindViewHolder(
-        holder: RecyclerView.ViewHolder, item: HistoryModel, position: Int
+        holder: RecyclerView.ViewHolder, item: HistoryDrink, position: Int
     ) {
         if (holder is HistoryHolder) {
             holder.bind(item)
@@ -53,14 +53,14 @@ class HistoryAdapter : BaseRecyclerViewAdapter<HistoryModel>() {
         }
     }
 
-    override fun getItemType(item: HistoryModel): Int {
+    override fun getItemType(item: HistoryDrink): Int {
         return TYPE_ITEM
     }
 
     inner class HistoryHolder(private val binding: ItemHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
-            historyModel: HistoryModel
+            historyModel: HistoryDrink
         ) {
             val amount = historyModel.amountHistory * 0.001
             binding.tvAmount.text = String.format("%.3f l", amount)

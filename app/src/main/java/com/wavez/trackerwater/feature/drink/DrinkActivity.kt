@@ -3,36 +3,24 @@ package com.wavez.trackerwater.feature.drink
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.data.sharedPref.SharedPref
 import com.wavez.trackerwater.databinding.ActivityDrinkBinding
-import com.wavez.trackerwater.databinding.DialogHistoryBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.extension.hideKeyboardFrom
 import com.wavez.trackerwater.extension.invisible
 import com.wavez.trackerwater.extension.showKeyboardFrom
-import com.wavez.trackerwater.extension.showSoftKeyboard
 import com.wavez.trackerwater.extension.visible
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
-import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
 import com.wavez.trackerwater.feature.drink.dialog.HistoryDrinkDialog
 import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -183,7 +171,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>(), HistoryDrinkDialog.I
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onSelectAmount(intake: IntakeModel) {
+    override fun onSelectAmount(intake: IntakeDrink) {
         binding.edtAmount.setText(intake.amountIntake.toString())
         syncDrinkWater()
     }

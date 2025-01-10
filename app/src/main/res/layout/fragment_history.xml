@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_600"
-    tools:context=".feature.fragment.HistoryFragment">
+    tools:context=".feature.page.history.HistoryFragment">
 
     <LinearLayout
         android:id="@+id/viewTop"

@@ -1,12 +1,12 @@
-package com.wavez.trackerwater.feature.fragment.fragmentHistory.viewModel
+package com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.HistoryDrink
+import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
 import com.wavez.trackerwater.util.TimeUtils
@@ -26,8 +26,8 @@ class DayViewModel @Inject constructor(
 ) : ViewModel() {
     private val selectedDate = Calendar.getInstance()
 
-    private val _historyList = MutableLiveData<List<HistoryModel>>(emptyList())
-    val     historyList: LiveData<List<HistoryModel>> = _historyList
+    private val _historyList = MutableLiveData<List<HistoryDrink>>(emptyList())
+    val     historyList: LiveData<List<HistoryDrink>> = _historyList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -48,20 +48,20 @@ class DayViewModel @Inject constructor(
     }
 
 
-    fun delete(historyModel: HistoryModel) {
+    fun delete(historyModel: HistoryDrink) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.delete(historyModel)
             getAllData()
         }
     }
 
-    fun edit(historyModel: HistoryModel) {
+    fun edit(historyModel: HistoryDrink) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.update(historyModel)
         }
     }
 
-    fun insertHistory(historyModel: HistoryModel) {
+    fun insertHistory(historyModel: HistoryDrink) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.insert(historyModel)
             getAllData()
@@ -74,7 +74,7 @@ class DayViewModel @Inject constructor(
             if (existingIntake != null) {
                 Log.d("IntakeCheck", "Amount $amount đã tồn tại!")
             } else {
-                val intakeModel = IntakeModel(
+                val intakeModel = IntakeDrink(
                     amountIntake = amount,
                 )
                 intakeRepository.insert(intakeModel)
@@ -109,7 +109,7 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) : List<HistoryModel> {
+    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) : List<HistoryDrink> {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
@@ -127,7 +127,7 @@ class DayViewModel @Inject constructor(
         return emptyList()
     }
 
-    private fun updateTotalAmount(data: List<HistoryModel>) {
+    private fun updateTotalAmount(data: List<HistoryDrink>) {
         val total = data.sumOf { it.amountHistory }
         _totalAmount.postValue(total)
     }
