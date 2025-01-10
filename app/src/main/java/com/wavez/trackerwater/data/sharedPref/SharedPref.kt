@@ -19,6 +19,8 @@ interface SharedPref {
 
     var genderUser: Int
 
+    var timeUsuallyWakeUp: Long
+
 
 
 }

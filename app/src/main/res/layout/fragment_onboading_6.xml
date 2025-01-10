@@ -70,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/RarelyExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -98,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/SometimesExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -125,6 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/RegularlyExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>
@@ -154,6 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/OftenExercise"
+            android:textColor="@color/blue_end"
             android:gravity="center"
             />
     </LinearLayout>

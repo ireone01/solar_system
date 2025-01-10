@@ -14,6 +14,7 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         private const val LANGUAGE_CONFIG = "language_config"
         private const val IS_NEED_GOTO_WALKTHROUGH = "is_need_goto_walkthrough"
         private const val GENDER_USER = "gender_user"
+        private const val TIME_USUALLY_WAKE_UP = "time_usually_wake_up"
 
     }
 
@@ -53,5 +54,11 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         get() = sharedPref.getInt(GENDER_USER, ConstantUser.GENDER_MALE)
         set(value) {
             editor.putInt(GENDER_USER, value).apply()
+        }
+
+    override var timeUsuallyWakeUp: Long
+        get() = sharedPref.getLong(TIME_USUALLY_WAKE_UP, 0L)
+        set(value) {
+            editor.putLong(TIME_USUALLY_WAKE_UP, value).apply()
         }
 }
