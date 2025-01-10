@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
@@ -54,9 +53,11 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
         super.initConfig(view, savedInstanceState)
         adapter = IntakeAdapter()
         binding.rcvHistory.adapter = adapter
-        binding.rcvHistory.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        adapter.onSelect = {
+            listener?.onSelectAmount(it)
+            dismiss()
+        }
     }
 
     override fun initObserver() {
@@ -68,18 +69,13 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
 
     override fun initListener() {
         super.initListener()
-        binding.btnClose.setOnClickListener { dismiss() }
-
-        adapter.onSelect = {
-            onSelect(it)
+        binding.btnClose.setOnClickListener {
+            dismiss()
         }
+
     }
 
     interface IHistoryDrinkListener {
-        fun onSelectAmount()
-    }
-
-    private fun onSelect(intake: IntakeModel) {
-        Toast.makeText(context, "" + intake.amountIntake, Toast.LENGTH_SHORT).show()
+        fun onSelectAmount(intake: IntakeModel)
     }
 }

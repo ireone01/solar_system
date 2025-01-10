@@ -19,6 +19,8 @@ interface SharedPref {
 
     var isReminder: Boolean
 
+    var isTypeDrinkCup: Boolean
+
 
 
 }

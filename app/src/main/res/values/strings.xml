@@ -90,6 +90,10 @@
     <string name="hours">hours</string>
     <string name="minutes">min</string>
     <string name="seconds">seconds</string>
+    <string name="unit_ml">ml</string>
+    <string name="recent">Recent</string>
+    <string name="close">Close</string>
+    <string name="you_should_drink_100_3000ml_at_once">*You should drink 100-3000ml at once.</string>
     <string name="average">Average</string>
     <string name="noti_title">Notification title</string>
     <string name="noti_content">Notification content</string>

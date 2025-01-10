@@ -28,9 +28,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Initialize binding and set the content view
         if (hasEvenBus) EventBus.getDefault().register(this)
-
         _binding = createBinding()
-        hideFullNavigation()
+//        hideFullNavigation()
         setContentView(binding.root)
         configureBackPressHandling()
         initConfig(savedInstanceState)
@@ -43,13 +42,28 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         }
     }
 
+    fun setStatusBarColor(colorId: Int, isDarkMode: Boolean) {
+        val window: Window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, colorId)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowInsetController = window.decorView.windowInsetsController
+            val mode = if (isDarkMode) 0 else WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            windowInsetController?.setSystemBarsAppearance(
+                mode, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
+            windowInsetController?.isAppearanceLightStatusBars = isDarkMode.not()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
         if (hasEvenBus) EventBus.getDefault().unregister(this)
         release()
         _binding = null // Release binding reference to prevent memory leaks
-
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

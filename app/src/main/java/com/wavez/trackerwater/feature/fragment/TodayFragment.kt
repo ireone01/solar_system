@@ -51,22 +51,18 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         }
         todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
             binding.tvTotal.text = total.toString()
-            binding.waterWaveView.progress = total.toInt()
-            binding.waterWaveView.max = 2000
-            if (total.toInt() > binding.waterWaveView.max) {
-                binding.waterWaveView.progress = 2000
-                binding.waterWaveView.max = 2000
+            binding.waterWaveView.progressValue = ((total.toFloat() / 2000f) * 100f).toInt()
+            if (total.toInt() >= 2000) {
+                binding.waterWaveView.progressValue = 100
             }
         }
 
-        todayViewModel.isLoading.observe(viewLifecycleOwner){isLoading->
-                if(isLoading){
-                    Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.visible()
-                }else{
-                    Log.e(TAG, "initObserver: "+ isLoading )
-                    binding.progressBar.gone()
-                }
+        todayViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visible()
+            } else {
+                binding.progressBar.gone()
+            }
         }
 
     }
@@ -74,23 +70,11 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     override fun initListener() {
         super.initListener()
         binding.btnDrink.setOnClickListener {
-            startActivity(
-                Intent(
-                    context,
-                    DrinkActivity::class.java
-                )
-            )
-
+            startActivity(Intent(context, DrinkActivity::class.java))
         }
 
         binding.ivEditReminder.setOnClickListener {
-            startActivity(
-                Intent(
-                    requireContext(),
-                    ReminderActivity::class.java
-                )
-            )
-
+            startActivity(Intent(requireContext(), ReminderActivity::class.java))
         }
 
     }

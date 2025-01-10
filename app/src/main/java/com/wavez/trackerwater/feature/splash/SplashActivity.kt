@@ -47,6 +47,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
+        binding.waveLoadingView.setAnimDuration(3500)
         Log.d("hehehe", "initConfig: "+sharedPref.isNeedShowLanguage + sharedPref.isNeedShowLanguage)
         startLaunchSequence()
 
