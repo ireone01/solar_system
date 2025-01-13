@@ -10,7 +10,10 @@ import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ItemChildInsightBinding
 import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 
-class InsightsChildAdapter() : BaseRecyclerViewAdapter<InsightsChildItem>() {
+class InsightsChildAdapter(
+    private val onChildClicked:(InsightsChildItem) -> Unit
+
+) : BaseRecyclerViewAdapter<InsightsChildItem>() {
 
     companion object {
         private const val TYPE_ITEM = 1
@@ -59,7 +62,9 @@ class InsightsChildAdapter() : BaseRecyclerViewAdapter<InsightsChildItem>() {
                 ColorStateList.valueOf(ContextCompat.getColor(context, data.colorPrimary))
             binding.ivInsight.setImageResource(data.image)
             binding.tvTileChildInsight.text = context.getString(data.title)
-
+            binding.root.setOnClickListener{
+                onChildClicked(data)
+            }
         }
     }
 

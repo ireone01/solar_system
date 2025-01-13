@@ -3,61 +3,125 @@ package com.wavez.trackerwater.feature.insights.provider
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 import com.wavez.trackerwater.feature.insights.model.InsightsItem
+import com.wavez.trackerwater.feature.insights.model.InsightsParts
 
 object InsightProvider {
     private val INSIGHT_WATER_1 = InsightsChildItem(
         R.string.water_drinking_title_1,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_1,R.string.Wd_Item1_Opening_des),
+            InsightsParts(R.string.Wd_Item1_Screen_1_title,R.string.Wd_Item1_Screen_1_des),
+            InsightsParts(R.string.Wd_Item1_Screen_2_title,R.string.Wd_Item1_Screen_2_des),
+            InsightsParts(R.string.Wd_Item1_Screen_3_title,R.string.Wd_Item1_Screen_3_des),
+            InsightsParts(R.string.Wd_Item1_Screen_4_title,R.string.Wd_Item1_Screen_4_des),
+            InsightsParts(R.string.Wd_Item1_Screen_5_title,R.string.Wd_Item1_Screen_5_des),
+            InsightsParts(R.string.Wd_Item1_Screen_6_title,R.string.Wd_Item1_Screen_6_des))
     )
     private val INSIGHT_WATER_2 = InsightsChildItem(
         R.string.water_drinking_title_2,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+          )
     )
     private val INSIGHT_WATER_3 = InsightsChildItem(
         R.string.water_drinking_title_3,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_4 = InsightsChildItem(
         R.string.water_drinking_title_4,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_5 = InsightsChildItem(
         R.string.water_drinking_title_5,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_6 = InsightsChildItem(
         R.string.water_drinking_title_6,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_7 = InsightsChildItem(
         R.string.water_drinking_title_7,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_8 = InsightsChildItem(
         R.string.water_drinking_title_8,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val INSIGHT_WATER_9 = InsightsChildItem(
         R.string.water_drinking_title_9,
         R.color.success_100,
         R.color.success_200,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val WATER_DRINKING = InsightsItem(
         R.string.water_drinking, listOf(
@@ -76,25 +140,54 @@ object InsightProvider {
         R.string.beauty_skincare_title_1,
         R.color.danger_200,
         R.color.danger_50,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
+
     )
     private val BEAUTY_SKINCARE_2 = InsightsChildItem(
         R.string.beauty_skincare_title_2,
         R.color.danger_200,
         R.color.danger_50,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val BEAUTY_SKINCARE_3 = InsightsChildItem(
         R.string.beauty_skincare_title_3,
         R.color.danger_200,
         R.color.danger_50,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val BEAUTY_SKINCARE_4 = InsightsChildItem(
         R.string.beauty_skincare_title_4,
         R.color.danger_200,
         R.color.danger_50,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
 
     private val BEAUTY_SKINCARE = InsightsItem(
@@ -111,37 +204,79 @@ object InsightProvider {
         R.string.self_care_title_1,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val SELF_CARE_2 = InsightsChildItem(
         R.string.self_care_title_2,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val SELF_CARE_3 = InsightsChildItem(
         R.string.self_care_title_3,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val SELF_CARE_4 = InsightsChildItem(
         R.string.self_care_title_4,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val SELF_CARE_5 = InsightsChildItem(
         R.string.self_care_title_5,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val SELF_CARE_6 = InsightsChildItem(
         R.string.self_care_title_6,
         R.color.warning_300,
         R.color.warning_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
 
     private val SELF_CARE = InsightsItem(
@@ -161,37 +296,79 @@ object InsightProvider {
         R.string.health_life_style_title_1,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val HEALTH_LIFE_STYLE_2 = InsightsChildItem(
         R.string.health_life_style_title_2,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val HEALTH_LIFE_STYLE_3 = InsightsChildItem(
         R.string.health_life_style_title_3,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val HEALTH_LIFE_STYLE_4 = InsightsChildItem(
         R.string.health_life_style_title_4,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val HEALTH_LIFE_STYLE_5 = InsightsChildItem(
         R.string.health_life_style_title_5,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
     private val HEALTH_LIFE_STYLE_6 = InsightsChildItem(
         R.string.health_life_style_title_6,
         R.color.secondary_200,
         R.color.secondary_100,
-        R.drawable.ic_wt_start
+        R.drawable.ic_wt_start,
+        listOf(InsightsParts(R.string.water_drinking_title_2,R.string.Wd_Item2_Opening_des),
+            InsightsParts(R.string.Wd_Item2_Screen_1_title,R.string.Wd_Item2_Screen_1_des),
+            InsightsParts(R.string.Wd_Item2_Screen_2_title,R.string.Wd_Item2_Screen_2_des),
+            InsightsParts(R.string.Wd_Item2_Screen_3_title,R.string.Wd_Item2_Screen_3_des),
+            InsightsParts(R.string.Wd_Item2_Screen_4_title,R.string.Wd_Item2_Screen_4_des),
+            InsightsParts(R.string.Wd_Item2_Screen_5_title,R.string.Wd_Item2_Screen_5_des)
+        )
     )
 
     private val HEALTH_LIFE_STYLE = InsightsItem(

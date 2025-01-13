@@ -129,5 +129,29 @@
     <string name="health_life_style_title_5">Soothe Sore Throats with These Drinks</string>
     <string name="health_life_style_title_6">Drinks to Relieve Stomach Bloating</string>
     <string name="health_life_style">Health Lifestyle</string>
+    <string name="Wd_Item1_Opening_des">Did you know that how you drink water can influence your health?\n\nLet’s uncover the most frequent water-drinking mistakes and simple ways to stay properly hydrated and healthy.</string>
+    <string name="Wd_Item1_Screen_1_title">The Consequences of Not Drinking Enough Water</string>
+    <string name="Wd_Item1_Screen_1_des">Not drinking enough water can lead to health problems like headaches, low energy, and digestive issues such as constipation.\n\nSince hydration needs vary for each person, you can use our app to determine your ideal daily water intake and get timely reminders to maintain optimal hydration.</string>
+    <string name="Wd_Item1_Screen_2_title">Drinking Too Much Water</string>
+    <string name="Wd_Item1_Screen_2_des">Overhydration can cause hyponatremia, a condition where excess water dilutes the sodium levels in your body. This can be especially dangerous for athletes and individuals with heart or kidney conditions.\n\nSymptoms of hyponatremia include nausea, headaches, confusion, seizures, and, in severe cases, even coma.</string>
+    <string name="Wd_Item1_Screen_3_title">Not Drinking Clean Water</string>
+    <string name="Wd_Item1_Screen_3_des">Ensuring the water you drink is clean and free of harmful contaminants is essential for your health. If you\'re uncertain about the safety of your tap water, consider using a reliable water filter or opting for bottled water from trusted sources.</string>
+    <string name="Wd_Item1_Screen_4_title">Drinking Water Too Quickly</string>
+    <string name="Wd_Item1_Screen_4_des">Drinking water too quickly can cause bloating, discomfort, and nausea. It also reduces your body’s ability to absorb the water efficiently, often leading to frequent restroom trips.\n\nTo stay hydrated without these issues, sip water slowly and steadily throughout the day.</string>
+    <string name="Wd_Item1_Screen_5_title">Drinking Cold Water</string>
+    <string name="Wd_Item1_Screen_5_des">Cold water can cause blood vessels to constrict, potentially slowing digestion and reducing blood flow to your organs. For some individuals, drinking very cold water may also trigger headaches or migraines.\n\nTo avoid these effects, consider drinking water at room temperature or slightly chilled.</string>
+    <string name="Wd_Item1_Screen_6_title">Skipping Water Before Bed</string>
+    <string name="Wd_Item1_Screen_6_des">Even while you sleep, your body continues important functions like tissue repair and toxin removal. Not drinking enough water before bed can lead to dehydration, causing headaches, dry mouth, and even disrupting your sleep quality.\n\nA small amount of water before bed can help keep your body hydrated throughout the night.</string>
+    <string name="Wd_Item2_Opening_des">We all understand the importance of drinking enough water, but did you know that when you drink can be just as crucial as how much you drink?\n\nHere are some of the best times to hydrate throughout the day for optimal health and well-being.</string>
+    <string name="Wd_Item2_Screen_1_title">After Waking Up</string>
+    <string name="Wd_Item2_Screen_1_des">Drinking water first thing in the morning helps kickstart your metabolism, rehydrate your body after hours of sleep, and flush out toxins.\n\nStart your day with a glass of water before consuming any food or other beverages to maximize these benefits.</string>
+    <string name="Wd_Item2_Screen_2_title">Before Meals</string>
+    <string name="Wd_Item2_Screen_2_des">Drinking water before meals can help you feel fuller, reduce the likelihood of overeating, and support digestion by preparing your stomach for food.\n\nFor best results, aim to drink water about 30 minutes before each meal.</string>
+    <string name="Wd_Item2_Screen_3_title">After Meals</string>
+    <string name="Wd_Item2_Screen_3_des">Drinking water after meals can help with digestion and prevent constipation. However, it\'s important to wait at least 30 minutes after eating before drinking water to allow your stomach to properly digest the food.</string>
+    <string name="Wd_Item2_Screen_4_title">Before and During Exercise</string>
+    <string name="Wd_Item2_Screen_4_des">Staying hydrated before and during exercise helps prevent dehydration, which can cause fatigue and muscle cramps.\n\nAim to drink water 2–3 hours before your workout and take small sips every 10–20 minutes during exercise to maintain optimal hydration.</string>
+    <string name="Wd_Item2_Screen_5_title">Before Bed</string>
+    <string name="Wd_Item2_Screen_5_des">Drinking water before bed supports overall hydration but should be done in moderation to avoid frequent trips to the bathroom at night. Aim for a small glass of water about an hour before bedtime to stay hydrated without disrupting your sleep.</string>
 
 </resources>

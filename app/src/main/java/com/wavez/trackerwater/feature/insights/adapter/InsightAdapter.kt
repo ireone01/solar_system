@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ItemParentInsightBinding
+import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 import com.wavez.trackerwater.feature.insights.model.InsightsItem
 
-class InsightAdapter() : BaseRecyclerViewAdapter<InsightsItem>(){
+class InsightAdapter(
+    private val onChildItemClicked : (InsightsChildItem) -> Unit
+) : BaseRecyclerViewAdapter<InsightsItem>(){
 
     companion object {
         private const val TYPE_ITEM = 1
@@ -55,9 +58,12 @@ class InsightAdapter() : BaseRecyclerViewAdapter<InsightsItem>(){
             val context = binding.root.context
             binding.tvHeader.text =  context.getString(data.title)
 
-            val adapter = InsightsChildAdapter()
+            val adapter = InsightsChildAdapter{ insightsChildItem ->
+                onChildItemClicked(insightsChildItem)
+            }
             binding.rvChildInsight.adapter = adapter
             adapter.setData(data.insightsChild)
+
         }
     }
 
