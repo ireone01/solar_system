@@ -14,8 +14,8 @@ import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.extension.gone
 import com.wavez.trackerwater.extension.visible
 import com.wavez.trackerwater.feature.drink.DrinkActivity
-import com.wavez.trackerwater.feature.page.history.fragment.adapter.RecentDrinkAdapter
-import com.wavez.trackerwater.feature.page.history.fragment.viewModel.TodayViewModel
+import com.wavez.trackerwater.feature.page.today.adapter.RecentDrinkAdapter
+import com.wavez.trackerwater.feature.page.today.viewModel.TodayViewModel
 import com.wavez.trackerwater.feature.reminder.ReminderActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.Subscribe
