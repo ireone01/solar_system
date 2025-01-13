@@ -10,10 +10,10 @@ import com.lingvo.base_common.ui.BaseBottomSheetFragment
 import com.wavez.trackerwater.databinding.DialogAddRecordBinding
 import java.util.Calendar
 
-class InsertOrUpdateBottomDialog : BaseBottomSheetFragment<DialogAddRecordBinding>() {
+class InsertBottomDialog : BaseBottomSheetFragment<DialogAddRecordBinding>() {
 
     companion object {
-        fun newInstance() = InsertOrUpdateBottomDialog()
+        fun newInstance() = InsertBottomDialog()
     }
 
     override fun initializeBinding(

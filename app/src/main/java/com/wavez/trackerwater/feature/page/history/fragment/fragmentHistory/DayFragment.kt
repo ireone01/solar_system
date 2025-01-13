@@ -20,8 +20,8 @@ import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.databinding.FragmentDayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.adapter.HistoryAdapter
-import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.InsertOrUpdateBottomDialog
-import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.UpdateDialog
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.InsertBottomDialog
+import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.dialog.UpdateBottomDialog
 import com.wavez.trackerwater.feature.page.history.fragment.fragmentHistory.viewModel.DayViewModel
 import com.wavez.trackerwater.util.TextUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +31,8 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.Calendar
 
 @AndroidEntryPoint
-class DayFragment : BaseFragment<FragmentDayBinding>(),
-    InsertOrUpdateBottomDialog.AddRecordListener {
+class DayFragment : BaseFragment<FragmentDayBinding>(), InsertBottomDialog.AddRecordListener,
+    UpdateBottomDialog.UpdateRecordListener {
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDayBinding
         get() = FragmentDayBinding::inflate
@@ -42,7 +42,6 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         get() = true
     private lateinit var adapter: HistoryAdapter
     private var goal = 5.0
-    private var selectedDate = Calendar.getInstance()
 
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
@@ -63,8 +62,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             onDelete(it)
         }
 
-        adapter.onUpdate = {
-            onUpdate(it)
+        adapter.onUpdate = { historyModel ->
+            onUpdate(historyModel)
         }
     }
 
@@ -82,7 +81,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             binding.tvGoal.text = goal.toString() + "l"
         }
 
-        dayViewModel.currentDateText.observe(viewLifecycleOwner){ date ->
+        dayViewModel.currentDateText.observe(viewLifecycleOwner) { date ->
             binding.tvDay.text = date
         }
 
@@ -96,8 +95,7 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     }
 
     private fun openDialogAddRecord() {
-        InsertOrUpdateBottomDialog.newInstance()
-            .show(childFragmentManager, InsertOrUpdateBottomDialog::class.java.simpleName)
+        InsertBottomDialog.newInstance().show(childFragmentManager, InsertBottomDialog::class.java.simpleName)
     }
 
     private fun onDelete(drink: HistoryDrink) {
@@ -106,30 +104,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
     }
 
     private fun onUpdate(drink: HistoryDrink) {
-//        InsertOrUpdateBottomDialog.newInstance(drink).show(childFragmentManager, InsertOrUpdateBottomDialog::class.java.simpleName)
-        UpdateDialog.newInstance(drink).show(childFragmentManager, UpdateDialog::class.java.simpleName)
-    }
-
-    override fun onSaveRecord(amount: Int, timeAdded: Long) {
-        if (amount < 0) {
-            binding.root.context.let {
-                Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
-            }
-            return
-        }
-
-        dayViewModel.insertIntake(amount)
-
-        dayViewModel.insertHistory(
-            HistoryDrink(
-                amountHistory = amount, dateHistory = timeAdded
-            )
-        )
-        EventBus.getDefault().post(DataUpdatedEvent(TextUtils.UPDATE))
-        binding.root.context.let {
-            Toast.makeText(it, "Record saved successfully", Toast.LENGTH_SHORT).show()
-        }
-
+        UpdateBottomDialog.newInstance(drink.amountHistory, drink.dateHistory)
+            .show(childFragmentManager, UpdateBottomDialog::class.java.simpleName)
     }
 
     private fun updateChart(historyList: List<HistoryDrink>) {
@@ -139,15 +115,20 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         historyList.forEach { drink ->
             calendar.timeInMillis = drink.dateHistory
             val hour = calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE) / 60f
-            lineEntries.add(Entry(hour, drink.amountHistory.toFloat()))
+            val amount = drink.amountHistory.toFloat()
+
+            if (hour in 0f..24f && amount >= 0) {
+                lineEntries.add(Entry(hour, amount))
+            }
         }
 
         binding.chart.axisLeft.apply {
             axisMinimum = 0f
-            axisMaximum = 2000.0f
-            granularity = 2000.0f / 5
+            axisMaximum = 2000f
+            granularity = 400f
             textSize = 12f
-            textColor = resources.getColor(R.color.black, null)
+            setDrawGridLines(false)
+            textColor = resources.getColor(R.color.white_100, null)
         }
 
         binding.chart.axisRight.isEnabled = false
@@ -155,10 +136,10 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
         binding.chart.xAxis.apply {
             axisMinimum = 0f
             axisMaximum = 24f
-            granularity = 24f / 7
+            granularity = 3f
             position = XAxis.XAxisPosition.BOTTOM
             textSize = 12f
-            textColor = resources.getColor(R.color.black, null)
+            textColor = resources.getColor(R.color.white_100, null)
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
                     val hour = value.toInt()
@@ -171,7 +152,8 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             setDrawValues(false)
             setDrawCircles(true)
             setCircleColor(resources.getColor(R.color.white_100, null))
-            lineWidth = 4f
+            color = resources.getColor(R.color.white_64, null)
+            lineWidth = 2f
         }
 
         val lineData = LineData(lineDataSet)
@@ -180,17 +162,50 @@ class DayFragment : BaseFragment<FragmentDayBinding>(),
             data = lineData
             description.isEnabled = false
             legend.isEnabled = false
+            legend.textSize = 12f
             setTouchEnabled(true)
-            setPinchZoom(false)
+            setPinchZoom(true)
             animateY(1000)
             invalidate()
         }
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDataUpdated(event: DataUpdatedEvent) {
-        Log.d("minh", "Data updated: ${event.data}")
+        Log.d("minh", "Data updated: ${event.data} ")
         dayViewModel.getAllData()
     }
 
+    override fun onSaveRecord(amount: Int, timeAdded: Long) {
+        if (amount < 0) {
+            binding.root.context.let {
+                Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
+        dayViewModel.insertHistory(
+            HistoryDrink(
+                amountHistory = amount, dateHistory = timeAdded
+            )
+        )
+        EventBus.getDefault().post(DataUpdatedEvent(TextUtils.INSERT))
+    }
+
+        override fun onUpdateRecord(amount: Int, timeAdded: Long) {
+            if (amount < 0) {
+                binding.root.context.let {
+                    Toast.makeText(it, "Invalid amount", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+
+            dayViewModel.edit(
+                HistoryDrink(
+                    amountHistory = amount, dateHistory = timeAdded
+                )
+            )
+            EventBus.getDefault().post(DataUpdatedEvent(TextUtils.UPDATE))
+        }
 }

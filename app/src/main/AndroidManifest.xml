@@ -34,34 +34,28 @@
         <activity
             android:name=".feature.home.MainActivity"
             android:exported="true" >
-
-        </activity>
-        <activity
-            android:name=".feature.onboarding.OnboardingActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".feature.onboarding.OnboardingActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".feature.splash.SplashActivity"
-            android:exported="true" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-
-        </activity>
+            android:exported="true" />
 
         <service
-            android:name=".feature.reminder.WaterReminderService"
+            android:name=".feature.reminder.receiver.WaterReminderService"
             android:foregroundServiceType="location"
             tools:ignore="ForegroundServicePermission" />
 
-        <receiver android:name=".feature.reminder.WaterReminderReceiver"
+        <receiver android:name=".feature.reminder.receiver.WaterReminderReceiver"
 
             android:exported="false">
             <intent-filter>

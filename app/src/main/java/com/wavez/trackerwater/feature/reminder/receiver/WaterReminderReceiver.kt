@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.reminder
+package com.wavez.trackerwater.feature.reminder.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -8,7 +8,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.net.Uri
 import android.os.Build
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.feature.drink.DrinkActivity
@@ -41,7 +40,6 @@ class WaterReminderReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Tạo một ID thông báo duy nhất bằng cách sử dụng System.currentTimeMillis()
         val notificationId = System.currentTimeMillis().toInt()
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -55,7 +53,6 @@ class WaterReminderReceiver : BroadcastReceiver() {
             .setSound(notificationSound)
             .setVibrate(longArrayOf(0, 1000, 500, 1000))
 
-        // Sử dụng notificationId để đảm bảo rằng thông báo là duy nhất
         notificationManager.notify(notificationId, builder.build())
 
 

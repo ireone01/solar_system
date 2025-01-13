@@ -138,5 +138,19 @@
     <string name="noti_content">Notification content</string>
     <string name="reminder_title">Reminder title</string>
     <string name="reminder_content">Reminder content</string>
+    <string name="congratulations">Congratulations</string>
+    <string name="congratulations_content_1">You’ve successfully achieved your drink goal today!</string>
+    <string name="congratulations_content_2">You’ve completed your first drink today!</string>
+    <string name="great">Great</string>
+    <string name="reminder_mode">Reminder Mode</string>
+    <string name="can_t_receive_reminders">Can’t receive reminders?</string>
+    <string name="skip_mode">After recording a drink, the next 1 hour reminder will be canceled.</string>
+    <string name="standard_title">Standard</string>
+    <string name="standard_content">Based on your sleep and meals</string>
+    <string name="interval_title">Interval</string>
+    <string name="interval_content">Notify you at set intervals</string>
+    <string name="custom_title">Custom</string>
+    <string name="custom_content">Personalize all reminders</string>
+    <string name="after_wake_up">After Wake-up</string>
 
 </resources>

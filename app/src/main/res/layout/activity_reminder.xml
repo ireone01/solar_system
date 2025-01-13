@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/work_sans_700"
-            android:text="Reminder"
+            android:text="@string/reminder"
             android:textColor="@color/gray_950"
             android:textSize="20sp" />
 
@@ -48,29 +48,235 @@
         android:layout_height="48dp"
         android:layout_margin="4dp"
         android:paddingHorizontal="4dp"
-        android:src="@drawable/img_sw_reminder_off"
+        android:src="@drawable/ic_sw_reminder_off"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBack"
-        android:layout_marginTop="18dp"
-        android:background="@color/white">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBack">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_edit_reminder"
-            android:padding="15dp"
-            android:layout_margin="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutReminder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/reminder_mode"
+                    android:textColor="@color/high_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivMode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivMode" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="Standard"
+                    android:textColor="@color/low_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivMode"
+                    app:layout_constraintEnd_toStartOf="@id/ivMode"
+                    app:layout_constraintTop_toTopOf="@id/ivMode" />
+
+                <ImageView
+                    android:id="@+id/ivMode"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="4dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_edit_reminder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCantReceive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/work_sans_500"
+                android:paddingVertical="16dp"
+                android:text="@string/can_t_receive_reminders"
+                android:textColor="@color/low_em"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutReminder" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutWeekend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCantReceive">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/reminder_mode"
+                    android:textColor="@color/high_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivWeekendMode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivWeekendMode" />
+
+                <ImageView
+                    android:id="@+id/ivWeekendMode"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:src="@drawable/ic_sw_reminder_off"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutStop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/layoutWeekend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/layoutSkip">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="Stop when goal achieved"
+                    android:textColor="@color/high_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivStopMode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivStopMode" />
+
+                <ImageView
+                    android:id="@+id/ivStopMode"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:src="@drawable/ic_sw_reminder_off"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/gray_200"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintStart_toStartOf="@id/layoutSkip"
+                app:layout_constraintEnd_toEndOf="@id/layoutSkip"
+                app:layout_constraintTop_toBottomOf="@id/layoutStop"
+                app:layout_constraintBottom_toTopOf="@id/layoutSkip"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSkip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/tvBottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="Smart Skip"
+                    android:textColor="@color/high_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivSkipMode"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivSkipMode" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSkipMode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="1 hour"
+                    android:textColor="@color/low_em"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivEditSkipMode"
+                    app:layout_constraintEnd_toStartOf="@id/ivEditSkipMode"
+                    app:layout_constraintTop_toTopOf="@id/ivEditSkipMode" />
+
+                <ImageView
+                    android:id="@+id/ivEditSkipMode"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginEnd="12dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_edit_reminder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivSkipMode"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivSkipMode"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="4dp"
+                    android:paddingHorizontal="4dp"
+                    android:src="@drawable/ic_sw_reminder_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBottom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/work_sans_500"
+                android:paddingVertical="16dp"
+                android:text="@string/skip_mode"
+                android:textColor="@color/low_em"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

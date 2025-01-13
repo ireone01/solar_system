@@ -3,6 +3,7 @@ package com.wavez.trackerwater.data.sharedPref
 import android.content.Context
 import android.content.SharedPreferences
 import com.wavez.trackerwater.util.ConstantUser
+import com.wavez.trackerwater.util.TextUtils
 
 
 class SharedPreferencesApp constructor(private val context: Context) : SharedPref {
@@ -17,6 +18,9 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         private const val IS_TYPE_DRINK_CUP = "is_type_drink_cup"
         private const val GENDER_USER = "gender_user"
         private const val TIME_USUALLY_WAKE_UP = "time_usually_wake_up"
+        private const val IS_SKIP = "IS_SKIP"
+        private const val IS_STOP = "IS_STOP"
+        private const val REMINDER_MODE = "REMINDER_MODE"
 
     }
 
@@ -62,6 +66,24 @@ class SharedPreferencesApp constructor(private val context: Context) : SharedPre
         get() = sharedPref.getLong(TIME_USUALLY_WAKE_UP, 0L)
         set(value) {
             editor.putLong(TIME_USUALLY_WAKE_UP, value).apply()
+        }
+
+    override var isStop: Boolean
+        get() = sharedPref.getBoolean(IS_STOP, false)
+        set(value) {
+            editor.putBoolean(IS_STOP, value).apply()
+        }
+
+    override var isSkip: Boolean
+        get() = sharedPref.getBoolean(IS_SKIP, false)
+        set(value) {
+            editor.putBoolean(IS_SKIP, value).apply()
+        }
+
+    override var reminderMode: Int
+        get() =sharedPref.getInt(REMINDER_MODE, TextUtils.STANDARD)
+        set(value) {
+            editor.putInt(REMINDER_MODE, value).apply()
         }
 
     override var isTypeDrinkCup: Boolean

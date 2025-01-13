@@ -93,7 +93,8 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
             axisMaximum = 2000f
             granularity = 500f
             textSize = 12f
-            textColor = resources.getColor(R.color.black, null)
+            setDrawGridLines(false)
+            textColor = resources.getColor(R.color.white_100, null)
         }
 
         binding.chart.axisRight.isEnabled = false
@@ -103,14 +104,14 @@ class WeekFragment : BaseFragment<FragmentWeekBinding>() {
             granularity = 1f
             textSize = 12f
             setDrawGridLines(false)
-            textColor = resources.getColor(R.color.black, null)
+            textColor = resources.getColor(R.color.white_100, null)
             valueFormatter =
                 IndexAxisValueFormatter(dayLabels)
         }
 
         val barDataSet = BarDataSet(barEntries, "").apply {
             valueTextSize = 12f
-            valueTextColor = resources.getColor(R.color.black, null)
+            valueTextColor = resources.getColor(R.color.white_100, null)
             color = resources.getColor(R.color.white_100, null)
             setDrawValues(false)
         }

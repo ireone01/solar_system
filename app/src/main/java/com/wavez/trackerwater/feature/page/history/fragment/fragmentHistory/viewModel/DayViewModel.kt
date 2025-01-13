@@ -22,18 +22,18 @@ import javax.inject.Inject
 @HiltViewModel
 class DayViewModel @Inject constructor(
     val historyRepository: HistoryRepository,
-    val intakeRepository: IntakeRepository
+    private val intakeRepository: IntakeRepository
 ) : ViewModel() {
     private val selectedDate = Calendar.getInstance()
 
     private val _historyList = MutableLiveData<List<HistoryDrink>>(emptyList())
-    val     historyList: LiveData<List<HistoryDrink>> = _historyList
+    val historyList: LiveData<List<HistoryDrink>> = _historyList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    val _totalAmount = MutableLiveData<Int>()
-    val totalAmount :LiveData<Int> get() = _totalAmount
+    private val _totalAmount = MutableLiveData<Int>()
+    val totalAmount: LiveData<Int> get() = _totalAmount
 
     private val _currentDateText = MutableLiveData<String>()
     val currentDateText: LiveData<String> get() = _currentDateText
@@ -58,6 +58,7 @@ class DayViewModel @Inject constructor(
     fun edit(historyModel: HistoryDrink) {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepository.update(historyModel)
+            getAllData()
         }
     }
 
@@ -82,7 +83,7 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getTotal() {
+    private fun getTotal() {
         viewModelScope.launch(Dispatchers.IO) {
             val historyData = _historyList.value ?: emptyList()
             val total = historyData.sumOf { it.amountHistory }
@@ -90,7 +91,7 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getHistoryByDay() {
+    private fun getHistoryByDay() {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
@@ -109,7 +110,7 @@ class DayViewModel @Inject constructor(
         }
     }
 
-    fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long) : List<HistoryDrink> {
+    private fun getHistoryByDayRange(startOfDay: Long, endOfDay: Long): List<HistoryDrink> {
         viewModelScope.launch {
             _isLoading.value = true
             withContext(Dispatchers.IO) {
@@ -144,7 +145,7 @@ class DayViewModel @Inject constructor(
         updateHistoryByDate()
     }
 
-     private fun updateDateText() {
+    private fun updateDateText() {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         _currentDateText.value = dateFormat.format(selectedDate.time)
 

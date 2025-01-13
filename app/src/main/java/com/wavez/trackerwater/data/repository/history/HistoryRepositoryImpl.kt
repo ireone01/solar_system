@@ -17,7 +17,7 @@ class HistoryRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(historyModel: HistoryDrink){
-        historyDao.update(historyModel)
+        historyDao.insert(historyModel)
     }
 
     override suspend fun deleteHistoryRecently(amount: Int) {

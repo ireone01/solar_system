@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.page.history.fragment.viewModel
+package com.wavez.trackerwater.feature.page.today.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

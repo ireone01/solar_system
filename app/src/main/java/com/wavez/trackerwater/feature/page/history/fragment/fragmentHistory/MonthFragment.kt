@@ -74,7 +74,7 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
             }
         }
 
-        for (day in 1..totalDaysInMonth) {
+        for (day in 1..31) {
             dayLabels.add(day.toString())
             barEntries.add(BarEntry(day.toFloat(), dailyData[day - 1]))
         }
@@ -85,7 +85,7 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
             granularity = 500f
             setDrawGridLines(false)
             textSize = 12f
-            textColor = resources.getColor(R.color.black, null)
+            textColor = resources.getColor(R.color.white_100, null)
         }
 
         binding.chart.axisRight.isEnabled = false
@@ -94,13 +94,13 @@ class MonthFragment : BaseFragment<FragmentMonthBinding>() {
             position = XAxis.XAxisPosition.BOTTOM
             granularity = 1f
             textSize = 12f
-            textColor = resources.getColor(R.color.black, null)
+            textColor = resources.getColor(R.color.white_100, null)
             valueFormatter = IndexAxisValueFormatter(dayLabels)
         }
 
         val barDataSet = BarDataSet(barEntries, "").apply {
             valueTextSize = 12f
-            valueTextColor = resources.getColor(R.color.black, null)
+            valueTextColor = resources.getColor(R.color.white_100, null)
             color = resources.getColor(R.color.white_100, null)
             setDrawValues(false)
         }
