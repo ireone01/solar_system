@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="24dp"
+    android:background="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:id="@+id/tvTitle"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Smart Skip"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/work_sans_700"
+        android:textSize="20sp"
+        android:textColor="@color/high_em"/>
+
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/npTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:np_width="64dp"
+        app:np_height="180dp"
+        app:np_dividerColor="@color/transparent"
+        app:np_max="59"
+        app:np_min="0"
+        app:np_selectedTextColor="@color/black"
+        app:np_selectedTextSize="18sp"
+        app:np_textColor="@color/primary_100"
+        app:np_textSize="18sp"
+        app:np_value="3"
+        app:layout_constraintBottom_toTopOf="@id/tvSkip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSkip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_mode"
+        android:gravity="center"
+        android:fontFamily="@font/work_sans_700"
+        android:textSize="14sp"
+        android:layout_marginVertical="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSave"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_white_24dp"
+        android:fontFamily="@font/work_sans_700"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:text="@string/cancel"
+        android:textColor="@color/primary_600"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_blue_28dp"
+        android:fontFamily="@font/work_sans_700"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCancel" />
+</androidx.constraintlayout.widget.ConstraintLayout>

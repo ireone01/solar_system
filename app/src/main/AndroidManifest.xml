@@ -19,15 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackerWater"
         tools:targetApi="31">
-
         <activity
             android:name=".feature.insights.InsightDetailActivity"
             android:exported="true" />
-        <activity
-            android:name=".feature.language.activities.OnboardingLanguageActivity"
+        <activity android:name=".feature.language.activities.OnboardingLanguageActivity"
             android:exported="true" />
-        <activity
-            android:name=".feature.language.activities.SettingLanguageActivity"
+        <activity android:name=".feature.language.activities.SettingLanguageActivity"
             android:exported="true" />
         <activity
             android:name=".feature.reminder.ReminderActivity"
@@ -35,22 +32,9 @@
         <activity
             android:name=".feature.drink.DrinkActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".feature.home.MainActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".feature.onboarding.OnboardingActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".feature.splash.SplashActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".feature.splash.SplashActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,19 +42,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
         </activity>
+        <activity
+            android:name=".feature.onboarding.OnboardingActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".feature.splash.SplashActivity"
+            android:exported="true" />
 
         <service
-            android:name=".feature.reminder.WaterReminderService"
+            android:name=".feature.reminder.receiver.WaterReminderService"
             android:foregroundServiceType="location"
             tools:ignore="ForegroundServicePermission" />
 
-        <receiver
-            android:name=".feature.reminder.WaterReminderReceiver"
+        <receiver android:name=".feature.reminder.receiver.WaterReminderReceiver"
 
             android:exported="false">
             <intent-filter>
-                <action android:name="com.wavez.trackerwater.WATER_REMINDER" />
+                <action android:name="com.wavez.trackerwater.WATER_REMINDER"/>
             </intent-filter>
         </receiver>
     </application>

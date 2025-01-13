@@ -25,6 +25,9 @@ interface SharedPref {
 
     var timeUsuallyWakeUp: Long
 
+    var isStop: Boolean
 
+    var isSkip: Boolean
 
+    var reminderMode: Int
 }

@@ -37,7 +37,6 @@ class DrinkViewModel @Inject constructor(
         }
     }
 
-
     fun insertHistory(amount: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val newHistory = HistoryDrink(

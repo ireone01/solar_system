@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.lingvo.base_common.ui.BaseActivity
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.databinding.ActivityMainBinding
 import com.wavez.trackerwater.feature.home.adapter.MainViewPagerAdapter
-import com.wavez.trackerwater.feature.reminder.WaterReminderService
+import com.wavez.trackerwater.feature.reminder.receiver.WaterReminderService
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

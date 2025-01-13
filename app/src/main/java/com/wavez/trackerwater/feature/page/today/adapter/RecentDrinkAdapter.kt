@@ -1,4 +1,4 @@
-package com.wavez.trackerwater.feature.page.history.fragment.adapter
+package com.wavez.trackerwater.feature.page.today.adapter
 
 import android.annotation.SuppressLint
 import android.view.View

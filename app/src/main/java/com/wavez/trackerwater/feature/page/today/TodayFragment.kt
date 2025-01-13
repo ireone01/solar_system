@@ -1,19 +1,14 @@
 package com.wavez.trackerwater.feature.page.today
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseFragment
-import com.wavez.trackerwater.R
-import com.wavez.trackerwater.data.model.RecentDrink
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import com.wavez.trackerwater.extension.gone
