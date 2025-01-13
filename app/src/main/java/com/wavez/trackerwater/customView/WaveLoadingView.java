@@ -56,7 +56,7 @@ public class WaveLoadingView extends View {
     // This is incorrect/not recommended by Joshua Bloch in his book Effective Java (2nd ed).
     private static final int DEFAULT_WAVE_SHAPE = ShapeType.CIRCLE.ordinal();
     private static final int DEFAULT_TRIANGLE_DIRECTION = TriangleDirection.NORTH.ordinal();
-    private static final int DEFAULT_ROUND_RECTANGLE_X_AND_Y = 30;
+    private static final int DEFAULT_ROUND_RECTANGLE_X_AND_Y = 0;
     private static final float DEFAULT_TITLE_TOP_SIZE = 18.0f;
     private static final float DEFAULT_TITLE_CENTER_SIZE = 22.0f;
     private static final float DEFAULT_TITLE_BOTTOM_SIZE = 18.0f;

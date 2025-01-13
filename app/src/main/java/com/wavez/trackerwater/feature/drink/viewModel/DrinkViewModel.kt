@@ -8,9 +8,11 @@ import com.wavez.trackerwater.data.model.HistoryDrink
 import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.data.repository.history.HistoryRepository
 import com.wavez.trackerwater.data.repository.intake.IntakeRepository
+import com.wavez.trackerwater.evenbus.DataUpdatedEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +44,9 @@ class DrinkViewModel @Inject constructor(
                 amountHistory = amount, dateHistory = System.currentTimeMillis()
             )
             historyRepository.insert(newHistory)
+            EventBus.getDefault().post(DataUpdatedEvent())
+
+
         }
     }
 

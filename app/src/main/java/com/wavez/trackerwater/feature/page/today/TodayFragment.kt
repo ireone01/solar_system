@@ -1,15 +1,18 @@
 package com.wavez.trackerwater.feature.page.today
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lingvo.base_common.ui.BaseFragment
+import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.RecentDrink
 import com.wavez.trackerwater.databinding.FragmentTodayBinding
 import com.wavez.trackerwater.evenbus.DataUpdatedEvent
@@ -26,12 +29,20 @@ import org.greenrobot.eventbus.ThreadMode
 @AndroidEntryPoint
 class TodayFragment : BaseFragment<FragmentTodayBinding>() {
 
+    companion object {
+        const val TOTAL_DRINK = 2000f
+
+        private const val PROGRESS_100 = 100f
+
+        private const val PROGRESS_95 = 95f
+
+        private const val PROGRESS_80 = 80f
+    }
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTodayBinding
         get() = FragmentTodayBinding::inflate
 
     private val todayViewModel by viewModels<TodayViewModel>()
-
-    private val TAG = "minh"
 
     private lateinit var adapter: RecentDrinkAdapter
 
@@ -40,21 +51,18 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
 
     override fun initConfig(view: View, savedInstanceState: Bundle?) {
         super.initConfig(view, savedInstanceState)
+        binding.waterWaveView.setAnimDuration(3500)
         initAdapter()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun initObserver() {
         super.initObserver()
         todayViewModel.historyList.observe(viewLifecycleOwner) { drinks ->
             adapter.setData(drinks)
         }
-        todayViewModel.totalAmount.observe(viewLifecycleOwner) { total ->
-            binding.tvTotal.text = total.toString()
-            binding.waterWaveView.progressValue = ((total.toFloat() / 2000f) * 100f).toInt()
-            if (total.toInt() >= 2000) {
-                binding.waterWaveView.progressValue = 100
-            }
+
+        todayViewModel.totalDrank.observe(viewLifecycleOwner) { total ->
+            syncUiDrinkWater(total)
         }
 
         todayViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -64,6 +72,27 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
                 binding.progressBar.gone()
             }
         }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun syncUiDrinkWater(totalDrink: Int) {
+        binding.tvTotalDrink.text = totalDrink.toString()
+        val progress = ((totalDrink.toFloat() / TOTAL_DRINK) * PROGRESS_100).toInt()
+        binding.waterWaveView.progressValue = if (progress > PROGRESS_95) PROGRESS_95.toInt() else progress
+        binding.tvProgress.text = "$progress%"
+        val progressHeight = (binding.viewProgress.height * (progress / PROGRESS_100)).toInt()
+
+        val positionProgress =
+            if (progress >= PROGRESS_95) -(binding.viewProgress.height.toFloat() - binding.tvPercent100.height) else -progressHeight.toFloat()
+
+        binding.tvProgress.translationY = positionProgress
+
+        binding.tvTotalDrink.isActivated = progress >= PROGRESS_80
+        binding.tvUnit.isActivated = progress >= PROGRESS_80
+        binding.tvNextReminder.isActivated = progress >= PROGRESS_80
+        binding.tvTimeDownReminder.isActivated = progress >= PROGRESS_80
+
 
     }
 
@@ -77,27 +106,29 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
             startActivity(Intent(requireContext(), ReminderActivity::class.java))
         }
 
+        binding.ivDelete.setOnClickListener {
+            todayViewModel.delete()
+            binding.llOption.gone()
+        }
+
+        binding.btnDrinkRecent.setOnClickListener {
+            todayViewModel.insertHistory()
+            binding.llOption.gone()
+        }
+
+        binding.root.setOnClickListener {
+            binding.llOption.gone()
+        }
+
+
     }
 
     private fun initAdapter() {
         adapter = RecentDrinkAdapter()
-        binding.rcvGlassWater.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rcvGlassWater.adapter = adapter
         adapter.onSelect = {
-            onSelect(it)
-        }
-    }
-
-    private fun onSelect(drink: RecentDrink) {
-        binding.option.visible()
-        binding.ivDelete.setOnClickListener {
-            todayViewModel.delete(drink)
-            binding.option.gone()
-        }
-        binding.btnDrink2.setOnClickListener {
-            todayViewModel.insertHistory(drink.amountHistory)
-            binding.option.gone()
+            todayViewModel.recentDrinkSelected = it
+            binding.llOption.visible()
         }
     }
 

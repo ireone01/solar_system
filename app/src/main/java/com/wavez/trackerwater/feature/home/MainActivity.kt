@@ -37,32 +37,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initConfig(savedInstanceState: Bundle?) {
         super.initConfig(savedInstanceState)
-        adapter = MainViewPagerAdapter(this)
-        binding.viewPager.adapter = adapter
-        binding.viewPager.isUserInputEnabled = false
+        setStatusBarColor(R.color.primary_50, false)
+        initAdapter()
 
         val serviceIntent = Intent(this, WaterReminderService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)
         }
+    }
 
-        binding.bottomView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_today -> {
-                    binding.viewPager.currentItem = PAGE_TODAY
-                }
-                R.id.nav_history -> {
-                    binding.viewPager.currentItem = PAGE_HISTORY
-                }
-                R.id.nav_insights -> {
-                    binding.viewPager.currentItem = PAGE_INSIGHT
-                }
-                R.id.nav_profile -> {
-                    binding.viewPager.currentItem = PAGE_PROFILE
-                }
-            }
-            true
-        }
+    private fun initAdapter() {
+        adapter = MainViewPagerAdapter(this)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.isUserInputEnabled = false
     }
 
     override fun initObserver() {
@@ -71,5 +58,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initListener() {
         super.initListener()
+        binding.bottomView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_today -> {
+                    setStatusBarColor(R.color.primary_50, false)
+                    binding.viewPager.currentItem = PAGE_TODAY
+                }
+                R.id.nav_history -> {
+                    setStatusBarColor(R.color.primary_600, true)
+                    binding.viewPager.currentItem = PAGE_HISTORY
+                }
+                R.id.nav_insights -> {
+                    setStatusBarColor(R.color.white, false)
+                    binding.viewPager.currentItem = PAGE_INSIGHT
+                }
+                R.id.nav_profile -> {
+                    setStatusBarColor(R.color.primary_600, true)
+                    binding.viewPager.currentItem = PAGE_PROFILE
+                }
+            }
+            true
+        }
     }
 }

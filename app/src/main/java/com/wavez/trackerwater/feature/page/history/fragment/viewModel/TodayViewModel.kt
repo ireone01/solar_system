@@ -22,16 +22,15 @@ class TodayViewModel @Inject constructor(
     private val _historyList = MutableLiveData<List<RecentDrink>>()
     val historyList: LiveData<List<RecentDrink>> get() = _historyList
 
-    private val _progress = MutableLiveData<Int>()
-    val progress: LiveData<Int> get() = _progress
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    val totalAmount = MutableLiveData<Int>()
+    private val _totalDrank = MutableLiveData<Int>()
+    val totalDrank: LiveData<Int> get() = _totalDrank
+
+    var recentDrinkSelected: RecentDrink? = null
 
     init {
-        _progress.value = 0
         getAllData()
     }
 
@@ -72,7 +71,8 @@ class TodayViewModel @Inject constructor(
                     val (startOfDay, endOfDay) = TimeUtils.getStartAndEndOfDay(System.currentTimeMillis())
                     val todayData = historyRepository.getHistoryBetweenDates(startOfDay, endOfDay)
 
-                    val groupedByAmountHistory = todayData.groupingBy { it.amountHistory }.eachCount()
+                    val groupedByAmountHistory =
+                        todayData.groupingBy { it.amountHistory }.eachCount()
                     val uniqueHistoryList = groupedByAmountHistory.map { (amount, count) ->
                         RecentDrink(amountHistory = amount, count = count)
                     }
@@ -80,7 +80,7 @@ class TodayViewModel @Inject constructor(
                     _historyList.postValue(uniqueHistoryList)
 
                     val total = todayData.sumOf { it.amountHistory }
-                    totalAmount.postValue(total)
+                    _totalDrank.postValue(total)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -91,23 +91,27 @@ class TodayViewModel @Inject constructor(
     }
 
 
-    fun delete(historyModel: RecentDrink) {
+    fun delete() {
         viewModelScope.launch(Dispatchers.IO) {
-            historyRepository.deleteHistoryRecently(historyModel.amountHistory)
+            recentDrinkSelected?.amountHistory?.let {
+                historyRepository.deleteHistoryRecently(it)
+            }
+            recentDrinkSelected = null
             getAllData()
         }
     }
 
-    fun setProgress(value: Int) {
-        _progress.value = value
-    }
-
-    fun insertHistory(amount: Int) {
+    fun insertHistory() {
         viewModelScope.launch(Dispatchers.IO) {
-            val newHistory = HistoryDrink(
-                amountHistory = amount, dateHistory = System.currentTimeMillis()
-            )
-            historyRepository.insert(newHistory)
+            val newHistory = recentDrinkSelected?.amountHistory?.let {
+                HistoryDrink(
+                    amountHistory = it, dateHistory = System.currentTimeMillis()
+                )
+            }
+            if (newHistory != null) {
+                historyRepository.insert(newHistory)
+            }
+            recentDrinkSelected = null
             getAllData()
         }
     }

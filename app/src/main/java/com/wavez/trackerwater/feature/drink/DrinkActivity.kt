@@ -63,7 +63,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding>(), HistoryDrinkDialog.I
             if (amount != null) {
                 drinkViewModel.insertHistory(amount)
                 drinkViewModel.insertIntake(amount)
-                EventBus.getDefault().post(DataUpdatedEvent())
                 finish()
             }
 

@@ -31,7 +31,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="4dp"
-            android:src="@drawable/ic_usually_wake_up" />
+            android:src="@drawable/ic_add" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -48,8 +48,6 @@
         android:id="@+id/waveLoadingView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="60dp"
-        android:layout_marginVertical="32dp"
         app:layout_constraintBottom_toBottomOf="@id/ivGlass"
         app:layout_constraintEnd_toEndOf="@id/ivGlass"
         app:layout_constraintStart_toStartOf="@id/ivGlass"
@@ -57,6 +55,7 @@
         app:wlv_progressValue="0"
         app:wlv_round_rectangle="true"
         app:wlv_shapeType="rectangle"
+        android:layout_marginBottom="1dp"
         app:wlv_triangle_direction="south"
         app:wlv_waveAmplitude="20"
         app:wlv_waveColor="@color/blue_end"
@@ -66,7 +65,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivGlass"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="centerInside"
         android:src="@drawable/ic_cup_drink"
         app:layout_constraintBottom_toTopOf="@id/llInputDrink"
@@ -127,7 +126,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@drawable/bg_corner_24_blue"
-                android:backgroundTint="@color/danger_400"
                 app:layout_constraintEnd_toEndOf="@id/edtAmount"
                 app:layout_constraintStart_toStartOf="@id/edtAmount"
                 app:layout_constraintTop_toBottomOf="@id/edtAmount" />

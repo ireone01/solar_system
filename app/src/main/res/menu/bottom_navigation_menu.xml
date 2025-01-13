@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_today"
-        android:icon="@drawable/ic_main_today_true"
+        android:enabled="true"
+        android:icon="@drawable/ic_main_today"
         android:title="@string/today" />
     <item
         android:id="@+id/nav_history"
-        android:icon="@drawable/ic_main_history_false"
+        android:enabled="true"
+        android:icon="@drawable/ic_main_history"
         android:title="@string/history" />
     <item
         android:id="@+id/nav_insights"
-        android:icon="@drawable/ic_main_insights_false"
+        android:enabled="true"
+        android:icon="@drawable/ic_main_insights"
         android:title="@string/inights" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_main_profile_false"
+        android:enabled="true"
+        android:icon="@drawable/ic_main_profile"
         android:title="@string/profile" />
 </menu>

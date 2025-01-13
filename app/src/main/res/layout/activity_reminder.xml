@@ -65,7 +65,6 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_edit_reminder"
             android:padding="15dp"
             android:layout_margin="4dp"
             app:layout_constraintEnd_toEndOf="parent"

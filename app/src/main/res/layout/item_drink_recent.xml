@@ -1,58 +1,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
         android:id="@+id/item"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"
-        android:paddingVertical="12dp"
-        android:paddingHorizontal="10dp"
         android:layout_margin="8dp"
+        android:background="@drawable/bg_white48_12dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/bg_white48_12dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/itemImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="4dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_glass_water"/>
+            android:src="@drawable/ic_glass_recent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:fontFamily="@font/work_sans_500"
             android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/work_sans_500"
+            android:gravity="center"
             android:textColor="@color/gray_950"
-            android:text="+20 ml"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tool:text="+20 ml" />
     </LinearLayout>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCount"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:background="@drawable/bg_circle_white"
-        android:gravity="center"
-        android:fontFamily="@font/work_sans_700"
         android:layout_gravity="center"
-        android:textColor="@color/primary_600"
-        android:text="2"
-        app:layout_constraintTop_toTopOf="@id/item"
+        android:background="@drawable/bg_circle_white"
+        android:backgroundTint="@color/warning_500"
+        android:fontFamily="@font/work_sans_700"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/item"
         app:layout_constraintEnd_toEndOf="@id/item"
         app:layout_constraintStart_toEndOf="@id/item"
-        android:textSize="14sp" />
+        app:layout_constraintTop_toTopOf="@id/item"
+        tool:text="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
 import com.wavez.trackerwater.R
 import com.wavez.trackerwater.data.model.RecentDrink
-import com.wavez.trackerwater.databinding.ItemGlassWaterBinding
+import com.wavez.trackerwater.databinding.ItemDrinkRecentBinding
 
 class RecentDrinkAdapter() : BaseRecyclerViewAdapter<RecentDrink>() {
 
@@ -28,7 +28,7 @@ class RecentDrinkAdapter() : BaseRecyclerViewAdapter<RecentDrink>() {
 
     override fun getItemLayout(viewType: Int): Int {
         if (viewType == TYPE_ITEM) {
-            return R.layout.item_glass_water
+            return R.layout.item_drink_recent
         } else {
             throw IllegalArgumentException("Invalid view type")
         }
@@ -36,7 +36,7 @@ class RecentDrinkAdapter() : BaseRecyclerViewAdapter<RecentDrink>() {
 
     override fun createViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_ITEM) {
-            val binding = ItemGlassWaterBinding.bind(view)
+            val binding = ItemDrinkRecentBinding.bind(view)
             return DrinkHolder(binding)
         } else {
             throw IllegalArgumentException("Invalid view type")
@@ -47,7 +47,7 @@ class RecentDrinkAdapter() : BaseRecyclerViewAdapter<RecentDrink>() {
         return TYPE_ITEM
     }
 
-    inner class DrinkHolder(private val binding: ItemGlassWaterBinding) :
+    inner class DrinkHolder(private val binding: ItemDrinkRecentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(drink: RecentDrink) {

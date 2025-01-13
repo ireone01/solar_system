@@ -25,6 +25,7 @@ mpandroidchart = "v3.1.0"
 numberPicker = "2.4.13"
 roomRuntime = "2.6.1"
 sonicWaterWaveAnimation = "2.0.1"
+verticalseekbar = "1.0.0"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
@@ -50,6 +51,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 number-picker = { module = "io.github.ShawnLin013:number-picker", version.ref = "numberPicker" }
 sonic-water-wave-animation = { module = "com.github.orbitalsonic:Sonic-Water-Wave-Animation", version.ref = "sonicWaterWaveAnimation" }
+verticalseekbar = { module = "com.h6ah4i.android.widget.verticalseekbar:verticalseekbar", version.ref = "verticalseekbar" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

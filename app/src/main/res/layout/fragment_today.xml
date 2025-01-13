@@ -9,7 +9,7 @@
     <com.wavez.trackerwater.customView.WaveLoadingView
         android:id="@+id/waterWaveView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,87 +18,98 @@
         app:wlv_shapeType="rectangle"
         app:wlv_triangle_direction="south"
         app:wlv_waveAmplitude="20"
-        app:wlv_waveColor="@color/blue_end" />
+        app:wlv_waveColor="@color/primary_600" />
 
-    <TextView
-        android:id="@+id/tv100"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPercent100"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/work_sans_500"
-        android:text="- 100%"
+        android:text="@string/percent_100"
         android:textColor="@color/med_em"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv50"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPercent50"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/work_sans_500"
-        android:text="- 50%"
+        android:text="@string/percent_50"
         android:textColor="@color/med_em"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/tv0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv100" />
-
-    <TextView
-        android:id="@+id/tv0"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="29dp"
-        android:fontFamily="@font/work_sans_500"
-        android:text="0%"
-        android:textColor="@color/med_em"
-        android:textSize="18sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewProgress"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_percent_water"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/viewProgress"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="50%" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
 
     <LinearLayout
         android:id="@+id/layout_number"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@id/guideline1">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTotal"
+            android:id="@+id/tvTotalDrink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10"
-            android:textColor="@color/gray_950"
             android:fontFamily="@font/work_sans_500"
-            android:textSize="88sp" />
+            android:textColor="@color/text_state_full_drink"
+            android:textSize="88sp"
+            tools:text="10" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUnit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/gray_950"
             android:fontFamily="@font/work_sans_400"
-            android:text="ml"
-            android:textSize="32dp" />
+            android:text="@string/unit_ml"
+            android:textColor="@color/text_state_full_drink"
+            android:textSize="32sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_remider"
+        android:id="@+id/layout_reminder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,46 +117,38 @@
         app:layout_constraintTop_toBottomOf="@id/layout_number">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvReminder"
+            android:id="@+id/tvNextReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reminder: "
             android:fontFamily="@font/work_sans_500"
-            android:textColor="@color/gray_950"
+            android:text="@string/value_next_reminder"
+            android:textColor="@color/text_state_full_drink"
             android:textSize="18sp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvStatusReminder"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivEditReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/work_sans_500"
-            android:textColor="@color/gray_950"
-            android:textSize="18sp"/>
-
-        <ImageView
-            android:id="@+id/ivEditReminder"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
             android:padding="8dp"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit_reminder" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvTimeDownReminder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="(1 h 9 min left)"
+        android:layout_marginHorizontal="32dp"
         android:fontFamily="@font/work_sans_500"
-        android:textColor="@color/gray_700"
+        android:gravity="center"
+        android:text="@string/value_min_left"
+        android:textColor="@color/text_state_full_drink"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_remider"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@id/layout_reminder" />
 
     <LinearLayout
-        android:id="@+id/option"
+        android:id="@+id/llOption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -157,94 +160,69 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivDelete"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_delete" />
-
-        <LinearLayout
-            android:id="@+id/btnDrink2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/bg_green_12dp">
+            android:src="@drawable/ic_delete" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_add_record" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="-4dp"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/work_sans_700"
-                android:text="@string/drink"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnDrinkRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_green_12dp"
+            android:drawableStart="@drawable/ic_add_record"
+            android:drawableEnd="@drawable/ic_next"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/work_sans_700"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:text="@string/drink"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_drink_right" />
-        </LinearLayout>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvGlassWater"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="32dp"
         android:layout_marginBottom="40dp"
         android:orientation="horizontal"
-        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/btnDrink"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_drink_recent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/rcvGlassWater"
-        android:visibility="gone"
         android:indeterminateTint="@color/gray_950"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rcvGlassWater"
         app:layout_constraintEnd_toEndOf="@id/rcvGlassWater"
         app:layout_constraintStart_toStartOf="@id/rcvGlassWater"
         app:layout_constraintTop_toTopOf="@id/rcvGlassWater" />
 
-    <LinearLayout
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnDrink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/bg_white_32dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingVertical="2dp"
+        android:drawableStart="@drawable/ic_add"
+        android:fontFamily="@font/work_sans_700"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:text="@string/drink"
+        android:textColor="@color/primary_600"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="12dp"
-            android:padding="12dp"
-            android:src="@drawable/ic_add" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/drink"
-            android:textColor="@color/primary_600"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/work_sans_700"
-            android:textSize="20sp" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

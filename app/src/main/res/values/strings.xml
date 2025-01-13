@@ -138,5 +138,9 @@
     <string name="noti_content">Notification content</string>
     <string name="reminder_title">Reminder title</string>
     <string name="reminder_content">Reminder content</string>
+    <string name="percent_50">- 50%</string>
+    <string name="percent_100">- 100%</string>
+    <string name="value_next_reminder">Next Reminder: %s</string>
+    <string name="value_min_left">(%s left)</string>
 
 </resources>

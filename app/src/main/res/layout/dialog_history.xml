@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRecent"
-        tools:listitem="@layout/item_glass_water" />
+        tools:listitem="@layout/item_drink_recent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnClose"
