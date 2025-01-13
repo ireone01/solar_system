@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@id/wheelPickerWeigh2"
         android:layout_marginTop="40dp"
         />
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textEat"
         android:layout_width="70dp"
         android:layout_height="wrap_content"

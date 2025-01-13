@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/_0247C8"
-    tools:context=".feature.fragment.fragmentHistory.DayFragment">
+    android:background="@color/primary_600"
+    tools:context=".feature.page.history.fragment.fragmentHistory.DayFragment">
 
     <ImageView
         android:id="@+id/ivPre"
@@ -20,18 +20,19 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/tvWeek"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:fontFamily="@font/work_sans_700"
         android:gravity="center"
         android:includeFontPadding="false"
         android:lines="1"
         android:maxLines="1"
         android:text="@string/today"
         android:textColor="@color/white"
-        android:textSize="21sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/ivPre"
         app:layout_constraintEnd_toStartOf="@id/ivNext"
         app:layout_constraintStart_toEndOf="@id/ivPre"
@@ -66,52 +67,59 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="16dp"
                 android:background="@drawable/bg_white16_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Total"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/total"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_700"
                     android:text="2.5 L"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="@id/total"
-                    app:layout_constraintTop_toBottomOf="@id/total" />
+                    app:layout_constraintTop_toBottomOf="@id/total"
+                    tools:ignore="HardcodedText" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/avg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Average"
+                    android:fontFamily="@font/work_sans_500"
+                    android:text="@string/average"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvGoal"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAvg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_700"
                     android:text="5.0 L"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@id/avg"
                     app:layout_constraintTop_toBottomOf="@id/avg" />
 

@@ -34,7 +34,7 @@
                 android:fontFamily="@font/work_sans_400"
                 android:hint="100"
                 android:inputType="number"
-                android:textColor="@color/_0A0C11"
+                android:textColor="@color/gray_950"
                 android:textSize="64sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edtAmount" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -79,7 +79,7 @@
         app:np_min="0"
         app:np_selectedTextColor="@color/black"
         app:np_selectedTextSize="18sp"
-        app:np_textColor="@color/tv_ns"
+        app:np_textColor="@color/primary_100"
         app:np_textSize="18sp"
         app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
@@ -99,7 +99,7 @@
         app:np_min="0"
         app:np_selectedTextColor="@color/black"
         app:np_selectedTextSize="18sp"
-        app:np_textColor="@color/tv_ns"
+        app:np_textColor="@color/primary_100"
         app:np_textSize="18sp"
         app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
@@ -119,7 +119,7 @@
         app:np_min="0"
         app:np_selectedTextColor="@color/black"
         app:np_selectedTextSize="18sp"
-        app:np_textColor="@color/tv_ns"
+        app:np_textColor="@color/primary_100"
         app:np_textSize="18sp"
         app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
@@ -139,7 +139,7 @@
         app:np_min="0"
         app:np_selectedTextColor="@color/black"
         app:np_selectedTextSize="18sp"
-        app:np_textColor="@color/tv_ns"
+        app:np_textColor="@color/primary_100"
         app:np_textSize="18sp"
         app:np_value="3"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
@@ -147,7 +147,7 @@
         app:layout_constraintStart_toEndOf="@id/npMin"
         app:layout_constraintTop_toBottomOf="@id/layoutInput" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnCancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -157,13 +157,13 @@
         android:gravity="center"
         android:paddingVertical="8dp"
         android:text="@string/cancel"
-        android:textColor="@color/_0247C8"
+        android:textColor="@color/primary_600"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnSave"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

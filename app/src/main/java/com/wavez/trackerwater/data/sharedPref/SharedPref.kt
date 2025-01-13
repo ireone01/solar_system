@@ -17,6 +17,10 @@ interface SharedPref {
 
     var isNeedGotoWalkthrough: Boolean
 
+    var isReminder: Boolean
+
+    var isTypeDrinkCup: Boolean
+
     var genderUser: Int
 
     var timeUsuallyWakeUp: Long

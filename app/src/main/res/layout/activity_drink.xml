@@ -7,152 +7,223 @@
     android:layout_height="match_parent"
     tools:context=".feature.drink.DrinkActivity">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivClose"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="4dp"
-        android:padding="12dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="16dp"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/llTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/bg_blue_12dp"
-        android:layout_marginTop="10dp"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivClose">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="4dp"
-            android:src="@drawable/ic_guide" />
+            android:src="@drawable/ic_usually_wake_up" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/work_sans_700"
-            android:textSize="16sp"
-            android:layout_gravity="center"
-            android:textColor="@color/_0A0C11"
-            android:text="@string/hydrated_text" />
+            android:text="@string/hydrated_text"
+            android:textColor="@color/high_em"
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <com.wavez.trackerwater.customView.WaveLoadingView
+        android:id="@+id/waveLoadingView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginVertical="32dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivGlass"
+        app:layout_constraintEnd_toEndOf="@id/ivGlass"
+        app:layout_constraintStart_toStartOf="@id/ivGlass"
+        app:layout_constraintTop_toTopOf="@id/ivGlass"
+        app:wlv_progressValue="0"
+        app:wlv_round_rectangle="true"
+        app:wlv_shapeType="rectangle"
+        app:wlv_triangle_direction="south"
+        app:wlv_waveAmplitude="20"
+        app:wlv_waveColor="@color/blue_end"
+        app:wlv_wave_background_Color="@color/primary_base_em" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivGlass"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_cup_drink"
+        app:layout_constraintBottom_toTopOf="@id/llInputDrink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llTitle" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/seekBarWater"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:max="100"
+        android:progress="0"
+        android:progressBackgroundTint="@color/transparent"
+        android:progressTint="@color/transparent"
+        android:rotation="270"
+        android:thumb="@drawable/ic_slide"
+        app:layout_constraintBottom_toBottomOf="@id/ivGlass"
+        app:layout_constraintEnd_toEndOf="@id/ivGlass"
+        app:layout_constraintStart_toStartOf="@id/ivGlass"
+        app:layout_constraintTop_toTopOf="@id/ivGlass" />
 
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/llInputDrink"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/btnDrink"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/tvNote"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edtAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:fontFamily="@font/work_sans_400"
-                android:hint="100"
+                android:gravity="center"
                 android:inputType="number"
-                android:textColor="@color/_0A0C11"
-                android:textSize="64sp"
+                android:maxLength="4"
+                android:minWidth="16dp"
+                android:textColor="@color/gray_950"
+                android:textSize="56sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:layout_width="0dp"
+                android:id="@+id/viewState"
+                android:layout_width="match_parent"
                 android:layout_height="3dp"
-                android:background="#B2C5F4"
+                android:background="@drawable/bg_corner_24_blue"
+                android:backgroundTint="@color/danger_400"
                 app:layout_constraintEnd_toEndOf="@id/edtAmount"
                 app:layout_constraintStart_toStartOf="@id/edtAmount"
                 app:layout_constraintTop_toBottomOf="@id/edtAmount" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvUnit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="4dp"
             android:layout_marginBottom="8dp"
-            android:text="ml"
-            android:textSize="26dp" />
+            android:text="@string/unit_ml"
+            android:textSize="26sp" />
 
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
-            android:padding="12dp"
+            android:background="?selectableItemBackground"
+            android:padding="16dp"
             android:src="@drawable/ic_edit" />
     </LinearLayout>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/you_should_drink_100_3000ml_at_once"
+        android:textColor="@color/high_em"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/btnDrink"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivSwitchType"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
         android:padding="12dp"
         android:src="@drawable/ic_glass"
         app:layout_constraintBottom_toBottomOf="@id/btnDrink"
-        app:layout_constraintEnd_toStartOf="@id/btnDrink"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnDrink" />
 
     <LinearLayout
         android:id="@+id/btnDrink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/bg_blue_28dp"
+        android:backgroundTint="@color/primary_high_em"
         android:gravity="center"
+        android:orientation="horizontal"
         android:paddingHorizontal="12sp"
         android:paddingVertical="4dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="12dp"
             android:src="@drawable/ic_add_record" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/drink"
-            android:textAllCaps="true"
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/work_sans_700"
+            android:text="@string/drink"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivHistory"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
         android:padding="12dp"
         android:src="@drawable/ic_history"
         app:layout_constraintBottom_toBottomOf="@id/btnDrink"
-        app:layout_constraintStart_toEndOf="@id/btnDrink"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnDrink" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

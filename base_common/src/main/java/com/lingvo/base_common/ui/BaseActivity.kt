@@ -3,13 +3,17 @@ package com.lingvo.base_common.ui
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 
 import androidx.viewbinding.ViewBinding
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
@@ -19,15 +23,16 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     // Option to control whether to enable immersive mode or not
     protected open val immersiveModeEnabled: Boolean = false
-
+    open val hasEvenBus = false
     // Abstract method to initialize binding in subclasses
     abstract fun createBinding(): VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Initialize binding and set the content view
+        if (hasEvenBus) EventBus.getDefault().register(this)
         _binding = createBinding()
-        hideFullNavigation()
+//        hideFullNavigation()
         setContentView(binding.root)
         configureBackPressHandling()
         initConfig(savedInstanceState)
@@ -40,8 +45,26 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         }
     }
 
+    fun setStatusBarColor(colorId: Int, isDarkMode: Boolean) {
+        val window: Window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, colorId)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowInsetController = window.decorView.windowInsetsController
+            val mode = if (isDarkMode) 0 else WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            windowInsetController?.setSystemBarsAppearance(
+                mode, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
+            windowInsetController?.isAppearanceLightStatusBars = isDarkMode.not()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        if (hasEvenBus) EventBus.getDefault().unregister(this)
         release()
         _binding = null // Release binding reference to prevent memory leaks
     }
@@ -79,6 +102,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             }
         })
     }
+
     private fun hideFullNavigation() {
         try {
             val flags =
@@ -94,6 +118,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     private fun applyImmersiveMode() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val params = window.attributes

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/_0247C8"
-    tools:context=".feature.fragment.HistoryFragment">
+    android:background="@color/primary_600"
+    tools:context=".feature.page.history.HistoryFragment">
 
     <LinearLayout
         android:id="@+id/viewTop"
@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvWeek"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="12dp"
-                android:background="@color/_7F666666"
+                android:background="@color/white_56"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +163,7 @@
                 tools:ignore="ContentDescription" />
 
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvMonth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

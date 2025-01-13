@@ -17,6 +17,17 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
+
+        jcenter()
+        maven {
+            url = uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea")
+        }
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/pangle/")
+        }
+        maven {
+            url = uri("https://android-sdk.is.com/")
+        }
     }
 }
 

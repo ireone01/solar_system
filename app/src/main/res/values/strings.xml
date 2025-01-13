@@ -62,7 +62,7 @@
     <string name="aday_start_at2">Records before 00:00 willbe included in the count for the previous day.</string>
     <string name="water_drop1">Water drop 1</string>
     <string name="water_drop2">Water drop 2</string>
-    <string name="water_flowing1">Wate flowing 1</string>
+    <string name="water_flowing1">Water flowing 1</string>
     <string name="water_flowing2">Water flowing 2</string>
     <string name="water_flowing3">Water flowing 3</string>
     <string name="sound_effect">Sound effect</string>
@@ -129,6 +129,15 @@
     <string name="health_life_style_title_5">Soothe Sore Throats with These Drinks</string>
     <string name="health_life_style_title_6">Drinks to Relieve Stomach Bloating</string>
     <string name="health_life_style">Health Lifestyle</string>
+    <string name="unit_ml">ml</string>
+    <string name="recent">Recent</string>
+    <string name="close">Close</string>
+    <string name="you_should_drink_100_3000ml_at_once">* You should drink 100–3000ml at once.</string>
+    <string name="average">Average</string>
+    <string name="noti_title">Notification title</string>
+    <string name="noti_content">Notification content</string>
+    <string name="reminder_title">Reminder title</string>
+    <string name="reminder_content">Reminder content</string>
     <string name="Wd_Item1_Opening_des">Did you know that how you drink water can influence your health?\n\nLet’s uncover the most frequent water-drinking mistakes and simple ways to stay properly hydrated and healthy.</string>
     <string name="Wd_Item1_Screen_1_title">The Consequences of Not Drinking Enough Water</string>
     <string name="Wd_Item1_Screen_1_des">Not drinking enough water can lead to health problems like headaches, low energy, and digestive issues such as constipation.\n\nSince hydration needs vary for each person, you can use our app to determine your ideal daily water intake and get timely reminders to maintain optimal hydration.</string>

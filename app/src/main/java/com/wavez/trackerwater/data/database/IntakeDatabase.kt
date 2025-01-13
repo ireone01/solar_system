@@ -2,12 +2,10 @@ package com.wavez.trackerwater.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.wavez.trackerwater.data.dao.HistoryDAO
 import com.wavez.trackerwater.data.dao.IntakeDAO
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.IntakeDrink
 
-@Database(entities = [IntakeModel::class], version = 2, exportSchema = false)
+@Database(entities = [IntakeDrink::class], version = 2, exportSchema = false)
 abstract class IntakeDatabase: RoomDatabase() {
     abstract fun intakeDao(): IntakeDAO
 

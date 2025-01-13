@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.activityViewModels
 import com.lingvo.base_common.ui.BaseBottomSheetFragment
-import com.wavez.trackerwater.data.model.HistoryModel
-import com.wavez.trackerwater.data.model.IntakeModel
+import com.wavez.trackerwater.data.model.IntakeDrink
 import com.wavez.trackerwater.databinding.DialogHistoryBinding
-import com.wavez.trackerwater.feature.drink.adapter.HistoryDrinkAdapter
 import com.wavez.trackerwater.feature.drink.adapter.IntakeAdapter
+import com.wavez.trackerwater.feature.drink.viewModel.DrinkViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
 
     companion object {
@@ -21,6 +21,8 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
     }
 
     private lateinit var adapter: IntakeAdapter
+
+    private val activityViewModel by activityViewModels<DrinkViewModel>()
 
     override fun initializeBinding(
         inflater: LayoutInflater, container: ViewGroup?
@@ -47,20 +49,29 @@ class HistoryDrinkDialog : BaseBottomSheetFragment<DialogHistoryBinding>() {
         super.initConfig(view, savedInstanceState)
         adapter = IntakeAdapter()
         binding.rcvHistory.adapter = adapter
-        binding.rcvHistory.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.btnClose.setOnClickListener { dismiss() }
 
         adapter.onSelect = {
-            onSelect(it)
+            listener?.onSelectAmount(it)
+            dismiss()
         }
     }
 
-    interface IHistoryDrinkListener {
-        fun onSelectAmount()
+    override fun initObserver() {
+        super.initObserver()
+        activityViewModel.intakeList.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
     }
 
-    private fun onSelect(intake: IntakeModel) {
-        Toast.makeText(context, "" + intake.amountIntake, Toast.LENGTH_SHORT).show()
+    override fun initListener() {
+        super.initListener()
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+
+    }
+
+    interface IHistoryDrinkListener {
+        fun onSelectAmount(intake: IntakeDrink)
     }
 }
