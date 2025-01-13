@@ -6,7 +6,7 @@ import kotlin.math.abs
 
 class FadePageTransformer :ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {
-        page.alpha = 1 - abs(position)
+        page.alpha = 1 - abs(position*3)
     }
 
 }

@@ -1,28 +1,69 @@
 package com.wavez.trackerwater.feature.insights.adapter
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.lingvo.base_common.ui.BaseRecyclerViewAdapter
+import com.wavez.trackerwater.R
+
 import com.wavez.trackerwater.databinding.ItemDetailInsightBinding
+import com.wavez.trackerwater.feature.insights.model.InsightsParts
 
-class InsightDetailPagerAdapter(val contents: List<Int>) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
-    inner class InsightDetailHolder(val binding: ItemDetailInsightBinding): RecyclerView.ViewHolder(binding.root){
-        fun bindItemInsight(content : Int){
-            binding.tvItemDetailInsight.text = binding.root.context.getString(content)
+class InsightDetailPagerAdapter(
+    private val textColor: Int
+) : BaseRecyclerViewAdapter<InsightsParts>() {
+
+
+    companion object {
+        private const val TYPE_ITEM = 1
+
+    }
+
+    inner class InsightDetailHolder(val binding: ItemDetailInsightBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bindItemInsight(content: InsightsParts) {
+            val context = binding.root.context
+            binding.tvTitleItemDetailInsight.text =
+                binding.root.context.getString(content.contentTitle)
+            binding.tvItemDetailInsight.text =
+                binding.root.context.getString(content.contentDescription)
+            binding.tvTitleItemDetailInsight.setTextColor(
+                ContextCompat.getColor(
+                    context, textColor
+                )
+            )
+            binding.tvItemDetailInsight.setTextColor(ContextCompat.getColor(context, textColor))
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-       val binding= ItemDetailInsightBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return InsightDetailHolder(binding)
+
+    override fun bindViewHolder(
+        holder: RecyclerView.ViewHolder, item: InsightsParts, position: Int
+    ) {
+        (holder as InsightDetailHolder).bindItemInsight(item)
     }
 
-    override fun getItemCount(): Int {
-      return contents.size
+    override fun getItemLayout(viewType: Int): Int {
+        if (viewType == TYPE_ITEM) {
+            return R.layout.item_detail_insight
+        } else {
+            throw IllegalArgumentException("Invalid view type")
+        }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as InsightDetailHolder).bindItemInsight(contents[position])
+    override fun getItemType(item: InsightsParts): Int {
+        return TYPE_ITEM
     }
+
+
+    override fun createViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == TYPE_ITEM) {
+            val binding = ItemDetailInsightBinding.bind(view)
+            return InsightDetailHolder(binding)
+        } else {
+            throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
 }

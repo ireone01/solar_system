@@ -10,8 +10,8 @@ import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 import com.wavez.trackerwater.feature.insights.model.InsightsItem
 
 class InsightAdapter(
-    private val onChildItemClicked : (InsightsChildItem) -> Unit
-) : BaseRecyclerViewAdapter<InsightsItem>(){
+    private val onChildItemClicked: (InsightsChildItem, Int) -> Unit
+) : BaseRecyclerViewAdapter<InsightsItem>() {
 
     companion object {
         private const val TYPE_ITEM = 1
@@ -19,9 +19,7 @@ class InsightAdapter(
     }
 
     override fun bindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        item: InsightsItem,
-        position: Int
+        holder: RecyclerView.ViewHolder, item: InsightsItem, position: Int
     ) {
         if (holder is ParentInsightHolder) {
             holder.bind(item)
@@ -56,10 +54,10 @@ class InsightAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(data: InsightsItem) {
             val context = binding.root.context
-            binding.tvHeader.text =  context.getString(data.title)
+            binding.tvHeader.text = context.getString(data.title)
 
-            val adapter = InsightsChildAdapter{ insightsChildItem ->
-                onChildItemClicked(insightsChildItem)
+            val adapter = InsightsChildAdapter(textColor = data.textColor) { insightsChildItem ->
+                onChildItemClicked(insightsChildItem, data.textColor)
             }
             binding.rvChildInsight.adapter = adapter
             adapter.setData(data.insightsChild)

@@ -38,13 +38,13 @@ class WaterReminderService : Service() {
 //            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 //            .build()
 
-        val notification: Notification = NotificationCompat.Builder(this, "WaterReminderChannel")
-            .setContentTitle("Nhắc nhở uống nước")
-            .setContentText("Bạn đã uống $waterIntake ml nước hôm nay!")
-            .setSmallIcon(R.drawable.ic_reminders)
-            .build()
-
-        startForeground(1, notification)
+//        val notification: Notification = NotificationCompat.Builder(this, "WaterReminderChannel")
+//            .setContentTitle("Nhắc nhở uống nước")
+//            .setContentText("Bạn đã uống $waterIntake ml nước hôm nay!")
+//            .setSmallIcon(R.drawable.ic_reminders)
+//            .build()
+//
+//        startForeground(1, notification)
 
         // TODO: Cập nhật thông báo liên tục
         return START_NOT_STICKY

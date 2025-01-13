@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class InsightsParts (
     val contentTitle: Int,
-    val contentDescrip: Int
+    val contentDescription: Int
 ) : Serializable

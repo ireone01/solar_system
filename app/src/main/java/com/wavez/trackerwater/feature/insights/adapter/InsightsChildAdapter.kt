@@ -11,7 +11,9 @@ import com.wavez.trackerwater.databinding.ItemChildInsightBinding
 import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 
 class InsightsChildAdapter(
-    private val onChildClicked:(InsightsChildItem) -> Unit
+    private val textColor : Int ,
+    private val onChildClicked: (InsightsChildItem) -> Unit
+
 
 ) : BaseRecyclerViewAdapter<InsightsChildItem>() {
 
@@ -62,9 +64,14 @@ class InsightsChildAdapter(
                 ColorStateList.valueOf(ContextCompat.getColor(context, data.colorPrimary))
             binding.ivInsight.setImageResource(data.image)
             binding.tvTileChildInsight.text = context.getString(data.title)
-            binding.root.setOnClickListener{
+
+            binding.root.setOnClickListener {
                 onChildClicked(data)
             }
+
+            binding.tvTileChildInsight.setTextColor(ContextCompat.getColor(context, textColor))
+
+
         }
     }
 
