@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.lingvo.base_common.ui.BaseFragment
 import com.wavez.trackerwater.databinding.FragmentInsightsBinding
 import com.wavez.trackerwater.feature.insights.adapter.InsightAdapter
-import com.wavez.trackerwater.feature.insights.model.InsightsItem
+import com.wavez.trackerwater.feature.insights.model.InsightsChildItem
 import com.wavez.trackerwater.feature.insights.provider.InsightProvider
 
 
@@ -25,9 +23,20 @@ class InsightsFragment : BaseFragment<FragmentInsightsBinding>() {
     }
 
     private fun initAdapter() {
-        adapter = InsightAdapter()
+        adapter = InsightAdapter { childItem, textColor ->
+            openChildDetail(childItem, textColor)
+        }
         binding.rvInsight.adapter = adapter
         adapter.setData(InsightProvider.ALL_DATA_INSIGHT)
+
+    }
+
+    private fun openChildDetail(childItem: InsightsChildItem, textColor: Int) {
+        startActivity(
+            InsightDetailActivity.newIntent(
+                childItem.parts, childItem.colorPrimary, textColor, requireContext()
+            )
+        )
     }
 
 }

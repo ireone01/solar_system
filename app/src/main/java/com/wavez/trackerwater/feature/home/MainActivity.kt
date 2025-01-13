@@ -42,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         val serviceIntent = Intent(this, WaterReminderService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(serviceIntent)
+//            startForegroundService(serviceIntent)
         }
     }
 
